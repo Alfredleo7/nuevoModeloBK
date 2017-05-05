@@ -10,6 +10,7 @@ module.exports = function(){
     }
   });
 
+  require('../app/models/detalles.models');
 
   return db;
 }
