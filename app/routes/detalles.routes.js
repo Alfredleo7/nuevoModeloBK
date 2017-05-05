@@ -11,5 +11,5 @@ module.exports = function(app) {
     .get(detalles.read)
     .put(detalles.update);
 
-  app.params('detalleId', detalles.detalleByID);
+  app.param('detalleId', detalles.detalleByID);
 }
