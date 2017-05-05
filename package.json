@@ -1,0 +1,29 @@
+{
+  "name": "nuevo",
+  "version": "1.0.0",
+  "description": "nuevo modelo de bk",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alfredleo7/nuevoModeloBK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alfredleo7/nuevoModeloBK/issues"
+  },
+  "homepage": "https://github.com/Alfredleo7/nuevoModeloBK#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "compression": "^1.6.2",
+    "crypto-js": "^3.1.9-1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "method-override": "^2.3.8",
+    "mongoose": "^4.9.7",
+    "morgan": "^1.8.1"
+  }
+}
