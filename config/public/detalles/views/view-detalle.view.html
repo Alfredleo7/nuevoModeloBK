@@ -1,0 +1,9 @@
+<section data-ng-controller='DetallesController' data-ng-init="findOne()">
+  <p data-ng-bind="detalle.valor"></p>
+  <p data-ng-bind="detalle.empresa"></p>
+  <p data-ng-bind="detalle.categoria"></p>
+  <div>
+    <a href="/#!/detalles/{{detalle._id}}/edit">Editar</a>
+    <a href="#" data-ng-click="delete();">Eliminar</a>
+  </div>
+</section>

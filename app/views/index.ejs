@@ -5,11 +5,23 @@
     <title>Detalles</title>
   </head>
   <body>
-    <section>
-      <input type="text" id="text1" ng-model="name">
-      <input type="text" id="text2" ng-model="name">
-    </section>
+    <section ng-view></section>
+
     <script src="/lib/angular/angular.js" charset="utf-8"></script>
+    <script src="/lib/angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="/lib/angular-resource/angular-resource.js" charset="utf-8"></script>
+
+    <script src="/example/example.module.js" charset="utf-8"></script>
+    <script src="/example/controllers/example.controller.js" charset="utf-8"></script>
+    <script src="/example/config/example.routes.js" charset="utf-8"></script>
+
+    <script src="/detalles/detalles.module.js" charset="utf-8"></script>
+    <script src="/detalles/controllers/detalles.controller.js" charset="utf-8"></script>
+    <script src="/detalles/services/detalles.service.js" charset="utf-8"></script>
+    <script src="/detalles/config/detalles.routes.js" charset="utf-8"></script>
+
+
+
     <script src="/aplication.js" charset="utf-8"></script>
   </body>
 </html>

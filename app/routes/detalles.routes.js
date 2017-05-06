@@ -9,7 +9,8 @@ module.exports = function(app) {
 
   app.route('/api/detalles/:detalleId')
     .get(detalles.read)
-    .put(detalles.update);
+    .put(detalles.update)
+    .delete(detalles.delete);
 
   app.param('detalleId', detalles.detalleByID);
 }

@@ -1,0 +1,13 @@
+<section data-ng-controller="DetallesController" data-ng-init="find()">
+  <h1>Detalles</h1>
+  <ul>
+    <li data-ng-repeat="detalle in detalles">
+      <a data-ng-href="#!/detalles/{{detalle._id}}" data-ng-bind="detalle.valor"></a>
+      <a data-ng-bind="detalle.empresa"></a>
+      <a data-ng-bind="detalle.categoria"></a>
+    </li>
+  </ul>
+  <div>
+    Aun no hay detalles <a href="/#!/detalles/create">Crear Detalle</a>
+  </div>
+</section>

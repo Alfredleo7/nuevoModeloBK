@@ -1,0 +1,30 @@
+<section data-ng-controller="DetallesController" data-ng-init="findOne()">
+  <h1>Editar Detalle</h1>
+  <form data-ng-submit="update()" novalidate>
+    <div>
+      <label for="valor">Valor</label>
+      <div>
+        <input type="text" data-ng-model="detalle.valor" id="valor" placeholder="Valor" required>
+      </div>
+    </div>
+    <div>
+      <label for="empresa">Empresa</label>
+      <div>
+        <input type="text" data-ng-model="detalle.empresa" id="empresa" placeholder="Empresa" required>
+      </div>
+    </div>
+    <div>
+      <label for="categoria">Categoria</label>
+      <div>
+        <input type="text" data-ng-model="detalle.categoria" id="categoria" placeholder="Categoria" required>
+      </div>
+    </div>
+    <div>
+      <input type="submit" value="Actualizar">
+    </div>
+    <div data-ng-show="error">
+      <strong data-ng-bind="error"></strong>
+    </div>
+
+  </form>
+</section>
