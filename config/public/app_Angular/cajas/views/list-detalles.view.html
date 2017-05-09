@@ -1,0 +1,38 @@
+<section data-ng-controller="DetallesController"  data-ng-init="findByCaja()">
+
+  <section ng-show="PanelCreate" ng-include="'app_Angular/cajas/views/input-detalles.view.html'"></section>
+
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Detalles <small>Tabla de Detalles</small></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <button type="button" class="btn btn-default" ng-click="mostrarCrearDetalle()">Crear Detalle</button>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+      <table class="table table-striped table-responsive">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Valor</th>
+            <th>Empresa</th>
+            <th>Categoria</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="detalle in detalles">
+            <th scope="row">{{$index + 1}}</th>
+            <td data-ng-href="#!/detalles/{{detalle._id}}" data-ng-bind="detalle.valor"></td>
+            <td data-ng-bind="detalle.empresa"></td>
+            <td data-ng-bind="detalle.categoria"></td>
+            <td><a data-ng-click="delete(detalle)">Eliminar</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>

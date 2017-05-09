@@ -12,5 +12,8 @@ module.exports = function(app) {
     .put(detalles.update)
     .delete(detalles.delete);
 
+  app.route('/api/detallesByCaja/:idCaja')
+    .get(detalles.detalleByCaja);
+
   app.param('detalleId', detalles.detalleByID);
 }

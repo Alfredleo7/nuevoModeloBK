@@ -75,6 +75,19 @@ exports.delete = function(req, res){
   });
 };
 
+exports.detalleByCaja = function(req, res) {
+  var idCaja = req.params.idCaja;
+  Detalle.find({'caja': idCaja}, function(err, detalles){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      res.json(detalles);
+    }
+  });
+};
+
 exports.detalleByID = function(req, res, next, id){
   Detalle.findById(id, function(err, detalle){
     if (err) return next(err);
