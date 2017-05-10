@@ -36,10 +36,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
       showPanelTableDetalles();
     }
 
-
-
     // Funciones CRUD
-
     $scope.findByCaja = function(){
       var idCaja = Caja_Detalles.getIdCaja();
       $http({
@@ -89,6 +86,11 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         url: '/api/detalles/' + $scope.detalle._id,
         data: $scope.detalle
       }).then(function(detalle){
+        //Actualizar la Caja Chica
+        $scope.caja.valor = Number($scope.caja.valor) - Number($scope.valorPrevio);
+        $scope.caja.valor = Number($scope.caja.valor) + Number($scope.detalle.valor);
+        $scope.updateCaja();
+
         $scope.detalle = {};
         showPanelTableDetalles();
       });
@@ -142,6 +144,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
     };
 
     $scope.edit = function(detalle){
+      $scope.valorPrevio = detalle.valor;
       showPanelEditDetalle();
       $scope.detalle = detalle;
     }
