@@ -60,7 +60,10 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
       detalle.caja = idCaja;
 
       detalle.$save(function(response) {
-        //$location.path('detalles/' + response._id);
+        //Actualizar la Caja Chica
+        $scope.caja.valor += response.valor;
+        $scope.updateCaja();
+
         $scope.detalle = {};
         $scope.detalles.push(response);
         showPanelTableDetalles();
@@ -86,6 +89,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         url: '/api/detalles/' + $scope.detalle._id,
         data: $scope.detalle
       }).then(function(detalle){
+        $scope.detalle = {};
         showPanelTableDetalles();
       });
 
@@ -107,12 +111,18 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
               $scope.detalles.splice(i, 1);
             }
           }
+          //Actualizar la Caja Chica
+          $scope.caja.valor -= detalle.valor;
+          $scope.updateCaja();
         });
       } else {
         $http({
           method: 'DELETE',
           url: '/api/detalles/' + $scope.detalle._id
         }).then(function(detalle){
+          //Actualizar la Caja Chica
+          $scope.caja.valor -= detalle.valor;
+          $scope.updateCaja();
           $location.path('detalles');
         });
       }

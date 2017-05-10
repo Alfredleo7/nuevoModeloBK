@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('cajas').controller('CajasController', ['$scope','$routeParams','$location','Cajas','Caja_Detalles',
-  function($scope, $routeParams, $location, Cajas, Caja_Detalles) {
+angular.module('cajas').controller('CajasController', ['$scope','$http','$routeParams','$location','Cajas','Caja_Detalles',
+  function($scope, $http, $routeParams, $location, Cajas, Caja_Detalles) {
 
     $scope.create = function() {
       var caja = new Cajas();
@@ -25,12 +25,23 @@ angular.module('cajas').controller('CajasController', ['$scope','$routeParams','
     };
 
     $scope.update = function() {
-      $scope.caja.$update(function() {
+
+      $http({
+        method: 'PUT',
+        url: '/api/cajas/' + $scope.caja._id,
+        data: $scope.caja
+      });
+
+      /*$scope.caja.$update(function() {
         $location.path('cajas/'+ $scope.caja._id);
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
-      });
+      });*/
     };
+
+    $scope.updateCaja = function() {
+      $scope.update();
+    }
 
     $scope.delete = function(caja) {
       if (caja) {
