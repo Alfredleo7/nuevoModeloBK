@@ -8,26 +8,28 @@
         </ul>
         <div class="clearfix"></div>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Creado</th>
-            <th>Valor</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-ng-repeat="caja in cajas">
-            <th scope="row">{{$index + 1}}</th>
-            <td data-ng-bind="caja.creado | date:'MM/dd/yyyy'"></td>
-            <td data-ng-bind="caja.valor"></td>
-            <td data-ng-bind="caja.estado"></td>
-            <td><a data-ng-href="#!/cajas/{{caja._id}}">ver</a><a ng-click="delete(caja)">eliminar</a></td>
-          </tr>
-        </tbody>
-      </table>
+      <div style="overflow-x:auto;">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Creado</th>
+              <th>Valor</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="caja in cajas">
+              <th scope="row">{{$index + 1}}</th>
+              <td data-ng-bind="caja.creado | date:'MM/dd/yyyy'"></td>
+              <td data-ng-bind="caja.valor"></td>
+              <td data-ng-bind="caja.estado"></td>
+              <td><a data-ng-href="#!/cajas/{{caja._id}}">ver</a><a ng-click="delete(caja)">eliminar</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
