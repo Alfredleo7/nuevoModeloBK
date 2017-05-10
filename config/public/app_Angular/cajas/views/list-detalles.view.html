@@ -1,12 +1,13 @@
 <section data-ng-controller="DetallesController"  data-ng-init="findByCaja()">
 
-  <section ng-show="PanelCreate" ng-include="'app_Angular/cajas/views/input-detalles.view.html'"></section>
+  <section ng-show="PanelCreateDetalle" ng-include="'app_Angular/cajas/views/crear-detalle.view.html'"></section>
+  <section ng-show="PanelEditDetalle" ng-include="'app_Angular/cajas/views/edit-detalle.view.html'"></section>
 
-  <div class="x_panel">
+  <div ng-show="PanelTableDetalles" class="x_panel">
     <div class="x_title">
       <h2>Detalles <small>Tabla de Detalles</small></h2>
       <ul class="nav navbar-right panel_toolbox">
-        <button type="button" class="btn btn-default" ng-click="mostrarCrearDetalle()">Crear Detalle</button>
+        <button type="button" class="btn btn-default" ng-click="showPanelCreateDetalle()">Crear Detalle</button>
       </ul>
       <div class="clearfix"></div>
     </div>
@@ -28,7 +29,7 @@
             <td data-ng-href="#!/detalles/{{detalle._id}}" data-ng-bind="detalle.valor"></td>
             <td data-ng-bind="detalle.empresa"></td>
             <td data-ng-bind="detalle.categoria"></td>
-            <td><a data-ng-click="delete(detalle)">Eliminar</a></td>
+            <td><a data-ng-click="delete(detalle)">Eliminar</a><a data-ng-click="edit(detalle)">Editar</a></td>
           </tr>
         </tbody>
       </table>

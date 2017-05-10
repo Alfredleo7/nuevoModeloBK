@@ -5,6 +5,40 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
 
     $scope.detalle = {};
 
+    // Control de paneles
+    $scope.PanelEditDetalle = false;
+    $scope.PanelCreateDetalle = false;
+    $scope.PanelTableDetalles = true;
+
+    var showPanelCreateDetalle = function(){
+      $scope.PanelEditDetalle = false;
+      $scope.PanelCreateDetalle = true;
+      $scope.PanelTableDetalles = false;
+    }
+    var showPanelEditDetalle = function(){
+      $scope.PanelEditDetalle = true;
+      $scope.PanelCreateDetalle = false;
+      $scope.PanelTableDetalles = false;
+    }
+    var showPanelTableDetalles = function(){
+      $scope.PanelEditDetalle = false;
+      $scope.PanelCreateDetalle = false;
+      $scope.PanelTableDetalles = true;
+    }
+
+    $scope.showPanelCreateDetalle = function(){
+      showPanelCreateDetalle();
+    }
+    $scope.showPanelEditDetalle = function(){
+      showPanelEditDetalle();
+    }
+    $scope.showPanelTableDetalles = function(){
+      showPanelTableDetalles();
+    }
+
+
+
+    // Funciones CRUD
 
     $scope.findByCaja = function(){
       var idCaja = Caja_Detalles.getIdCaja();
@@ -29,6 +63,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         //$location.path('detalles/' + response._id);
         $scope.detalle = {};
         $scope.detalles.push(response);
+        showPanelTableDetalles();
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -45,11 +80,20 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
     };
 
     $scope.update = function() {
-      $scope.detalle.$update(function() {
+
+      $http({
+        method: 'PUT',
+        url: '/api/detalles/' + $scope.detalle._id,
+        data: $scope.detalle
+      }).then(function(detalle){
+        showPanelTableDetalles();
+      });
+
+      /*$scope.detalle.$update(function() {
         $location.path('detalles/'+ $scope.detalle._id);
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
-      });
+      });*/
     };
 
     $scope.delete = function(detalle) {
@@ -87,15 +131,9 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
       }*/
     };
 
-
-    $scope.PanelCreate = false;
-
-    $scope.mostrarCrearDetalle = function(){
-      $scope.PanelCreate = true;
-    }
-
-    $scope.ocultarCrearDetalle = function(){
-      $scope.PanelCreate = false;
+    $scope.edit = function(detalle){
+      showPanelEditDetalle();
+      $scope.detalle = detalle;
     }
 
 
