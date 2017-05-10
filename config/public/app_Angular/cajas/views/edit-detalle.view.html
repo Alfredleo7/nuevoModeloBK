@@ -24,6 +24,10 @@
 
       <section ng-include="'app_Angular/cajas/views/input-detalles.view.html'"></section>
 
+      <div data-ng-show="error">
+  			<strong data-ng-bind="error"></strong>
+  		</div>
+
     </form>
   </div>
 </div>

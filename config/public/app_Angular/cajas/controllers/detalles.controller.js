@@ -48,6 +48,27 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
     };
 
     $scope.create = function() {
+
+      /*var idCaja = Caja_Detalles.getIdCaja();
+      $scope.detalle.caja = idCaja;*/
+
+      /*$http({
+        method: 'POST',
+        url: '/api/detalles',
+        data: $scope.detalle
+      }).then(function(detalle){
+        //Actualizar la Caja Chica
+        $scope.caja.valor += detalle.valor;
+        $scope.updateCaja();
+
+        $scope.detalle = {};
+        $scope.detalles.push(detalle);
+        showPanelTableDetalles();
+      },function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      }
+    );*/
+
       var idCaja = Caja_Detalles.getIdCaja();
       var detalle = new Detalles({
         valor: $scope.detalle.valor,
@@ -93,6 +114,8 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
 
         $scope.detalle = {};
         showPanelTableDetalles();
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
       });
 
       /*$scope.detalle.$update(function() {

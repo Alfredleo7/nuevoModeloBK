@@ -4,7 +4,10 @@ var Schema = mongoose.Schema;
 
 var detalleSchema = new Schema({
   valor: Number,
-  empresa: String,
+  empresa: {
+    type: String,
+    required: 'La empresa no puede estar en blanco'
+  },
   categoria: String,
   caja: {
     type: Schema.ObjectId,
