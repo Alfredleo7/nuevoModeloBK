@@ -13,7 +13,8 @@ module.exports = function(app) {
     .delete(detalles.delete);
 
   app.route('/api/detallesByCaja/:idCaja')
-    .get(detalles.detalleByCaja);
+    .get(detalles.listByCaja)
+    .delete(detalles.deleteByCaja);
 
   app.param('detalleId', detalles.detalleByID);
 }

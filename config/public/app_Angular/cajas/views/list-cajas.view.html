@@ -1,11 +1,13 @@
 <section data-ng-controller="CajasController" data-ng-init="find()">
-  <div class="page-title">
-    <div class="title_left">
-      <h3>Cajas Chicas</h3>
-    </div>
-  </div>
   <div class="x_panel">
     <div class="x_content">
+      <div class="x_title">
+        <h2>Cajas Chicas <small>Tabla de Cajas Chicas</small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <button type="button" class="btn btn-default" ng-click="create()">Crear Caja</button>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -22,13 +24,10 @@
             <td data-ng-bind="caja.creado | date:'MM/dd/yyyy'"></td>
             <td data-ng-bind="caja.valor"></td>
             <td data-ng-bind="caja.estado"></td>
-            <td><a data-ng-href="#!/cajas/{{caja._id}}">ver</a></td>
+            <td><a data-ng-href="#!/cajas/{{caja._id}}">ver</a><a ng-click="delete(caja)">eliminar</a></td>
           </tr>
         </tbody>
       </table>
-      <ul class="nav navbar-right panel_toolbox">
-        <button type="button" class="btn btn-default" ng-click="create()">Crear Caja</button>
-      </ul>
     </div>
   </div>
 </section>

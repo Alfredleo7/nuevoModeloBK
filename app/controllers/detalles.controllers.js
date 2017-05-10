@@ -75,7 +75,16 @@ exports.delete = function(req, res){
   });
 };
 
-exports.detalleByCaja = function(req, res) {
+exports.detalleByID = function(req, res, next, id){
+  Detalle.findById(id, function(err, detalle){
+    if (err) return next(err);
+    if (!detalle) return next(new Error('Fallo al cargar el detalle '+ id));
+    req.detalle = detalle;
+    next();
+  });
+};
+
+exports.listByCaja = function(req, res) {
   var idCaja = req.params.idCaja;
   Detalle.find({'caja': idCaja}, function(err, detalles){
     if (err) {
@@ -88,11 +97,20 @@ exports.detalleByCaja = function(req, res) {
   });
 };
 
-exports.detalleByID = function(req, res, next, id){
-  Detalle.findById(id, function(err, detalle){
-    if (err) return next(err);
-    if (!detalle) return next(new Error('Fallo al cargar el detalle '+ id));
-    req.detalle = detalle;
-    next();
+exports.deleteByCaja = function(req, res) {
+  var idCaja = req.params.idCaja;
+  Detalle.find({'caja': idCaja}, function(err, detalles){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      for(var i in detalles){
+        detalles[i].remove();
+      }
+      return res.status(200).send({
+        message: 'ok'
+      })
+    }
   });
 };
