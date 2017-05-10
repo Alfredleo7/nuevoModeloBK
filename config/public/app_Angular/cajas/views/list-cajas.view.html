@@ -25,7 +25,12 @@
               <td data-ng-bind="caja.creado | date:'MM/dd/yyyy'"></td>
               <td data-ng-bind="caja.valor"></td>
               <td data-ng-bind="caja.estado"></td>
-              <td><a data-ng-href="#!/cajas/{{caja._id}}">ver</a><a ng-click="delete(caja)">eliminar</a></td>
+              <td>
+                <div class="btn-group">
+                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-original-title="Ver Detalle" data-ng-href="#!/cajas/{{caja._id}}"><i class="fa fa-folder"></i></a>
+                  <a class="btn btn-xs btn-warning" data-toggle="tooltip" data-original-title="Eliminar" ng-click="delete(caja)"><i class="fa fa-trash-o"></i></a>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
