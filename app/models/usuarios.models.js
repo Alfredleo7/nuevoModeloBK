@@ -9,15 +9,19 @@ var userSchema = new Schema({
   },
   email: {
     type: String,
+    unique: true,
     match: [/.+\@.+\..+/, "Por favor escribe una dirección de email correcta"],
     require: 'El email es requerido'
   },
-  password: String
+  password: {
+    type: String
+  }
 });
 
 userSchema.pre('save', function(next){
   this.password = crypto.encriptar(this.password);
   next();
 });
+
 
 mongoose.model('Usuario', userSchema);

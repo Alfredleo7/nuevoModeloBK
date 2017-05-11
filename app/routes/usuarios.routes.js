@@ -4,8 +4,10 @@ var usuarios = require('../controllers/usuarios.controllers');
 
 module.exports = function(app) {
   app.route('/api/usuarios')
-    //.get(detalles.list)
+    .get(usuarios.list)
     .post(usuarios.signUp);
+  app.route('/api/usuariosLogin')
+    .post(usuarios.signIn);
 
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
