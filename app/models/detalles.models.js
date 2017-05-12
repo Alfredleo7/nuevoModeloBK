@@ -12,6 +12,11 @@ var detalleSchema = new Schema({
   caja: {
     type: Schema.ObjectId,
     ref: "Caja"
+  },
+  creador: {
+    type: Schema.ObjectId,
+    ref: "Usuario",
+    required: "Se necesita el id del Usuario"
   }
 });
 

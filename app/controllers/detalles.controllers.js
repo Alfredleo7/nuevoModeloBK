@@ -15,6 +15,7 @@ var getErrorMessage = function(err){
 
 exports.create = function(req, res){
   var detalle = new Detalle(req.body);
+  detalle.creador = req.session.usuario.id;
 
   detalle.save(function(err){
     if (err) {
