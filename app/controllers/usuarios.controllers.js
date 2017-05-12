@@ -56,7 +56,9 @@ exports.signIn = function(req, res){
       })
     }
     if(usuarioIn.password == crypto.desencriptar(usuario.password)){
-      req.session.usuario = usuario;
+      req.session.usuario = {
+        email: usuario.email
+      };
       return res.status(200).send({
         message: 'Autenticación exitosa'
       })
@@ -66,6 +68,14 @@ exports.signIn = function(req, res){
       })
     }
   });
+};
+
+exports.singOut =function(req, res){
+  delete req.session.usuario;
+  res.redirect('/');
+  /*return res.status(200).send({
+    message: 'session eliminada'
+  });*/
 };
 
 exports.list = function(req, res){

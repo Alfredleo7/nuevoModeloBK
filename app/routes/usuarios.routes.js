@@ -8,6 +8,8 @@ module.exports = function(app) {
     .post(usuarios.signUp);
   app.route('/api/usuariosLogin')
     .post(usuarios.signIn);
+  app.route('/api/usuariosLogout')
+    .get(usuarios.singOut);
 
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
