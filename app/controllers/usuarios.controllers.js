@@ -57,7 +57,9 @@ exports.signIn = function(req, res){
     }
     if(usuarioIn.password == crypto.desencriptar(usuario.password)){
       req.session.usuario = {
-        email: usuario.email
+        id: usuario._id,
+        email: usuario.email,
+        fullname: usuario.firstName + ' ' + usuario.lastName
       };
       return res.status(200).send({
         message: 'Autenticación exitosa'

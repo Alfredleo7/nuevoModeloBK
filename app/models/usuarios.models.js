@@ -7,6 +7,14 @@ var userSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  firstName:{
+    type: String,
+    required: 'El nombre es requerido'
+  },
+  lastName: {
+    type: String,
+    require: 'El apellido es requerido'
+  },
   email: {
     type: String,
     unique: true,
