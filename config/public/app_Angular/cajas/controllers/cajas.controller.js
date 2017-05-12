@@ -57,7 +57,31 @@ angular.module('cajas').controller('CajasController', ['$scope','$http','$routeP
     };
 
     $scope.delete = function(caja) {
+
       if (caja) {
+        $http({
+          method: 'DELETE',
+          url: '/api/cajas/' + caja._id
+        }).then(function(){
+          for (var i in $scope.cajas) {
+            if ($scope.cajas[i] === caja) {
+              $scope.cajas.splice(i, 1);
+            }
+          }
+          deleteDetallesByCaja(caja._id);
+        });
+      } else {
+        $http({
+          method: 'DELETE',
+          url: '/api/cajas/' + $scope.caja._id
+        }).then(function(){
+          deleteDetallesByCaja($scope.caja._id);
+          $location.path('cajas');
+        });
+      }
+
+
+      /*if (caja) {
         caja.$remove(function() {
           for (var i in $scope.cajas) {
             if ($scope.cajas[i] === caja) {
@@ -71,7 +95,7 @@ angular.module('cajas').controller('CajasController', ['$scope','$http','$routeP
           deleteDetallesByCaja($scope.caja._id);
           $location.path('cajas');
         });
-      }
+      }*/
     };
 
   }
