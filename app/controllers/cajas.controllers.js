@@ -74,6 +74,20 @@ exports.delete = function(req, res){
   });
 };
 
+//Cajas por usuario
+
+exports.listByUsuario = function(req, res){
+  Caja.find({'creador': req.session.usuario.id}, function(err, cajas){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      res.json(cajas);
+    }
+  });
+};
+
 exports.cajaByID = function(req, res, next, id){
   Caja.findById(id, function(err, caja){
     if (err) return next(err);

@@ -14,7 +14,13 @@ angular.module('cajas').controller('CajasController', ['$scope','$http','$routeP
     };
 
     $scope.find = function() {
-      $scope.cajas = Cajas.query();
+      $http({
+        method: 'GET',
+        url: '/api/cajasByUsuario'
+      }).then(function(cajas){
+        $scope.cajas = cajas.data;
+      });
+      //$scope.cajas = Cajas.query();
     };
 
     $scope.findOne = function() {
