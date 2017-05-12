@@ -11,6 +11,7 @@ module.exports = function(app) {
     .get(cajas.read)
     .put(cajas.update)
     .delete(cajas.delete);
+
   app.route('/api/cajasByUsuario')
     .get(cajas.listByUsuario);
 

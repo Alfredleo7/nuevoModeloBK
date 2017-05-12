@@ -59,7 +59,8 @@ exports.signIn = function(req, res){
       req.session.usuario = {
         id: usuario._id,
         email: usuario.email,
-        fullname: usuario.firstName + ' ' + usuario.lastName
+        fullname: usuario.firstName + ' ' + usuario.lastName,
+        tipo: usuario.tipo
       };
       return res.status(200).send({
         message: 'Autenticación exitosa'

@@ -23,6 +23,11 @@ var userSchema = new Schema({
   },
   password: {
     type: String
+  },
+  tipo: {
+    type: String,
+    enum: ['General', 'Administrador', 'Gerente'],
+    required: 'El tipo de usuario es requerido'
   }
 });
 
