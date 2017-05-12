@@ -1,3 +1,6 @@
 exports.index = function(req, res){
-  res.render('index');
+  if(!req.session){
+    res.render('index');
+  }
+  res.render('login', {usuario: req.session.usuario});
 }

@@ -56,8 +56,9 @@ exports.signIn = function(req, res){
       })
     }
     if(usuarioIn.password == crypto.desencriptar(usuario.password)){
+      req.session.usuario = usuario;
       return res.status(200).send({
-        message: 'el usuario ' + usuario.email + ' se ha logueado'
+        message: 'Autenticación exitosa'
       })
     } else {
       return res.status(404).send({
