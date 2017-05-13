@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('cajas', []);
+angular.module('cajas', ['datatables']);
