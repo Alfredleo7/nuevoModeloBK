@@ -86,7 +86,11 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         $scope.detalles.push(response);
         showPanelTableDetalles();
       }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
+        new PNotify({
+                        title: 'Advertencia',
+                        text: errorResponse.data.message,
+                        styling: 'bootstrap3'
+                    });
       });
     };
 
@@ -115,7 +119,11 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         $scope.detalle = {};
         showPanelTableDetalles();
       }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
+        new PNotify({
+                        title: 'Advertencia',
+                        text: errorResponse.data.message,
+                        styling: 'bootstrap3'
+                    });
       });
 
       /*$scope.detalle.$update(function() {
