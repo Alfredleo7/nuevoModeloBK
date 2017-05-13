@@ -13,17 +13,17 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
     var showPanelCreateDetalle = function(){
       $scope.PanelEditDetalle = false;
       $scope.PanelCreateDetalle = true;
-      $scope.PanelTableDetalles = false;
+      //$scope.PanelTableDetalles = false;
     }
     var showPanelEditDetalle = function(){
       $scope.PanelEditDetalle = true;
       $scope.PanelCreateDetalle = false;
-      $scope.PanelTableDetalles = false;
+      //$scope.PanelTableDetalles = false;
     }
     var showPanelTableDetalles = function(){
       $scope.PanelEditDetalle = false;
       $scope.PanelCreateDetalle = false;
-      $scope.PanelTableDetalles = true;
+      //$scope.PanelTableDetalles = true;
     }
 
     $scope.showPanelCreateDetalle = function(){
