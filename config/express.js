@@ -34,7 +34,7 @@ module.exports = function(){
   require('../app/routes/cajas.routes')(app);
   require('../app/routes/detalles.routes')(app);
 
-  app.use(express.static('./config/public'));
+  app.use(express.static('./public'));
 
   return app;
 }
