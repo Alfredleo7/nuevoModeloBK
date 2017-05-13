@@ -44,6 +44,8 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         url: '/api/detallesByCaja/' + idCaja
       }).then(function(detalles){
         $scope.detalles = detalles.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
       });
     };
 
@@ -86,11 +88,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         $scope.detalles.push(response);
         showPanelTableDetalles();
       }, function(errorResponse) {
-        new PNotify({
-                        title: 'Advertencia',
-                        text: errorResponse.data.message,
-                        styling: 'bootstrap3'
-                    });
+        mostrarNotificacion(errorResponse.data.message);
       });
     };
 
@@ -119,11 +117,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         $scope.detalle = {};
         showPanelTableDetalles();
       }, function(errorResponse) {
-        new PNotify({
-                        title: 'Advertencia',
-                        text: errorResponse.data.message,
-                        styling: 'bootstrap3'
-                    });
+        mostrarNotificacion(errorResponse.data.message);
       });
 
       /*$scope.detalle.$update(function() {
@@ -157,6 +151,8 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
           $scope.caja.valor -= detalle.valor;
           $scope.updateCaja();
           $location.path('detalles');
+        }, function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
         });
       }
       /*if (detalle) {
