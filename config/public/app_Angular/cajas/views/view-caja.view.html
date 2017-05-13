@@ -1,12 +1,11 @@
 <section data-ng-controller='CajasController' data-ng-init="findOne()">
-  <p data-ng-bind="caja.valor"></p>
-  <p data-ng-bind="caja.creado"></p>
+  <h1 data-ng-bind="caja.valor | currency"></h1>
+  <h2 data-ng-bind="caja.creado | date"></h2>
 
   <section ng-include="'app_Angular/cajas/views/list-detalles.view.html'"></section>
 
-  <div>
-    <a href="/#!/">Atras</a>
-    <a href="/#!/cajas/{{caja._id}}/edit">Editar</a>
-    <a href="#" data-ng-click="delete();">Eliminar</a>
+  <div class="btn-group">
+    <a href="/#!/" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</a>
+    <button data-ng-click="delete();" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i>Eliminar</button>
   </div>
 </section>
