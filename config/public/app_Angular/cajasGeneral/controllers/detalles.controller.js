@@ -28,6 +28,7 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
 
     $scope.showPanelCreateDetalle = function(){
       showPanelCreateDetalle();
+      $scope.detalle = {};
     }
     $scope.showPanelEditDetalle = function(){
       showPanelEditDetalle();
@@ -84,7 +85,6 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         $scope.caja.valor += response.valor;
         $scope.updateCaja();
 
-        $scope.detalle = {};
         $scope.detalles.push(response);
         showPanelTableDetalles();
       }, function(errorResponse) {
@@ -114,7 +114,6 @@ angular.module('cajas').controller('DetallesController', ['$scope','$http','$rou
         $scope.caja.valor = Number($scope.caja.valor) + Number($scope.detalle.valor);
         $scope.updateCaja();
 
-        $scope.detalle = {};
         showPanelTableDetalles();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);

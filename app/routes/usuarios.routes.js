@@ -3,6 +3,9 @@
 var usuarios = require('../controllers/usuarios.controllers');
 
 module.exports = function(app) {
+  app.route('/')
+    .get(usuarios.ingresar);
+
   app.route('/api/usuarios')
     .get(usuarios.list)
     .post(usuarios.signUp);
