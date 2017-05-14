@@ -110,7 +110,7 @@ exports.deleteByCaja = function(req, res) {
         detalles[i].remove();
       }
       return res.status(200).send({
-        message: 'ok'
+        message: 'Todos los detalles de ésta caja han sido eliminados'
       })
     }
   });

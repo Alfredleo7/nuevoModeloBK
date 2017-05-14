@@ -20,6 +20,8 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         url: '/api/cajasByUsuario'
       }).then(function(cajas){
         $scope.cajas = cajas.data;
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
       });
     };
 
@@ -31,8 +33,9 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         method: 'GET',
         url: '/api/cajas/' + idCaja
       }).then(function(response){
-        console.log(response.data);
         $scope.caja = response.data;
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
       });
 
       Caja_Detalles.setIdCaja($routeParams.cajaId);
@@ -44,13 +47,12 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         method: 'PUT',
         url: '/api/cajas/' + $scope.caja._id,
         data: $scope.caja
+      }).then(function(response){
+
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
       });
 
-      /*$scope.caja.$update(function() {
-        $location.path('cajas/'+ $scope.caja._id);
-      }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });*/
     };
 
     $scope.updateCaja = function() {
@@ -61,6 +63,10 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
       $http({
         method: 'DELETE',
         url: '/api/detallesByCaja/' + idCaja,
+      }).then(function(response){
+        mostrarNotificacion(response.data.message);
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
       });
     };
 
@@ -77,6 +83,8 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
             }
           }
           deleteDetallesByCaja(caja._id);
+        }, function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
         });
       } else {
         $http({
@@ -85,25 +93,11 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         }).then(function(){
           deleteDetallesByCaja($scope.caja._id);
           $location.path('cajas');
+        }, function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
         });
       }
 
-
-      /*if (caja) {
-        caja.$remove(function() {
-          for (var i in $scope.cajas) {
-            if ($scope.cajas[i] === caja) {
-              $scope.cajas.splice(i, 1);
-            }
-          }
-          deleteDetallesByCaja(caja._id);
-        });
-      } else {
-        $scope.caja.$remove(function() {
-          deleteDetallesByCaja($scope.caja._id);
-          $location.path('cajas');
-        });
-      }*/
     };
 
   }

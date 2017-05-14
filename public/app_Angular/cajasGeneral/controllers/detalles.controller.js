@@ -52,27 +52,25 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
 
     $scope.create = function() {
 
-      /*var idCaja = Caja_Detalles.getIdCaja();
-      $scope.detalle.caja = idCaja;*/
+      var idCaja = Caja_Detalles.getIdCaja();
+      $scope.detalle.caja = idCaja;
 
-      /*$http({
+      $http({
         method: 'POST',
         url: '/api/detalles',
         data: $scope.detalle
-      }).then(function(detalle){
+      }).then(function(response){
         //Actualizar la Caja Chica
-        $scope.caja.valor += detalle.valor;
+        $scope.caja.valor += response.data.valor;
         $scope.updateCaja();
 
-        $scope.detalle = {};
-        $scope.detalles.push(detalle);
+        $scope.detalles.push(response.data);
         showPanelTableDetalles();
-      },function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      }
-    );*/
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
 
-      var idCaja = Caja_Detalles.getIdCaja();
+      /*var idCaja = Caja_Detalles.getIdCaja();
       var detalle = new Detalles({
         valor: $scope.detalle.valor,
         empresa: $scope.detalle.empresa,
@@ -89,7 +87,7 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
         showPanelTableDetalles();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
-      });
+      });*/
     };
 
     $scope.find = function() {
