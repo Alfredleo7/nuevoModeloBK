@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Usuario = mongoose.model('Usuario');
 var Caja = mongoose.model('Caja');
 
 var getErrorMessage = function(err){
@@ -86,6 +87,55 @@ exports.listByUsuario = function(req, res){
       })
     } else {
       res.json(cajas);
+    }
+  });
+};
+
+//Cajas por estado
+exports.listPendientes = function(req, res){
+  Caja.find({'estado': 'Pendiente'}, function(err, cajas){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Usuario.populate(cajas, {path: 'creador'}, function(err, cajas){
+        res.json(cajas);
+      });
+    }
+  });
+}
+
+exports.aprobar = function(req, res){
+  var caja = req.caja;
+
+  caja.estado = 'Aprobado';
+  caja.administrador = req.session.usuario.id;
+
+  caja.save(function(err){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.json(caja);
+    }
+  });
+};
+
+exports.rechazar = function(req, res){
+  var caja = req.caja;
+
+  caja.estado = 'Rechazado';
+  caja.administrador = req.session.usuario.id;
+
+  caja.save(function(err){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.json(caja);
     }
   });
 };
