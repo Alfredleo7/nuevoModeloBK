@@ -13,24 +13,23 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
     var showPanelCreateDetalle = function(){
       $scope.PanelEditDetalle = false;
       $scope.PanelCreateDetalle = true;
-      //$scope.PanelTableDetalles = false;
     }
     var showPanelEditDetalle = function(){
       $scope.PanelEditDetalle = true;
       $scope.PanelCreateDetalle = false;
-      //$scope.PanelTableDetalles = false;
     }
     var showPanelTableDetalles = function(){
       $scope.PanelEditDetalle = false;
       $scope.PanelCreateDetalle = false;
-      //$scope.PanelTableDetalles = true;
     }
 
     $scope.showPanelCreateDetalle = function(){
       showPanelCreateDetalle();
       $scope.detalle = {};
     }
-    $scope.showPanelEditDetalle = function(){
+    $scope.showPanelEditDetalle = function(detalle){
+      $scope.valorPrevio = detalle.valor;
+      $scope.detalle = detalle;
       showPanelEditDetalle();
     }
     $scope.showPanelTableDetalles = function(){
@@ -70,33 +69,30 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
         mostrarNotificacion(errorResponse.data.message);
       });
 
-      /*var idCaja = Caja_Detalles.getIdCaja();
-      var detalle = new Detalles({
-        valor: $scope.detalle.valor,
-        empresa: $scope.detalle.empresa,
-        categoria: $scope.detalle.categoria
-      });
-      detalle.caja = idCaja;
-
-      detalle.$save(function(response) {
-        //Actualizar la Caja Chica
-        $scope.caja.valor += response.valor;
-        $scope.updateCaja();
-
-        $scope.detalles.push(response);
-        showPanelTableDetalles();
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });*/
     };
 
     $scope.find = function() {
-      $scope.detalles = Detalles.query();
+
+      $http({
+        method: 'GET',
+        url: '/api/detalles'
+      }).then(function(response){
+        $scope.detalles = response.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
     };
 
     $scope.findOne = function() {
-      $scope.detalle = Detalles.get({
-        detalleId: $routeParams.detalleId
+      var idDetalle = $routeParams.detalleId;
+      $http({
+        method: 'GET',
+        url: '/api/detalles/' + idDetalle
+      }).then(function(response){
+        $scope.detalle = response.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
       });
     };
 
@@ -116,12 +112,6 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
-
-      /*$scope.detalle.$update(function() {
-        $location.path('detalles/'+ $scope.detalle._id);
-      }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });*/
     };
 
     $scope.delete = function(detalle) {
@@ -152,27 +142,6 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
           mostrarNotificacion(errorResponse.data.message);
         });
       }
-      /*if (detalle) {
-        detalle.$remove(function() {
-          for (var i in $scope.detalles) {
-            if ($scope.detalles[i] === detalle) {
-              $scope.detalles.splice(i, 1);
-            }
-          }
-        });
-      } else {
-        $scope.detalle.$remove(function() {
-          $location.path('detalles');
-        });
-      }*/
     };
-
-    $scope.edit = function(detalle){
-      $scope.valorPrevio = detalle.valor;
-      showPanelEditDetalle();
-      $scope.detalle = detalle;
-    }
-
-
   }
 ]);
