@@ -39,9 +39,7 @@ exports.ingresar = function(req, res){
     }
 
     if(req.session.usuario.tipo === 'Administrador'){
-      res.status(200).send({
-        message: 'Administrador logueado correctamente'
-      });
+      res.render('administrador', {usuario: req.session.usuario});
     }
 
     if(req.session.usuario.tipo === 'Gerente'){
@@ -100,9 +98,6 @@ exports.signIn = function(req, res){
 exports.singOut =function(req, res){
   delete req.session.usuario;
   res.redirect('/');
-  /*return res.status(200).send({
-    message: 'session eliminada'
-  });*/
 };
 
 exports.list = function(req, res){
