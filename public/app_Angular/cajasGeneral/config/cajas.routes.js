@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cajas').config(['$routeProvider',
+angular.module('general').config(['$routeProvider',
   function($routeProvider){
     $routeProvider.
     when('/', {

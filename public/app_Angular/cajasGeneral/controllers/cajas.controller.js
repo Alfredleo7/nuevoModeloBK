@@ -1,16 +1,26 @@
 'use strict';
 
-angular.module('cajas').controller('CajasController', ['$scope','$http','$routeParams','$location','Cajas','Caja_Detalles',
+angular.module('general').controller('CajasController', ['$scope','$http','$routeParams','$location','Cajas','Caja_Detalles',
   function($scope, $http, $routeParams, $location, Cajas, Caja_Detalles) {
 
     $scope.create = function() {
-      var caja = new Cajas();
+
+      $http({
+        method: 'POST',
+        url: '/api/cajas'
+      }).then(function(response){
+        $location.path('cajas/' + response.data._id);
+      }, function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
+      /*var caja = new Cajas();
 
       caja.$save(function(response) {
         $location.path('cajas/' + response._id);
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
-      });
+      });*/
     };
 
     $scope.find = function() {

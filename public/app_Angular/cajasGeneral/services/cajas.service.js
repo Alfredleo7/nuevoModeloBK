@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cajas')
+angular.module('general')
   .factory('Cajas', ['$resource', function($resource){
     return $resource('api/cajas/:cajaId', {
       cajaId: '@_id'
