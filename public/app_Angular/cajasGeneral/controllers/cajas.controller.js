@@ -4,7 +4,6 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
   function($scope, $http, $routeParams, $location, Cajas, Caja_Detalles) {
 
     $scope.create = function() {
-
       $http({
         method: 'POST',
         url: '/api/cajas'
@@ -13,14 +12,6 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
       }, function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       });
-
-      /*var caja = new Cajas();
-
-      caja.$save(function(response) {
-        $location.path('cajas/' + response._id);
-      }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });*/
     };
 
     $scope.find = function() {
@@ -30,13 +21,20 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
       }).then(function(cajas){
         $scope.cajas = cajas.data;
       });
-      //$scope.cajas = Cajas.query();
     };
 
     $scope.findOne = function() {
-      $scope.caja = Cajas.get({
-        cajaId: $routeParams.cajaId
+
+      var idCaja = $routeParams.cajaId;
+
+      $http({
+        method: 'GET',
+        url: '/api/cajas/' + idCaja
+      }).then(function(response){
+        console.log(response.data);
+        $scope.caja = response.data;
       });
+
       Caja_Detalles.setIdCaja($routeParams.cajaId);
     };
 
