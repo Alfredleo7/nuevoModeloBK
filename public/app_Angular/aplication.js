@@ -1,6 +1,6 @@
 var mainAplicationModuleName = 'bk';
 
-var mainAplicationModule = angular.module(mainAplicationModuleName, ['ngResource','ngRoute','general']);
+var mainAplicationModule = angular.module(mainAplicationModuleName, ['ngRoute','general']);
 
 mainAplicationModule.config(['$locationProvider',
   function($locationProvider){

@@ -6,7 +6,9 @@ var Caja = mongoose.model('Caja');
 var getErrorMessage = function(err){
   if (err.errors){
     for(var errName in err.errors){
-      if(err.errors[errName].message) return err.errors[errName].message;
+      if(err.errors[errName].message){
+        return err.errors[errName].message;
+      }
     }
   } else {
     return 'Error de servidor desconocido';
@@ -91,7 +93,11 @@ exports.listByUsuario = function(req, res){
 exports.cajaByID = function(req, res, next, id){
   Caja.findById(id, function(err, caja){
     if (err) return next(err);
-    if (!caja) return next(new Error('Fallo al cargar el caja '+ id));
+    if (!caja){
+      return res.status(404).send({
+        message: 'La caja no existe'
+      })
+    }
     req.caja = caja;
     next();
   });

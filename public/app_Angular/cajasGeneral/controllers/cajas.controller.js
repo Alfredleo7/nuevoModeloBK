@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('general').controller('CajasController', ['$scope','$http','$routeParams','$location','Cajas','Caja_Detalles',
-  function($scope, $http, $routeParams, $location, Cajas, Caja_Detalles) {
+angular.module('general').controller('CajasController', ['$scope','$http','$routeParams','$location','Caja_Detalles',
+  function($scope, $http, $routeParams, $location, Caja_Detalles) {
 
     $scope.create = function() {
       $http({
@@ -36,6 +36,7 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         $scope.caja = response.data;
       },function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
+        $location.path('cajas');
       });
 
       Caja_Detalles.setIdCaja($routeParams.cajaId);

@@ -79,7 +79,11 @@ exports.delete = function(req, res){
 exports.detalleByID = function(req, res, next, id){
   Detalle.findById(id, function(err, detalle){
     if (err) return next(err);
-    if (!detalle) return next(new Error('Fallo al cargar el detalle '+ id));
+    if (!detalle){
+      return res.status(404).send({
+        message: 'No existe el detalle'
+      })
+    }
     req.detalle = detalle;
     next();
   });

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('general').controller('DetallesController', ['$scope','$http','$routeParams','$location','Detalles','Caja_Detalles',
-  function($scope, $http, $routeParams, $location, Detalles, Caja_Detalles) {
+angular.module('general').controller('DetallesController', ['$scope','$http','$routeParams','$location','Caja_Detalles',
+  function($scope, $http, $routeParams, $location, Caja_Detalles) {
 
     $scope.detalle = {};
 
@@ -128,6 +128,8 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
           //Actualizar la Caja Chica
           $scope.caja.valor -= detalle.valor;
           $scope.updateCaja();
+        },function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
         });
       } else {
         $http({
