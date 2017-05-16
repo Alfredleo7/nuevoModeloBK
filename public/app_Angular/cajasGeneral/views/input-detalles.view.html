@@ -1,28 +1,198 @@
-<div class="form-group">
-  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="valor">Valor <span class="required">*</span>
-  </label>
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <input type="text" id="valor" required="required" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.valor">
+<div class="row">
+  <div class="col-md-9 col-sm-9 col-xs-12">
+    <div class="form-group">
+      <div class="radio">
+        <label>
+          <input type="radio" checked="" value="factura" id="optionsRadios1" name="optionsRadios" data-ng-model="detalle.tipo"> Factura
+        </label>
+        <label>
+          <input type="radio" value="vale" id="optionsRadios2" name="optionsRadios" data-ng-model="detalle.tipo"> Vale de Pago
+        </label>
+      </div>
+    </div>
   </div>
 </div>
-<div class="form-group">
-  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="valor">Empresa <span class="required">*</span>
-  </label>
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <input type="text" id="empresa" required="required" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.empresa">
+<hr/>
+<div ng-show="detalle.tipo == 'factura'" class="row">
+  <div class="col-md-11">
+    <div class="item form-group">
+      <label for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Num. Factura</label>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idnumestablecimientofact" maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. Establecimiento" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idnumptoemisionfact" maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Punto de Emision" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-12">
+        <input id="idnumsecfact" maxlength="9" data-validate-length-range="3" data-validate-words="9" name="name" placeholder="Hasta 9 Numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. Secuencia" onchange="llenaCampoCero(this)" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-12">
+        <input id="idnumautofact" maxlength="50" data-validate-length-range="3" data-validate-words="50" name="name" placeholder="hasta 50 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Autorizacion" class="form-control col-md-10 col-xs-12"/>
+      </div>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idvalorfact" maxlength="3" data-validate-length-range="10" data-validate-words="10" name="name" placeholder="$ VALOR" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="SUB TOTAL" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idvaloriva" type="text" readonly="readonly" placeholder="IVA 14%" class="form-control"/>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-12">
+        <label>
+          <input id="idCheckRetencion" type="checkbox" value="" name="checkboxRetencion" data-ng-model='detalle.retencion' /> Aplicar Retencion
+        </label>
+      </div>
+    </div>
+  </div>
+</div><br/>
+<div ng-show='detalle.retencion' class="row">
+  <div class="col-md-11">
+    <div class="item form-group">
+      <label for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Num. Retencion</label>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idnumestablecimientoret" maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. Establecimiento" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idnumptoemisionret" maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Punto de Emision" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-12">
+        <input id="idnumsecret" maxlength="9" data-validate-length-range="3" data-validate-words="9" name="name" placeholder="hasta 9 Numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Secuencia" onchange="llenaCampoCero(this)" class="form-control col-md-3 col-xs-12"/>
+      </div>
+      <div class="col-md-3 col-sm-3 col-xs-12">
+        <input id="idnumautoret" maxlength="50" data-validate-length-range="3" data-validate-words="50" name="name" placeholder="hasta 50 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Autorizacion" class="form-control col-md-10 col-xs-12"/>
+      </div>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <select id="idSelectorRet" class="form-control">
+          <option>1%-30%</option>
+          <option>2%-70%</option>
+          <option>1%</option>
+          <option>2%</option>
+        </select>
+      </div>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="idPrimerPorcentaje" type="text" readonly="readonly" placeholder="1%" class="form-control"/><br/>
+        <input id="idSegundoPorcentaje" type="text" readonly="readonly" placeholder="30%" class="form-control"/>
+      </div>
+      <label id="idtotalret" for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Total Ret.</label>
+      <div class="col-md-1 col-sm-3 col-xs-12">
+        <input id="totalRet" type="text" readonly="readonly" placeholder="Total Ret." class="form-control"/>
+      </div>
+    </div>
   </div>
 </div>
-<div class="form-group">
-  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="valor">Categoria <span class="required">*</span>
-  </label>
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <input type="text" id="categoria" required="required" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.categoria">
+<div style="margin: 5px 0px 5px 0px;" class="row"></div>
+<div ng-show="detalle.tipo == 'vale'" class="row">
+  <div id="idfilapago" class="col-md-2">
+    <input id="idValePago" name="Total" placeholder="$ Total Vale de Pago" type="text" class="form-control col-md-4 col-xs-12"/>
   </div>
 </div>
-<div class="ln_solid"></div>
+<div class="clear"></div>
+<div class="clearfix"></div>
+<hr/><br/>
+<div class="row">
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="controls">
+      <input id="single_cal3" type="text" placeholder="Fecha" aria-describedby="inputSuccess2Status" data-toggle="tooltip" data-placement="top" title="" data-original-title="Fecha" class="form-control has-feedback-left"/><span aria-hidden="true" class="fa fa-calendar-o form-control-feedback left"></span><span id="inputSuccess2Status" class="sr-only">(success)</span>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="form-group">
+      <input id="EntregadoAInput" name="EntregadoAInput" placeholder="Entregado A " type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Entregado A" class="form-control col-md-7 col-xs-12"/>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="form-group">
+      <select id="CargadoAInput" name="EntregadoAInput" placeholder="Cargado A " type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cargado A" class="form-control col-md-7 col-xs-12">
+        <option> </option>
+        <option> </option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="form-group">
+      <input id="EmpresaInput" type="text" readonly="readonly" placeholder="undefined" name="Empresa" required="required" value="undefined" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tu Local/Dpto" class="form-control"/>
+    </div>
+  </div>
+  <div id="divProveedor" class="col-md-2 col-sm-6 col-xs-12">
+    <div class="form-group">
+      <div id="idSelect" class="form-group">
+        <select id="ProveedorInput" tabindex="-1" class="select2_single form-control">
+          <option>
+            <option value=""> </option>
+          </option>
+        </select>
+      </div>
+      <div id="select2Agregar" class="input-group">
+        <input id="inputprueba" type="text" class="form-control"/><span class="input-group-btn">
+          <button id="idButton" type="button" class="btn btn-primary"><i class="fa fa-close"></i></button></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-12">
+    <div class="form-group">
+      <select id="selectorCategoria" placeholder="Seleccione una Categoria" data-toggle="tooltip" data-placement="top" title="" data-original-title="Categorias" class="form-control">
+        <option> </option>
+      </select>
+    </div>
+  </div><br/>
+</div>
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="form-group">
+      <input id="DetalleInput" name="DetalleInput" placeholder="DETALLE" type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detalles" class="form-control col-md-7 col-xs-12"/>
+    </div>
+  </div>
+</div>
+<div id="idruccedula" class="row">
+  <div class="col-md-12 col-sm-6 col-xs-12"><br/>
+    <div class="row">
+      <div class="col-md-3">
+        <label class="col-md-3 control-label">RUC</label>
+        <div class="input-group"><span class="input-group-addon">
+            <input id="idRUCChecked" type="radio" checked="checked" value="ruc" name="selector2"/></span>
+          <input id="idrucinput" type="text" placeholder="RUC-13-numeros" maxlength="13" list="idDatalistRUC" class="form-control"/>
+        </div>
+      </div>
+    </div>
+    <div style="margin: 5px 0px 5px 0px;" class="row"></div>
+    <div class="row">
+      <div class="col-md-3">
+        <label class="col-md-3 control-label">CÉDULA</label>
+        <div class="input-group"><span class="input-group-addon">
+            <input id="idCEDChecked" type="radio" value="cedula" name="selector2"/></span>
+          <input id="idcedulainput" type="text" placeholder="Cédula-10-numeros" maxlength="10" list="idDatalistCED" class="form-control"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<hr/>
+<div class="row">
+  <div class="form-group col-md-offset-5">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12">TOTAL FINAL</label>
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <input id="totalFinal" name="Total" placeholder="$ Total Final" type="text" readonly="readonly" class="form-control"/>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<hr/>
+<div class="form-group"><br/>
+  <div id="idMensajeExito" role="alert" style="display: none;" class="alert alert-success alert-dismissible fade in">
+    <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button><strong>Caja Chica Enviada Con EXITO!</strong> Revisa tu caja chica en el Menu de Inicio.
+  </div>
+  <div id="idMensajeError" role="alert" style="display: none;" class="alert alert-danger alert-dismissible fade in">
+    <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button><strong>Upss.. Hubo un Error!</strong> No hay datos que enviar de Caja Chica, asegurese si exite datos dentro de la tabla.
+  </div>
+  <div id="mostrar" style="display:none;" class="target col-lg-12 col-md-12 col-sm-6 -col-xs-12">
+    <div role="alert" class="alert alert-warning alert-dismissible fade in">
+      <h4>Upss.. hay un Problema! Llena todos los campos apropiadamente.</h4>
+    </div>
+  </div>
+</div>
+
 <div class="form-group">
   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-    <a class="btn btn-primary" ng-click="showPanelTableDetalles()">Cancel</a>
-    <button type="submit" class="btn btn-success">Submit</button>
+    <a class="btn btn-primary" ng-click="showPanelTableDetalles()">Cancelar</a>
+    <button type="submit" class="btn btn-success">Aceptar</button>
   </div>
 </div>

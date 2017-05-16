@@ -1,9 +1,16 @@
 'use strict';
-
 angular.module('cajas').controller('DetallesController', ['$scope','$http','$routeParams','$location','Detalles','Caja_Detalles',
   function($scope, $http, $routeParams, $location, Detalles, Caja_Detalles) {
 
+
+
     $scope.detalle = {};
+
+    $scope.detalle.tipo = 'factura';
+
+    $scope.isType = function(tipo){
+      return $scope.detalle.tipo == tipo;
+    }
 
     // Control de paneles
     $scope.PanelEditDetalle = false;
