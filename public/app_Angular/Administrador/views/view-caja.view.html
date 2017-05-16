@@ -1,0 +1,14 @@
+<section data-ng-controller='CajasController' data-ng-init="findOne()">
+
+  <div class="btn-group" style="float: right;">
+    <a href="/#!/" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</a>
+    <button data-ng-click="aprobar();" class="btn btn-sm btn-success" type="button"><i class="fa fa-check"></i>Aprobar</button>
+    <button data-ng-click="rechazar();" class="btn btn-sm btn-warning" type="button"><i class="fa fa-check"></i>Rechazar</button>
+  </div>
+  <h1 data-ng-bind="caja.valor | currency"></h1>
+  <h2 data-ng-bind="caja.creado | date"></h2>
+
+
+  <section ng-include="'app_Angular/Administrador/views/list-detalles.view.html'"></section>
+
+</section>

@@ -1,0 +1,38 @@
+<section data-ng-controller="CajasController" data-ng-init="findPendientes()">
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Cajas Chicas <small>Tabla de Cajas Chicas</small></h2>
+        <div class="clearfix"></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="datatable-buttons" datatable='ng' class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Fecha</th>
+              <th>Creado por</th>
+              <th>Valor</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="caja in cajas">
+              <th class="text-right" scope="row">{{$index + 1}}</th>
+              <td data-ng-bind="caja.creado | date:'MM/dd/yyyy'"></td>
+              <td>{{caja.creador.firstName}} {{caja.creador.lastName}}</td>
+              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
+              <td>
+                <div class="btn-group">
+                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-original-title="Ver Detalle" data-ng-href="#!/cajas/{{caja._id}}"><i class="fa fa-folder">Ver</i></a>
+                  <a class="btn btn-xs btn-success" data-toggle="tooltip" data-original-title="Eliminar" ng-click="aprobar(caja)"><i class="fa fa-check">Aprobar</i></a>
+                  <a class="btn btn-xs btn-warning" data-toggle="tooltip" data-original-title="Eliminar" ng-click="rechazar(caja)"><i class="fa fa-check">Rechazar</i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,6 +8,10 @@ var cajaSchema = new Schema({
     ref: "Usuario",
     required: "Se necesita el id del Usuario"
   },
+  administrador:{
+    type: Schema.ObjectId,
+    ref: "Usuario"
+  },
   creado: {
     type: Date,
     default: Date.now

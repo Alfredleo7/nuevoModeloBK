@@ -79,7 +79,11 @@ exports.delete = function(req, res){
 exports.detalleByID = function(req, res, next, id){
   Detalle.findById(id, function(err, detalle){
     if (err) return next(err);
-    if (!detalle) return next(new Error('Fallo al cargar el detalle '+ id));
+    if (!detalle){
+      return res.status(404).send({
+        message: 'No existe el detalle'
+      })
+    }
     req.detalle = detalle;
     next();
   });
@@ -110,7 +114,7 @@ exports.deleteByCaja = function(req, res) {
         detalles[i].remove();
       }
       return res.status(200).send({
-        message: 'ok'
+        message: 'Todos los detalles de ésta caja han sido eliminados'
       })
     }
   });
