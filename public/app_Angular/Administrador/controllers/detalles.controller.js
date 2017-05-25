@@ -1,14 +1,7 @@
 'use strict';
-<<<<<<< HEAD:public/app_Angular/cajasGeneral/controllers/detalles.controller.js
-angular.module('cajas').controller('DetallesController', ['$scope','$http','$routeParams','$location','Detalles','Caja_Detalles',
-  function($scope, $http, $routeParams, $location, Detalles, Caja_Detalles) {
-=======
 
 angular.module('administrador').controller('DetallesController', ['$scope','$http','$routeParams','$location','Caja_Detalles',
   function($scope, $http, $routeParams, $location, Caja_Detalles) {
->>>>>>> f4297a6edcf0955c4b11bae9626405031b1d3640:public/app_Angular/Administrador/controllers/detalles.controller.js
-
-
 
     $scope.detalle = {};
 

@@ -7,9 +7,9 @@ var detalleSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  valor: Number,
-  empresa: {
-    type: String
+  valor: {
+    type: Number,
+    required: 'El Detalle no tiene un valor final de detalle'
   },
   categoria: {
     type: String
@@ -40,17 +40,21 @@ var detalleSchema = new Schema({
     enum: ['factura', 'vale']
   },
   anexo: {
+    proveedor: String,
+    ruc: String,
+    ced: String,
     fac_establecimiento: String,
-    fac_departamento: String,
+    fac_puntoEmision: String,
     fac_secuencia: String,
     fac_autorizacion: String,
-    iva: Number,
-    subTotal: Number,
-    total: Number,
+    retencion: Boolean,
     ret_establecimiento: String,
-    ret_departamento: String,
+    ret_puntoEmision: String,
     ret_secuencia: String,
-    ret_autorizacion: String
+    ret_autorizacion: String,
+    subTotal: Number,
+    iva: Number,
+    total: Number
   }
 });
 

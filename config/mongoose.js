@@ -13,6 +13,7 @@ module.exports = function(){
   require('../app/models/usuarios.models');
   require('../app/models/cajas.models');
   require('../app/models/detalles.models');
+  require('../app/models/sucursales.models')
 
   return db;
 }

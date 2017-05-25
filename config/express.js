@@ -33,6 +33,7 @@ module.exports = function(){
   require('../app/routes/usuarios.routes')(app);
   require('../app/routes/cajas.routes')(app);
   require('../app/routes/detalles.routes')(app);
+  require('../app/routes/sucursales.routes')(app);
 
   app.use(express.static('./public'));
 
