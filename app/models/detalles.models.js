@@ -18,10 +18,12 @@ var detalleSchema = new Schema({
     type: String
   },
   cargado: {
-    type: String
+    type: String,
+    required: 'La Sucursal es requerida'
   },
   fecha: {
-    type: Date
+    type: Date,
+    required: 'La fecha es requerida'
   },
   descripcion: {
     type: String

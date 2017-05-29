@@ -194,9 +194,9 @@
   <div class="col-md-4 col-sm-4 col-xs-12">
     <div class="form-group">
       <label class="control-label"><small>Cargado A:</small></label>
-      <select class="form-control">
+      <select data-ng-model="detalle.cargado" class="form-control">
         <option value="">Elija una sucursal</option>
-        <option ng-repeat="sucursal in sucursales">{{sucursal.nombre}}</option>
+        <option ng-value="sucursal.nombre" ng-repeat="sucursal in sucursales">{{sucursal.nombre}}</option>
       </select>
     </div>
   </div>

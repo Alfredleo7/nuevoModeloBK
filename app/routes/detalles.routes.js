@@ -16,5 +16,8 @@ module.exports = function(app) {
     .get(detalles.listByCaja)
     .delete(detalles.deleteByCaja);
 
+  app.route('/api/reporteXSucursal')
+    .get(detalles.reporteXSucursal);
+
   app.param('detalleId', detalles.detalleByID);
 }

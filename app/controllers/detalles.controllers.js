@@ -119,3 +119,46 @@ exports.deleteByCaja = function(req, res) {
     }
   });
 };
+
+exports.reporteXSucursal = function(req, res) {
+  Detalle.aggregate(
+    [
+      {
+        $group: {
+          _id: {
+            sucursal: "$cargado",
+            mes: {
+              $month: "$fecha"
+            }
+          },
+          total: {
+            $sum: "$valor"
+          }
+        }
+      },
+      {
+        $group: {
+          _id: "$_id.sucursal",
+          meses: {
+            $push: {
+              mes: "$_id.mes",
+              total: "$total"
+            }
+          }
+        }
+      },
+      {
+        $sort: { _id: 1}
+      }
+    ]
+    , function(err, reporte){
+      if(err){
+        return res.status(500).send({
+          message: getErrorMessage(err)
+        });
+      } else {
+        return res.status(200).json(reporte);
+      }
+    }
+  );
+}

@@ -19,8 +19,8 @@
             <tr>
               <th>#</th>
               <th>Valor</th>
-              <th>Empresa</th>
-              <th>Categoria</th>
+              <th>Fecha</th>
+              <th>Cargado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -28,8 +28,8 @@
             <tr data-ng-repeat="detalle in detalles">
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
-              <td data-ng-bind="detalle.empresa"></td>
-              <td data-ng-bind="detalle.categoria"></td>
+              <td data-ng-bind="detalle.fecha | date"></td>
+              <td data-ng-bind="detalle.cargado"></td>
               <td>
                 <div class="btn-group">
                   <a class="btn btn-xs btn-default" data-toggle="tooltip" data-original-title="Ver Detalle" data-ng-click="showPanelEditDetalle(detalle)"><i class="fa fa-edit">Editar</i></a>
