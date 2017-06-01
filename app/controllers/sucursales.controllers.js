@@ -27,7 +27,7 @@ exports.create = function(req, res) {
 };
 
 exports.list = function(req, res){
-  Sucursal.find({}, function(err, sucursales){
+  Sucursal.find({}, null, {sort: { nombre: 1}}, function(err, sucursales){
     if(err){
       return res.status(400).send({
         message: getErrorMessage(err)

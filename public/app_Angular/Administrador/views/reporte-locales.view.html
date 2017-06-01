@@ -4,7 +4,7 @@
     <div class="clearfix"></div>
   </div>
   <div class="x_content">
-    <div style="overflow-x:auto;">
+    <div id="IdReporte" style="overflow-x:auto;">
       <table class="table table-bordered">
         <thead>
           <tr class="active">
@@ -61,4 +61,6 @@
       </table>
     </div>
   </div>
+  <button class="btn btn-success" ng-click="exportData()"><i class="fa fa-file-excel-o"></i> EXCEL</button>
 </div>
+<script src="https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.js" type="text/javascript">

@@ -3,6 +3,13 @@
 angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http',
   function($scope, $http){
 
+    $scope.exportData = function () {
+        var blob = new Blob([document.getElementById('IdReporte').innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        saveAs(blob, "Reporte"+new Date()+".xls");
+    };
+
     $scope.generarReporte = function(){
       $scope.tabla = [];
       $http({
