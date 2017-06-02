@@ -3,8 +3,6 @@
 angular.module('general').controller('DetallesController', ['$scope','$http','$routeParams','$location','Caja_Detalles',
   function($scope, $http, $routeParams, $location, Caja_Detalles) {
 
-
-
     $scope.updateTotal = function (){
       $scope.detalle.anexo.total = (Number($scope.detalle.anexo.subTotal)*Number($scope.detalle.anexo.iva)/100) + Number($scope.detalle.anexo.subTotal);
       if($scope.detalle.anexo.retencion){
@@ -51,6 +49,17 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
       });
     }
 
+    var actualizarCategorias = function() {
+      $http({
+        method: 'GET',
+        url: '/api/categorias/'
+      }).then(function(categorias){
+        $scope.categorias = categorias.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+    }
+
 
 
     // Control de paneles
@@ -73,6 +82,7 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
 
     $scope.showPanelCreateDetalle = function(){
       actualizarSucursales();
+      actualizarCategorias();
       showPanelCreateDetalle();
       $scope.detalle = {};
       $scope.detalle.anexo = {};

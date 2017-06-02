@@ -3,18 +3,36 @@
 angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http',
   function($scope, $http){
 
+    $scope.filtro = {};
+
+    $scope.init = function(){
+
+      $scope.filtro.categoria = '';
+
+      $http({
+        method: 'GET',
+        url: '/api/categorias/'
+      }).then(function(categorias){
+        $scope.categorias = categorias.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+    }
+
     $scope.exportData = function () {
         var blob = new Blob([document.getElementById('IdReporte').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
-        saveAs(blob, "Reporte"+new Date()+".xls");
+        var fecha = new Date();
+        saveAs(blob, "Reporte.xls");
     };
 
     $scope.generarReporte = function(){
       $scope.tabla = [];
       $http({
-        method: 'GET',
-        url: '/api/reporteXSucursal'
+        method: 'POST',
+        url: '/api/reporteXSucursal',
+        data: $scope.filtro
       }).then(function(response){
         $scope.reportes = response.data;
         $scope.Ene = 0; $scope.Feb = 0; $scope.Mar = 0; $scope.Abr = 0; $scope.May = 0; $scope.Jun = 0; $scope.Jul = 0; $scope.Ago = 0; $scope.Sep = 0; $scope.Oct = 0; $scope.Nov = 0; $scope.Dic = 0;

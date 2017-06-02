@@ -121,44 +121,111 @@ exports.deleteByCaja = function(req, res) {
 };
 
 exports.reporteXSucursal = function(req, res) {
-  Detalle.aggregate(
-    [
-      {
-        $group: {
-          _id: {
-            sucursal: "$cargado",
-            mes: {
-              $month: "$fecha"
-            }
-          },
-          total: {
-            $sum: "$valor"
+  console.log(req.body);
+  if(req.body.categoria == ''){
+    Detalle.aggregate(
+      [
+        { $project: {
+            cargado: "$cargado",
+            categoria: "$categoria",
+            mes: { $month: "$fecha"},
+            anio: { $year: "$fecha" },
+            valor: "$valor"
           }
-        }
-      },
-      {
-        $group: {
-          _id: "$_id.sucursal",
-          meses: {
-            $push: {
-              mes: "$_id.mes",
-              total: "$total"
+        },
+        { $match: {
+            anio: {
+              $eq: Number(req.body.anio)
             }
           }
+        },
+        { $group: {
+            _id: {
+              sucursal: "$cargado",
+              mes: "$mes"
+            },
+            total: {
+              $sum: "$valor"
+            }
+          }
+        },
+        { $group: {
+            _id: "$_id.sucursal",
+            meses: {
+              $push: {
+                mes: "$_id.mes",
+                total: "$total"
+              }
+            }
+          }
+        },
+        {
+          $sort: { _id: 1}
         }
-      },
-      {
-        $sort: { _id: 1}
+      ]
+      , function(err, reporte){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          });
+        } else {
+          return res.status(200).json(reporte);
+        }
       }
-    ]
-    , function(err, reporte){
-      if(err){
-        return res.status(500).send({
-          message: getErrorMessage(err)
-        });
-      } else {
-        return res.status(200).json(reporte);
+    );
+  } else {
+    Detalle.aggregate(
+      [
+        { $project: {
+            cargado: "$cargado",
+            categoria: "$categoria",
+            mes: { $month: "$fecha"},
+            anio: { $year: "$fecha" },
+            valor: "$valor"
+          }
+        },
+        { $match: {
+            anio: {
+              $eq: Number(req.body.anio)
+            },
+            categoria: {
+              $eq: req.body.categoria
+            }
+          }
+        },
+        { $group: {
+            _id: {
+              sucursal: "$cargado",
+              mes: "$mes"
+            },
+            total: {
+              $sum: "$valor"
+            }
+          }
+        },
+        { $group: {
+            _id: "$_id.sucursal",
+            meses: {
+              $push: {
+                mes: "$_id.mes",
+                total: "$total"
+              }
+            }
+          }
+        },
+        { $sort: { _id: 1}
+        }
+      ]
+      , function(err, reporte){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          });
+        } else {
+          return res.status(200).json(reporte);
+        }
       }
-    }
-  );
+    );
+  }
+
 }

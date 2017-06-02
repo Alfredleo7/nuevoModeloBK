@@ -9,21 +9,22 @@ var detalleSchema = new Schema({
   },
   valor: {
     type: Number,
-    required: 'El Detalle no tiene un valor final de detalle'
+    required: 'Ingrese el valor del Detalle'
   },
   categoria: {
-    type: String
+    type: String,
+    required: 'Elija una Categoria'
   },
   entregado: {
     type: String
   },
   cargado: {
     type: String,
-    required: 'La Sucursal es requerida'
+    required: 'Elija una Sucursal'
   },
   fecha: {
     type: Date,
-    required: 'La fecha es requerida'
+    required: 'Eija una fecha'
   },
   descripcion: {
     type: String

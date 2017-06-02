@@ -9,9 +9,9 @@
         <div class="clearfix"></div>
       </div>
       <div style="overflow-x:auto;">
-        <table id="datatable-buttons" datatable='ng' class="table table-striped">
+        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
           <thead>
-            <tr>
+            <tr class="active">
               <th>#</th>
               <th>Creado</th>
               <th>Valor</th>
@@ -27,8 +27,8 @@
               <td data-ng-bind="caja.estado"></td>
               <td>
                 <div class="btn-group">
-                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-original-title="Ver Detalle" data-ng-href="#!/cajas/{{caja._id}}"><i class="fa fa-folder">Ver</i></a>
-                  <a class="btn btn-xs btn-danger" data-toggle="tooltip" data-original-title="Eliminar" ng-click="delete(caja)"><i class="fa fa-trash-o">Eliminar</i></a>
+                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-original-title="Ver Detalle" data-ng-href="#!/cajas/{{caja._id}}"><i class="fa fa-folder"> Ver</i></a>
+                  <a class="btn btn-xs btn-danger" data-toggle="tooltip" data-original-title="Eliminar" ng-click="delete(caja)"><i class="fa fa-trash-o"> Eliminar</i></a>
                 </div>
               </td>
             </tr>

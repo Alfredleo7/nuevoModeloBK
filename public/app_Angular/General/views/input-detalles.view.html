@@ -204,11 +204,9 @@
   <div class="col-md-3 col-sm-3 col-xs-12">
     <div class="form-group">
       <label><small>Categoria:</small></label>
-      <select class="form-control">
-        <option value="">Choose..</option>
-        <option value="press">Press</option>
-        <option value="net">Internet</option>
-        <option value="mouth">Word of mouth</option>
+      <select data-ng-model="detalle.categoria" class="form-control">
+        <option value="">Elija una Categoria</option>
+        <option ng-value="categoria.nombre" ng-repeat="categoria in categorias">{{categoria.nombre}}</option>
       </select>
     </div>
   </div>
