@@ -82,6 +82,18 @@ angular.module('administrador').controller('CajasController', ['$scope','$http',
         mostrarNotificacion(errorResponse.data.message);
       });
     };
+    var aprobarDetallesByCaja = function (idCaja) {
+      $http({
+        method: 'PUT',
+        url: '/api/detallesByCaja/' + idCaja,
+        data: {
+          estado: 'Aprobado'
+        }
+      }).then(function(response){
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+    };
 
     $scope.delete = function(caja) {
 
@@ -125,6 +137,7 @@ angular.module('administrador').controller('CajasController', ['$scope','$http',
               $scope.cajas.splice(i, 1);
             }
           }
+          aprobarDetallesByCaja(caja._id);
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
         });

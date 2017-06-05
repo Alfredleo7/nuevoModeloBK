@@ -58,6 +58,12 @@ var detalleSchema = new Schema({
     subTotal: Number,
     iva: Number,
     total: Number
+  },
+  estado: {
+    type: String,
+    enum: ['Pendiente','Aprobado', 'Rechazado'],
+    default: 'Pendiente',
+    required: true
   }
 });
 

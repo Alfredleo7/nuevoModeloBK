@@ -4,6 +4,9 @@ angular.module('administrador').config(['$routeProvider',
   function($routeProvider){
     $routeProvider.
     when('/', {
+      templateUrl: 'app_Angular/Administrador/views/list-cajas.view.html'
+    }).
+    when('/reporteXLocales', {
       templateUrl: 'app_Angular/Administrador/views/reporte-locales.view.html'
     }).
     when('/cajas', {

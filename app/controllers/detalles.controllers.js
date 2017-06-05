@@ -121,8 +121,7 @@ exports.deleteByCaja = function(req, res) {
 };
 
 exports.reporteXSucursal = function(req, res) {
-  console.log(req.body);
-  if(req.body.categoria == ''){
+  if(req.body.categoria == 'Todas'){
     Detalle.aggregate(
       [
         { $project: {
@@ -130,12 +129,16 @@ exports.reporteXSucursal = function(req, res) {
             categoria: "$categoria",
             mes: { $month: "$fecha"},
             anio: { $year: "$fecha" },
-            valor: "$valor"
+            valor: "$valor",
+            estado: "$estado"
           }
         },
         { $match: {
             anio: {
               $eq: Number(req.body.anio)
+            },
+            estado: {
+              $eq: 'Aprobado'
             }
           }
         },
@@ -181,7 +184,8 @@ exports.reporteXSucursal = function(req, res) {
             categoria: "$categoria",
             mes: { $month: "$fecha"},
             anio: { $year: "$fecha" },
-            valor: "$valor"
+            valor: "$valor",
+            estado: "$estado"
           }
         },
         { $match: {
@@ -190,6 +194,9 @@ exports.reporteXSucursal = function(req, res) {
             },
             categoria: {
               $eq: req.body.categoria
+            },
+            estado: {
+              $eq: 'Aprobado'
             }
           }
         },
@@ -229,3 +236,72 @@ exports.reporteXSucursal = function(req, res) {
   }
 
 }
+
+exports.yearOfDetalles = function(req, res){
+  Detalle.aggregate([
+    { $group: {
+        _id: { $year: "$fecha" }
+      }
+    },
+    { $sort: { _id: 1}
+    }
+  ], function(err, anios){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(anios);
+    }
+  });
+};
+
+exports.categoriaDetallesXYear = function(req, res){
+  console.log(req.params.anio);
+  Detalle.aggregate([
+    { $project: {
+        categoria: "$categoria",
+        anio: { $year: "$fecha" }
+      }
+    },
+    {
+      $match: {
+        anio: {
+          $eq: Number(req.params.anio)
+        }
+      }
+    },
+    {
+      $group: {
+        _id: "$categoria"
+      }
+    }
+  ], function(err, categorias){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(categorias);
+    }
+  });
+};
+
+exports.estadoByCaja = function(req, res) {
+  var idCaja = req.params.idCaja;
+  var estado = req.body.estado;
+  console.log(req.body.estado);
+  Detalle.find({'caja': idCaja}, function(err, detalles){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      for(var i in detalles){
+        detalles[i].estado = estado;
+        detalles[i].save();
+      }
+      return res.status(200).json(detalles);
+    }
+  });
+};

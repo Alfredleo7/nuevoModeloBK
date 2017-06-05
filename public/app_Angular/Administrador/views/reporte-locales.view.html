@@ -7,91 +7,100 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-2 col-sm-4 col-xs-12">
+    <div class="col-md-2 col-sm-3 col-xs-12">
       <div class="form-group">
         <label>Año:</label>
-        <select class="form-control" ng-model="filtro.anio" ng-change="generarReporte()">
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
+        <select class="form-control" ng-model="filtro.anio" ng-change="generarReporte(); updateCategorias()">
+          <option value="">Elija el año</option>
+          <option ng-value="anio._id" ng-repeat="anio in anios">{{anio._id}}</option>
         </select>
       </div>
     </div>
-    <div class="col-md-5 col-sm-6 col-xs-12">
+    <div class="col-md-5 col-sm-5 col-xs-12">
       <div class="form-group">
         <label>Categoria:</label>
         <select class="form-control" ng-model="filtro.categoria" ng-change="generarReporte()">
-          <option value="">Todas</option>
-          <option ng-value="categoria.nombre" ng-repeat="categoria in categorias">{{categoria.nombre}}</option>
+          <option value="Todas">Todas</option>
+          <option ng-value="categoria._id" ng-repeat="categoria in categorias">{{categoria._id}}</option>
         </select>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-4 col-xs-12">
+      <div class="btn-group" style="float:right">
+        <a class="btn btn-sm btn-success" ng-click="exportExcel()"><i class="fa fa-file-excel-o"></i> Exportar</a>
+        <a class="btn btn-sm btn-info" ng-click="printDiv('#IdReporteXLocal')"><i class="fa fa-print"></i> Imprimir</a>
       </div>
     </div>
   </div>
 
-  <div class="x_panel" data-ng-init="generarReporte()">
-    <div class="x_title">
-      <h2>Reporte por Locales</h2>
-      <div class="clearfix"></div>
-    </div>
-    <div class="x_content">
-      <div id="IdReporte" style="overflow-x:auto;">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="success">
-              <th>Locales</th>
-              <th>Ene</th>
-              <th>Feb</th>
-              <th>Mar</th>
-              <th>Abr</th>
-              <th>May</th>
-              <th>Jun</th>
-              <th>Jul</th>
-              <th>Ago</th>
-              <th>Sep</th>
-              <th>Oct</th>
-              <th>Nov</th>
-              <th>Dic</th>
-              <th>Acum</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-ng-repeat="fila in tabla">
-              <td class="success" data-ng-bind="fila.sucursal"></td>
-              <td class="text-right" data-ng-bind="fila.ene | currency"></td>
-              <td class="text-right" data-ng-bind="fila.feb | currency"></td>
-              <td class="text-right" data-ng-bind="fila.mar | currency"></td>
-              <td class="text-right" data-ng-bind="fila.abr | currency"></td>
-              <td class="text-right" data-ng-bind="fila.may | currency"></td>
-              <td class="text-right" data-ng-bind="fila.jun | currency"></td>
-              <td class="text-right" data-ng-bind="fila.jul | currency"></td>
-              <td class="text-right" data-ng-bind="fila.ago | currency"></td>
-              <td class="text-right" data-ng-bind="fila.sep | currency"></td>
-              <td class="text-right" data-ng-bind="fila.oct | currency"></td>
-              <td class="text-right" data-ng-bind="fila.nov | currency"></td>
-              <td class="text-right" data-ng-bind="fila.dic | currency"></td>
-              <td class="text-right info" data-ng-bind="fila.total | currency"></td>
-            </tr>
-            <tr>
-              <td class="success">Total X Mes</td>
-              <td class="text-right info" data-ng-bind="Ene | currency"></td>
-              <td class="text-right info" data-ng-bind="Feb | currency"></td>
-              <td class="text-right info" data-ng-bind="Mar | currency"></td>
-              <td class="text-right info" data-ng-bind="Abr | currency"></td>
-              <td class="text-right info" data-ng-bind="May | currency"></td>
-              <td class="text-right info" data-ng-bind="Jun | currency"></td>
-              <td class="text-right info" data-ng-bind="Jul | currency"></td>
-              <td class="text-right info" data-ng-bind="Ago | currency"></td>
-              <td class="text-right info" data-ng-bind="Sep | currency"></td>
-              <td class="text-right info" data-ng-bind="Oct | currency"></td>
-              <td class="text-right info" data-ng-bind="Nov | currency"></td>
-              <td class="text-right info" data-ng-bind="Dic | currency"></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+  <div id="IdReporteXLocal" class="x_panel" data-ng-init="generarReporte()">
+      <div align="right">
+        {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
       </div>
-    </div>
-    <button class="btn btn-success" ng-click="exportData()"><i class="fa fa-file-excel-o"></i> EXCEL</button>
+      <div class="x_title">
+        <h2>Reporte por Locales</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div>
+          <h4><b>Año:</b> {{filtro.anio}} <b>Categoria:</b> {{filtro.categoria}}</h4>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="table table-bordered">
+            <thead>
+              <tr class="success">
+                <th>Locales</th>
+                <th>Ene</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dic</th>
+                <th>Acum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="fila in tabla">
+                <td class="success" data-ng-bind="fila.sucursal"></td>
+                <td class="text-right" data-ng-bind="fila.ene | currency"></td>
+                <td class="text-right" data-ng-bind="fila.feb | currency"></td>
+                <td class="text-right" data-ng-bind="fila.mar | currency"></td>
+                <td class="text-right" data-ng-bind="fila.abr | currency"></td>
+                <td class="text-right" data-ng-bind="fila.may | currency"></td>
+                <td class="text-right" data-ng-bind="fila.jun | currency"></td>
+                <td class="text-right" data-ng-bind="fila.jul | currency"></td>
+                <td class="text-right" data-ng-bind="fila.ago | currency"></td>
+                <td class="text-right" data-ng-bind="fila.sep | currency"></td>
+                <td class="text-right" data-ng-bind="fila.oct | currency"></td>
+                <td class="text-right" data-ng-bind="fila.nov | currency"></td>
+                <td class="text-right" data-ng-bind="fila.dic | currency"></td>
+                <td class="text-right info" data-ng-bind="fila.total | currency"></td>
+              </tr>
+              <tr>
+                <td class="success">Total por Mes</td>
+                <td class="text-right info" data-ng-bind="Ene | currency"></td>
+                <td class="text-right info" data-ng-bind="Feb | currency"></td>
+                <td class="text-right info" data-ng-bind="Mar | currency"></td>
+                <td class="text-right info" data-ng-bind="Abr | currency"></td>
+                <td class="text-right info" data-ng-bind="May | currency"></td>
+                <td class="text-right info" data-ng-bind="Jun | currency"></td>
+                <td class="text-right info" data-ng-bind="Jul | currency"></td>
+                <td class="text-right info" data-ng-bind="Ago | currency"></td>
+                <td class="text-right info" data-ng-bind="Sep | currency"></td>
+                <td class="text-right info" data-ng-bind="Oct | currency"></td>
+                <td class="text-right info" data-ng-bind="Nov | currency"></td>
+                <td class="text-right info" data-ng-bind="Dic | currency"></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
   </div>
 </div>
-<script src="https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.js" type="text/javascript">

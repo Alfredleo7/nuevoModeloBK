@@ -2,25 +2,56 @@
 
 angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http',
   function($scope, $http){
-
+    $scope.today = new Date();
     $scope.filtro = {};
+    $scope.categorias = [];
 
     $scope.init = function(){
 
-      $scope.filtro.categoria = '';
+      $scope.filtro.categoria = 'Todas';
 
       $http({
         method: 'GET',
-        url: '/api/categorias/'
-      }).then(function(categorias){
-        $scope.categorias = categorias.data;
+        url: '/api/aniosDetalles'
+      }).then(function(anios){
+        $scope.anios = anios.data;
+        $scope.filtro.anio = anios.data[anios.data.length-1]._id;
+        $scope.generarReporte();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
     }
 
-    $scope.exportData = function () {
-        var blob = new Blob([document.getElementById('IdReporte').innerHTML], {
+    $scope.updateCategorias = function(){
+      $http({
+        method: 'GET',
+        url: '/api/categoriasXYear/'+ $scope.filtro.anio
+      }).then(function(categorias){
+        $scope.categorias = categorias.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+    };
+
+    $scope.printDiv = function(IdDiv){
+
+      var divToPrint = jQuery(IdDiv).html();
+      var newWin = window.open('', 'my div');
+      newWin.document.write('<html><head><title></title>');
+      newWin.document.write('<link href="/build/css/custom.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('</head><body style="-webkit-print-color-adjust:exact" onload="window.print()">');
+      newWin.document.write(divToPrint);
+      newWin.document.write('</body>');
+      newWin.document.write('</html>');
+      newWin.document.close();
+      setTimeout(function(){newWin.close();},250);
+
+    };
+
+    $scope.exportExcel = function () {
+      var blob = new Blob([document.getElementById('IdReporteXLocal').innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
         var fecha = new Date();

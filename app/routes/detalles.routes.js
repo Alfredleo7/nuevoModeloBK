@@ -14,10 +14,18 @@ module.exports = function(app) {
 
   app.route('/api/detallesByCaja/:idCaja')
     .get(detalles.listByCaja)
-    .delete(detalles.deleteByCaja);
+    .delete(detalles.deleteByCaja)
+    .put(detalles.estadoByCaja);
 
   app.route('/api/reporteXSucursal')
     .post(detalles.reporteXSucursal);
 
   app.param('detalleId', detalles.detalleByID);
+
+  app.route('/api/aniosDetalles')
+    .get(detalles.yearOfDetalles);
+
+  app.route('/api/categoriasXYear/:anio')
+    .get(detalles.categoriaDetallesXYear);
+
 }
