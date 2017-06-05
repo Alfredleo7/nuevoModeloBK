@@ -2,24 +2,24 @@
 
 angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http',
   function($scope, $http){
-    $scope.today = new Date();
-    $scope.filtro = {};
-    $scope.categorias = [];
 
     $scope.init = function(){
 
-      $scope.filtro.categoria = 'Todas';
-
+      $scope.today = new Date();
+      $scope.filtro = {};
       $http({
         method: 'GET',
         url: '/api/aniosDetalles'
       }).then(function(anios){
         $scope.anios = anios.data;
         $scope.filtro.anio = anios.data[anios.data.length-1]._id;
+        $scope.updateCategorias()
+        $scope.filtro.categoria = 'Todas';
         $scope.generarReporte();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
+
     }
 
     $scope.updateCategorias = function(){
