@@ -9,6 +9,11 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         url: '/api/cajas'
       }).then(function(response){
         $location.path('cajas/' + response.data._id);
+        new PNotify({
+          text: 'La caja chica se ha creado con éxito',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
       }, function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -17,9 +22,33 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
     $scope.find = function() {
       $http({
         method: 'GET',
-        url: '/api/cajasByUsuario'
+        url: '/api/cajasByUsuario/' + 'Borrador'
       }).then(function(cajas){
-        $scope.cajas = cajas.data;
+        $scope.cajasBorrador = cajas.data;
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+      $http({
+        method: 'GET',
+        url: '/api/cajasByUsuario/' + 'Pendiente'
+      }).then(function(cajas){
+        $scope.cajasPendiente = cajas.data;
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+      $http({
+        method: 'GET',
+        url: '/api/cajasByUsuario/' + 'Aprobado'
+      }).then(function(cajas){
+        $scope.cajasAprobado = cajas.data;
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+      $http({
+        method: 'GET',
+        url: '/api/cajasByUsuario/' + 'Rechazado'
+      }).then(function(cajas){
+        $scope.cajasRechazado = cajas.data;
       },function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -36,7 +65,6 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         $scope.caja = response.data;
       },function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
-        $location.path('cajas');
       });
 
       Caja_Detalles.setIdCaja($routeParams.cajaId);
@@ -65,40 +93,141 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
         method: 'DELETE',
         url: '/api/detallesByCaja/' + idCaja,
       }).then(function(response){
-        mostrarNotificacion(response.data.message);
+        new PNotify({
+          text: 'La caja chica ha sido eliminada',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
     };
 
     $scope.delete = function(caja) {
+      (new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea eliminar esta caja?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+        if (caja) {
+          $http({
+            method: 'DELETE',
+            url: '/api/cajas/' + caja._id
+          }).then(function(){
+            /*for (var i in $scope.cajas) {
+              if ($scope.cajas[i] === caja) {
+                $scope.cajas.splice(i, 1);
+              }
+            }*/
+            deleteDetallesByCaja(caja._id);
+            if(caja.estado=='Borrador') $location.path('/CreacionCajas');
+            if(caja.estado=='Rechazado') $location.path('/CajasRechazadas');
+          }, function(errorResponse) {
+            mostrarNotificacion(errorResponse.data.message);
+          });
+        } else {
+          $http({
+            method: 'DELETE',
+            url: '/api/cajas/' + $scope.caja._id
+          }).then(function(){
+            deleteDetallesByCaja($scope.caja._id);
+            $location.path('/');
+          }, function(errorResponse) {
+            mostrarNotificacion(errorResponse.data.message);
+          });
+        }
+      }).on('pnotify.cancel', function() {
 
-      if (caja) {
-        $http({
-          method: 'DELETE',
-          url: '/api/cajas/' + caja._id
-        }).then(function(){
-          for (var i in $scope.cajas) {
-            if ($scope.cajas[i] === caja) {
-              $scope.cajas.splice(i, 1);
-            }
+      });
+    };
+
+
+    var enviarDetallesByCaja = function (idCaja) {
+      $http({
+        method: 'PUT',
+        url: '/api/detallesByCaja/' + idCaja,
+        data: {
+          estado: 'Pendiente'
+        }
+      }).then(function(response){
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+    };
+
+    $scope.enviar = function(caja) {
+      (new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea enviar esta caja?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+        if (caja) {
+
+          if(caja.valor != 0){
+            $http({
+              method: 'PUT',
+              url: '/api/enviarCaja/' + caja._id
+            }).then(function(){/*
+              for (var i in $scope.cajas) {
+                if ($scope.cajas[i] === caja) {
+                  $scope.cajas.splice(i, 1);
+                }
+              }*/
+              enviarDetallesByCaja(caja._id);
+              if(caja.estado=='Borrador') $location.path('/CreacionCajas');
+              if(caja.estado=='Rechazado') $location.path('/CajasRechazadas');
+            }, function(errorResponse) {
+              mostrarNotificacion(errorResponse.data.message);
+            });
+          } else {
+            mostrarNotificacion('El valor de la caja no puede ser $0.00')
           }
-          deleteDetallesByCaja(caja._id);
-        }, function(errorResponse) {
-          mostrarNotificacion(errorResponse.data.message);
-        });
-      } else {
-        $http({
-          method: 'DELETE',
-          url: '/api/cajas/' + $scope.caja._id
-        }).then(function(){
-          deleteDetallesByCaja($scope.caja._id);
-          $location.path('cajas');
-        }, function(errorResponse) {
-          mostrarNotificacion(errorResponse.data.message);
-        });
-      }
+        } else {
 
+          if($scope.caja.valor){
+            $http({
+              method: 'PUT',
+              url: '/api/enviarCaja/' + $scope.caja._id
+            }).then(function(){
+              enviarDetallesByCaja($scope.caja._id);
+              if($scope.caja.estado=='Borrador') $location.path('/CreacionCajas');
+              if($scope.caja.estado=='Rechazado') $location.path('/CajasRechazadas');
+            }, function(errorResponse) {
+              mostrarNotificacion(errorResponse.data.message);
+            });
+          } else {
+            mostrarNotificacion('El valor de la caja no puede ser $0.00')
+          }
+        }
+      }).on('pnotify.cancel', function() {
+
+      });
     };
 
   }

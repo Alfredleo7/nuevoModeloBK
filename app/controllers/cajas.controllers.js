@@ -80,7 +80,7 @@ exports.delete = function(req, res){
 //Cajas por usuario
 
 exports.listByUsuario = function(req, res){
-  Caja.find({'creador': req.session.usuario.id}, function(err, cajas){
+  Caja.find({'creador': req.session.usuario.id, 'estado': req.params.estado}, function(err, cajas){
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
@@ -128,6 +128,23 @@ exports.rechazar = function(req, res){
 
   caja.estado = 'Rechazado';
   caja.administrador = req.session.usuario.id;
+
+  caja.save(function(err){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.json(caja);
+    }
+  });
+};
+
+
+exports.enviar = function(req, res){
+  var caja = req.caja;
+
+  caja.estado = 'Pendiente';
 
   caja.save(function(err){
     if (err) {

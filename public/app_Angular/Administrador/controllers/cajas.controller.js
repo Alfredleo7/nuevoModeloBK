@@ -90,6 +90,7 @@ angular.module('administrador').controller('CajasController', ['$scope','$http',
           estado: 'Aprobado'
         }
       }).then(function(response){
+        console.log('ok');
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -146,6 +147,7 @@ angular.module('administrador').controller('CajasController', ['$scope','$http',
           method: 'PUT',
           url: '/api/aprobarCaja/' + $scope.caja._id
         }).then(function(){
+          aprobarDetallesByCaja($scope.caja._id);
           $location.path('cajas');
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);

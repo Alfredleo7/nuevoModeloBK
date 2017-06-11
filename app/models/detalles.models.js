@@ -16,7 +16,8 @@ var detalleSchema = new Schema({
     required: 'Elija una Categoria'
   },
   entregado: {
-    type: String
+    type: String,
+    required: 'Llene el campo Entregado'
   },
   cargado: {
     type: String,
@@ -44,25 +45,36 @@ var detalleSchema = new Schema({
   },
   anexo: {
     proveedor: String,
-    ruc: String,
-    ced: String,
     fac_establecimiento: String,
     fac_puntoEmision: String,
     fac_secuencia: String,
     fac_autorizacion: String,
-    retencion: Boolean,
+    retencion: {
+      type: Boolean,
+      default: false
+    },
     ret_establecimiento: String,
     ret_puntoEmision: String,
     ret_secuencia: String,
     ret_autorizacion: String,
     subTotal: Number,
+    noObjetoIVA: {
+      type: Boolean,
+      default: false
+    },
+    selectRetencion: String,
+    retencionIVABienes: Number,//30%
+    retencionSubTotalBienes: Number,
+    retencionIVAServicios: Number,//70%
+    retencionSubTotalServicios: Number,
+    totalRetencion: Number,
     iva: Number,
     total: Number
   },
   estado: {
     type: String,
-    enum: ['Pendiente','Aprobado', 'Rechazado'],
-    default: 'Pendiente',
+    enum: ['Borrador','Pendiente','Aprobado', 'Rechazado'],
+    default: 'Borrador',
     required: true
   }
 });

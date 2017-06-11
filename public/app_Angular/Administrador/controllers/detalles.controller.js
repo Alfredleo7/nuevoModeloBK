@@ -15,6 +15,7 @@ angular.module('administrador').controller('DetallesController', ['$scope','$htt
     $scope.PanelEditDetalle = false;
     $scope.PanelCreateDetalle = false;
     $scope.PanelTableDetalles = true;
+    $scope.PanelViewDetalle = false;
 
     var showPanelCreateDetalle = function(){
       $scope.PanelEditDetalle = false;
@@ -25,6 +26,7 @@ angular.module('administrador').controller('DetallesController', ['$scope','$htt
       $scope.PanelCreateDetalle = false;
     }
     var showPanelTableDetalles = function(){
+    $scope.PanelViewDetalle = false;
       $scope.PanelEditDetalle = false;
       $scope.PanelCreateDetalle = false;
     }
@@ -40,6 +42,12 @@ angular.module('administrador').controller('DetallesController', ['$scope','$htt
     }
     $scope.showPanelTableDetalles = function(){
       showPanelTableDetalles();
+    }
+
+    $scope.showPanelViewDetalle = function(detalle){
+      $scope.PanelViewDetalle = true;
+      $scope.detalle = detalle;
+      $scope.detalle.fecha = new Date(detalle.fecha);
     }
 
     // Funciones CRUD

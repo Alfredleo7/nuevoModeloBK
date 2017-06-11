@@ -6,6 +6,12 @@
   <div class="x_content">
     <form data-parsley-validate data-ng-submit="create()" novalidate class="form-horizontal form-label-left">
       <section ng-include="'app_Angular/General/views/input-detalles.view.html'"></section>
+      <div class="form-group">
+        <div class="text-center">
+          <a class="btn btn-primary" ng-click="showPanelTableDetalles()">Cancelar</a>
+          <button type="submit" class="btn btn-success">Guardar</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

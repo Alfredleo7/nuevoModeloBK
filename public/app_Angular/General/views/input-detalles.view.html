@@ -1,327 +1,354 @@
 <!--Radio Buttons de Factura y Vale -->
-<div class="row">
-  <div class="col-md-9 col-sm-9 col-xs-12">
-    <div class="form-group">
-      <div class="radio">
-        <label>
-          <input type="radio" checked="" value="factura" id="optionsRadios1" name="optionsRadios" data-ng-model="detalle.tipo"> Factura
-        </label>
-        <label>
-          <input type="radio" value="vale" id="optionsRadios2" name="optionsRadios" data-ng-model="detalle.tipo"> Vale de Pago
-        </label>
+<div ng-init="initForm()">
+  <div class="row">
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="form-group">
+        <div class="radio">
+          <label>
+            <input type="radio" checked="" value="factura" id="optionsRadios1" name="optionsRadios" data-ng-model="detalle.tipo" ng-change="actualizarDatos()"> Factura
+          </label>
+          <label>
+            <input type="radio" value="vale" id="optionsRadios2" name="optionsRadios" data-ng-model="detalle.tipo"  ng-change="actualizarDatos()"> Vale de Pago
+          </label>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<hr/>
+  <hr/>
 
-<!--Factura-->
-<div class="row" ng-show="detalle.tipo == 'factura'">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <h2><strong>Factura</strong></h2>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-2 col-sm-2 col-xs-3">
-      <div class="form-group">
-        <label><small>Establec</small></label>
-        <input type="text" class="form-control border-input" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.fac_establecimiento" onchange="mask_account(this,3);">
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-3">
-      <div class="form-group">
-        <label><small>Emisión</small></label>
-        <input type="text" class="form-control border-input" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.fac_puntoEmision" onchange="mask_account(this,3);">
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="form-group">
-        <label><small>Secuencia</small></label>
-        <input type="text" class="form-control border-input" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.fac_secuencia" onchange="mask_account(this,9);">
-      </div>
-    </div>
-    <div class="col-md-5 col-sm-4 col-xs-12">
-      <div class="form-group">
-        <label><small>Autorización</small></label>
-        <input type="text" class="form-control border-input" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.fac_autorizacion">
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-3">
-      <div class="form-group">
-        <label><small>SubTotal</small></label>
-        <input type="text" class="form-control border-input" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()">
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-3">
-      <div class="form-group">
-        <label><small>Total</small></label>
-        <input type="text" readonly="true" class="form-control" data-ng-model="detalle.anexo.total"/>
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-2 col-xs-3">
-      <label>
-        <input type="checkbox" value="" name="checkboxRetencion" data-ng-model='detalle.anexo.retencion' ng-change="updateTotal()"/> Aplicar Retención
-      </label>
-    </div>
-  </div>
-  <!--Retención-->
-  <div class="col-md-12" ng-show='detalle.anexo.retencion'>
+  <!--Factura-->
+  <div class="row" ng-show="detalle.tipo == 'factura'">
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <h2><strong>Retención</strong></h2>
+      <h2><strong>Factura</strong></h2>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-2 col-sm-2 col-xs-3">
+        <div class="form-group">
+          <label><small>Establec</small></label>
+          <input type="text" class="form-control border-input" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.fac_establecimiento" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-3">
+        <div class="form-group">
+          <label><small>Emisión</small></label>
+          <input type="text" class="form-control border-input" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.fac_puntoEmision" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6">
+        <div class="form-group">
+          <label><small>Secuencia</small></label>
+          <input type="text" class="form-control border-input" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.fac_secuencia" onchange="mask_account(this,9);" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-5 col-sm-4 col-xs-12">
+        <div class="form-group">
+          <label><small>Autorización</small></label>
+          <input type="text" class="form-control border-input" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.fac_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+          <label><small>Proveedor:</small></label>
+          <select data-ng-model="detalle.anexo.proveedor" class="form-control">
+            <option value="">Elija un Proveedor</option>
+            <option ng-value="proveedor.nombre" ng-repeat="proveedor in proveedores">{{proveedor.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-4">
+        <div class="form-group">
+          <label><small>SubTotal</small></label>
+          <input type="text" class="form-control border-input" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-4">
+        <div class="form-group">
+          <label><small>IVA 12%</small></label>
+          <input type="text" class="form-control border-input" placeholder="IVA 12%" data-ng-model="detalle.anexo.iva" readonly="true">
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-4">
+        <div class="form-group">
+          <label><small>Total</small></label>
+          <input type="number" readonly="true" class="form-control" data-ng-model="detalle.anexo.total"/>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-12 col-xs-12">
+        <label>
+          <input type="checkbox" name="checkboxRetencion" data-ng-model='detalle.anexo.retencion' ng-change="updateTotal()"/> Aplicar Retención
+        </label>
+      </div>
+      <div class="col-md-2 col-sm-12 col-xs-12">
+        <label>
+          <input type="checkbox" name="checkboxRetencion" data-ng-model='detalle.anexo.noObjetoIVA' ng-change="updateTotal()"/> No Objeto de IVA
+        </label>
+      </div>
+    </div>
+    <!--Retención-->
+    <div class="col-md-12" ng-show='detalle.anexo.retencion'>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <h2><strong>Retención</strong></h2>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-3">
+        <div class="form-group">
+          <label><small>Establec</small></label>
+          <input type="text" class="form-control border-input" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.ret_establecimiento" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-3">
+        <div class="form-group">
+          <label><small>Emisión</small></label>
+          <input type="text" class="form-control border-input" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.ret_puntoEmision" onchange="mask_account(this,3);"onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-6">
+        <div class="form-group">
+          <label><small>Secuencia</small></label>
+          <input type="text" class="form-control border-input" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.ret_secuencia" onchange="mask_account(this,9);"onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-5 col-sm-4 col-xs-12">
+        <div class="form-group">
+          <label><small>Autorización</small></label>
+          <input type="text" class="form-control border-input" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.ret_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-4">
+        <div class="form-group">
+          <label><small>Porcentaje Retención</small></label>
+          <select class="form-control" data-ng-model="detalle.anexo.selectRetencion"  ng-change="updateTotal()">
+            <option value="1-30">1%-30%</option>
+            <option value="2-70">2%-70%</option>
+            <option value="1">1%</option>
+            <option value="2">2%</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-4"  ng-show="detalle.anexo.retencionSubTotalBienes != 0">
+        <div class="form-group">
+          <label><small>SubTotal Bienes 1%</small></label>
+          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionSubTotalBienes"/>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-4" ng-show="detalle.anexo.retencionIVABienes != 0">
+        <div class="form-group">
+          <label><small>IVA Bienes 30%</small></label>
+          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionIVABienes"/>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-4" ng-show="detalle.anexo.retencionSubTotalServicios != 0">
+        <div class="form-group">
+          <label><small>subTotal Servicios 2%</small></label>
+          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionSubTotalServicios"/>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-4" ng-show="detalle.anexo.retencionIVAServicios != 0">
+        <div class="form-group">
+          <label><small>IVA Servicios 70%</small></label>
+          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionIVAServicios"/>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-12">
+        <div class="form-group">
+          <label><small>Total Retención</small></label>
+          <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control" data-ng-model="detalle.anexo.totalRetencion"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!--<div ng-show='detalle.anexo.retencion' class="row">
+      <div class="col-md-11">
+        <div class="item form-group">
+          <label for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Num. Retencion</label>
+          <div class="col-md-1 col-sm-3 col-xs-12">
+            <input  maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. Establecimiento" class="form-control col-md-3 col-xs-12" data-ng-model="detalle.anexo.ret_establecimiento" onchange="mask_account(this,3);"/>
+          </div>
+          <div class="col-md-1 col-sm-3 col-xs-12">
+            <input maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Punto de Emision" class="form-control col-md-3 col-xs-12" data-ng-model="detalle.anexo.ret_puntoEmision" onchange="mask_account(this,3);"/>
+          </div>
+          <div class="col-md-2 col-sm-3 col-xs-12">
+            <input maxlength="9" data-validate-length-range="3" data-validate-words="9" name="name" placeholder="hasta 9 Numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Secuencia" class="form-control col-md-3 col-xs-12" data-ng-model="detalle.anexo.ret_secuencia" onchange="mask_account(this,9);"/>
+          </div>
+          <div class="col-md-3 col-sm-3 col-xs-12">
+            <input  maxlength="50" data-validate-length-range="3" data-validate-words="50" name="name" placeholder="hasta 50 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Autorizacion" class="form-control col-md-10 col-xs-12" data-ng-model="detalle.anexo.ret_autorizacion"/>
+          </div>
+          <div class="col-md-1 col-sm-3 col-xs-12">
+            <select id="selectRetencion" ng-change="updateTotal()" class="form-control" data-ng-model="selectPo">
+              <option value="1">1%-30%</option>
+              <option value="2">2%-70%</option>
+              <option value="3">1%</option>
+              <option value="4">2%</option>
+            </select>
+          </div>
+          <div class="col-md-1 col-sm-3 col-xs-12">
+            <input type="text" readonly="readonly" placeholder="1%" class="form-control" data-ng-model="primerInput"/><br/>
+            <input type="text" readonly="readonly" placeholder="30%" class="form-control" data-ng-model="segundoInput"/>
+          </div>
+          <label for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Total Ret.</label>
+          <div class="col-md-1 col-sm-3 col-xs-12">
+            <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control" data-ng-model="totalInput"/>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+  <!-- Vale de Pago -->
+  <div ng-show="detalle.tipo == 'vale'" class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <h2><strong>Vale de Pago</strong></h2>
     </div>
     <div class="col-md-2 col-sm-2 col-xs-3">
       <div class="form-group">
-        <label><small>Establec</small></label>
-        <input type="text" class="form-control border-input" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.ret_establecimiento" onchange="mask_account(this,3);">
+        <label><small>Valor</small></label>
+        <input type="text" class="form-control border-input" placeholder="Valor de Vale" data-ng-model="detalle.valor" onkeypress="return event.charCode>47 && event.charCode<58">
       </div>
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-3">
+  </div>
+
+  <hr/>
+  <!-- DETALLES -->
+
+  <div class="row">
+
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <!--<fieldset>
+        <div class="control-group">
+          <div class="controls">
+            <div class="col-md-11 xdisplay_inputx">
+              <input type="text" class="form-control" id="single_cal4" placeholder="Fecha">
+            </div>
+          </div>
+        </div>
+      </fieldset>-->
       <div class="form-group">
-        <label><small>Emisión</small></label>
-        <input type="text" class="form-control border-input" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.ret_puntoEmision" onchange="mask_account(this,3);">
+        <label><small>Fecha dd/mm/aaaa</small></label>
+        <input type="date" class="form-control" data-ng-model="detalle.fecha">
       </div>
     </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
       <div class="form-group">
-        <label><small>Secuencia</small></label>
-        <input type="text" class="form-control border-input" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.ret_secuencia" onchange="mask_account(this,9);">
+        <label><small>Entregado A:</small></label>
+        <input placeholder="Entregado A " type="text" class="form-control" data-ng-model="detalle.entregado" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode>7&&event.charCode<9)||(event.charCode>31&&event.charCode<33)"/>
       </div>
     </div>
-    <div class="col-md-5 col-sm-4 col-xs-12">
+    <div class="col-md-4 col-sm-4 col-xs-12">
       <div class="form-group">
-        <label><small>Autorización</small></label>
-        <input type="text" class="form-control border-input" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.ret_autorizacion">
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-3 col-xs-4">
-      <div class="form-group">
-        <label><small>Establec</small></label>
-        <select id="selectRetencion" ng-change="updateTotal()" class="form-control" data-ng-model="selectPo">
-          <option value="1">1%-30%</option>
-          <option value="2">2%-70%</option>
-          <option value="3">1%</option>
-          <option value="4">2%</option>
+        <label class="control-label"><small>Cargado A:</small></label>
+        <select data-ng-model="detalle.cargado" class="form-control">
+          <option value="">Elija una sucursal</option>
+          <option ng-value="sucursal.nombre" ng-repeat="sucursal in sucursales">{{sucursal.nombre}}</option>
         </select>
       </div>
     </div>
-    <div class="col-md-2 col-sm-3 col-xs-4">
+
+    <div class="col-md-4 col-sm-4 col-xs-12">
       <div class="form-group">
-        <label><small>Establec</small></label>
-        <input type="text" readonly="readonly" placeholder="1%" class="form-control" data-ng-model="primerInput"/>
+        <label><small>Categoria:</small></label>
+        <select data-ng-model="detalle.categoria" class="form-control">
+          <option value="">Elija una Categoria</option>
+          <option ng-value="categoria.nombre" ng-repeat="categoria in categorias">{{categoria.nombre}}</option>
+        </select>
       </div>
     </div>
-    <div class="col-md-2 col-sm-3 col-xs-4">
+
+
+    <div class="col-md-8 col-sm-8 col-xs-12">
       <div class="form-group">
-        <label><small>Establec</small></label>
-        <input type="text" readonly="readonly" placeholder="30%" class="form-control" data-ng-model="segundoInput"/>
-      </div>
-    </div>
-    <div class="col-md-2 col-sm-3 col-xs-12">
-      <div class="form-group">
-        <label><small>Total Retención</small></label>
-        <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control" data-ng-model="totalInput"/>
+        <label><small>Descripción:</small></label>
+        <input placeholder="Categoria" type="text" class="form-control" data-ng-model="detalle.descripcion"/>
       </div>
     </div>
   </div>
-</div>
 
-  <!--<div ng-show='detalle.anexo.retencion' class="row">
-    <div class="col-md-11">
-      <div class="item form-group">
-        <label for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Num. Retencion</label>
-        <div class="col-md-1 col-sm-3 col-xs-12">
-          <input  maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. Establecimiento" class="form-control col-md-3 col-xs-12" data-ng-model="detalle.anexo.ret_establecimiento" onchange="mask_account(this,3);"/>
-        </div>
-        <div class="col-md-1 col-sm-3 col-xs-12">
-          <input maxlength="3" data-validate-length-range="3" data-validate-words="3" name="name" placeholder="3 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Punto de Emision" class="form-control col-md-3 col-xs-12" data-ng-model="detalle.anexo.ret_puntoEmision" onchange="mask_account(this,3);"/>
-        </div>
-        <div class="col-md-2 col-sm-3 col-xs-12">
-          <input maxlength="9" data-validate-length-range="3" data-validate-words="9" name="name" placeholder="hasta 9 Numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Secuencia" class="form-control col-md-3 col-xs-12" data-ng-model="detalle.anexo.ret_secuencia" onchange="mask_account(this,9);"/>
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-12">
-          <input  maxlength="50" data-validate-length-range="3" data-validate-words="50" name="name" placeholder="hasta 50 numeros" type="text" data-toggle="tooltip" data-placement="top" title="" data-original-title="Num. de Autorizacion" class="form-control col-md-10 col-xs-12" data-ng-model="detalle.anexo.ret_autorizacion"/>
-        </div>
-        <div class="col-md-1 col-sm-3 col-xs-12">
-          <select id="selectRetencion" ng-change="updateTotal()" class="form-control" data-ng-model="selectPo">
-            <option value="1">1%-30%</option>
-            <option value="2">2%-70%</option>
-            <option value="3">1%</option>
-            <option value="4">2%</option>
+  <hr>
+
+  <!--<div class="row">
+    <div class="col-md-2 col-sm-6 col-xs-12">
+      <div class="controls">
+        <input type="date" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.fecha"/>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <input placeholder="Entregado A " type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Entregado A" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.entregado"/>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <input placeholder="Cargado A " type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cargado A" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.cargado"/>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <input type="text" placeholder="empresa" name="Empresa" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tu Local/Dpto" class="form-control" data-ng-model="detalle.empresa"/>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <div class="form-group">
+          <select tabindex="-1" class="select2_single form-control">
+            <option>
+              <option value=""> </option>
+            </option>
           </select>
         </div>
-        <div class="col-md-1 col-sm-3 col-xs-12">
-          <input type="text" readonly="readonly" placeholder="1%" class="form-control" data-ng-model="primerInput"/><br/>
-          <input type="text" readonly="readonly" placeholder="30%" class="form-control" data-ng-model="segundoInput"/>
+        <div class="input-group">
+          <input type="text" class="form-control"/><span class="input-group-btn">
+            <button type="button" class="btn btn-primary"><i class="fa fa-close"></i></button></span>
         </div>
-        <label for="name" class="control-label col-md-1 col-sm-3 col-xs-12">Total Ret.</label>
-        <div class="col-md-1 col-sm-3 col-xs-12">
-          <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control" data-ng-model="totalInput"/>
+      </div>
+    </div>
+    <div class="col-md-2 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <input placeholder="Categoria" type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Categoria" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.categoria"/>
+      </div>
+    </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="form-group">
+        <input name="DetalleInput" placeholder="DETALLE" type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detalles" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.descripcion"/>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-6 col-xs-12"><br/>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-md-3 control-label">RUC</label>
+          <div class="input-group"><span class="input-group-addon">
+              <input type="radio" checked="checked" value="ruc" name="selector2"/></span>
+            <input type="text" placeholder="RUC-13-numeros" maxlength="13" list="idDatalistRUC" class="form-control"/>
+          </div>
+        </div>
+      </div>
+      <div style="margin: 5px 0px 5px 0px;" class="row"></div>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="col-md-3 control-label">CÉDULA</label>
+          <div class="input-group"><span class="input-group-addon">
+              <input type="radio" value="cedula" name="selector2"/></span>
+            <input type="text" placeholder="Cédula-10-numeros" maxlength="10" list="idDatalistCED" class="form-control"/>
+          </div>
         </div>
       </div>
     </div>
   </div>-->
 
-<!-- Vale de Pago -->
-<div ng-show="detalle.tipo == 'vale'" class="row">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <h2><strong>Vale de Pago</strong></h2>
-  </div>
-  <div class="col-md-2 col-sm-2 col-xs-3">
-    <div class="form-group">
-      <label><small>Valor</small></label>
-      <input type="text" class="form-control border-input" placeholder="Valor de Vale">
-    </div>
-  </div>
-</div>
 
-<hr/>
-<!-- DETALLES -->
-
-<div class="row">
-
-  <div class="col-md-3 col-sm-3 col-xs-12">
-    <div class="form-group">
-      <label><small>Fecha</small></label>
-      <input type="date" class="form-control" data-ng-model="detalle.fecha"/>
-    </div>
-  </div>
-
-  <div class="col-md-5 col-sm-5 col-xs-12">
-    <div class="form-group">
-      <label><small>Entregado A:</small></label>
-      <input placeholder="Entregado A " type="text" class="form-control" data-ng-model="detalle.entregado"/>
-    </div>
-  </div>
-  <div class="col-md-4 col-sm-4 col-xs-12">
-    <div class="form-group">
-      <label class="control-label"><small>Cargado A:</small></label>
-      <select data-ng-model="detalle.cargado" class="form-control">
-        <option value="">Elija una sucursal</option>
-        <option ng-value="sucursal.nombre" ng-repeat="sucursal in sucursales">{{sucursal.nombre}}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="col-md-3 col-sm-3 col-xs-12">
-    <div class="form-group">
-      <label><small>Categoria:</small></label>
-      <select data-ng-model="detalle.categoria" class="form-control">
-        <option value="">Elija una Categoria</option>
-        <option ng-value="categoria.nombre" ng-repeat="categoria in categorias">{{categoria.nombre}}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="col-md-3 col-sm-3 col-xs-12">
-    <div class="form-group">
-      <label><small>Proveedor:</small></label>
-      <select class="form-control">
-        <option value="">Choose..</option>
-        <option value="press">Press</option>
-        <option value="net">Internet</option>
-        <option value="mouth">Word of mouth</option>
-      </select>
-    </div>
-  </div>
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <label><small>Descripción:</small></label>
-      <input placeholder="Categoria" type="text" class="form-control" data-ng-model="detalle.descripcion"/>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<!--<div class="row">
-  <div class="col-md-2 col-sm-6 col-xs-12">
-    <div class="controls">
-      <input type="date" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.fecha"/>
-    </div>
-  </div>
-  <div class="col-md-2 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <input placeholder="Entregado A " type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Entregado A" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.entregado"/>
-    </div>
-  </div>
-  <div class="col-md-2 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <input placeholder="Cargado A " type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cargado A" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.cargado"/>
-    </div>
-  </div>
-  <div class="col-md-2 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <input type="text" placeholder="empresa" name="Empresa" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tu Local/Dpto" class="form-control" data-ng-model="detalle.empresa"/>
-    </div>
-  </div>
-  <div class="col-md-2 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <div class="form-group">
-        <select tabindex="-1" class="select2_single form-control">
-          <option>
-            <option value=""> </option>
-          </option>
-        </select>
-      </div>
-      <div class="input-group">
-        <input type="text" class="form-control"/><span class="input-group-btn">
-          <button type="button" class="btn btn-primary"><i class="fa fa-close"></i></button></span>
+  <div class="row">
+    <div class="form-group col-md-offset-5">
+      <label class="control-label col-md-2 col-sm-2 col-xs-12">TOTAL FINAL</label>
+      <div class="col-md-2 col-sm-2 col-xs-12">
+        <h3>{{detalle.valor | currency}}</h3>
+        <!--<input name="Total" placeholder="$ Total Final" type="text" readonly="readonly" class="form-control" data-ng-model="detalle.valor"/>-->
       </div>
     </div>
   </div>
-  <div class="col-md-2 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <input placeholder="Categoria" type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Categoria" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.categoria"/>
-    </div>
-  </div>
-<div class="row">
-  <div class="col-md-6 col-sm-6 col-xs-12">
-    <div class="form-group">
-      <input name="DetalleInput" placeholder="DETALLE" type="text" required="required" data-toggle="tooltip" data-placement="top" title="" data-original-title="Detalles" class="form-control col-md-7 col-xs-12" data-ng-model="detalle.descripcion"/>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12 col-sm-6 col-xs-12"><br/>
-    <div class="row">
-      <div class="col-md-3">
-        <label class="col-md-3 control-label">RUC</label>
-        <div class="input-group"><span class="input-group-addon">
-            <input type="radio" checked="checked" value="ruc" name="selector2"/></span>
-          <input type="text" placeholder="RUC-13-numeros" maxlength="13" list="idDatalistRUC" class="form-control"/>
-        </div>
-      </div>
-    </div>
-    <div style="margin: 5px 0px 5px 0px;" class="row"></div>
-    <div class="row">
-      <div class="col-md-3">
-        <label class="col-md-3 control-label">CÉDULA</label>
-        <div class="input-group"><span class="input-group-addon">
-            <input type="radio" value="cedula" name="selector2"/></span>
-          <input type="text" placeholder="Cédula-10-numeros" maxlength="10" list="idDatalistCED" class="form-control"/>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>-->
+  <div class="clearfix"></div>
 
-
-<div class="row">
-  <div class="form-group col-md-offset-5">
-    <label class="control-label col-md-2 col-sm-2 col-xs-12">TOTAL FINAL</label>
-    <div class="col-md-2 col-sm-2 col-xs-12">
-      <h3>{{detalle.valor | currency}}</h3>
-      <!--<input name="Total" placeholder="$ Total Final" type="text" readonly="readonly" class="form-control" data-ng-model="detalle.valor"/>-->
-    </div>
-  </div>
-</div>
-<div class="clearfix"></div>
-
-<hr/>
-<div class="form-group">
-  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-    <a class="btn btn-primary" ng-click="showPanelTableDetalles()">Cancelar</a>
-    <button type="submit" class="btn btn-success">Aceptar</button>
-  </div>
+  <hr/>
 </div>
 <script type="text/javascript">
 
@@ -334,4 +361,14 @@
     var new_value = zeros + field_account.value;
     field_account.value = new_value;
   }
+
+
 </script>
+
+<!-- jquery.inputmask -->
+<script>
+  $(document).ready(function() {
+    $(":input").inputmask();
+  });
+</script>
+<!-- /jquery.inputmask -->

@@ -3,12 +3,13 @@
 
   <section ng-show="PanelCreateDetalle" ng-include="'app_Angular/General/views/crear-detalle.view.html'"></section>
   <section ng-show="PanelEditDetalle" ng-include="'app_Angular/General/views/edit-detalle.view.html'"></section>
+  <section ng-show="PanelViewDetalle" ng-include="'app_Angular/General/views/view-detalle.view.html'"></section>
 
   <div ng-show="PanelTableDetalles" class="x_panel">
     <div class="x_title">
       <h2>Detalles <small>Tabla de Detalles</small></h2>
       <ul class="nav navbar-right panel_toolbox">
-        <button type="button" class="btn btn-default" ng-click="showPanelCreateDetalle()">Agregar</button>
+        <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" type="button" class="btn btn-default btn-success" ng-click="showPanelCreateDetalle()">Agregar</button>
       </ul>
       <div class="clearfix"></div>
     </div>
@@ -30,16 +31,17 @@
           <tbody>
             <tr data-ng-repeat="detalle in detalles | orderBy:'fecha'">
               <th class="text-right" scope="row">{{$index + 1}}</th>
-              <td data-ng-bind="detalle.fecha | date"></td>
-              <td>{{detalle.anexo.fac_establecimiento}}{{detalle.anexo.fac_puntoEmision}}{{detalle.anexo.fac_secuencia}}{{detalle.anexo.fac_autorizacion}}</td>
+              <td>{{detalle.fecha | date: "dd'/'MMMM'/'y"}}</td>
+              <td>{{detalle.anexo.fac_establecimiento}}{{detalle.anexo.fac_puntoEmision}}{{detalle.anexo.fac_secuencia}}{{detalle.anexo.fac_autorizacion}}<div ng-show="detalle.tipo == 'vale'">No Aplica</div></td>
               <td data-ng-bind="detalle.cargado"></td>
-              <td data-ng-bind="detalle.anexo.proveedor"></td>
+              <td>{{detalle.anexo.proveedor}}<div ng-show="detalle.tipo == 'vale'">No Aplica</div></td>
               <td data-ng-bind="detalle.descripcion"></td>
               <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
               <td>
                 <div class="btn-group">
-                  <a class="btn btn-xs btn-default" data-ng-click="showPanelEditDetalle(detalle)"><i class="fa fa-edit"></i></a>
-                  <a class="btn btn-xs btn-danger" ng-click="delete(detalle)"><i class="fa fa-trash-o"></i></a>
+                  <a class="btn btn-xs btn-default" data-ng-click="showPanelViewDetalle(detalle)"><i class="fa fa-eye"></i></a>
+                  <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-xs btn-default" data-ng-click="showPanelEditDetalle(detalle)"><i class="fa fa-edit"></i></a>
+                  <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-xs btn-danger" ng-click="delete(detalle)"><i class="fa fa-trash-o"></i></a>
                 </div>
               </td>
             </tr>

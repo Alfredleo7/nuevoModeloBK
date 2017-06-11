@@ -1,0 +1,41 @@
+<section data-ng-controller="CajasController" data-ng-init="find()">
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Creación De Cajas Chicas</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <button type="button" class="btn btn-success" ng-click="create()">Crear Caja Chica</button>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
+          <thead>
+            <tr class="active">
+              <th>#</th>
+              <th>Creado</th>
+              <th>Valor</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="caja in cajasBorrador">
+              <th class="text-right" scope="row">{{$index + 1}}</th>
+              <td>{{caja.creado | date: "dd'/'MMMM'/'y"}}</td>
+              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
+              <td data-ng-bind="caja.estado"></td>
+              <td>
+                <div class="btn-group">
+                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-ng-href="#!/cajas/{{caja._id}}"><i class="fa fa-folder"> Ver</i></a>
+                  <a class="btn btn-xs btn-danger" data-toggle="tooltip" ng-click="delete(caja)"><i class="fa fa-trash-o"> Eliminar</i></a>
+                  <a class="btn btn-xs btn-success" data-toggle="tooltip" ng-click="enviar(caja)"><i class="fa fa-send-o"> Enviar</i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

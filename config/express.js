@@ -35,6 +35,7 @@ module.exports = function(){
   require('../app/routes/detalles.routes')(app);
   require('../app/routes/sucursales.routes')(app);
   require('../app/routes/categorias.routes')(app);
+  require('../app/routes/proveedores.routes')(app);
 
   app.use(express.static('./public'));
 

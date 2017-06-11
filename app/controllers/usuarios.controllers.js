@@ -53,6 +53,7 @@ exports.ingresar = function(req, res){
 
 exports.signUp = function(req, res){
   var usuario = Usuario(req.body);
+  console.log(usuario);
   usuario.save(function(err){
     if(err){
       return res.status(400).send({
@@ -74,7 +75,7 @@ exports.signIn = function(req, res){
     }
     if (!usuario) {
       return res.status(404).send({
-        message: 'El usuario no existe'
+        message: 'El correo electrónico no se encuentra registrado'
       })
     }
     if(usuarioIn.password == crypto.desencriptar(usuario.password)){

@@ -22,8 +22,8 @@ var cajaSchema = new Schema({
   },
   estado: {
     type: String,
-    enum: ['Pendiente','Aprobado', 'Rechazado'],
-    default: 'Pendiente'
+    enum: ['Borrador','Pendiente','Aprobado', 'Rechazado'],
+    default: 'Borrador'
   }
 });
 

@@ -12,7 +12,7 @@ module.exports = function(app) {
     .put(cajas.update)
     .delete(cajas.delete);
 
-  app.route('/api/cajasByUsuario')
+  app.route('/api/cajasByUsuario/:estado')
     .get(cajas.listByUsuario);
 
   app.route('/api/cajasPendientes')
@@ -23,6 +23,9 @@ module.exports = function(app) {
 
   app.route('/api/rechazarCaja/:cajaId')
     .put(cajas.rechazar);
+
+  app.route('/api/enviarCaja/:cajaId')
+    .put(cajas.enviar);
 
   app.param('cajaId', cajas.cajaByID);
 }

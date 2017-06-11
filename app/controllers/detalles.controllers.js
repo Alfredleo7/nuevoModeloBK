@@ -48,8 +48,13 @@ exports.update = function(req, res){
   var detalle = req.detalle;
 
   detalle.valor = req.body.valor;
-  detalle.empresa = req.body.empresa;
   detalle.categoria = req.body.categoria;
+  detalle.entregado = req.body.entregado;
+  detalle.cargado = req.body.cargado;
+  detalle.fecha = req.body.fecha;
+  detalle.descripcion = req.body.descripcion;
+  detalle.tipo = req.body.tipo;
+  detalle.anexo = req.body.anexo;
 
   detalle.save(function(err){
     if (err) {

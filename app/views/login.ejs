@@ -7,20 +7,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title>Login</title>
+    <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
-    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
-    <!--<link href="https://colorlib.com/polygon/gentelella/css/animate.min.css" rel="stylesheet">-->
+    <link href="../vendors/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="/build/css/custom.min.css" rel="stylesheet">
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!-- PNotify -->
+    <link rel="stylesheet" href="/css/pnotify.custom.min.css">
   </head>
 
-  <body class="login">
+  <body class="login" ng-app="loginApp" ng-controller="loginController">
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -28,32 +33,33 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form id="formLogin">
-              <h1>Login Form</h1>
-              <div>
-                <input id='emailLogin' type="text" name="email" class="form-control" placeholder="Email" required="" />
+            <form data-ng-submit="login()" novalidate >
+              <h1>Iniciar sesión</h1>
+              <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                <input ng-model="usuario.email" type="text" class="form-control has-feedback-left" placeholder="Correo" required=""/>
+                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+              </div>
+              <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                <input ng-model="usuario.password" type="password" class="form-control has-feedback-left" placeholder="Contraseña" required="" />
+                <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
               </div>
               <div>
-                <input id='passLogin' type="password" name="password" class="form-control" placeholder="Contraseña" required="" />
-              </div>
-              <div>
-                <button type="submit" class="btn btn-default submit">Log in</button>
-                <a class="reset_pass" href="#">Lost your password?</a>
+                <button type="submit" class="btn btn-default submit">Ingresar</button>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">New to site?
-                  <a href="#signup" class="to_register"> Create Account </a>
+                <p class="change_link">¿Eres nuevo?
+                  <a href="#signup" class="to_register"> Create una cuenta </a>
                 </p>
 
                 <div class="clearfix"></div>
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1><i class="fa fa-cube"></i> Sistema ResNorte</h1>
+                  <p>©2017 Todos los derechos Reservados</p>
                 </div>
               </div>
             </form>
@@ -62,34 +68,65 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action="api/usuariosLogin" method="post">
-              <h1>Create Account</h1>
+            <form data-ng-submit="registrar()" novalidate>
+              <h1>Registro</h1>
               <div>
-                <input type="text" name="email" class="form-control" placeholder="Username" required="" />
+                <input data-ng-model="newUsuario.firstName" type="text" class="form-control" placeholder="Nombres" required="" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+              <div>
+                <input data-ng-model="newUsuario.lastName" type="text" class="form-control" placeholder="Apellidos" required="" />
               </div>
               <div>
-                <input type="password" name="password" class="form-control" placeholder="Password" required="" />
+              <div>
+                <input data-ng-model="newUsuario.email" type="text" class="form-control" placeholder="Correo" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit">Submit</a>
+                <input data-ng-model="newUsuario.password" type="password" class="form-control" placeholder="Contraseña" required="" />
+              </div>
+              <div>
+                <input data-ng-model="passwordConfirm" type="password" class="form-control" placeholder="Repita la contraseña" required="" />
+              </div>
+              <div>
+                <div>
+                  <label class="col-md-6">
+                    <input type="radio" checked="" value="departamento" name="optionsRadios" data-ng-model="sucursal.tipo"> Departamento
+                  </label>
+                  <label class="col-md-6">
+                    <input type="radio" value="local" name="optionsRadios" data-ng-model="sucursal.tipo"> Local BK
+                  </label>
+                </div>
+              </div>
+              <br>
+              <div class="divDepartamentos" ng-show="sucursal.tipo == 'departamento'">
+                <select class="form-control" name="">
+                  <option value="departamento1">departamento1</option>
+                  <option value="departamento2">departamento2</option>
+                </select>
+              </div>
+              <div class="divLocales" ng-show="sucursal.tipo == 'local'">
+                <select class="form-control" name="">
+                  <option value="local1">local1</option>
+                  <option value="local2">local2</option>
+                </select>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-default submit">Registrarse</button>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
+                <p class="change_link">¿Ya te registraste?
+                  <a href="#signin" class="to_register">Ingresa</a>
                 </p>
 
                 <div class="clearfix"></div>
                 <br />
 
                 <div>
-                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
-                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <h1><i class="fa fa-cube"></i> Sistema ResNorte</h1>
+                  <p>©2017 Todos los derechos Reservados</p>
                 </div>
               </div>
             </form>
@@ -98,34 +135,69 @@
       </div>
     </div>
   </body>
+  <!-- jQuery -->
   <script src="/vendors/jquery/dist/jquery.min.js"></script>
+  <!-- PNotify -->
+  <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
+  <!-- Angular -->
+  <script src="/lib/angular/angular.min.js" charset="utf-8"></script>
   <script type="text/javascript">
-  // magic.js
-    $(document).ready(function() {
 
-      // process the form
-      $('#formLogin').submit(function(event) {
-          var formData = {
-            email: $('#emailLogin').val(),
-            password: $('#passLogin').val()
-          }
+    angular.module('loginApp',[]).controller('loginController',['$scope','$http',
+      function($scope, $http) {
 
-          $.ajax({
-              type: 'POST',
-              url : 'api/usuariosLogin',
-              data : formData,
-              success: function(response){
-                console.log(response.message);
-                window.location.href="/";
-              },
-              error: function(response){
-                console.log(response.responseJSON.message);
-              }
+        $scope.usuario = {};
+        $scope.newUsuario = {};
+        $scope.sucursal = {};
+        $scope.sucursal.tipo = 'departamento';
+
+
+
+        $scope.login = function(){
+          $http({
+            method: 'POST',
+            url: 'api/usuariosLogin',
+            data: $scope.usuario
+          }).then(function(response){
+            window.location.href="/";
+          },function(errorResponse){
+            new PNotify({
+              text:errorResponse.data.message,
+              styling: 'bootstrap3'
+            })
           })
-          event.preventDefault();
-      });
+        };
 
-    });
+        $scope.registrar =function(){
+          if($scope.newUsuario.password ==  $scope.passwordConfirm){
+            $http({
+              method: 'POST',
+              url: '/api/usuarios',
+              data: $scope.newUsuario
+            }).then(function(response){
+              new PNotify({
+                text: 'Ha sido registrado correctamente',
+                styling: 'bootstrap3',
+                type: 'success'
+              });
+              window.location.href="#signin";
+            },function(errorResponse){
+              new PNotify({
+                text:errorResponse.data.message,
+                styling: 'bootstrap3'
+              })
+            });
+          } else {
+            new PNotify({
+              text: 'Las contraseñas no coinciden',
+              styling: 'bootstrap3'
+            })
+          }
+        }
+
+      }
+    ]);
 
   </script>
+
 </html>

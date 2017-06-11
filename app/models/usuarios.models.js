@@ -9,25 +9,26 @@ var userSchema = new Schema({
   },
   firstName:{
     type: String,
-    required: 'El nombre es requerido'
+    required: 'Escriba su nombre'
   },
   lastName: {
     type: String,
-    require: 'El apellido es requerido'
+    required: 'Escriba su apellido'
   },
   email: {
     type: String,
     unique: true,
-    match: [/.+\@.+\..+/, "Por favor escribe una dirección de email correcta"],
-    require: 'El email es requerido'
+    match: [/.+\@.+\..+/, "Por favor escriba una dirección de correo válida"],
+    required: 'Ingrese el correo electrónico'
   },
   password: {
-    type: String
+    type: String,
+    required: 'Ingrese una contraseña'
   },
   tipo: {
     type: String,
     enum: ['General', 'Administrador', 'Gerente'],
-    required: 'El tipo de usuario es requerido'
+    default: 'General'
   }
 });
 
