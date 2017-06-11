@@ -71,7 +71,7 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <section ng-view></section>
+          <section id="inicio" ng-view></section>
         </div>
 
         <!-- /page content -->
@@ -165,6 +165,11 @@
                     });
       }
 
+      $('.nav a').on('click', function(){
+          $('.btn-navbar').click(); //bootstrap 2.x
+          $('.navbar-toggle').click() //bootstrap 3.x by Richard
+          window.location.href = "#inicio"
+      });
     </script>
 
   </body>

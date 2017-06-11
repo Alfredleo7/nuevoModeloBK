@@ -22,28 +22,28 @@
       <h2><strong>Factura</strong></h2>
     </div>
     <div class="col-md-12">
-      <div class="col-md-2 col-sm-2 col-xs-3">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>Establec</small></label>
-          <input type="text" class="form-control border-input" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.fac_establecimiento" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.fac_establecimiento" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-3">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>Emisión</small></label>
-          <input type="text" class="form-control border-input" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.fac_puntoEmision" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.fac_puntoEmision" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-md-3 col-sm-4 col-xs-12">
         <div class="form-group">
           <label><small>Secuencia</small></label>
-          <input type="text" class="form-control border-input" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.fac_secuencia" onchange="mask_account(this,9);" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.fac_secuencia" onchange="mask_account(this,9);" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
       <div class="col-md-5 col-sm-4 col-xs-12">
         <div class="form-group">
           <label><small>Autorización</small></label>
-          <input type="text" class="form-control border-input" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.fac_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.fac_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
       <div class="col-md-4 col-sm-4 col-xs-12">
@@ -55,22 +55,22 @@
           </select>
         </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-4">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>SubTotal</small></label>
-          <input type="text" class="form-control border-input" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-4">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>IVA 12%</small></label>
-          <input type="text" class="form-control border-input" placeholder="IVA 12%" data-ng-model="detalle.anexo.iva" readonly="true">
+          <input type="text" class="form-control border-input text-right" placeholder="IVA 12%" data-ng-model="detalle.anexo.iva" readonly="true">
         </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-4">
+      <div class="col-md-2 col-sm-2 col-xs-12">
         <div class="form-group">
           <label><small>Total</small></label>
-          <input type="number" readonly="true" class="form-control" data-ng-model="detalle.anexo.total"/>
+          <input type="number" readonly="true" class="form-control text-right" data-ng-model="detalle.anexo.total"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-12 col-xs-12">
@@ -89,31 +89,31 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <h2><strong>Retención</strong></h2>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-3">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>Establec</small></label>
-          <input type="text" class="form-control border-input" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.ret_establecimiento" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Establecimiento" maxlength="3" data-ng-model="detalle.anexo.ret_establecimiento" onchange="mask_account(this,3);" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-3">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>Emisión</small></label>
-          <input type="text" class="form-control border-input" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.ret_puntoEmision" onchange="mask_account(this,3);"onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Pto. Emisión" maxlength="3" data-ng-model="detalle.anexo.ret_puntoEmision" onchange="mask_account(this,3);"onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-md-3 col-sm-4 col-xs-12">
         <div class="form-group">
           <label><small>Secuencia</small></label>
-          <input type="text" class="form-control border-input" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.ret_secuencia" onchange="mask_account(this,9);"onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Secuencia" maxlength="9" data-ng-model="detalle.anexo.ret_secuencia" onchange="mask_account(this,9);"onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
       <div class="col-md-5 col-sm-4 col-xs-12">
         <div class="form-group">
           <label><small>Autorización</small></label>
-          <input type="text" class="form-control border-input" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.ret_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.ret_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-2 col-sm-3 col-xs-4">
+      <div class="col-md-2 col-sm-3 col-xs-12">
         <div class="form-group">
           <label><small>Porcentaje Retención</small></label>
           <select class="form-control" data-ng-model="detalle.anexo.selectRetencion"  ng-change="updateTotal()">
@@ -124,34 +124,34 @@
           </select>
         </div>
       </div>
-      <div class="col-md-2 col-sm-3 col-xs-4"  ng-show="detalle.anexo.retencionSubTotalBienes != 0">
+      <div class="col-md-2 col-sm-3 col-xs-6"  ng-show="detalle.anexo.retencionSubTotalBienes != 0">
         <div class="form-group">
           <label><small>SubTotal Bienes 1%</small></label>
-          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionSubTotalBienes"/>
+          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionSubTotalBienes"/>
         </div>
       </div>
-      <div class="col-md-2 col-sm-3 col-xs-4" ng-show="detalle.anexo.retencionIVABienes != 0">
+      <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionIVABienes != 0">
         <div class="form-group">
           <label><small>IVA Bienes 30%</small></label>
-          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionIVABienes"/>
+          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionIVABienes"/>
         </div>
       </div>
-      <div class="col-md-2 col-sm-3 col-xs-4" ng-show="detalle.anexo.retencionSubTotalServicios != 0">
+      <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionSubTotalServicios != 0">
         <div class="form-group">
           <label><small>subTotal Servicios 2%</small></label>
-          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionSubTotalServicios"/>
+          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionSubTotalServicios"/>
         </div>
       </div>
-      <div class="col-md-2 col-sm-3 col-xs-4" ng-show="detalle.anexo.retencionIVAServicios != 0">
+      <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionIVAServicios != 0">
         <div class="form-group">
           <label><small>IVA Servicios 70%</small></label>
-          <input type="text" readonly="readonly" class="form-control" data-ng-model="detalle.anexo.retencionIVAServicios"/>
+          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionIVAServicios"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-12">
         <div class="form-group">
           <label><small>Total Retención</small></label>
-          <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control" data-ng-model="detalle.anexo.totalRetencion"/>
+          <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control text-right" data-ng-model="detalle.anexo.totalRetencion"/>
         </div>
       </div>
     </div>
@@ -198,10 +198,10 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <h2><strong>Vale de Pago</strong></h2>
     </div>
-    <div class="col-md-2 col-sm-2 col-xs-3">
+    <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="form-group">
         <label><small>Valor</small></label>
-        <input type="text" class="form-control border-input" placeholder="Valor de Vale" data-ng-model="detalle.valor" onkeypress="return event.charCode>47 && event.charCode<58">
+        <input type="text" class="form-control border-input text-right" placeholder="Valor de Vale" data-ng-model="detalle.valor" onkeypress="return event.charCode>47 && event.charCode<58">
       </div>
     </div>
   </div>
@@ -211,7 +211,7 @@
 
   <div class="row">
 
-    <div class="col-md-2 col-sm-2 col-xs-12">
+    <div class="col-md-3 col-sm-3 col-xs-12">
       <!--<fieldset>
         <div class="control-group">
           <div class="controls">
@@ -227,7 +227,7 @@
       </div>
     </div>
 
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-5 col-sm-5 col-xs-12">
       <div class="form-group">
         <label><small>Entregado A:</small></label>
         <input placeholder="Entregado A " type="text" class="form-control" data-ng-model="detalle.entregado" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode>7&&event.charCode<9)||(event.charCode>31&&event.charCode<33)"/>

@@ -2,8 +2,8 @@
 
   <div class="btn-group" style="float: right;">
     <a href="/#!/" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</a>
-    <button data-ng-click="delete();" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
-    <button data-ng-click="enviar();" class="btn btn-sm btn-success" type="button"><i class="fa fa-send-o"></i> Enviar</button>
+    <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete();" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
+    <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar();" class="btn btn-sm btn-success" type="button"><i class="fa fa-send-o"></i> Enviar</button>
   </div>
   <h1 data-ng-bind="caja.valor | currency"></h1>
   <h2>{{ caja.creado | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}</h2>

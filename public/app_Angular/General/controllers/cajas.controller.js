@@ -88,16 +88,21 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
       $scope.update();
     }
 
-    var deleteDetallesByCaja = function (idCaja) {
+    var deleteDetallesByCaja = function (caja) {
       $http({
         method: 'DELETE',
-        url: '/api/detallesByCaja/' + idCaja,
+        url: '/api/detallesByCaja/' + caja._id,
       }).then(function(response){
         new PNotify({
           text: 'La caja chica ha sido eliminada',
           styling: 'bootstrap3',
           type: 'success'
-        })
+        });
+        if(caja.estado=='Borrador'){
+          $location.path('/CreacionCajas');
+        } else {
+          $location.path('/CajasRechazadas');
+        }
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -132,9 +137,7 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
                 $scope.cajas.splice(i, 1);
               }
             }*/
-            deleteDetallesByCaja(caja._id);
-            if(caja.estado=='Borrador') $location.path('/CreacionCajas');
-            if(caja.estado=='Rechazado') $location.path('/CajasRechazadas');
+            deleteDetallesByCaja(caja);
           }, function(errorResponse) {
             mostrarNotificacion(errorResponse.data.message);
           });
@@ -143,8 +146,7 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
             method: 'DELETE',
             url: '/api/cajas/' + $scope.caja._id
           }).then(function(){
-            deleteDetallesByCaja($scope.caja._id);
-            $location.path('/');
+            deleteDetallesByCaja($scope.caja);
           }, function(errorResponse) {
             mostrarNotificacion(errorResponse.data.message);
           });
@@ -155,14 +157,24 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
     };
 
 
-    var enviarDetallesByCaja = function (idCaja) {
+    var enviarDetallesByCaja = function (caja) {
       $http({
         method: 'PUT',
-        url: '/api/detallesByCaja/' + idCaja,
+        url: '/api/detallesByCaja/' + caja._id,
         data: {
           estado: 'Pendiente'
         }
       }).then(function(response){
+        new PNotify({
+          text: 'La caja chica ha sido enviada con éxito',
+          styling: 'bootstrap3',
+          type: 'success'
+        });
+        if(caja.estado=='Borrador'){
+          $location.path('/CreacionCajas');
+        } else {
+          $location.path('/CajasRechazadas');
+        }
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -199,9 +211,7 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
                   $scope.cajas.splice(i, 1);
                 }
               }*/
-              enviarDetallesByCaja(caja._id);
-              if(caja.estado=='Borrador') $location.path('/CreacionCajas');
-              if(caja.estado=='Rechazado') $location.path('/CajasRechazadas');
+              enviarDetallesByCaja(caja);
             }, function(errorResponse) {
               mostrarNotificacion(errorResponse.data.message);
             });
@@ -215,9 +225,7 @@ angular.module('general').controller('CajasController', ['$scope','$http','$rout
               method: 'PUT',
               url: '/api/enviarCaja/' + $scope.caja._id
             }).then(function(){
-              enviarDetallesByCaja($scope.caja._id);
-              if($scope.caja.estado=='Borrador') $location.path('/CreacionCajas');
-              if($scope.caja.estado=='Rechazado') $location.path('/CajasRechazadas');
+              enviarDetallesByCaja($scope.caja);
             }, function(errorResponse) {
               mostrarNotificacion(errorResponse.data.message);
             });
