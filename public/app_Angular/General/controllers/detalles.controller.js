@@ -291,26 +291,6 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
           mostrarNotificacion(errorResponse.data.message);
         });
       }
-
-
-
-      /*var idCaja = Caja_Detalles.getIdCaja();
-      $scope.detalle.caja = idCaja;
-
-      $http({
-        method: 'POST',
-        url: '/api/detalles',
-        data: $scope.detalle
-      }).then(function(response){
-        //Actualizar la Caja Chica
-        $scope.caja.valor += response.data.valor;
-        $scope.updateCaja();
-        $scope.detalles.push(response.data);
-        showPanelTableDetalles();
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });*/
-
     };
 
     $scope.find = function() {

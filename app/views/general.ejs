@@ -18,23 +18,14 @@
     <link href="/build/css/custom.min.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <!--<link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="/lib/angular-datatables/demo/src/archives/dist/css/angular-datatables.min.css">
-    <!-- PNotify
-    <link href="/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-    <link href="/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-    <link href="/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">-->
 
+    <!-- PNotify -->
     <link rel="stylesheet" href="/css/pnotify.custom.min.css">
-    <!-- Select2 -->
-    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   </head>
 
@@ -71,7 +62,7 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <section id="inicio" ng-view></section>
+          <section ng-view></section>
         </div>
 
         <!-- /page content -->
@@ -93,10 +84,6 @@
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/vendors/nprogress/nprogress.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="/build/js/custom.js"></script>
@@ -104,39 +91,8 @@
     <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-    <script src="/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
-    <!-- PNotify
-    <script src="/vendors/pnotify/dist/pnotify.js"></script>
-    <script src="/vendors/pnotify/dist/pnotify.buttons.js"></script>
-    <script src="/vendors/pnotify/dist/pnotify.nonblock.js"></script>
-    <script src="/vendors/pnotify/dist/pnotify.confirm.js"></script>-->
-
     <!-- PNotify -->
     <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
-    <!-- Select2 -->
-    <script src="/vendors/select2/dist/js/select2.full.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="/vendors/moment/min/moment.min.js"></script>
-    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-    <script src="/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
-
-
-    <!-- cdn for modernizr, if you haven't included it already -->
-    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
-    <!-- polyfiller file to detect and load polyfills -->
-    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
 
     <!-- Aplicación Angular -->
 
@@ -168,7 +124,7 @@
       $('.nav a').on('click', function(){
           $('.btn-navbar').click(); //bootstrap 2.x
           $('.navbar-toggle').click() //bootstrap 3.x by Richard
-          window.location.href = "#inicio"
+          //window.location.href = "#inicio"
       });
     </script>
 
