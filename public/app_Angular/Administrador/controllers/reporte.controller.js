@@ -13,9 +13,7 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
       }).then(function(anios){
         $scope.anios = anios.data;
         $scope.filtro.anio = anios.data[anios.data.length-1]._id;
-        $scope.updateCategorias()
-        $scope.filtro.categoria = 'Todas';
-        $scope.generarReporte();
+        $scope.updateCategorias();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -23,14 +21,18 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
     }
 
     $scope.updateCategorias = function(){
-      $http({
-        method: 'GET',
-        url: '/api/categoriasXYear/'+ $scope.filtro.anio
-      }).then(function(categorias){
-        $scope.categorias = categorias.data;
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });
+      if($scope.filtro.anio != ''){
+        $http({
+          method: 'GET',
+          url: '/api/categoriasXYear/'+ $scope.filtro.anio
+        }).then(function(categorias){
+          $scope.categorias = categorias.data;
+          $scope.filtro.categoria = 'Todas';
+          $scope.generarReporte();
+        }, function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
+        });
+      }
     };
 
     $scope.printDiv = function(IdDiv){
@@ -59,12 +61,14 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
     };
 
     $scope.generarReporte = function(){
+
       $scope.tabla = [];
       $http({
         method: 'POST',
         url: '/api/reporteXSucursal',
         data: $scope.filtro
       }).then(function(response){
+        console.log(response.data);
         $scope.reportes = response.data;
         $scope.Ene = 0; $scope.Feb = 0; $scope.Mar = 0; $scope.Abr = 0; $scope.May = 0; $scope.Jun = 0; $scope.Jul = 0; $scope.Ago = 0; $scope.Sep = 0; $scope.Oct = 0; $scope.Nov = 0; $scope.Dic = 0;
         for(var i in response.data){

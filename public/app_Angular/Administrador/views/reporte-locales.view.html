@@ -10,7 +10,7 @@
     <div class="col-md-2 col-sm-3 col-xs-12">
       <div class="form-group">
         <label>Año:</label>
-        <select class="form-control" ng-model="filtro.anio" ng-change="generarReporte(); updateCategorias()">
+        <select class="form-control" ng-model="filtro.anio" ng-change="updateCategorias()">
           <option value="">Elija el año</option>
           <option ng-value="anio._id" ng-repeat="anio in anios">{{anio._id}}</option>
         </select>
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div id="IdReporteXLocal" class="x_panel" data-ng-init="generarReporte()">
+  <div id="IdReporteXLocal" class="x_panel">
       <div align="right">
         {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
       </div>
