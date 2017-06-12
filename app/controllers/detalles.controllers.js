@@ -244,6 +244,18 @@ exports.reporteXSucursal = function(req, res) {
 
 exports.yearOfDetalles = function(req, res){
   Detalle.aggregate([
+    { $project: {
+        fecha: "$fecha",
+        estado: "$estado"
+      }
+    },
+    {
+      $match: {
+        estado: {
+          $eq: 'Aprobado'
+        }
+      }
+    },
     { $group: {
         _id: { $year: "$fecha" }
       }
@@ -266,13 +278,17 @@ exports.categoriaDetallesXYear = function(req, res){
   Detalle.aggregate([
     { $project: {
         categoria: "$categoria",
-        anio: { $year: "$fecha" }
+        anio: { $year: "$fecha" },
+        estado: "$estado"
       }
     },
     {
       $match: {
         anio: {
           $eq: Number(req.params.anio)
+        },
+        estado: {
+          $eq: 'Aprobado'
         }
       }
     },
