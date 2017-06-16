@@ -7,20 +7,123 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title>General</title>
-
-    <!-- Bootstrap -->
+    <title>General</title><!-- Bootstrap -->
     <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
 
     <!-- Custom Theme Style -->
-    <link href="/build/css/custom.min.css" rel="stylesheet">
+    <!--<link href="/build/css/custom.min.css" rel="stylesheet">-->
+    <!-- Datatables -->
+    <!--<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">-->
+    <!--<link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/angular-datatables/demo/src/archives/dist/css/angular-datatables.min.css">
+     PNotify
+    <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/brighttheme.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.history.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.material.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.mobile.css" rel="stylesheet">
+    <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="/css/pnotify.custom.min.css">
 
+    <style media="screen">
+    *, *:before, *:after {
+        box-sizing: border-box;
+    }
+    body{
+      padding: 70px 0px;
+      color: #48576f;
+      background: #f7f7f7;
+      font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.471;
+    }
+    h1, .h1, h2, .h2, h3, .h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    h2 {
+        font-size: 18px;
+        font-weight: 400;
+    }
+    .x_title {
+        border-bottom: 2px solid #E6E9ED;
+        padding: 1px 5px 6px;
+        margin-bottom: 10px;
+    }
+    .x_content {
+        padding: 0 5px 6px;
+        position: relative;
+        width: 100%;
+        float: left;
+        clear: both;
+        margin-top: 5px;
+    }
+    .x_panel {
+      position: relative;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px 17px;
+      display: inline-block;
+      background: #fff;
+      border: 1px solid #E6E9ED;
+      -webkit-column-break-inside: avoid;
+      -moz-column-break-inside: avoid;
+      column-break-inside: avoid;
+      opacity: 1;
+      transition: all .2s ease;
+    }
 
+    .col-md-55, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .form-control {
+        border-radius: 0;
+        width: 100%;
+    }
+    .form-horizontal .form-group {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .form-group {
+        margin-bottom: 10px;
+    }
+    .btn.btn-app:hover {
+    background: #f4f4f4;
+    color: #444;
+    border-color: #aaa;
+}
+.btn.btn-app {
+    position: relative;
+    padding: 15px 5px;
+    margin: 0 0 10px 10px;
+    min-width: 80px;
+    height: 60px;
+    box-shadow: none;
+    border-radius: 0;
+    text-align: center;
+    color: #666;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    font-size: 12px;
+}
+    </style>
   </head>
 
-  <body class="nav-md">
+  <body>
+  <!--<body class="nav-md">-->
     <div class="container body">
       <div class="main_container">
 
@@ -61,38 +164,60 @@
 
 
         <!-- footer content -->
-        <footer>
+        <!--<footer>
           <div class="pull-right">
             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
           </div>
           <div class="clearfix"></div>
-        </footer>
+        </footer>-->
         <!-- /footer content -->
       </div>
     </div>
-
-    <!-- Datatables -->
-    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <!--<link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">-->
-    <link rel="stylesheet" href="/lib/angular-datatables/demo/src/archives/dist/css/angular-datatables.min.css">
-
-    <!-- PNotify -->
-    <link rel="stylesheet" href="/css/pnotify.custom.min.css">
 
     <!-- jQuery -->
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/vendors/nprogress/nprogress.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="/build/js/custom.js"></script>
+    <!--<script src="/build/js/custom.js"></script>-->
     <!-- Datatables -->
-    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
+    <script src="/js/dataTables.responsive.js" charset="utf-8"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" charset="utf-8"></script>
+    <!--<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
+    <script src="/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>-->
+    <!-- PNotify
+    <script src="/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/vendors/pnofify/dist/pnotify.animate.js" charset="utf-8"></script>
+    <script src="/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/vendors/pnofify/dist/pnotify.callbacks.js" charset="utf-8"></script>
+    <script src="/vendors/pnotify/dist/pnotify.confirm.js"></script>
+    <script src="/vendors/pnofify/dist/pnotify.desktop.js" charset="utf-8"></script>
+    <script src="/vendors/pnofify/dist/pnotify.history.js" charset="utf-8"></script>
+    <script src="/vendors/pnofify/dist/pnotify.mobile.js" charset="utf-8"></script>
+    <script src="/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    <script src="/vendors/pnofify/dist/pnotify.reference.js" charset="utf-8"></script>
+    <script src="/vendors/pnofify/dist/pnotify.tooltip.js" charset="utf-8"></script>-->
+
     <!-- PNotify -->
     <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
 

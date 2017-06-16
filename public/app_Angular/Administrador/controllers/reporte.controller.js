@@ -35,11 +35,15 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
       }
     };
 
-    $scope.printDiv = function(IdDiv){
+    $scope.printDiv = function(IdDiv, tipo){
 
       var divToPrint = jQuery(IdDiv).html();
       var newWin = window.open('', 'my div');
-      newWin.document.write('<html><head><title></title>');
+
+      var fecha = new Date();
+      var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
+
+      newWin.document.write('<html><head><title>Reporte por '+tipo+' '+fechaTitle+'</title>');
       newWin.document.write('<link href="/build/css/custom.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
@@ -52,12 +56,13 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
 
     };
 
-    $scope.exportExcel = function () {
-      var blob = new Blob([document.getElementById('IdReporteXLocal').innerHTML], {
+    $scope.exportExcel = function (IdDiv, tipo) {
+      var blob = new Blob([document.getElementById(IdDiv).innerHTML], {
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
         var fecha = new Date();
-        saveAs(blob, "Reporte.xls");
+        var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
+        saveAs(blob, "Reporte por "+tipo+" "+ fechaTitle + ".xls");
     };
 
     $scope.generarReporte = function(){
@@ -68,7 +73,6 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
         url: '/api/reporteXSucursal',
         data: $scope.filtro
       }).then(function(response){
-        console.log(response.data);
         $scope.reportes = response.data;
         $scope.Ene = 0; $scope.Feb = 0; $scope.Mar = 0; $scope.Abr = 0; $scope.May = 0; $scope.Jun = 0; $scope.Jul = 0; $scope.Ago = 0; $scope.Sep = 0; $scope.Oct = 0; $scope.Nov = 0; $scope.Dic = 0;
         for(var i in response.data){

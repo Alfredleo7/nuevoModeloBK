@@ -1,14 +1,16 @@
 <section class="inicio" data-ng-controller="CajasController" data-ng-init="findBorrador()">
+  <button type="button" class="btn btn-success" ng-click="create()">Crear Caja Chica</button>
+
   <div class="x_panel">
     <div class="x_content">
       <div class="x_title">
         <h2>Creación De Cajas Chicas</h2>
-        <ul class="nav navbar-right panel_toolbox">
+        <!--<ul class="nav navbar-right panel_toolbox">
           <button type="button" class="btn btn-success" ng-click="create()">Crear Caja Chica</button>
-        </ul>
+        </ul>-->
         <div class="clearfix"></div>
       </div>
-      <div style="overflow-x:auto;">
+      <!--<div style="overflow-x:auto;">-->
         <table id="datatable-buttons" datatable='ng' class="table table-bordered">
           <thead>
             <tr class="active">
@@ -35,7 +37,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      <!--</div>-->
     </div>
   </div>
 </section>

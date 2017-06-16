@@ -1,23 +1,23 @@
 <!--Radio Buttons de Factura y Vale -->
 <div ng-init="initForm()">
-  <div class="row">
-    <div class="col-md-9 col-sm-9 col-xs-12">
-      <div class="form-group">
-        <div class="radio">
-          <label>
-            <input type="radio" checked="" value="factura" id="optionsRadios1" name="optionsRadios" data-ng-model="detalle.tipo" ng-change="actualizarDatos()"> Factura
-          </label>
-          <label>
-            <input type="radio" value="vale" id="optionsRadios2" name="optionsRadios" data-ng-model="detalle.tipo"  ng-change="actualizarDatos()"> Vale de Pago
-          </label>
+    <div class="col-md-12 row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <div class="radio">
+            <label>
+              <input type="radio" checked="" value="factura" id="optionsRadios1" name="optionsRadios" data-ng-model="detalle.tipo" ng-change="actualizarDatos()"> Factura
+            </label>
+            <label>
+              <input type="radio" value="vale" id="optionsRadios2" name="optionsRadios" data-ng-model="detalle.tipo"  ng-change="actualizarDatos()"> Vale de Pago
+            </label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   <hr/>
 
   <!--Factura-->
-  <div class="row" ng-show="detalle.tipo == 'factura'">
+  <div class="col-md-12 row" ng-show="detalle.tipo == 'factura'">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <h2><strong>Factura</strong></h2>
     </div>
@@ -194,7 +194,7 @@
     </div>-->
 
   <!-- Vale de Pago -->
-  <div ng-show="detalle.tipo == 'vale'" class="row">
+  <div ng-show="detalle.tipo == 'vale'" class="col-md-12 row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <h2><strong>Vale de Pago</strong></h2>
     </div>
@@ -209,7 +209,7 @@
   <hr/>
   <!-- DETALLES -->
 
-  <div class="row">
+  <div class="col-md-12 row">
 
     <div class="col-md-3 col-sm-3 col-xs-12">
       <!--<fieldset>
@@ -337,7 +337,7 @@
   </div>-->
 
 
-  <div class="row">
+  <div class="col-md-12 row">
     <div class="form-group col-md-offset-5">
       <label class="control-label col-md-2 col-sm-2 col-xs-12">TOTAL FINAL</label>
       <div class="col-md-2 col-sm-2 col-xs-12">
@@ -364,11 +364,3 @@
 
 
 </script>
-
-<!-- jquery.inputmask -->
-<script>
-  $(document).ready(function() {
-    $(":input").inputmask();
-  });
-</script>
-<!-- /jquery.inputmask -->

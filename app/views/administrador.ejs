@@ -13,17 +13,19 @@
     <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
 
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
     <!-- Datatables -->
-    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <!--<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/lib/angular-datatables/demo/src/archives/dist/css/angular-datatables.min.css">
-    <!-- PNotify
+     PNotify
     <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
     <link href="../vendors/pnotify/dist/brighttheme.css" rel="stylesheet">
     <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
@@ -34,12 +36,12 @@
     <link rel="stylesheet" href="/css/pnotify.custom.min.css">
   </head>
 
-  <body class="nav-md">
+  <body style="min-height: 2000px;padding-top: 70px;">
     <div class="container body">
       <div class="main_container">
         <!-- Fixed navbar -->
           <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+            <div class="container-fluid">
               <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                   <span class="sr-only">Toggle navigation</span>
@@ -52,6 +54,7 @@
               <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="#!/cajas">Cajas Pendientes</a></li>
+                  
                   <li><a href="#!/reporteXLocales">Reporte por Locales/Departamentos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -91,9 +94,11 @@
     <script src="/vendors/nprogress/nprogress.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="/build/js/custom.js"></script>
+    <!--<script src="/build/js/custom.js"></script>-->
     <!-- Datatables -->
-    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <!--<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
@@ -107,7 +112,7 @@
     <script src="/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
     <script src="/vendors/jszip/dist/jszip.min.js"></script>
     <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>-->
     <!-- PNotify
     <script src="/vendors/pnotify/dist/pnotify.js"></script>
     <script src="/vendors/pnofify/dist/pnotify.animate.js" charset="utf-8"></script>
@@ -154,11 +159,11 @@
                         styling: 'bootstrap3'
                     });
       }
-      $('.nav a').on('click', function(){
+      /*$('.nav a').on('click', function(){
           $('.btn-navbar').click(); //bootstrap 2.x
           $('.navbar-toggle').click() //bootstrap 3.x by Richard
           window.location.href = "#inicio"
-      });
+      });*/
     </script>
 
   </body>
