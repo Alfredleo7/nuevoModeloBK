@@ -28,4 +28,10 @@ module.exports = function(app) {
   app.route('/api/categoriasXYear/:anio')
     .get(detalles.categoriaDetallesXYear);
 
+  app.route('/api/sucursalesXYear/:anio')
+    .get(detalles.sucursalesDetallesXYear);
+
+  app.route('/api/reporteXCategoria')
+    .post(detalles.reporteXCategoria);
+
 }

@@ -331,3 +331,155 @@ exports.estadoByCaja = function(req, res) {
     }
   });
 };
+
+exports.sucursalesDetallesXYear = function(req, res){
+  console.log(req.params.anio);
+  Detalle.aggregate([
+    { $project: {
+        cargado: "$cargado",
+        anio: { $year: "$fecha" },
+        estado: "$estado"
+      }
+    },
+    {
+      $match: {
+        anio: {
+          $eq: Number(req.params.anio)
+        },
+        estado: {
+          $eq: 'Aprobado'
+        }
+      }
+    },
+    {
+      $group: {
+        _id: "$cargado"
+      }
+    }
+  ], function(err, categorias){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(categorias);
+    }
+  });
+};
+
+exports.reporteXCategoria = function(req, res) {
+  if(req.body.sucursal == 'Todas'){
+    Detalle.aggregate(
+      [
+        { $project: {
+            categoria: "$categoria",
+            cargado: "$cargado",
+            mes: { $month: "$fecha"},
+            anio: { $year: "$fecha" },
+            valor: "$valor",
+            estado: "$estado"
+          }
+        },
+        { $match: {
+            anio: {
+              $eq: Number(req.body.anio)
+            },
+            estado: {
+              $eq: 'Aprobado'
+            }
+          }
+        },
+        { $group: {
+            _id: {
+              categoria: "$categoria",
+              mes: "$mes"
+            },
+            total: {
+              $sum: "$valor"
+            }
+          }
+        },
+        { $group: {
+            _id: "$_id.categoria",
+            meses: {
+              $push: {
+                mes: "$_id.mes",
+                total: "$total"
+              }
+            }
+          }
+        },
+        {
+          $sort: { _id: 1}
+        }
+      ]
+      , function(err, reporte){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          });
+        } else {
+          return res.status(200).json(reporte);
+        }
+      }
+    );
+  } else {
+    Detalle.aggregate(
+      [
+        { $project: {
+            cargado: "$cargado",
+            categoria: "$categoria",
+            mes: { $month: "$fecha"},
+            anio: { $year: "$fecha" },
+            valor: "$valor",
+            estado: "$estado"
+          }
+        },
+        { $match: {
+            anio: {
+              $eq: Number(req.body.anio)
+            },
+            cargado: {
+              $eq: req.body.sucursal
+            },
+            estado: {
+              $eq: 'Aprobado'
+            }
+          }
+        },
+        { $group: {
+            _id: {
+              categoria: "$categoria",
+              mes: "$mes"
+            },
+            total: {
+              $sum: "$valor"
+            }
+          }
+        },
+        { $group: {
+            _id: "$_id.categoria",
+            meses: {
+              $push: {
+                mes: "$_id.mes",
+                total: "$total"
+              }
+            }
+          }
+        },
+        { $sort: { _id: 1}
+        }
+      ]
+      , function(err, reporte){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          });
+        } else {
+          return res.status(200).json(reporte);
+        }
+      }
+    );
+  }
+
+}
