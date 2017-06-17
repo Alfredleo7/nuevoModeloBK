@@ -13,30 +13,16 @@
     <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <!--DataTable-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
-
-    <!-- Custom Theme Style -->
-    <link href="/build/css/custom.min.css" rel="stylesheet">
-    <!-- Datatables -->
-    <!--<link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/lib/angular-datatables/demo/src/archives/dist/css/angular-datatables.min.css">
-     PNotify
-    <link href="../vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-    <link href="../vendors/pnotify/dist/brighttheme.css" rel="stylesheet">
-    <link href="../vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-    <link href="../vendors/pnotify/dist/pnotify.history.css" rel="stylesheet">
-    <link href="../vendors/pnotify/dist/pnotify.material.css" rel="stylesheet">
-    <link href="../vendors/pnotify/dist/pnotify.mobile.css" rel="stylesheet">
-    <link href="../vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <!-- PNotify -->
     <link rel="stylesheet" href="/css/pnotify.custom.min.css">
+    <!--Estilo-->
+    <link rel="stylesheet" href="/css/estilos.css">
   </head>
 
-  <body style="min-height: 2000px;padding-top: 70px;">
+  <body>
     <div class="container body">
       <div class="main_container">
         <!-- Fixed navbar -->
@@ -54,7 +40,7 @@
               <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                   <li><a href="#!/cajas">Cajas Pendientes</a></li>
-                  
+
                   <li><a href="#!/reporteXLocales">Reporte por Locales/Departamentos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -65,22 +51,11 @@
             </div>
           </nav>
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div role="main">
           <section id="inicio" ng-view></section>
         </div>
 
         <!-- /page content -->
-
-
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
       </div>
     </div>
 
@@ -88,46 +63,15 @@
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="/vendors/nprogress/nprogress.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <!--<script src="/build/js/custom.js"></script>-->
-    <!-- Datatables -->
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <!--<script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="/vendors/datatables.net-scroller/js/datatables.scroller.min.js"></script>
-    <script src="/vendors/jszip/dist/jszip.min.js"></script>
-    <script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="/vendors/pdfmake/build/vfs_fonts.js"></script>-->
-    <!-- PNotify
-    <script src="/vendors/pnotify/dist/pnotify.js"></script>
-    <script src="/vendors/pnofify/dist/pnotify.animate.js" charset="utf-8"></script>
-    <script src="/vendors/pnotify/dist/pnotify.buttons.js"></script>
-    <script src="/vendors/pnofify/dist/pnotify.callbacks.js" charset="utf-8"></script>
-    <script src="/vendors/pnotify/dist/pnotify.confirm.js"></script>
-    <script src="/vendors/pnofify/dist/pnotify.desktop.js" charset="utf-8"></script>
-    <script src="/vendors/pnofify/dist/pnotify.history.js" charset="utf-8"></script>
-    <script src="/vendors/pnofify/dist/pnotify.mobile.js" charset="utf-8"></script>
-    <script src="/vendors/pnotify/dist/pnotify.nonblock.js"></script>
-    <script src="/vendors/pnofify/dist/pnotify.reference.js" charset="utf-8"></script>
-    <script src="/vendors/pnofify/dist/pnotify.tooltip.js" charset="utf-8"></script>-->
-
+    <!--DataTable-->
+    <script src="/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
+    <script src="/js/dataTables.responsive.js" charset="utf-8"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" charset="utf-8"></script>
     <!-- PNotify -->
     <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
+
+    <script src="/js/FileSaver.js" charset="utf-8"></script>
 
     <!-- Aplicación Angular -->
 
@@ -148,7 +92,6 @@
     <!-- Principal -->
     <script src="/app_Angular/Administrador/administrador.js" charset="utf-8"></script>
 
-    <script src="/js/FileSaver.js" charset="utf-8"></script>
 
 
     <script type="text/javascript">
@@ -159,11 +102,9 @@
                         styling: 'bootstrap3'
                     });
       }
-      /*$('.nav a').on('click', function(){
-          $('.btn-navbar').click(); //bootstrap 2.x
-          $('.navbar-toggle').click() //bootstrap 3.x by Richard
-          window.location.href = "#inicio"
-      });*/
+      $('.navbar-collapse a').click(function(){
+          $(".navbar-collapse").collapse('hide');
+      });
     </script>
 
   </body>

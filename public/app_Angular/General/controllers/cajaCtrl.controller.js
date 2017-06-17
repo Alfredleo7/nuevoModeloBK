@@ -75,9 +75,9 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
           method: 'DELETE',
           url: '/api/cajas/' + caja._id
         }).then(function(){
-          for (var i in cajas) {
-            if (cajas[i] === caja) {
-              cajas.splice(i, 1);
+          for (var i in $scope.cajas) {
+            if ($scope.cajas[i] === caja) {
+              $scope.cajas.splice(i, 1);
             }
           }
           deleteDetallesByCaja(caja);
@@ -134,9 +134,9 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
             method: 'PUT',
             url: '/api/enviarCaja/' + caja._id
           }).then(function(){
-            for (var i in cajas) {
-              if (cajas[i] === caja) {
-                cajas.splice(i, 1);
+            for (var i in $scope.cajas) {
+              if ($scope.cajas[i] === caja) {
+                $scope.cajas.splice(i, 1);
               }
             }
             enviarDetallesByCaja(caja);
