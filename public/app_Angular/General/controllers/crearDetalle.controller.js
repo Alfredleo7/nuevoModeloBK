@@ -1,7 +1,76 @@
 'use strict';
 
-angular.module('general').controller('DetallesController', ['$scope','$http','$routeParams','$location','Caja_Detalles',
-  function($scope, $http, $routeParams, $location, Caja_Detalles) {
+angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$routeParams','$location',
+  function($scope,$http,$routeParams,$location){
+
+    $scope.initCreate = function(){
+      $scope.detalle = {};
+      $scope.detalle.tipo = 'factura';
+      $scope.detalle.anexo = {};
+
+      $scope.init();
+    }
+
+    $scope.initEdit = function(){
+      $http({
+        method: 'GET',
+        url: '/api/detalles/'+$routeParams.detalleId
+      }).then(function(response){
+
+
+
+        $scope.detalle = response.data;
+        $scope.detalle.fecha = new Date(response.data.fecha);
+        $scope.valorPrevio = $scope.detalle.valor;
+        $scope.init();
+      },function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      })
+    }
+
+    $scope.init = function(){
+
+      $http({
+        method: 'GET',
+        url: '/api/proveedores'
+      }).then(function(proveedores){
+        $scope.proveedores = proveedores.data;
+      }, function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/sucursales/'
+      }).then(function(sucursales){
+        $scope.sucursales = sucursales.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/categorias/'
+      }).then(function(categorias){
+        $scope.categorias = categorias.data;
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
+      $http({
+        method: 'GET',
+        url: '/api/cajas/'+$routeParams.cajaId
+      }).then(function(response){
+        $scope.caja = response.data;
+      },function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
+    };
+
+    $scope.back = function(){
+      $location.path('/caja/'+$routeParams.cajaId);
+    };
 
     var inicializarAnexoRetencion = function(){
       $scope.detalle.anexo.ret_establecimiento = '';
@@ -15,28 +84,6 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
       $scope.detalle.anexo.totalRetencion = 0;
       $scope.detalle.anexo.selectRetencion = '';
     }
-
-    $scope.actualizarDatos = function() {
-      if($scope.detalle.tipo=='factura'){
-        $scope.updateTotal();
-        $scope.detalle.valor = '';
-      }
-      if($scope.detalle.tipo=='vale'){
-        $scope.detalle.anexo.proveedor = '';
-        $scope.detalle.anexo.fac_establecimiento = '';
-        $scope.detalle.anexo.fac_puntoEmision = '';
-        $scope.detalle.anexo.fac_secuencia = '';
-        $scope.detalle.anexo.fac_autorizacion = '';
-        $scope.detalle.anexo.retencion = false;
-        $scope.detalle.anexo.noObjetoIVA=false;
-        inicializarAnexoRetencion();
-        $scope.detalle.anexo.subTotal = '';
-        $scope.detalle.anexo.iva = '';
-        $scope.detalle.valor = '';
-      }
-    }
-
-
 
     $scope.updateTotal = function (){
       if($scope.detalle.anexo.noObjetoIVA){
@@ -101,113 +148,27 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
         $scope.detalle.valor = $scope.detalle.anexo.total;
       }
     }
-    var updateTotal = function() {
-      $scope.updateTotal();
-    }
 
-    var actualizarProveedores = function(){
-      $http({
-        method: 'GET',
-        url: '/api/proveedores'
-      }).then(function(proveedores){
-        $scope.proveedores = proveedores.data;
-      }, function(errorResponse){
-        mostrarNotificacion(errorResponse.data.message);
-      })
+    $scope.actualizarDatos = function() {
+      if($scope.detalle.tipo=='factura'){
+        $scope.updateTotal();
+        $scope.detalle.valor = '';
+      }
+      if($scope.detalle.tipo=='vale'){
+        $scope.detalle.anexo.proveedor = '';
+        $scope.detalle.anexo.fac_establecimiento = '';
+        $scope.detalle.anexo.fac_puntoEmision = '';
+        $scope.detalle.anexo.fac_secuencia = '';
+        $scope.detalle.anexo.fac_autorizacion = '';
+        $scope.detalle.anexo.retencion = false;
+        $scope.detalle.anexo.noObjetoIVA=false;
+        inicializarAnexoRetencion();
+        $scope.detalle.anexo.subTotal = '';
+        $scope.detalle.anexo.iva = '';
+        $scope.detalle.valor = '';
+      }
+      $scope.detalle.valor = 0;
     }
-
-    var actualizarSucursales = function() {
-      $http({
-        method: 'GET',
-        url: '/api/sucursales/'
-      }).then(function(sucursales){
-        $scope.sucursales = sucursales.data;
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });
-    }
-
-    var actualizarCategorias = function() {
-      $http({
-        method: 'GET',
-        url: '/api/categorias/'
-      }).then(function(categorias){
-        $scope.categorias = categorias.data;
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });
-    }
-
-    $scope.initForm = function(){
-      actualizarSucursales();
-      actualizarCategorias();
-      actualizarProveedores();
-    }
-
-    // Control de paneles
-    $scope.PanelViewDetalle = false;
-    $scope.PanelEditDetalle = false;
-    $scope.PanelCreateDetalle = false;
-    $scope.PanelTableDetalles = true;
-
-
-
-    var showPanelCreateDetalle = function(){
-      $scope.PanelViewDetalle = false;
-      $scope.PanelEditDetalle = false;
-      $scope.PanelCreateDetalle = true;
-    }
-    var showPanelEditDetalle = function(){
-      $scope.PanelViewDetalle = false;
-      $scope.PanelEditDetalle = true;
-      $scope.PanelCreateDetalle = false;
-    }
-    var showPanelViewDetalle =function(){
-      $scope.PanelViewDetalle = true;
-      $scope.PanelEditDetalle = false;
-      $scope.PanelCreateDetalle = false;
-    }
-    var showPanelTableDetalles = function(){
-      $scope.PanelViewDetalle = false;
-      $scope.PanelEditDetalle = false;
-      $scope.PanelCreateDetalle = false;
-    }
-
-    $scope.showPanelCreateDetalle = function(){
-      showPanelCreateDetalle();
-      $scope.detalle = {};
-      $scope.detalle.anexo = {};
-      $scope.detalle.tipo = 'factura';
-    }
-
-    $scope.showPanelViewDetalle = function(detalle){
-      showPanelViewDetalle();
-      $scope.detalle = detalle;
-      $scope.detalle.fecha = new Date(detalle.fecha);
-    }
-
-    $scope.showPanelEditDetalle = function(detalle){
-      $scope.valorPrevio = detalle.valor;
-      $scope.detalle = detalle;
-      $scope.detalle.fecha = new Date(detalle.fecha);
-      showPanelEditDetalle();
-    }
-    $scope.showPanelTableDetalles = function(){
-      showPanelTableDetalles();
-    }
-
-    // Funciones CRUD
-    $scope.findByCaja = function(){
-      var idCaja = Caja_Detalles.getIdCaja();
-      $http({
-        method: 'GET',
-        url: '/api/detallesByCaja/' + idCaja
-      }).then(function(detalles){
-        $scope.detalles = detalles.data;
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });
-    };
 
     var validaciones = function(){
 
@@ -273,48 +234,31 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
     }
 
     $scope.create = function() {
+
       if(validaciones()){
-        var idCaja = Caja_Detalles.getIdCaja();
-        $scope.detalle.caja = idCaja;
+        $scope.detalle.caja = $scope.caja._id;
         $http({
           method: 'POST',
           url: '/api/detalles',
           data: $scope.detalle
         }).then(function(response){
-          //Actualizar la Caja Chica
+
           $scope.caja.valor += response.data.valor;
-          $scope.updateCaja();
-          $scope.detalles.push(response.data);
-          showPanelTableDetalles();
+          $http({
+            method: 'PUT',
+            url: '/api/cajas/' + $scope.caja._id,
+            data: $scope.caja
+          }).then(function(response){
+            $scope.back();
+          },function(errorResponse) {
+            mostrarNotificacion(errorResponse.data.message);
+          });
+
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
         });
       }
-    };
 
-    $scope.find = function() {
-
-      $http({
-        method: 'GET',
-        url: '/api/detalles'
-      }).then(function(response){
-        $scope.detalles = response.data;
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });
-
-    };
-
-    $scope.findOne = function() {
-      var idDetalle = $routeParams.detalleId;
-      $http({
-        method: 'GET',
-        url: '/api/detalles/' + idDetalle
-      }).then(function(response){
-        $scope.detalle = response.data;
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      });
     };
 
     $scope.update = function() {
@@ -328,46 +272,23 @@ angular.module('general').controller('DetallesController', ['$scope','$http','$r
           //Actualizar la Caja Chica
           $scope.caja.valor = Number($scope.caja.valor) - Number($scope.valorPrevio);
           $scope.caja.valor = Number($scope.caja.valor) + Number($scope.detalle.valor);
-          //$scope.updateCaja();
 
-          showPanelTableDetalles();
+          $http({
+            method: 'PUT',
+            url: '/api/cajas/' + $scope.caja._id,
+            data: $scope.caja
+          }).then(function(response){
+            $scope.back();
+          },function(errorResponse) {
+            mostrarNotificacion(errorResponse.data.message);
+          });
+
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
         });
       }
+
     };
 
-    $scope.delete = function(detalle) {
-      if(detalle) {
-        $http({
-          method: 'DELETE',
-          url: '/api/detalles/' + detalle._id
-        }).then(function(){
-          for (var i in $scope.detalles) {
-            if ($scope.detalles[i] === detalle) {
-              $scope.detalles.splice(i, 1);
-            }
-          }
-          //Actualizar la Caja Chica
-          $scope.caja.valor -= detalle.valor;
-          $scope.updateCaja();
-          showPanelTableDetalles();
-        },function(errorResponse) {
-          mostrarNotificacion(errorResponse.data.message);
-        });
-      } else {
-        $http({
-          method: 'DELETE',
-          url: '/api/detalles/' + $scope.detalle._id
-        }).then(function(detalle){
-          //Actualizar la Caja Chica
-          $scope.caja.valor -= detalle.valor;
-          $scope.updateCaja();
-          showPanelTableDetalles();
-        }, function(errorResponse) {
-          mostrarNotificacion(errorResponse.data.message);
-        });
-      }
-    };
   }
 ]);

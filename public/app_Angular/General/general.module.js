@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('general', ['datatables']);
+angular.module('general', ['datatables','ngSanitize','ui.select']);

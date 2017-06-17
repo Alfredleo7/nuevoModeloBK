@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.0/css/dataTables.responsive.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/ui.select2.css">
 
     <!-- Custom Theme Style -->
     <!--<link href="/build/css/custom.min.css" rel="stylesheet">-->
@@ -72,6 +73,7 @@
       position: relative;
       width: 100%;
       margin-bottom: 10px;
+      margin-top: 10px;
       padding: 10px 17px;
       display: inline-block;
       background: #fff;
@@ -126,6 +128,7 @@
   <!--<body class="nav-md">-->
     <div class="container body">
       <div class="main_container">
+
 
         <!-- Fixed navbar -->
         <nav class="navbar navbar-default navbar-fixed-top">
@@ -222,22 +225,36 @@
     <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
 
     <!-- Aplicación Angular -->
+    <link rel="stylesheet" href="/css/select2.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">-->
 
     <script src="/lib/angular/angular.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
     <script src="/lib/angular-route/angular-route.js" charset="utf-8"></script>
     <script src="/lib/angular-datatables/demo/src/archives/dist/angular-datatables.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+
+   <!-- themes -->
+   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">-->
+   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">-->
 
     <!-- Modulos -->
     <script src="/app_Angular/General/general.module.js" charset="utf-8"></script>
     <!-- Controladoress -->
     <script src="/app_Angular/General/controllers/cajas.controller.js" charset="utf-8"></script>
+    <script src="/app_Angular/General/controllers/cajaCtrl.controller.js" charset="utf-8"></script>
+    <script src="/app_Angular/General/controllers/crearDetalle.controller.js" charset="utf-8"></script>
     <script src="/app_Angular/General/controllers/detalles.controller.js" charset="utf-8"></script>
+    <script src="/app_Angular/General/controllers/view-detalle.controller.js" charset="utf-8"></script>
     <!-- Servicioss -->
     <script src="/app_Angular/General/services/general.service.js" charset="utf-8"></script>
     <!-- Rutass -->
     <script src="/app_Angular/General/config/cajas.routes.js" charset="utf-8"></script>
     <!-- Principal -->
     <script src="/app_Angular/General/general.js" charset="utf-8"></script>
+
+
+    <script src="/js/ui.select2.js" charset="utf-8"></script>
 
     <script type="text/javascript">
       var mostrarNotificacion = function(mensaje) {
@@ -248,11 +265,30 @@
                     });
       }
 
-      $('.nav a').on('click', function(){
-          $('.btn-navbar').click(); //bootstrap 2.x
-          $('.navbar-toggle').click() //bootstrap 3.x by Richard
-          //window.location.href = "#inicio"
+      $('.navbar-collapse a').click(function(){
+          $(".navbar-collapse").collapse('hide');
       });
+
+      var printDiv = function(IdDiv, titulo){
+
+        var divToPrint = jQuery(IdDiv).html();
+        var newWin = window.open('', 'my div');
+
+        var fecha = new Date();
+        var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
+
+        newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
+        newWin.document.write('<link href="/build/css/custom.min.css" rel="stylesheet">');
+        newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
+        newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+        newWin.document.write('</head><body style="-webkit-print-color-adjust:exact" onload="window.print()">');
+        newWin.document.write(divToPrint);
+        newWin.document.write('</body>');
+        newWin.document.write('</html>');
+        newWin.document.close();
+        setTimeout(function(){newWin.close();},250);
+
+      };
     </script>
 
   </body>

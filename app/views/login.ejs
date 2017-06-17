@@ -29,7 +29,7 @@
             <form data-ng-submit="login()" novalidate >
               <h1>Iniciar sesión</h1>
               <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                <input ng-model="usuario.email" type="text" class="form-control has-feedback-left" placeholder="Correo" required=""/>
+                <input ng-model="usuario.email" type="text" class="form-control has-feedback-left" placeholder="Correo" required=""/ style="text-transform: lowercase;">
                 <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
               </div>
               <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
@@ -72,7 +72,7 @@
               </div>
               <div>
               <div>
-                <input data-ng-model="newUsuario.email" type="text" class="form-control" placeholder="Correo" required="" />
+                <input data-ng-model="newUsuario.email" type="text" class="form-control" placeholder="Correo" required="" style="text-transform: lowercase;" />
               </div>
               <div>
                 <input data-ng-model="newUsuario.password" type="password" class="form-control" placeholder="Contraseña" required="" />

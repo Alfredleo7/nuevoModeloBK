@@ -1,40 +1,39 @@
 'use strict';
 
-angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams','$location',
-  function($scope,$http,$routeParams,$location){
+angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
+  function($scope, $http, $location) {
 
-    $scope.init = function(){
-
-      $http({
-        method: 'GET',
-        url: '/api/cajas/'+$routeParams.cajaId
-      }).then(function(response){
-        $scope.caja = response.data;
-      },function(errorResponse){
-        mostrarNotificacion(errorResponse.data.message);
-      });
+    $scope.create = function() {
 
       $http({
-        method: 'GET',
-        url: '/api/detallesByCaja/'+$routeParams.cajaId
+        method: 'POST',
+        url: '/api/cajas'
       }).then(function(response){
-        $scope.detalles = response.data;
-      },function(errorResponse){
+        $location.path('caja/' + response.data._id);
+        new PNotify({
+          text: 'La caja chica se ha creado con éxito',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
+      }, function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       });
 
     };
 
-    $scope.back = function(){
-      if($scope.caja.estado == 'Borrador')$location.path('/CreacionCajas');
-      if($scope.caja.estado == 'Pendiente')$location.path('/CajasEnviadas');
-      if($scope.caja.estado == 'Aprobado')$location.path('/CajasAprobadas');
-      if($scope.caja.estado == 'Rechazado')$location.path('/CajasRechazadas');
+    //START METODOS DE INICIO
+    $scope.find = function(tipo) {
+      $http({
+        method: 'GET',
+        url: '/api/cajasByUsuario/' + tipo
+      }).then(function(cajas){
+        $scope.cajas = cajas.data;
+      },function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      });
+
     };
 
-    $scope.go = function(caja, detalle){
-      $location.path('/caja/'+caja._id+'/detalle/'+detalle._id);
-    };
 
     var deleteDetallesByCaja = function (caja) {
       $http({
@@ -76,8 +75,12 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
           method: 'DELETE',
           url: '/api/cajas/' + caja._id
         }).then(function(){
+          for (var i in cajas) {
+            if (cajas[i] === caja) {
+              cajas.splice(i, 1);
+            }
+          }
           deleteDetallesByCaja(caja);
-          $scope.back();
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
         });
@@ -131,8 +134,12 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
             method: 'PUT',
             url: '/api/enviarCaja/' + caja._id
           }).then(function(){
+            for (var i in cajas) {
+              if (cajas[i] === caja) {
+                cajas.splice(i, 1);
+              }
+            }
             enviarDetallesByCaja(caja);
-            $scope.back();
           }, function(errorResponse) {
             mostrarNotificacion(errorResponse.data.message);
           });

@@ -44,7 +44,7 @@ exports.create = function(req, res) {
 };
 
 exports.list = function(req, res){
-  Proveedor.find({}, function(err, proveedores){
+  Proveedor.find({},null,{sort: { nombre: 1}}, function(err, proveedores){
     if(err) {
       return res.status(400).send({
         message: getErrorMessage(err)

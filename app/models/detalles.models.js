@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Caja = mongoose.model('Caja');
+var Proveedor = mongoose.model('Proveedor');
 var Schema = mongoose.Schema;
 
 var detalleSchema = new Schema({
@@ -44,7 +45,23 @@ var detalleSchema = new Schema({
     enum: ['factura', 'vale']
   },
   anexo: {
-    proveedor: String,
+    proveedor: {
+      nombre: {
+        type: String
+      },
+      apellido: {
+        type: String
+      },
+      ruc: {
+        type: String
+      },
+      cedula: {
+        type: String
+      },
+      razons: {
+        type: String
+      }
+    },
     fac_establecimiento: String,
     fac_puntoEmision: String,
     fac_secuencia: String,

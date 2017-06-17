@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Detalle = mongoose.model('Detalle');
+var Proveedor = mongoose.model('Proveedor');
 
 var getErrorMessage = function(err){
   if (err.errors){
@@ -23,7 +24,9 @@ exports.create = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      res.json(detalle);
+      //Proveedor.populate(detalle, {path: 'anexo.proveedor'}, function(err, detalle){
+        res.status(200).send(detalle);
+      //});
     }
   });
 };
@@ -102,7 +105,9 @@ exports.listByCaja = function(req, res) {
         message: getErrorMessage(err)
       })
     } else {
-      res.json(detalles);
+      //Proveedor.populate(detalles, {path: 'anexo.proveedor'}, function(err, detalles){
+        res.status(200).send(detalles);
+      //});
     }
   });
 };

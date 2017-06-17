@@ -1,14 +1,62 @@
-<section data-ng-controller='CajasController' data-ng-init="findOne()">
+<section data-ng-init="init()">
 
-  <div class="btn-group" style="float: right;">
-    <a href="/#!/" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</a>
-    <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete();" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
-    <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar();" class="btn btn-sm btn-success" type="button"><i class="fa fa-send-o"></i> Enviar</button>
-  </div>
-  <h1 data-ng-bind="caja.valor | currency"></h1>
-  <h2>{{ caja.creado | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}</h2>
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="btn-group">
+          <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
+          <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
+          <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-success" type="button"><i class="fa fa-send-o"></i> Enviar</button>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="btn-group"n style="float: right;">
+          <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-warning" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar</a>
+          <a class="btn btn-sm btn-info" onclick="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
+        </div>
+      </div>
+    </div>
 
 
-  <section ng-include="'app_Angular/General/views/list-detalles.view.html'"></section>
+      <div id="reporteDetalles" class="x_panel">
+        <div class="x_title">
+          <h2>Caja Chica <small>Tabla de Detalles</small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p>REPOSICION</p>
+          <p>FECHA: {{caja.creado | date: "dd'-'MMMM'-'y"}}</p>
+          <div style="overflow-x:auto;">
+            <table class="table table-bordered">
+              <thead>
+                <tr class="active">
+                  <th>Fecha</th>
+                  <th>Factura</th>
+                  <th>Entregado a</th>
+                  <th>Categoria</th>
+                  <th>Descripción</th>
+                  <th>Cargado</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:'fecha'" style="cursor: pointer">
+                  <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+                  <td><div ng-show="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-show="detalle.tipo == 'vale'">Vale</div></td>
+                  <td data-ng-bind="detalle.entregado"></td>
+                  <td data-ng-bind="detalle.categoria"></td>
+                  <td data-ng-bind="detalle.descripcion"></td>
+                  <td data-ng-bind="detalle.cargado"></td>
+                  <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
+                </tr>
+              </tbody>
+            </table>
+            <h4 style="float: right;">Total Caja Chica: {{caja.valor | currency}}</h4>
 
+          </div>
+        </div>
+      </div>
+
+      <div data-ng-hide="!detalles || detalles.length">
+        Aún no hay detalles en la caja chica
+      </div>
 </section>

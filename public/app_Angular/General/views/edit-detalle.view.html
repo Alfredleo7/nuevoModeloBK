@@ -1,19 +1,19 @@
-<div class="x_panel">
-  <div class="x_title">
-    <h2>Editar Detalle <small>Formulario de Detalle</small></h2>
-    <div class="clearfix"></div>
-  </div>
-  <div class="x_content">
-    <br />
-    <form id="formEditDetalle" data-parsley-validate class="form-horizontal form-label-left" data-ng-submit="update()" novalidate>
-
-      <section ng-include="'app_Angular/General/views/input-detalles.view.html'"></section>
-      <div class="form-group">
-        <div class="text-center">
-          <a class="btn btn-primary" ng-click="showPanelTableDetalles()">Cancelar</a>
-          <button type="submit" class="btn btn-success">Actualizar</button>
+<section data-ng-init="initEdit()">
+  <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Editar Detalle <small>Formulario de Detalle</small></h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <form data-parsley-validate data-ng-submit="update()" novalidate class="form-horizontal form-label-left">
+        <section ng-include="'app_Angular/General/views/input-detalles.view.html'"></section>
+        <div class="form-group">
+          <div class="text-center">
+            <a class="btn btn-primary" ng-click="back()">Cancelar</a>
+            <button type="submit" class="btn btn-success">Actualizar</button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>

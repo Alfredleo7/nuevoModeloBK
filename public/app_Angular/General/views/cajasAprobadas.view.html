@@ -1,11 +1,11 @@
-<section data-ng-controller="CajasController" data-ng-init="findAprobado()">
+<section data-ng-init="find('Aprobado')">
   <div class="x_panel">
     <div class="x_content">
       <div class="x_title">
         <h2>Cajas Chicas Aprobadas</h2>
         <div class="clearfix"></div>
       </div>
-      <div style="overflow-x:auto;">
+      <!--<div style="overflow-x:auto;">-->
         <table id="datatable-buttons" datatable='ng' class="table table-bordered">
           <thead>
             <tr class="active">
@@ -17,20 +17,20 @@
             </tr>
           </thead>
           <tbody>
-            <tr data-ng-repeat="caja in cajasAprobado">
+            <tr data-ng-repeat="caja in cajas">
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td>{{caja.creado | date: "dd'/'MMMM'/'y"}}</td>
               <td class="text-right" data-ng-bind="caja.valor | currency"></td>
               <td data-ng-bind="caja.estado"></td>
               <td>
                 <div class="btn-group">
-                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-ng-href="#!/cajas/{{caja._id}}"><i class="fa fa-folder"> Ver</i></a>
+                  <a class="btn btn-xs btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}"><i class="fa fa-folder"> Ver</i></a>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
+      <!--</div>-->
     </div>
   </div>
 </section>
