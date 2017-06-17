@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body ng-app="prueba" ng-controller="controlador">
+
+    <input type="text" name="" value="" ng-model="buscador">
+
+    <table>
+      <thead>
+        <th>apellido</th>
+        <th>cedula</th>
+        <th>nombre</th>
+        <th>razons</th>
+        <th>ruc</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="proveedor in proveedores |filter:buscador">
+          <td ng-bind="proveedor.apellido"></td>
+          <td ng-bind="proveedor.cedula"></td>
+          <td ng-bind="proveedor.nombre"></td>
+          <td ng-bind="proveedor.razons"></td>
+          <td ng-bind="proveedor.ruc"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+  <script src="/lib/angular/angular.min.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  angular.module('prueba',[]).controller('controlador',['$scope','$http',
+    function($scope, $http) {
+
+      $http({
+        method: 'GET',
+        url: '/api/proveedores'
+      }).then(function(response){
+        $scope.proveedores = response.data;
+      })
+
+    }
+  ]);
+  </script>
+</html>

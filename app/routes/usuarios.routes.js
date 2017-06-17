@@ -24,4 +24,9 @@ module.exports = function(app) {
     .delete(detalles.deleteByCaja);
 
   app.param('detalleId', detalles.detalleByID);*/
+
+  app.route('/prueba')
+    .get(function(req, res){
+      res.render('prueba');
+    })
 }

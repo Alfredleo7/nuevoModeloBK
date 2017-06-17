@@ -290,5 +290,12 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
 
     };
 
+    $scope.asignar = function(proveedor){
+
+      $scope.detalle.anexo.proveedor = proveedor;
+      $('.modalProveedores').modal('hide')
+
+    };
+
   }
 ]);
