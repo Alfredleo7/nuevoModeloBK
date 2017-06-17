@@ -67,7 +67,7 @@ exports.signUp = function(req, res){
 
 exports.signIn = function(req, res){
   var usuarioIn = Usuario(req.body);
-  Usuario.findOne({'email': usuarioIn.email}, function(err, usuario){
+  Usuario.findOne({'usuario': usuarioIn.usuario}, function(err, usuario){
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
@@ -75,15 +75,17 @@ exports.signIn = function(req, res){
     }
     if (!usuario) {
       return res.status(404).send({
-        message: 'El correo electrónico no se encuentra registrado'
+        message: 'El usuario no se encuentra registrado'
       })
     }
     if(usuarioIn.password == crypto.desencriptar(usuario.password)){
       req.session.usuario = {
         id: usuario._id,
-        email: usuario.email,
+        usuario: usuario.usuario,
         fullname: usuario.firstName + ' ' + usuario.lastName,
-        tipo: usuario.tipo
+        tipo: usuario.tipo,
+        empresa: usuario.empresa,
+        sucursal: usuario.sucursal
       };
       return res.status(200).send({
         message: 'Autenticación exitosa'

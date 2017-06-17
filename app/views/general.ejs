@@ -184,26 +184,7 @@
           $(".navbar-collapse").collapse('hide');
       });
 
-      var printDiv = function(IdDiv, titulo){
-
-        var divToPrint = jQuery(IdDiv).html();
-        var newWin = window.open('', 'my div');
-
-        var fecha = new Date();
-        var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
-
-        newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
-        newWin.document.write('<link href="/build/css/custom.min.css" rel="stylesheet">');
-        newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
-        newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
-        newWin.document.write('</head><body style="-webkit-print-color-adjust:exact" onload="window.print()">');
-        newWin.document.write(divToPrint);
-        newWin.document.write('</body>');
-        newWin.document.write('</html>');
-        newWin.document.close();
-        setTimeout(function(){newWin.close();},250);
-
-      };
+      
     </script>
 
   </body>

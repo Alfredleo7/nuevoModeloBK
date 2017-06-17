@@ -90,7 +90,6 @@ angular.module('administrador').controller('CajasController', ['$scope','$http',
           estado: 'Aprobado'
         }
       }).then(function(response){
-        console.log('ok');
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });

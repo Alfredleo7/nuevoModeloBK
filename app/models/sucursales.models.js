@@ -11,6 +11,10 @@ var sucursalSchema = new Schema({
     enum: ['Departamento', 'Local'],
     required: 'Ingrese el tipo de sucursal'
   },
+  empresa: {
+    type: String,
+    required: 'Ingrese la empresa a la que pertenece'
+  },
   montoMax: Number
 });
 

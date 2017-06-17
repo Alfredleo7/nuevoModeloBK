@@ -13,8 +13,9 @@
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Custom Theme Style -->
+    <!-- Custom Theme Style-->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
 
   </head>
 
@@ -28,9 +29,14 @@
           <section class="login_content">
             <form data-ng-submit="login()" novalidate >
               <h1>Iniciar sesión</h1>
-              <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                <input ng-model="usuario.email" type="email" class="form-control has-feedback-left" placeholder="Correo" required=""/ style="text-transform: lowercase;">
-                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 row">
+                <div class="col-md-7 col-sm-7 col-xs-7 form-group has-feedback">
+                  <input ng-model="usuario.usuario" type="text" class="form-control has-feedback-left" placeholder="usuario" required=""/ style="text-transform: lowercase;">
+                  <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5">
+                  <h6>@burgerkingec.com.ec</h6>
+                </div>
               </div>
               <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                 <input ng-model="usuario.password" type="password" class="form-control has-feedback-left" placeholder="Contraseña" required="" />
@@ -59,9 +65,9 @@
           </section>
         </div>
 
-        <div id="register" class="animate form registration_form">
+        <div id="register" class="animate form registration_form" ng-init="initRegistro()">
           <section class="login_content">
-            <form data-ng-submit="registrar()" novalidate>
+            <form data-ng-submit="registrar()" novalidate class="row">
               <h1>Registro</h1>
               <div>
                 <input data-ng-model="newUsuario.firstName" type="text" class="form-control" placeholder="Nombres" required="" />
@@ -71,9 +77,15 @@
                 <input data-ng-model="newUsuario.lastName" type="text" class="form-control" placeholder="Apellidos" required="" />
               </div>
               <div>
-              <div>
-                <input data-ng-model="newUsuario.email" type="text" class="form-control" placeholder="Correo" required="" style="text-transform: lowercase;" />
+              <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-7">
+                  <input data-ng-model="newUsuario.usuario" type="text" class="form-control" placeholder="Usuario" required="" style="text-transform: lowercase;" />
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-5">
+                  <h6>@burgerkingec.com.ec</h6>
+                </div>
               </div>
+
               <div>
                 <input data-ng-model="newUsuario.password" type="password" class="form-control" placeholder="Contraseña" required="" />
               </div>
@@ -81,28 +93,24 @@
                 <input data-ng-model="passwordConfirm" type="password" class="form-control" placeholder="Repita la contraseña" required="" />
               </div>
               <div>
-                <div>
-                  <label class="col-md-6">
-                    <input type="radio" checked="" value="departamento" name="optionsRadios" data-ng-model="sucursal.tipo"> Departamento
-                  </label>
-                  <label class="col-md-6">
-                    <input type="radio" value="local" name="optionsRadios" data-ng-model="sucursal.tipo"> Local BK
-                  </label>
-                </div>
+                <select data-ng-model="newUsuario.empresa" class="form-control" ng-change="getSucursales()">
+                  <option value="">Elija una Empresa</option>
+                  <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa._id}}</option>
+                </select>
               </div>
               <br>
-              <div class="divDepartamentos" ng-show="sucursal.tipo == 'departamento'">
-                <select class="form-control" name="">
-                  <option value="departamento1">departamento1</option>
-                  <option value="departamento2">departamento2</option>
+              <div ng-show="newUsuario.empresa">
+                <select data-ng-model="newUsuario.sucursal" class="form-control">
+                  <option value="">Locales/Departamentos</option>
+                  <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal._id.tipo}} {{sucursal._id.nombre}}</option>
                 </select>
               </div>
-              <div class="divLocales" ng-show="sucursal.tipo == 'local'">
-                <select class="form-control" name="">
-                  <option value="local1">local1</option>
-                  <option value="local2">local2</option>
-                </select>
+
+              <div>
+                <input data-ng-model="newUsuario.tipo" type="text" class="form-control" placeholder="tipo" required="" />
               </div>
+
+              <br>
               <div>
                 <button type="submit" class="btn btn-default submit">Registrarse</button>
               </div>
@@ -167,6 +175,7 @@
         };
 
         $scope.registrar =function(){
+
           if($scope.newUsuario.password ==  $scope.passwordConfirm){
             $http({
               method: 'POST',
@@ -191,6 +200,28 @@
               styling: 'bootstrap3'
             })
           }
+        }
+
+        $scope.initRegistro = function(){
+          $http({
+            method: 'GET',
+            url: '/api/empresas'
+          }).then(function(response){
+            $scope.empresas = response.data;
+          })
+        }
+
+        $scope.getSucursales = function(){
+
+          if($scope.newUsuario.empresa){
+            $http({
+              method: 'GET',
+              url: '/api/sucursalesByEmpresa/'+$scope.newUsuario.empresa
+            }).then(function(response){
+              $scope.sucursales = response.data;
+            })
+          }
+
         }
 
       }

@@ -37,3 +37,67 @@ exports.list = function(req, res){
     }
   });
 };
+
+exports.getEmpresas = function(req, res){
+  Sucursal.aggregate([
+    {
+      $project: {
+        empresa: "$empresa"
+      }
+    },
+    {
+      $group: {
+        _id: "$empresa"
+      }
+    },
+    {
+      $sort: { _id: 1 }
+    }
+  ], function(err, empresas){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(empresas);
+    }
+  });
+};
+
+exports.getSucursalesByEmpresa = function(req, res){
+  Sucursal.aggregate([
+    {
+      $project: {
+        nombre: "$nombre",
+        empresa: "$empresa",
+        tipo: "$tipo"
+      }
+    },
+    {
+      $match: {
+        empresa: {
+          $eq: req.params.empresa
+        }
+      }
+    },
+    {
+      $group: {
+        _id: {
+          tipo: "$tipo",
+          nombre: "$nombre"
+        }
+      }
+    },
+    {
+      $sort: { _id: 1}
+    }
+  ], function(err, sucursales){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(sucursales);
+    }
+  });
+};

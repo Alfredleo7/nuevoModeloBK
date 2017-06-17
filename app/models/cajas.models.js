@@ -24,6 +24,17 @@ var cajaSchema = new Schema({
     type: String,
     enum: ['Borrador','Pendiente','Aprobado', 'Rechazado'],
     default: 'Borrador'
+  },
+  empresa: {
+    type: String,
+    required: 'Elija una Empresa'
+  },
+  sucursal:{
+    nombre: {
+      type: String,
+      required: 'Elija un Local/Departamento'
+    },
+    tipo: String
   }
 });
 

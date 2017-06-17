@@ -19,6 +19,8 @@ var getErrorMessage = function(err){
 exports.create = function(req, res){
   var caja = new Caja();
   caja.creador = req.session.usuario.id;
+  caja.empresa = req.session.usuario.empresa;
+  caja.sucursal = req.session.usuario.sucursal;
 
   caja.save(function(err){
     if (err) {
