@@ -4,10 +4,11 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
   function($scope,$http,$routeParams,$location){
 
     $scope.initCreate = function(){
+      $('#loadLogo').show();
       $scope.detalle = {};
       $scope.detalle.tipo = 'factura';
       $scope.detalle.anexo = {};
-
+      $('#loadLogo').hide();
       $scope.init();
     }
 
