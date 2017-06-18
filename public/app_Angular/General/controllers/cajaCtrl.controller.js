@@ -4,7 +4,7 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
   function($scope, $http, $location) {
 
     $scope.create = function() {
-
+      $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/cajas'
@@ -15,6 +15,7 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
           styling: 'bootstrap3',
           type: 'success'
         })
+        $('#loadLogo').hide();
       }, function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -23,11 +24,13 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
 
     //START METODOS DE INICIO
     $scope.find = function(tipo) {
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/cajasByUsuario/' + tipo
       }).then(function(cajas){
         $scope.cajas = cajas.data;
+        $('#loadLogo').hide();
       },function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });
@@ -36,6 +39,7 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
 
 
     var deleteDetallesByCaja = function (caja) {
+      $('#loadLogo').show();
       $http({
         method: 'DELETE',
         url: '/api/detallesByCaja/' + caja._id,
@@ -45,6 +49,7 @@ angular.module('general').controller('CajasCtrl', ['$scope','$http','$location',
           styling: 'bootstrap3',
           type: 'success'
         });
+        $('#loadLogo').hide();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
       });

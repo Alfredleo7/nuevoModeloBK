@@ -73,6 +73,10 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+          <div id="loadLogo" style="text-align:center">
+            <img src="/images/minifindstore_spin.gif" alt=""  height="42" width="42">
+          </div>
+
           <section ng-view></section>
         </div>
 
@@ -181,6 +185,8 @@
       $('.navbar-collapse a').click(function(){
           $(".navbar-collapse").collapse('hide');
       });
+
+      $('#loadLogo').hide();
 
 
     </script>

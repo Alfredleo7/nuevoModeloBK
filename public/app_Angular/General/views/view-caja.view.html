@@ -11,7 +11,7 @@
       <div class="col-md-6 col-sm-6 col-xs-6">
         <div class="btn-group"n style="float: right;">
           <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-warning" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar</a>
-          <a class="btn btn-sm btn-info" onclick="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
+          <a class="btn btn-sm btn-info" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
               <tbody>
                 <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:'fecha'">
                   <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
-                  <td><div ng-show="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-show="detalle.tipo == 'vale'">Vale</div></td>
+                  <td><div ng-show="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div></td>
                   <td data-ng-bind="detalle.entregado"></td>
                   <td data-ng-bind="detalle.categoria"></td>
                   <td data-ng-bind="detalle.descripcion"></td>
@@ -59,26 +59,3 @@
         Aún no hay detalles en la caja chica
       </div>
 </section>
-
-<script type="text/javascript">
-  var printDiv = function(IdDiv, titulo){
-
-    var divToPrint = jQuery(IdDiv).html();
-    var newWin = window.open('', 'my div');
-
-    var fecha = new Date();
-    var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
-
-    newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
-    newWin.document.write('<link rel="stylesheet" href="/css/ui.select2.css">');
-    newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
-    newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
-    newWin.document.write('</head><body style="-webkit-print-color-adjust:exact" onload="window.print()">');
-    newWin.document.write(divToPrint);
-    newWin.document.write('</body>');
-    newWin.document.write('</html>');
-    newWin.document.close();
-    //setTimeout(function(){newWin.close();},250);
-
-  };
-</script>

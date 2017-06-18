@@ -12,6 +12,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
     }
 
     $scope.initEdit = function(){
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/detalles/'+$routeParams.detalleId
@@ -22,6 +23,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
         $scope.detalle = response.data;
         $scope.detalle.fecha = new Date(response.data.fecha);
         $scope.valorPrevio = $scope.detalle.valor;
+        $('#loadLogo').hide();
         $scope.init();
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
@@ -29,7 +31,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
     }
 
     $scope.init = function(){
-
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/proveedores'
@@ -65,7 +67,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       });
-
+      $('#loadLogo').hide();
     };
 
     $scope.back = function(){

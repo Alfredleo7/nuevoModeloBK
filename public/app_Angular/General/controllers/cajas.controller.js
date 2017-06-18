@@ -4,7 +4,7 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
   function($scope,$http,$routeParams,$location){
 
     $scope.init = function(){
-
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/cajas/'+$routeParams.cajaId
@@ -22,7 +22,7 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       });
-
+      $('#loadLogo').hide();
     };
 
     $scope.back = function(){
@@ -143,6 +143,23 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
       }).on('pnotify.cancel', function() {
       });
     };
+
+    $scope.printDiv = function(IdDiv, titulo){
+      var divToPrint = jQuery(IdDiv).html();
+      var newWin = window.open('', 'my div');
+
+      var fecha = new Date();
+      var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
+
+      newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
+      newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('</head><body onload="window.print()">');
+      newWin.document.write(divToPrint);
+      newWin.document.write('</body>');
+      newWin.document.write('</html>');
+      newWin.document.close();
+    }
 
   }
 ]);
