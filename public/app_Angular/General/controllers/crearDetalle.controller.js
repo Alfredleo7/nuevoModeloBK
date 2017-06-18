@@ -170,7 +170,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
         $scope.detalle.anexo.iva = '';
         $scope.detalle.valor = '';
       }
-      $scope.detalle.valor = 0;
+      $scope.detalle.valor = '';
     }
 
     var validaciones = function(){

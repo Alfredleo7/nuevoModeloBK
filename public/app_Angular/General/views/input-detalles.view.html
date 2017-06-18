@@ -67,7 +67,7 @@
       <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>SubTotal</small></label>
-          <input type="text" class="form-control border-input text-right" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-2 col-xs-6">
@@ -174,7 +174,7 @@
     <div class="col-md-2 col-sm-2 col-xs-12">
       <div class="form-group">
         <label><small>Valor</small></label>
-        <input type="text" class="form-control border-input text-right" placeholder="Valor de Vale" data-ng-model="detalle.valor" onkeypress="return event.charCode>47 && event.charCode<58">
+        <input type="text" class="form-control border-input text-right" placeholder="Valor de Vale" data-ng-model="detalle.valor" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
       </div>
     </div>
   </div>
@@ -196,7 +196,7 @@
     <div class="col-md-5 col-sm-5 col-xs-12">
       <div class="form-group">
         <label><small>Entregado A:</small></label>
-        <input placeholder="Entregado A " type="text" class="form-control" data-ng-model="detalle.entregado" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode>7&&event.charCode<9)||(event.charCode>31&&event.charCode<33)"/>
+        <input placeholder="Entregado A " type="text" class="form-control" data-ng-model="detalle.entregado" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode==32)||(event.charCode==225)||(event.charCode==233)||(event.charCode==237)||(event.charCode==243)||(event.charCode==250)||(event.charCode==241)||(event.charCode==209)||(event.charCode==193)||(event.charCode==201)||(event.charCode==205)||(event.charCode==211)||(event.charCode==218)||(event.charCode==209)"/>
       </div>
     </div>
 
