@@ -38,7 +38,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:'fecha'" style="cursor: pointer">
+                <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:'fecha'">
                   <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
                   <td><div ng-show="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-show="detalle.tipo == 'vale'">Vale</div></td>
                   <td data-ng-bind="detalle.entregado"></td>
@@ -78,7 +78,7 @@
     newWin.document.write('</body>');
     newWin.document.write('</html>');
     newWin.document.close();
-    setTimeout(function(){newWin.close();},250);
+    //setTimeout(function(){newWin.close();},250);
 
   };
 </script>

@@ -263,7 +263,7 @@
         </div>
         <br>
         <div style="overflow-x:auto;">
-          <table class="table table-bordered">
+          <table class="table table-bordered proveedor">
             <thead>
               <tr class="active">
                 <th>nombre</th>
@@ -274,7 +274,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-click="asignar(proveedor)" style="cursor: pointer" ng-repeat="proveedor in proveedores |filter:buscador">
+              <tr class="filaLink" data-ng-click="asignar(proveedor)" ng-repeat="proveedor in proveedores |filter:buscador">
                 <td ng-bind="proveedor.nombre"></td>
                 <td ng-bind="proveedor.apellido"></td>
                 <td ng-bind="proveedor.razons"></td>
