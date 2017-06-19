@@ -25,20 +25,20 @@
           <p>FECHA: {{caja.creado | date: "dd'-'MMMM'-'y"}}</p>
           <p>CUSTODIO: {{caja.sucursal.nombre}}</p>
           <div style="overflow-x:auto;">
-            <table class="table table-bordered">
+            <table class="table table-bordered" ng-init="filtro='fecha';reverse='false'">
               <thead>
                 <tr class="active">
-                  <th>Fecha</th>
-                  <th>Factura</th>
-                  <th>Pagado a</th>
-                  <th>Categoria</th>
-                  <th>Descripción</th>
-                  <th>Cargado</th>
-                  <th>Valor</th>
+                  <th class="filaLink" ng-click="filtro='fecha';reverse = !reverse">Fecha</th>
+                  <th class="filaLink" ng-click="filtro='tipo';reverse = !reverse">Factura</th>
+                  <th class="filaLink" ng-click="filtro='entregado';reverse = !reverse">Pagado a</th>
+                  <th class="filaLink" ng-click="filtro='categoria';reverse = !reverse">Categoria</th>
+                  <th class="filaLink" ng-click="filtro='descripcion';reverse = !reverse">Descripción</th>
+                  <th class="filaLink" ng-click="filtro='cargado';reverse = !reverse">Cargado</th>
+                  <th class="filaLink" ng-click="filtro='valor';reverse = !reverse">Valor</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:'fecha'">
+                <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
                   <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
                   <td><div ng-show="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div></td>
                   <td data-ng-bind="detalle.entregado"></td>
