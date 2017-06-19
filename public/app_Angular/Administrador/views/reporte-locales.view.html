@@ -46,27 +46,27 @@
           <h4><b>Año:</b> {{filtro.anio}} <b>Categoria:</b> {{filtro.categoria}}</h4>
         </div>
         <div style="overflow-x:auto;">
-          <table class="table table-bordered">
+          <table class="table table-bordered" ng-init="filtroTable='sucursal';reverse='false'">
             <thead>
               <tr class="success">
-                <th>Locales <br> Departamentos</th>
-                <th>Ene</th>
-                <th>Feb</th>
-                <th>Mar</th>
-                <th>Abr</th>
-                <th>May</th>
-                <th>Jun</th>
-                <th>Jul</th>
-                <th>Ago</th>
-                <th>Sep</th>
-                <th>Oct</th>
-                <th>Nov</th>
-                <th>Dic</th>
-                <th>Acum</th>
+                <th class="filaLink" ng-click="filtroTable='sucursal';reverse = !reverse">Locales <br> Departamentos</th>
+                <th class="filaLink" ng-click="filtroTable='ene';reverse = !reverse">Ene</th>
+                <th class="filaLink" ng-click="filtroTable='feb';reverse = !reverse">Feb</th>
+                <th class="filaLink" ng-click="filtroTable='mar';reverse = !reverse">Mar</th>
+                <th class="filaLink" ng-click="filtroTable='abr';reverse = !reverse">Abr</th>
+                <th class="filaLink" ng-click="filtroTable='may';reverse = !reverse">May</th>
+                <th class="filaLink" ng-click="filtroTable='jun';reverse = !reverse">Jun</th>
+                <th class="filaLink" ng-click="filtroTable='jul';reverse = !reverse">Jul</th>
+                <th class="filaLink" ng-click="filtroTable='ago';reverse = !reverse">Ago</th>
+                <th class="filaLink" ng-click="filtroTable='sep';reverse = !reverse">Sep</th>
+                <th class="filaLink" ng-click="filtroTable='oct';reverse = !reverse">Oct</th>
+                <th class="filaLink" ng-click="filtroTable='nov';reverse = !reverse">Nov</th>
+                <th class="filaLink" ng-click="filtroTable='dic';reverse = !reverse">Dic</th>
+                <th class="filaLink" ng-click="filtroTable='total';reverse = !reverse">Acum</th>
               </tr>
             </thead>
             <tbody>
-              <tr data-ng-repeat="fila in tabla">
+              <tr data-ng-repeat="fila in tabla | orderBy:filtroTable:reverse">
                 <td class="success" data-ng-bind="fila.sucursal"></td>
                 <td class="text-right" data-ng-bind="fila.ene | currency"></td>
                 <td class="text-right" data-ng-bind="fila.feb | currency"></td>
