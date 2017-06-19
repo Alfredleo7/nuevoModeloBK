@@ -52,7 +52,6 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
       newWin.document.write('</body>');
       newWin.document.write('</html>');
       newWin.document.close();
-      setTimeout(function(){newWin.close();},250);
 
     };
 
