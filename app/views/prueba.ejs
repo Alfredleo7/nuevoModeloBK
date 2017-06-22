@@ -3,29 +3,50 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--DataTable-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <!-- PNotify -->
+    <link rel="stylesheet" href="/css/pnotify.custom.min.css">
+    <!--Estilo-->
+    <link rel="stylesheet" href="/css/estilos.css">
   </head>
   <body ng-app="prueba" ng-controller="controlador">
 
     <input type="text" name="" value="" ng-model="buscador">
 
-    <table>
-      <thead>
-        <th>apellido</th>
-        <th>cedula</th>
-        <th>nombre</th>
-        <th>razons</th>
-        <th>ruc</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="proveedor in proveedores |filter:buscador">
-          <td ng-bind="proveedor.apellido"></td>
-          <td ng-bind="proveedor.cedula"></td>
-          <td ng-bind="proveedor.nombre"></td>
-          <td ng-bind="proveedor.razons"></td>
-          <td ng-bind="proveedor.ruc"></td>
-        </tr>
-      </tbody>
-    </table>
+
+      <div id="container">
+        <table class="table table-bordered table2">
+          <!--<thead>
+            <th>apellido</th>
+            <th>cedula</th>
+            <th>nombre</th>
+            <th>razons</th>
+            <th>ruc</th>
+          </thead>-->
+          <colgroup>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+          </colgroup>
+          <tbody>
+            <tr ng-repeat="proveedor in proveedores |filter:buscador">
+              <td ng-bind="proveedor.apellido"></td>
+              <td ng-bind="proveedor.cedula"></td>
+              <td ng-bind="proveedor.nombre"></td>
+              <td ng-bind="proveedor.razons"></td>
+              <td ng-bind="proveedor.ruc"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </body>
   <script src="/lib/angular/angular.min.js" charset="utf-8"></script>
   <script type="text/javascript">
@@ -42,4 +63,35 @@
     }
   ]);
   </script>
+  <style media="screen">
+  #container
+ { overflow-y:auto;
+  height:20%;
+  width:100%;left:0;
+  right:0;
+  border-bottom:solid 1px red;
+ }
+
+.table2
+ { margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  left:0;
+  right:0;
+  width:100%;
+      box-sizing: border-box;
+  table-layout: fixed;
+
+ }
+ .table2 tr
+  { height:30px;
+  }
+.table2 td
+ {
+
+  border: 1px solid lightgrey;
+  border-top:none;
+  border-right: 1px solid lightgrey;
+ }
+  </style>
 </html>

@@ -13,10 +13,12 @@ var proveedorSchema = new Schema({
     type: String
   },
   ruc: {
-    type: String
+    type: String,
+    unique: true
   },
   cedula: {
-    type: String
+    type: String,
+    unique: true
   },
   razons: {
     type: String

@@ -24,5 +24,16 @@ angular.module('general').controller('view-detalle.controller',['$scope','$http'
       $location.path('/caja/'+$routeParams.cajaId+'/editarDetalle/'+detalle._id);
     }
 
+    $scope.eliminar = function(detalle) {
+      $http({
+        method: 'DELETE',
+        url: '/api/detalles/'+detalle._id
+      }).then(function(response){
+        $location.path('/caja/'+$routeParams.cajaId);
+      },function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      })
+    }
+
   }
 ]);

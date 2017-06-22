@@ -17,6 +17,10 @@ angular.module('administrador').config(['$routeProvider',
     }).
     when('/cajas/:cajaId', {
       templateUrl: 'app_Angular/Administrador/views/view-caja.view.html'
+    }).
+    when('/reporte/:tipo/:anio/:mes/:nombre', {
+      templateUrl: 'app_Angular/Administrador/views/detallesByCelda.view.html',
+      controller: 'detallesByCelda.controller'
     });
   }
 ]);

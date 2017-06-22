@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 var Detalle = mongoose.model('Detalle');
 var Proveedor = mongoose.model('Proveedor');
+var Caja = mongoose.model('Caja');
 
 var getErrorMessage = function(err){
   if (err.errors){
@@ -17,16 +18,30 @@ var getErrorMessage = function(err){
 exports.create = function(req, res){
   var detalle = new Detalle(req.body);
   detalle.creador = req.session.usuario.id;
-
   detalle.save(function(err){
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
       })
     } else {
-      //Proveedor.populate(detalle, {path: 'anexo.proveedor'}, function(err, detalle){
-        res.status(200).send(detalle);
-      //});
+      Caja.findById(detalle.caja,function(err, caja){
+        if (err) {
+          return res.status(400).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+          caja.valor = Number(caja.valor) + Number(detalle.valor);
+          caja.save(function(err){
+            if(err){
+              return res.status(500).send({
+                message: getErrorMessage(err)
+              })
+            } else {
+              res.status(200).send(detalle);
+            }
+          })
+        }
+      })
     }
   });
 };
@@ -50,24 +65,43 @@ exports.read = function(req, res){
 exports.update = function(req, res){
   var detalle = req.detalle;
 
-  detalle.valor = req.body.valor;
-  detalle.categoria = req.body.categoria;
-  detalle.entregado = req.body.entregado;
-  detalle.cargado = req.body.cargado;
-  detalle.fecha = req.body.fecha;
-  detalle.descripcion = req.body.descripcion;
-  detalle.tipo = req.body.tipo;
-  detalle.anexo = req.body.anexo;
-
-  detalle.save(function(err){
+  Caja.findById(detalle.caja,function(err, caja){
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
-      });
+      })
     } else {
-      res.json(detalle);
+      caja.valor = Number(caja.valor) - Number(detalle.valor);
+      caja.valor = Number(caja.valor) + Number(req.body.valor);
+      caja.save(function(err){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+
+          detalle.valor = Number(req.body.valor);
+          detalle.categoria = req.body.categoria;
+          detalle.entregado = req.body.entregado;
+          detalle.cargado = req.body.cargado;
+          detalle.fecha = req.body.fecha;
+          detalle.descripcion = req.body.descripcion;
+          detalle.tipo = req.body.tipo;
+          detalle.anexo = req.body.anexo;
+
+          detalle.save(function(err){
+            if (err) {
+              return res.status(400).send({
+                message: getErrorMessage(err)
+              });
+            } else {
+              res.json(detalle);
+            }
+          });
+        }
+      })
     }
-  });
+  })
 };
 
 exports.delete = function(req, res){
@@ -79,7 +113,24 @@ exports.delete = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      res.json(detalle);
+      Caja.findById(detalle.caja,function(err, caja){
+        if (err) {
+          return res.status(400).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+          caja.valor = Number(caja.valor) - Number(detalle.valor);
+          caja.save(function(err){
+            if(err){
+              return res.status(500).send({
+                message: getErrorMessage(err)
+              })
+            } else {
+              res.status(200).send(detalle);
+            }
+          })
+        }
+      })
     }
   });
 };
@@ -333,7 +384,6 @@ exports.estadoByCaja = function(req, res) {
 };
 
 exports.sucursalesDetallesXYear = function(req, res){
-  console.log(req.params.anio);
   Detalle.aggregate([
     { $project: {
         cargado: "$cargado",
@@ -480,6 +530,92 @@ exports.reporteXCategoria = function(req, res) {
         }
       }
     );
+  }
+
+}
+
+exports.detallesByCelda = function(req, res){
+  if(req.body.tipo == 'local'){
+    Detalle.aggregate(
+      [
+        {
+          $project:{
+            fecha: "$fecha",
+            anio: { $year: "$fecha" },
+            mes: { $month: "$fecha" },
+            cargado: "$cargado",
+            valor: "$valor",
+            estado: "$estado"
+          }
+        },
+        {
+          $match:{
+            cargado: {
+              $eq: req.body.nombre
+            },
+            anio: {
+              $eq: Number(req.body.anio)
+            },
+            mes: {
+              $eq: Number(req.body.mes)
+            },
+            estado: {
+              $eq: 'Aprobado'
+            }
+          }
+        }
+      ],
+      function(err, detalles){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          });
+        } else {
+          return res.status(200).json(detalles);
+        }
+      }
+    )
+  }
+  if(req.body.tipo == 'categoria'){
+    Detalle.aggregate(
+      [
+        {
+          $project:{
+            fecha: "$fecha",
+            anio: { $year: "$fecha" },
+            mes: { $month: "$fecha" },
+            categoria: "$categoria",
+            valor: "$valor",
+            estado: "$estado"
+          }
+        },
+        {
+          $match:{
+            categoria: {
+              $eq: req.body.nombre
+            },
+            anio: {
+              $eq: Number(req.body.anio)
+            },
+            mes: {
+              $eq: Number(req.body.mes)
+            },
+            estado: {
+              $eq: 'Aprobado'
+            }
+          }
+        }
+      ],
+      function(err, detalles){
+        if(err){
+          return res.status(500).send({
+            message: getErrorMessage(err)
+          });
+        } else {
+          return res.status(200).json(detalles);
+        }
+      }
+    )
   }
 
 }

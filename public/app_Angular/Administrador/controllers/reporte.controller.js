@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http',
-  function($scope, $http){
+angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http', '$location',
+  function($scope, $http, $location){
 
     $scope.init = function(){
 
@@ -97,6 +97,12 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
           $scope.tabla.push(fila);
         }
       });
+    }
+
+    $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){
+      if(valor != 0){
+        $location.path('reporte/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
+      }
     }
 
   }

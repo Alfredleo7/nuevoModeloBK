@@ -179,58 +179,63 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
       if(Number($scope.detalle.valor) == 0){
         mostrarNotificacion('Ingrese el valor del detalle');
       } else {
-        if($scope.detalle.tipo == 'factura'){
-          if(!$scope.detalle.anexo.fac_establecimiento){
-            mostrarNotificacion('Ingrese el número de establecimiento de la factura');
-          } else {
-            if(!$scope.detalle.anexo.fac_puntoEmision){
-              mostrarNotificacion('Ingrese el número de emisión de la factura');
-            }else{
-              if(!$scope.detalle.anexo.fac_secuencia){
-                mostrarNotificacion('Ingrese el número de secuencia de la factura');
+        var today = new Date();
+        if($scope.detalle.fecha > today){
+          mostrarNotificacion('La factura no puede ser de una fecha superior a la actual');
+        } else {
+          if($scope.detalle.tipo == 'factura'){
+            if(!$scope.detalle.anexo.fac_establecimiento){
+              mostrarNotificacion('Ingrese el número de establecimiento de la factura');
+            } else {
+              if(!$scope.detalle.anexo.fac_puntoEmision){
+                mostrarNotificacion('Ingrese el número de emisión de la factura');
               }else{
-                if(!$scope.detalle.anexo.fac_autorizacion){
-                  mostrarNotificacion('Ingrese el número de autorización de la factura');
+                if(!$scope.detalle.anexo.fac_secuencia){
+                  mostrarNotificacion('Ingrese el número de secuencia de la factura');
                 }else{
-                  if(!$scope.detalle.anexo.proveedor){
-                    mostrarNotificacion('Seleccione un proveedor');
+                  if(!$scope.detalle.anexo.fac_autorizacion){
+                    mostrarNotificacion('Ingrese el número de autorización de la factura');
                   }else{
-                    if(!$scope.detalle.anexo.subTotal){
-                      mostrarNotificacion('Ingrese el subtotal de la factura');
+                    if(!$scope.detalle.anexo.proveedor){
+                      mostrarNotificacion('Seleccione un proveedor');
                     }else{
-                      if($scope.detalle.anexo.retencion){
-                        if(!$scope.detalle.anexo.ret_establecimiento){
-                          mostrarNotificacion('Ingrese el número de establecimiento de la retención');
-                        }else{
-                          if(!$scope.detalle.anexo.ret_puntoEmision){
-                            mostrarNotificacion('Ingrese el número de emisión de la retención');
+                      if(!$scope.detalle.anexo.subTotal){
+                        mostrarNotificacion('Ingrese el subtotal de la factura');
+                      }else{
+                        if($scope.detalle.anexo.retencion){
+                          if(!$scope.detalle.anexo.ret_establecimiento){
+                            mostrarNotificacion('Ingrese el número de establecimiento de la retención');
                           }else{
-                            if(!$scope.detalle.anexo.ret_secuencia){
-                              mostrarNotificacion('Ingrese el número de secuencia de la retención');
+                            if(!$scope.detalle.anexo.ret_puntoEmision){
+                              mostrarNotificacion('Ingrese el número de emisión de la retención');
                             }else{
-                              if(!$scope.detalle.anexo.ret_autorizacion){
-                                mostrarNotificacion('Ingrese el número de autorización de la retención');
+                              if(!$scope.detalle.anexo.ret_secuencia){
+                                mostrarNotificacion('Ingrese el número de secuencia de la retención');
                               }else{
-                                if(!$scope.detalle.anexo.selectRetencion || $scope.detalle.anexo.selectRetencion == ''){
-                                  mostrarNotificacion('Seleccione el porcentaje de retención');
+                                if(!$scope.detalle.anexo.ret_autorizacion){
+                                  mostrarNotificacion('Ingrese el número de autorización de la retención');
                                 }else{
-                                  return true;
+                                  if(!$scope.detalle.anexo.selectRetencion || $scope.detalle.anexo.selectRetencion == ''){
+                                    mostrarNotificacion('Seleccione el porcentaje de retención');
+                                  }else{
+                                    return true;
+                                  }
                                 }
                               }
                             }
                           }
+                        }else{
+                          return true;
                         }
-                      }else{
-                        return true;
                       }
                     }
                   }
                 }
               }
             }
+          } else {
+            return true;
           }
-        } else {
-          return true;
         }
       };
       return false;
@@ -245,18 +250,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
           url: '/api/detalles',
           data: $scope.detalle
         }).then(function(response){
-
-          $scope.caja.valor += response.data.valor;
-          $http({
-            method: 'PUT',
-            url: '/api/cajas/' + $scope.caja._id,
-            data: $scope.caja
-          }).then(function(response){
-            $scope.back();
-          },function(errorResponse) {
-            mostrarNotificacion(errorResponse.data.message);
-          });
-
+          $scope.back();
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
         });
@@ -272,11 +266,8 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
           url: '/api/detalles/' + $scope.detalle._id,
           data: $scope.detalle
         }).then(function(response){
-          //Actualizar la Caja Chica
-          $scope.caja.valor = Number($scope.caja.valor) - Number($scope.valorPrevio);
-          $scope.caja.valor = Number($scope.caja.valor) + Number($scope.detalle.valor);
 
-          $http({
+          /*$http({
             method: 'PUT',
             url: '/api/cajas/' + $scope.caja._id,
             data: $scope.caja
@@ -284,8 +275,8 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
             $scope.back();
           },function(errorResponse) {
             mostrarNotificacion(errorResponse.data.message);
-          });
-
+          });*/
+          $scope.back();
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
         });
@@ -296,9 +287,27 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
     $scope.asignar = function(proveedor){
 
       $scope.detalle.anexo.proveedor = proveedor;
-      $('.modalProveedores').modal('hide')
+      $('.modalProveedores').modal('hide');
 
     };
+
+    $scope.guardarProveedor = function(proveedor){
+      mostrarNotificacion('Tarea en Construcción');
+      $('.modalProveedores').modal('hide');
+      /*$http({
+        method: 'POST',
+        url: '/api/proveedores',
+        data: proveedor
+      }).then(function(response){
+        $scope.detalle.anexo.proveedor = response.data;
+        $scope.proveedores.push(response.data);
+        proveedor = {};
+        $('.modalProveedores').modal('hide');
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+      })*/
+
+    }
 
   }
 ]);

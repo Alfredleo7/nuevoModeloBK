@@ -247,34 +247,36 @@
 
 <div class="modal fade modalProveedores" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
   <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content" ng-init="nuevoProveedor = false;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Proveedores</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" ng-hide="nuevoProveedor">
         <div class="row">
-          <div class="col-md-2 col-sm-4 col-xs-12">
-            <label>Buscar:</label>
+          <div class="col-md-4 col-sm-8 col-xs-12">
+            <input type="text" class="form-control" placeholder="Buscar" ng-model="buscador">
           </div>
-          <div class="col-md-10 col-sm-8 col-xs-12">
-            <input type="text" class="form-control" name="" value="" ng-model="buscador">
+          <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="float: rigth">
+              <button class="btn btn-default" type="button" name="button" ng-click="nuevoProveedor=true;">Nuevo Proveedor</button>
+            </div>
           </div>
         </div>
         <br>
         <div style="overflow-x:auto;">
-          <table class="table table-bordered proveedor">
+          <table class="table table-bordered">
             <thead>
               <tr class="active">
-                <th>nombre</th>
-                <th>apellido</th>
-                <th>razons</th>
-                <th>cedula</th>
-                <th>ruc</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Razón Social</th>
+                <th>Cédula</th>
+                <th>Ruc</th>
               </tr>
             </thead>
             <tbody>
-              <tr class="filaLink" data-ng-click="asignar(proveedor)" ng-repeat="proveedor in proveedores |filter:buscador">
+              <tr class="filaLink" data-ng-click="asignar(proveedor)" ng-repeat="proveedor in proveedores | filter:buscador">
                 <td ng-bind="proveedor.nombre"></td>
                 <td ng-bind="proveedor.apellido"></td>
                 <td ng-bind="proveedor.razons"></td>
@@ -285,9 +287,56 @@
           </table>
         </div>
       </div>
+      <div ng-show="nuevoProveedor">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="form-group">
+                <label><small>Nombre:</small></label>
+                <input type="text" class="form-control border-input" placeholder="Nombre" data-ng-model="proveedor.nombre" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode==32)||(event.charCode==225)||(event.charCode==233)||(event.charCode==237)||(event.charCode==243)||(event.charCode==250)||(event.charCode==241)||(event.charCode==209)||(event.charCode==193)||(event.charCode==201)||(event.charCode==205)||(event.charCode==211)||(event.charCode==218)||(event.charCode==209)">
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="form-group">
+                <label><small>Apellido:</small></label>
+                <input type="text" class="form-control border-input" placeholder="Apellido" data-ng-model="proveedor.apellido" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode==32)||(event.charCode==225)||(event.charCode==233)||(event.charCode==237)||(event.charCode==243)||(event.charCode==250)||(event.charCode==241)||(event.charCode==209)||(event.charCode==193)||(event.charCode==201)||(event.charCode==205)||(event.charCode==211)||(event.charCode==218)||(event.charCode==209)">
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label><small>Razón Social:</small></label>
+                <input type="text" class="form-control border-input" placeholder="Razón Social" data-ng-model="proveedor.razons" onkeypress="return (event.charCode>64&&event.charCode<91)||(event.charCode>96&&event.charCode<123)||(event.charCode==32)||(event.charCode==225)||(event.charCode==233)||(event.charCode==237)||(event.charCode==243)||(event.charCode==250)||(event.charCode==241)||(event.charCode==209)||(event.charCode==193)||(event.charCode==201)||(event.charCode==205)||(event.charCode==211)||(event.charCode==218)||(event.charCode==209)">
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="form-group">
+                <label><small>Cédula:</small></label>
+                <input type="text" class="form-control border-input" placeholder="Cédula" data-ng-model="proveedor.cedula" maxlength="10" onkeypress="return event.charCode>47 && event.charCode<58">
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-12">
+              <div class="form-group">
+                <label><small>Ruc:</small></label>
+                <input type="text" class="form-control border-input" placeholder="Ruc" data-ng-model="proveedor.ruc" maxlength="13" onkeypress="return event.charCode>47 && event.charCode<58">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="nuevoProveedor = false">Cancelar</button>
+          <button type="button" class="btn btn-primary" ng-click="guardarProveedor(proveedor);nuevoProveedor = false;">Guardar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<style media="screen">
+table {
+  height: 400px;       /* Just for the demo          */
+  overflow-y: auto;    /* Trigger vertical scroll    */
+  display: block;
+}
+</style>
 <script type="text/javascript">
 
   var mask_account =  function (field_account, num){
@@ -299,5 +348,4 @@
     var new_value = zeros + field_account.value;
     field_account.value = new_value;
   }
-
 </script>

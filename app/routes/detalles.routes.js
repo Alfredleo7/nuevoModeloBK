@@ -34,4 +34,7 @@ module.exports = function(app) {
   app.route('/api/reporteXCategoria')
     .post(detalles.reporteXCategoria);
 
+  app.route('/api/detallesByCelda')
+    .post(detalles.detallesByCelda);
+
 }

@@ -1,0 +1,26 @@
+<div class="" ng-init="init()">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>{{data.nombre}} {{nameMes}} del {{data.anio}}</h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <div style="overflow-x:auto">
+        <table  class="table table-bordered" ng-init="filtro='fecha';reverse='false'">
+          <thead>
+            <tr class="active">
+              <th class="filaLink" ng-click="filtro='fecha';reverse = !reverse">Fecha</th>
+              <th class="filaLink" ng-click="filtro='valor';reverse = !reverse">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
+              <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+              <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -68,18 +68,18 @@
             <tbody>
               <tr data-ng-repeat="fila in tabla | orderBy:filtroTable:reverse">
                 <td class="success" data-ng-bind="fila.sucursal"></td>
-                <td class="text-right" data-ng-bind="fila.ene | currency"></td>
-                <td class="text-right" data-ng-bind="fila.feb | currency"></td>
-                <td class="text-right" data-ng-bind="fila.mar | currency"></td>
-                <td class="text-right" data-ng-bind="fila.abr | currency"></td>
-                <td class="text-right" data-ng-bind="fila.may | currency"></td>
-                <td class="text-right" data-ng-bind="fila.jun | currency"></td>
-                <td class="text-right" data-ng-bind="fila.jul | currency"></td>
-                <td class="text-right" data-ng-bind="fila.ago | currency"></td>
-                <td class="text-right" data-ng-bind="fila.sep | currency"></td>
-                <td class="text-right" data-ng-bind="fila.oct | currency"></td>
-                <td class="text-right" data-ng-bind="fila.nov | currency"></td>
-                <td class="text-right" data-ng-bind="fila.dic | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,1,fila.ene)" data-ng-bind="fila.ene | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,2,fila.feb)" data-ng-bind="fila.feb | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,3,fila.mar)" data-ng-bind="fila.mar | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,4,fila.abr)" data-ng-bind="fila.abr | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,5,fila.may)" data-ng-bind="fila.may | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,6,fila.jun)" data-ng-bind="fila.jun | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,7,fila.jul)" data-ng-bind="fila.jul | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,8,fila.ago)" data-ng-bind="fila.ago | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,9,fila.sep)" data-ng-bind="fila.sep | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,10,fila.oct)" data-ng-bind="fila.oct | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,11,fila.nov)" data-ng-bind="fila.nov | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,12,fila.dic)" data-ng-bind="fila.dic | currency"></td>
                 <td class="text-right info" data-ng-bind="fila.total | currency"></td>
               </tr>
               <tr>

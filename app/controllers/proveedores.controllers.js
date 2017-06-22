@@ -13,7 +13,7 @@ var getErrorMessage = function(err) {
       // Si un eror de index único ocurre configurar el mensaje de error
       case 11000:
       case 11001:
-        message = 'El correo ya existe';
+        message = 'El Proveedor ya se encuentra registrado';
         break;
       // Si un error general ocurre configurar el mensaje de error
       default:
