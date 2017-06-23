@@ -74,10 +74,13 @@ var detalleSchema = new Schema({
     ret_puntoEmision: String,
     ret_secuencia: String,
     ret_autorizacion: String,
-    subTotal: Number,
-    noObjetoIVA: {
-      type: Boolean,
-      default: false
+    subTotal0: {
+      type: Number,
+      default: 0
+    },
+    subTotalIva: {
+      type: Number,
+      default: 0
     },
     selectRetencion: String,
     retencionIVABienes: Number,//30%

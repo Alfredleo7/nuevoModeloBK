@@ -89,20 +89,35 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
     }
 
     $scope.updateTotal = function (){
-      if($scope.detalle.anexo.noObjetoIVA){
-        $scope.detalle.anexo.iva = 0;
+
+      /*$scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
+      $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);*/
+
+      if($scope.detalle.anexo.subTotal0 || $scope.detalle.anexo.subTotalIva){
+        if($scope.detalle.anexo.subTotal0 && !$scope.detalle.anexo.subTotalIva){
+          $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
+          $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0);
+        }
+        if(!$scope.detalle.anexo.subTotal0 && $scope.detalle.anexo.subTotalIva){
+          $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
+          $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);
+        }
+        if($scope.detalle.anexo.subTotal0 && $scope.detalle.anexo.subTotalIva){
+          $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
+          $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);
+        }
       } else {
-        $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotal)*12/100;
+        $scope.detalle.anexo.iva = "";
+        $scope.detalle.anexo.total = "";
       }
 
-      $scope.detalle.anexo.total = $scope.detalle.anexo.iva + Number($scope.detalle.anexo.subTotal);
       if($scope.detalle.anexo.retencion){
         if($scope.detalle.anexo.selectRetencion=='1-30'){
 
           $scope.primerPorc = 1;
           $scope.segundoPorc = 30;
 
-          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.detalle.anexo.subTotal)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVABienes = Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100;
 
           $scope.detalle.anexo.retencionSubTotalServicios = 0;
@@ -117,7 +132,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
-          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.detalle.anexo.subTotal)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVAServicios = Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100;
 
           $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalServicios) + Number($scope.detalle.anexo.retencionIVAServicios);
@@ -125,7 +140,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
         if($scope.detalle.anexo.selectRetencion=='1'){
           $scope.primerPorc = 1;
 
-          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.detalle.anexo.subTotal)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
           $scope.detalle.anexo.retencionSubTotalServicios = 0;
@@ -139,7 +154,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
-          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.detalle.anexo.subTotal)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVAServicios = 0;
 
           $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalServicios)
@@ -166,7 +181,8 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
         $scope.detalle.anexo.retencion = false;
         $scope.detalle.anexo.noObjetoIVA=false;
         inicializarAnexoRetencion();
-        $scope.detalle.anexo.subTotal = '';
+        $scope.detalle.anexo.subTotalIva = '';
+        $scope.detalle.anexo.subTotal0 = '';
         $scope.detalle.anexo.iva = '';
         $scope.detalle.valor = '';
       }
@@ -199,7 +215,7 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
                     if(!$scope.detalle.anexo.proveedor){
                       mostrarNotificacion('Seleccione un proveedor');
                     }else{
-                      if(!$scope.detalle.anexo.subTotal){
+                      if(false/*!$scope.detalle.anexo.subTotal*/){
                         mostrarNotificacion('Ingrese el subtotal de la factura');
                       }else{
                         if($scope.detalle.anexo.retencion){
@@ -292,20 +308,31 @@ angular.module('general').controller('FormDetalleCtrl', ['$scope','$http','$rout
     };
 
     $scope.guardarProveedor = function(proveedor){
-      mostrarNotificacion('Tarea en Construcción');
-      $('.modalProveedores').modal('hide');
-      /*$http({
-        method: 'POST',
-        url: '/api/proveedores',
-        data: proveedor
-      }).then(function(response){
-        $scope.detalle.anexo.proveedor = response.data;
-        $scope.proveedores.push(response.data);
-        proveedor = {};
-        $('.modalProveedores').modal('hide');
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-      })*/
+      /*mostrarNotificacion('Tarea en Construcción');
+      $('.modalProveedores').modal('hide');*/
+      if(proveedor){
+        if(proveedor.cedula || proveedor.ruc){
+          $http({
+            method: 'POST',
+            url: '/api/proveedores',
+            data: proveedor
+          }).then(function(response){
+            $scope.detalle.anexo.proveedor = response.data;
+            $scope.proveedores.push(response.data);
+            $('.modalProveedores').modal('hide');
+            return false;
+          }, function(errorResponse) {
+            mostrarNotificacion(errorResponse.data.message);
+            return true;
+          })
+        } else {
+          mostrarNotificacion('Ingrese un RUC o una cédula');
+          return true;
+        }
+      } else {
+        mostrarNotificacion('Ingrese los datos');
+        return true;
+      }
 
     }
 

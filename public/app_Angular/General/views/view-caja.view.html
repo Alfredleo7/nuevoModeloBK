@@ -22,8 +22,16 @@
           <div style="text-align:center">
             <p>REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa}}</p>
           </div>
-          <p>FECHA: {{caja.creado | date: "dd'-'MMMM'-'y"}}</p>
-          <p>CUSTODIO: {{caja.sucursal.nombre}}</p>
+          <table style="width: 100%;">
+            <tr>
+              <td><p>FECHA: {{caja.creado | date: "dd'-'MMMM'-'y"}}</p></td>
+              <td><p>{{caja.estado}}</p></td>
+            </tr>
+            <tr>
+              <td><p>CUSTODIO: {{caja.sucursal.nombre}}</p></td>
+              <td ng-if="caja.administrador"><p>por {{caja.administrador.firstName}} {{caja.administrador.lastName}}</p></td>
+            </tr>
+          </table>
           <div style="overflow-x:auto;">
             <table class="table table-bordered" ng-init="filtro='fecha';reverse='false'">
               <thead>
@@ -40,7 +48,7 @@
               <tbody>
                 <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
                   <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
-                  <td><div ng-show="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div></td>
+                  <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
                   <td data-ng-bind="detalle.entregado"></td>
                   <td data-ng-bind="detalle.categoria"></td>
                   <td data-ng-bind="detalle.descripcion"></td>

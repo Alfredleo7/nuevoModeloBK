@@ -1,3 +1,5 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -13,16 +15,15 @@ var proveedorSchema = new Schema({
     type: String
   },
   ruc: {
-    type: String,
-    unique: true
+    type: String
   },
   cedula: {
-    type: String,
-    unique: true
+    type: String
   },
   razons: {
     type: String
   }
 });
+
 
 mongoose.model('Proveedor', proveedorSchema);

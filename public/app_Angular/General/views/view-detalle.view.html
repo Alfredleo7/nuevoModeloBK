@@ -10,43 +10,43 @@
   </div>
   <div class="x_content">
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12 labelInfo">
           <div class="form-group row">
-            <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Fecha:</label>
-            <div class="col-md-8">
+            <label for="example-text-input" class="col-md-6 col-sm-6 col-xs-4 col-form-label">Fecha:</label>
+            <div class="col-md-6 col-sm-6 col-xs-8">
               <p>{{detalle.fecha | date: "dd'/'MMMM'/'y"}}</p>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12 labelInfo">
           <div class="form-group row">
-            <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Entregado a:</label>
-            <div class="col-md-8">
+            <label for="example-text-input" class="col-md-6 col-sm-6 col-xs-4 col-form-label">Entregado a:</label>
+            <div class="col-md-6 col-sm-6 col-xs-8">
               <p>{{detalle.entregado}}</p>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12 labelInfo">
           <div class="form-group row">
-            <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Cargado a:</label>
-            <div class="col-md-8">
+            <label for="example-text-input" class="col-md-6 col-sm-6 col-xs-4 col-form-label">Cargado a:</label>
+            <div class="col-md-6 col-sm-6 col-xs-8">
               <p>{{detalle.cargado}}</p>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12 labelInfo">
           <div class="form-group row">
-            <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Categoria:</label>
-            <div class="col-md-8">
+            <label for="example-text-input" class="col-md-6 col-sm-6 col-xs-4 col-form-label">Categoria:</label>
+            <div class="col-md-6 col-sm-6 col-xs-8">
               <p>{{detalle.categoria}}</p>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="col-md-6 col-sm-6 col-xs-12 labelInfo">
           <div class="form-group row">
-            <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Descripción:</label>
-            <div class="col-md-8">
+            <label for="example-text-input" class="col-md-6 col-sm-6 col-xs-4 col-form-label">Descripción:</label>
+            <div class="col-md-6 col-sm-6 col-xs-8">
               <p>{{detalle.descripcion}}</p>
             </div>
           </div>
@@ -55,14 +55,14 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <div ng-show="detalle.tipo=='vale'" class="row">
+      <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+        <div ng-show="detalle.tipo=='vale'">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <h2><strong>Vale de Pago</strong></h2>
           </div>
         </div>
         <!-- FACTURA -->
-        <div ng-show="detalle.tipo=='factura'" class="row">
+        <div ng-show="detalle.tipo=='factura'" class="col-md-12">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <h2><strong>Factura</strong></h2>
           </div>
@@ -70,7 +70,7 @@
             <div class="form-group row">
               <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Num. de Factura:</label>
               <div class="col-md-8">
-                <p>{{detalle.anexo.fac_establecimiento}}{{detalle.anexo.fac_puntoEmision}}{{detalle.anexo.fac_secuencia}}{{detalle.anexo.fac_autorizacion}}</p>
+                <p>{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -80,9 +80,15 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">SubTotal:</label>
+              <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">SubTotal base 0:</label>
               <div class="col-md-8">
-                <p>{{detalle.anexo.subTotal| currency}}</p>
+                <p>{{detalle.anexo.subTotal0| currency}}</p>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">SubTotal base 12%:</label>
+              <div class="col-md-8">
+                <p>{{detalle.anexo.subTotalIva| currency}}</p>
               </div>
             </div>
             <div class="form-group row">
@@ -96,7 +102,7 @@
             <div class="form-group row">
               <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Num. de Retención:</label>
               <div class="col-md-8">
-                <p>{{detalle.anexo.ret_establecimiento}}{{detalle.anexo.ret_puntoEmision}}{{detalle.anexo.ret_secuencia}}{{detalle.anexo.ret_autorizacion}}</p>
+                <p>{{detalle.anexo.ret_establecimiento}}-{{detalle.anexo.ret_puntoEmision}}-{{detalle.anexo.ret_secuencia}}</p>
               </div>
             </div>
             <div ng-show="detalle.anexo.retencionSubTotalBienes != 0" class="form-group row">
@@ -131,12 +137,12 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="col-md-12">
           <div class="col-md-6">
             <div class="form-group row">
-              <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label">Total:</label>
+              <label for="example-text-input" class="col-md-4 col-sm-4 col-xs-4 col-form-label"><h3>Total:</h3></label>
               <div class="col-md-8">
-                <p><b>{{detalle.valor | currency}}</b></p>
+                <p><h3>{{detalle.valor | currency}}</h3></p>
               </div>
             </div>
           </div>

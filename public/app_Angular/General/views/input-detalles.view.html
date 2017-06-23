@@ -49,25 +49,16 @@
           <input type="text" class="form-control border-input text-right" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.fac_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
         </div>
       </div>
-      <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
-          <label><small>Proveedor</small></label>
-          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Proveedor" data-ng-model="detalle.anexo.proveedor.nombre" readonly="true">
-          <!--<label><small>Proveedor:</small></label>
-          <ui-select data-ng-model="detalle.anexo.proveedor" theme="select2" class="form-control">
-            <ui-select-match placeholder="Elige un Proveedor">{{$select.selected.nombre}}</ui-select-match>
-            <ui-select-choices repeat="proveedor in proveedores | filter: $select.search">
-              <div ng-bind-html="proveedor.nombre | highlight: $select.search"></div><br>
-              <small>Ced:</small><small ng-bind-html="proveedor.cedula | highlight: $select.search"></small><br>
-              <small>Ruc:</small><small ng-bind-html="proveedor.ruc | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>-->
+          <label><small>SubTotal base 0</small></label>
+          <input type="text" class="form-control border-input text-right" placeholder="SubTotal base 0" data-ng-model="detalle.anexo.subTotal0" ng-change="updateTotal()" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
-          <label><small>SubTotal</small></label>
-          <input type="text" class="form-control border-input text-right" placeholder="SubTotal" data-ng-model="detalle.anexo.subTotal" ng-change="updateTotal()" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46"/>
+          <label><small>SubTotal base 12%</small></label>
+          <input type="text" class="form-control border-input text-right" placeholder="SubTotal base 12%" data-ng-model="detalle.anexo.subTotalIva" ng-change="updateTotal()" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-2 col-xs-6">
@@ -82,14 +73,9 @@
           <input type="number" readonly="true" class="form-control text-right" data-ng-model="detalle.anexo.total"/>
         </div>
       </div>
-      <div class="col-md-2 col-sm-12 col-xs-12">
+      <div class="col-md-4 col-sm-12 col-xs-12">
         <label>
           <input type="checkbox" name="checkboxRetencion" data-ng-model='detalle.anexo.retencion' ng-change="updateTotal()"/> Aplicar Retención
-        </label>
-      </div>
-      <div class="col-md-2 col-sm-12 col-xs-12">
-        <label>
-          <input type="checkbox" name="checkboxRetencion" data-ng-model='detalle.anexo.noObjetoIVA' ng-change="updateTotal()"/> No Objeto de IVA
         </label>
       </div>
     </div>
@@ -161,6 +147,30 @@
         <div class="form-group">
           <label><small>Total Retención</small></label>
           <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control text-right" data-ng-model="detalle.anexo.totalRetencion"/>
+        </div>
+      </div>
+    </div>
+    <!--Proveedor-->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <b>Proveedor</b>
+      </div>
+      <div class="col-md-6 col-sm-4 col-xs-12">
+        <div class="form-group">
+          <label><small>Razón Social</small></label>
+          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Razón Social" data-ng-model="detalle.anexo.proveedor.razons" readonly="true">
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="form-group">
+          <label><small>Cédula</small></label>
+          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Cédula" data-ng-model="detalle.anexo.proveedor.cedula" readonly="true">
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="form-group">
+          <label><small>Ruc</small></label>
+          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Ruc" data-ng-model="detalle.anexo.proveedor.ruc" readonly="true">
         </div>
       </div>
     </div>
@@ -324,7 +334,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" ng-click="nuevoProveedor = false">Cancelar</button>
-          <button type="button" class="btn btn-primary" ng-click="guardarProveedor(proveedor);nuevoProveedor = false;">Guardar</button>
+          <button type="button" class="btn btn-primary" ng-click="nuevoProveedor = guardarProveedor(proveedor);">Guardar</button>
         </div>
       </div>
     </div>

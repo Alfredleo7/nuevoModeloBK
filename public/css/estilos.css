@@ -89,3 +89,20 @@ font-size: 12px;
   cursor: pointer;
   background-color: aliceblue;
 }
+
+.labelInfo {
+  max-height: 25px;
+}
+
+.navbar-default {
+  background-color: #e6e9ed;
+}
+
+@media print {
+   .ng-hide {
+     display: block !important;
+   }
+   .ng-show {
+     display: block !important;
+   }
+}

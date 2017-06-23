@@ -88,7 +88,9 @@ exports.listByUsuario = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      res.json(cajas);
+      Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
+        res.json(cajas);
+      });
     }
   });
 };
@@ -101,11 +103,13 @@ exports.listPendientes = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      Usuario.populate(cajas, {path: 'creador'}, function(err, cajas){
-        res.json(cajas);
-      });
+      res.json(cajas);
     }
   });
+}
+
+exports.listAprobados = function(req, res){
+
 }
 
 exports.aprobar = function(req, res){
@@ -167,7 +171,14 @@ exports.cajaByID = function(req, res, next, id){
         message: 'La caja no existe'
       })
     }
-    req.caja = caja;
-    next();
+
+    Usuario.findById(caja.administrador, function(err, usuario){
+      console.log(usuario);
+      if(usuario){
+        caja.administrador = usuario;
+      }
+      req.caja = caja;
+      next();
+    });
   });
 };

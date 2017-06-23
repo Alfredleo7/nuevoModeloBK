@@ -9,6 +9,7 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
         method: 'GET',
         url: '/api/cajas/'+$routeParams.cajaId
       }).then(function(response){
+        console.log(response.data);
         $scope.caja = response.data;
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
@@ -154,11 +155,13 @@ angular.module('general').controller('CajaCtrl',['$scope','$http','$routeParams'
       newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
       newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/css/estilos.css" rel="stylesheet">');
       newWin.document.write('</head><body onload="window.print()">');
       newWin.document.write(divToPrint);
       newWin.document.write('</body>');
       newWin.document.write('</html>');
       newWin.document.close();
+      setTimeout(function () { newWin.close(); }, 3000);
     }
 
   }
