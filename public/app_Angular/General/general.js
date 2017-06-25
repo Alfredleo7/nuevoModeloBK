@@ -1,6 +1,6 @@
-var mainAplicationModuleName = 'bk';
+var mainAplicationModuleName = 'general';
 
-var mainAplicationModule = angular.module(mainAplicationModuleName, ['ngRoute','general']);
+var mainAplicationModule = angular.module(mainAplicationModuleName, ['ngRoute','datatables']);
 
 mainAplicationModule.config(['$locationProvider',
   function($locationProvider){

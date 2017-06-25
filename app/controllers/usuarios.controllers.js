@@ -53,7 +53,6 @@ exports.ingresar = function(req, res){
 
 exports.signUp = function(req, res){
   var usuario = Usuario(req.body);
-  console.log(usuario);
   usuario.save(function(err){
     if(err){
       return res.status(400).send({

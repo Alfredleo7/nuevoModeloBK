@@ -5,13 +5,13 @@
         <div class="btn-group">
           <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
           <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
-          <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-success" type="button"><i class="fa fa-send-o"></i> Enviar</button>
+          <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-info" type="button"><i class="fa fa-send-o"></i> Enviar</button>
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-xs-6">
         <div class="btn-group"n style="float: right;">
-          <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-warning" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar</a>
-          <a class="btn btn-sm btn-info" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
+          <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar</a>
+          <a class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
         </div>
       </div>
     </div>

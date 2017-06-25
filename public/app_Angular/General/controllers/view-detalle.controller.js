@@ -4,14 +4,16 @@ angular.module('general').controller('view-detalle.controller',['$scope','$http'
   function($scope,$http,$routeParams,$location){
 
     $scope.init = function(){
-
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/detalles/'+$routeParams.detalleId
       }).then(function(response){
         $scope.detalle = response.data;
+        $('#loadLogo').hide();
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
+        $('#loadLogo').hide();
       })
 
     }
@@ -25,13 +27,16 @@ angular.module('general').controller('view-detalle.controller',['$scope','$http'
     }
 
     $scope.eliminar = function(detalle) {
+      $('#loadLogo').show();
       $http({
         method: 'DELETE',
         url: '/api/detalles/'+detalle._id
       }).then(function(response){
         $location.path('/caja/'+$routeParams.cajaId);
+        $('#loadLogo').hide();
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
+        $('#loadLogo').hide();
       })
     }
 

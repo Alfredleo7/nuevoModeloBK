@@ -173,7 +173,6 @@ exports.cajaByID = function(req, res, next, id){
     }
 
     Usuario.findById(caja.administrador, function(err, usuario){
-      console.log(usuario);
       if(usuario){
         caja.administrador = usuario;
       }

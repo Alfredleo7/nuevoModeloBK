@@ -330,7 +330,6 @@ exports.yearOfDetalles = function(req, res){
 };
 
 exports.categoriaDetallesXYear = function(req, res){
-  console.log(req.params.anio);
   Detalle.aggregate([
     { $project: {
         categoria: "$categoria",
@@ -367,7 +366,6 @@ exports.categoriaDetallesXYear = function(req, res){
 exports.estadoByCaja = function(req, res) {
   var idCaja = req.params.idCaja;
   var estado = req.body.estado;
-  console.log(req.body.estado);
   Detalle.find({'caja': idCaja}, function(err, detalles){
     if (err) {
       return res.status(400).send({
