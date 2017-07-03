@@ -24,7 +24,7 @@
           <tbody>
             <tr data-ng-repeat="caja in cajas">
               <th class="text-right" scope="row">{{$index + 1}}</th>
-              <td>{{caja.creado | date: "dd'/'MMMM'/'y"}}</td>
+              <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
               <td class="text-right" data-ng-bind="caja.valor | currency"></td>
               <td data-ng-bind="caja.estado"></td>
               <td>

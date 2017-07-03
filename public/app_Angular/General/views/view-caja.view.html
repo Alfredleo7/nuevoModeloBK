@@ -1,14 +1,14 @@
 <section data-ng-init="init()">
 
     <div class="row">
-      <div class="col-md-6 col-sm-6 col-xs-6">
+      <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group">
           <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
           <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
           <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-info" type="button"><i class="fa fa-send-o"></i> Enviar</button>
         </div>
       </div>
-      <div class="col-md-6 col-sm-6 col-xs-6">
+      <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group"n style="float: right;">
           <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar</a>
           <a class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
@@ -20,18 +20,24 @@
       <div id="reporteDetalles" class="x_panel">
         <div class="x_content">
           <div style="text-align:center">
-            <p>REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa}}</p>
+            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa}}
           </div>
+          <br>
           <table style="width: 100%;">
             <tr>
-              <td><p>FECHA: {{caja.creado | date: "dd'-'MMMM'-'y"}}</p></td>
-              <td><p>{{caja.estado}}</p></td>
+              <td><b>FECHA:</b></td>
+              <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+              <td><b>ESTADO:</b></td>
+              <td>{{caja.estado}}</td>
             </tr>
             <tr>
-              <td><p>CUSTODIO: {{caja.sucursal.nombre}}</p></td>
-              <td ng-if="caja.administrador"><p>por {{caja.administrador.firstName}} {{caja.administrador.lastName}}</p></td>
+              <td><b>CUSTODIO:</b></td>
+              <td>{{caja.sucursal.nombre}}</td>
+              <td ng-if="caja.administrador"><b>POR:</b></td>
+              <td ng-if="caja.administrador">{{caja.administrador.firstName}} {{caja.administrador.lastName}}</td>
             </tr>
           </table>
+          <br>
           <div style="overflow-x:auto;">
             <table class="table table-bordered" ng-init="filtro='fecha';reverse='false'">
               <thead>

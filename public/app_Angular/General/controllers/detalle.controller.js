@@ -8,6 +8,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       $scope.detalle = {};
       $scope.detalle.tipo = 'factura';
       $scope.detalle.anexo = {};
+
       $('#loadLogo').hide();
       $scope.init();
     }
@@ -72,12 +73,15 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         url: '/api/cajas/'+$routeParams.cajaId
       }).then(function(response){
         $scope.caja = response.data;
+        $scope.detalle.cargado = $scope.caja.sucursal.nombre;
         $('#loadLogo').hide();
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
         $('#loadLogo').hide();
       });
       $('#loadLogo').hide();
+
+
     };
 
     $scope.back = function(){
@@ -98,7 +102,6 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
     }
 
     $scope.updateTotal = function (){
-
       /*$scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
       $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);*/
 
