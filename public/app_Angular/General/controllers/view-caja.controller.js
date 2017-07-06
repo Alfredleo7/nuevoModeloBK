@@ -177,5 +177,15 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
       setTimeout(function () { newWin.close(); }, 3000);
     }
 
+    $scope.exportExcel = function (IdDiv, titulo) {
+      var blob = new Blob([document.getElementById(IdDiv).innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        var fecha = new Date();
+        var mes = Number(fecha.getMonth()) + 1;
+        var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
+        saveAs(blob, titulo+" "+ fechaTitle + ".xls");
+    };
+
   }
 ]);

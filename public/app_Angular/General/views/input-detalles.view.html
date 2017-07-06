@@ -155,22 +155,39 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <b>Proveedor</b>
       </div>
-      <div class="col-md-6 col-sm-4 col-xs-12">
-        <div class="form-group">
-          <label><small>Razón Social</small></label>
-          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Razón Social" data-ng-model="detalle.anexo.proveedor.razons" readonly="true">
-        </div>
+      <div class="col-md-12 col-sm-12 col-xs-12" ng-if="!detalle.anexo.proveedor">
+        <a  data-toggle="modal" data-target=".modalProveedores" class="btn btn-default btn-xs">Elegir Proveedor</a>
       </div>
-      <div class="col-md-3 col-sm-4 col-xs-12">
-        <div class="form-group">
-          <label><small>Cédula</small></label>
-          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Cédula" data-ng-model="detalle.anexo.proveedor.cedula" readonly="true">
+      <div ng-if="detalle.anexo.proveedor">
+        <div ng-if="detalle.anexo.proveedor.nombre && detalle.anexo.proveedor.nombre !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          <div class="form-group">
+            <label><small>Nombre:</small></label>
+            <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Nombre" data-ng-model="detalle.anexo.proveedor.nombre" readonly="true">
+          </div>
         </div>
-      </div>
-      <div class="col-md-3 col-sm-4 col-xs-12">
-        <div class="form-group">
-          <label><small>Ruc</small></label>
-          <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Ruc" data-ng-model="detalle.anexo.proveedor.ruc" readonly="true">
+        <div ng-if="detalle.anexo.proveedor.apellido && detalle.anexo.proveedor.apellido !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          <div class="form-group">
+            <label><small>Apellido:</small></label>
+            <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Apellido" data-ng-model="detalle.anexo.proveedor.apellido" readonly="true">
+          </div>
+        </div>
+        <div ng-if="detalle.anexo.proveedor.razons && detalle.anexo.proveedor.razons !='.'" class="col-md-6 col-sm-4 col-xs-12">
+          <div class="form-group">
+            <label><small>Razón Social</small></label>
+            <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Razón Social" data-ng-model="detalle.anexo.proveedor.razons" readonly="true">
+          </div>
+        </div>
+        <div ng-if="detalle.anexo.proveedor.cedula && detalle.anexo.proveedor.cedula !='.'" class="col-md-3 col-sm-4 col-xs-12">
+          <div class="form-group">
+            <label><small>Cédula</small></label>
+            <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Cédula" data-ng-model="detalle.anexo.proveedor.cedula" readonly="true">
+          </div>
+        </div>
+        <div ng-if="detalle.anexo.proveedor.ruc && detalle.anexo.proveedor.ruc !='.'" class="col-md-3 col-sm-4 col-xs-12">
+          <div class="form-group">
+            <label><small>Ruc</small></label>
+            <input data-toggle="modal" data-target=".modalProveedores" type="text" class="form-control border-input" placeholder="Ruc" data-ng-model="detalle.anexo.proveedor.ruc" readonly="true">
+          </div>
         </div>
       </div>
     </div>

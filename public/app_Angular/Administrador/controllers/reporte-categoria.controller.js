@@ -61,7 +61,8 @@ angular.module('administrador').controller('ReporteXCategoriaController', ['$sco
             type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
         });
         var fecha = new Date();
-        var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
+        var mes = Number(fecha.getMonth()) + 1;
+        var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
         saveAs(blob, "Reporte por "+tipo+" "+ fechaTitle + ".xls");
     };
 
