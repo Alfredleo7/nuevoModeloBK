@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Detalle = mongoose.model('Detalle');
 var Proveedor = mongoose.model('Proveedor');
 var Caja = mongoose.model('Caja');
+var Usuario = mongoose.model('Usuario');
 
 var getErrorMessage = function(err){
   if (err.errors){
@@ -366,6 +367,7 @@ exports.categoriaDetallesXYear = function(req, res){
 exports.estadoByCaja = function(req, res) {
   var idCaja = req.params.idCaja;
   var estado = req.body.estado;
+  var administrador = req.session.usuario.id;
   Detalle.find({'caja': idCaja}, function(err, detalles){
     if (err) {
       return res.status(400).send({
@@ -374,6 +376,7 @@ exports.estadoByCaja = function(req, res) {
     } else {
       for(var i in detalles){
         detalles[i].estado = estado;
+        detalles[i].administrador = administrador;
         detalles[i].save();
       }
       return res.status(200).json(detalles);
@@ -543,7 +546,14 @@ exports.detallesByCelda = function(req, res){
             mes: { $month: "$fecha" },
             cargado: "$cargado",
             valor: "$valor",
-            estado: "$estado"
+            estado: "$estado",
+            anexo: "$anexo",
+            entregado: "$entregado",
+            descripcion: "$descripcion",
+            tipo: "$tipo",
+            categoria: "$categoria",
+            caja: "$caja",
+            administrador: "$administrador"
           }
         },
         {
@@ -569,7 +579,9 @@ exports.detallesByCelda = function(req, res){
             message: getErrorMessage(err)
           });
         } else {
-          return res.status(200).json(detalles);
+          Usuario.populate(detalles, {path: 'administrador'}, function(err, detalles){
+            return res.status(200).json(detalles);
+          });
         }
       }
     )
@@ -579,12 +591,19 @@ exports.detallesByCelda = function(req, res){
       [
         {
           $project:{
-            fecha: "$fecha",
+            ffecha: "$fecha",
             anio: { $year: "$fecha" },
             mes: { $month: "$fecha" },
-            categoria: "$categoria",
+            cargado: "$cargado",
             valor: "$valor",
-            estado: "$estado"
+            estado: "$estado",
+            anexo: "$anexo",
+            entregado: "$entregado",
+            descripcion: "$descripcion",
+            tipo: "$tipo",
+            categoria: "$categoria",
+            caja: "$caja",
+            administrador: "$administrador"
           }
         },
         {
@@ -610,7 +629,9 @@ exports.detallesByCelda = function(req, res){
             message: getErrorMessage(err)
           });
         } else {
-          return res.status(200).json(detalles);
+          Usuario.populate(detalles, {path: 'administrador'}, function(err, detalles){
+            return res.status(200).json(detalles);
+          });
         }
       }
     )

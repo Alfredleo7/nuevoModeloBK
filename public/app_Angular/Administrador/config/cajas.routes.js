@@ -26,7 +26,7 @@ angular.module('administrador').config(['$routeProvider',
       controller: 'view-detalle.controller'
     }).
     when('/reporte/:tipo/:anio/:mes/:nombre', {
-      templateUrl: 'app_Angular/Administrador/views/detallesByCelda.view.html',
+      templateUrl: 'app_Angular/Administrador/views/detallesCeldaReporteSucursal.view.html',
       controller: 'detallesByCelda.controller'
     });
   }

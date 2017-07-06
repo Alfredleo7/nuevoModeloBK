@@ -19,7 +19,7 @@ angular.module('administrador').controller('view-detalle.controller',['$scope','
     }
 
     $scope.back = function(){
-      $location.path('/caja/'+$routeParams.cajaId);
+      window.history.back();
     };
 
     $scope.editar = function(detalle){
