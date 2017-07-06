@@ -12,4 +12,7 @@ module.exports = function(app){
 
   app.route('/api/sucursalesByEmpresa/:empresa')
     .get(sucursales.getSucursalesByEmpresa);
+
+  app.route('/cambiarEmpresa')
+    .post(sucursales.cambiarEmpresa);
 };

@@ -101,3 +101,21 @@ exports.getSucursalesByEmpresa = function(req, res){
     }
   });
 };
+
+exports.cambiarEmpresa = function(req, res){
+  var nombre = req.body.nombre;
+  var empresa  = req.body.empresa;
+  var tipo = req.body.tipo;
+
+  Sucursal.findOne({nombre: req.body.nombre}, function(err, sucursal){
+    if(sucursal){
+      sucursal.tipo = tipo;
+      sucursal.empresa = empresa;
+      sucursal.save(function(err, sucursal){
+        return res.json(sucursal);
+      });
+    } else {
+      return res.send('error');
+    }
+  })
+}
