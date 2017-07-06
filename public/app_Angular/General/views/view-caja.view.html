@@ -57,7 +57,7 @@
                   <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
                   <td data-ng-bind="detalle.entregado"></td>
                   <td data-ng-bind="detalle.categoria"></td>
-                  <td data-ng-bind="detalle.descripcion"></td>
+                  <td style="white-space: pre-wrap">{{detalle.descripcion}}</td>
                   <td data-ng-bind="detalle.cargado"></td>
                   <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
                 </tr>

@@ -22,7 +22,7 @@ angular.module('administrador').config(['$routeProvider',
       controller: 'view-caja.controller'
     }).
     when('/caja/:cajaId/detalle/:detalleId', {
-      templateUrl: 'app_Angular/General/views/view-detalle.view.html',
+      templateUrl: 'app_Angular/Administrador/views/view-detalle.view.html',
       controller: 'view-detalle.controller'
     }).
     when('/reporte/:tipo/:anio/:mes/:nombre', {
