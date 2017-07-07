@@ -17,9 +17,12 @@
 
 
       <div id="reporteDetalles" class="x_panel">
+        <div ng-if="caja.secuencial" align="right">
+          Secuencial: {{caja.secuencial}}
+        </div>
         <div class="x_content">
           <div style="text-align:center">
-            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa}}
+            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa.nombre}}
           </div>
           <br>
           <table style="width: 100%;">

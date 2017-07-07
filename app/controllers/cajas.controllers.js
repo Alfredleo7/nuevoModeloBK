@@ -3,6 +3,8 @@
 var mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 var Caja = mongoose.model('Caja');
+var Empresa = mongoose.model('Empresa');
+var Sucursal = mongoose.model('Sucursal');
 
 var getErrorMessage = function(err){
   if (err.errors){
@@ -103,7 +105,11 @@ exports.listPendientes = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      res.json(cajas);
+      Empresa.populate(cajas, {path: 'empresa'}, function(err, cajas){
+        Sucursal.populate(cajas, {path: 'sucursal'}, function(err, cajas){
+          return res.status(200).json(cajas);
+        });
+      });
     }
   });
 }
@@ -116,7 +122,11 @@ exports.listAprobados = function(req, res){
       })
     } else {
       Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
-        return res.status(200).json(cajas);
+        Empresa.populate(cajas, {path: 'empresa'}, function(err, cajas){
+          Sucursal.populate(cajas, {path: 'sucursal'}, function(err, cajas){
+            return res.status(200).json(cajas);
+          });
+        });
       });
     }
   });
@@ -130,7 +140,11 @@ exports.listRechazados = function(req, res){
       })
     } else {
       Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
-        return res.status(200).json(cajas);
+        Empresa.populate(cajas, {path: 'empresa'}, function(err, cajas){
+          Sucursal.populate(cajas, {path: 'sucursal'}, function(err, cajas){
+            return res.status(200).json(cajas);
+          });
+        });
       });
     }
   });
@@ -176,13 +190,19 @@ exports.enviar = function(req, res){
 
   caja.estado = 'Pendiente';
 
-  caja.save(function(err){
+  caja.save(function(err, caja){
     if (err) {
       return res.status(400).send({
         message: getErrorMessage(err)
       });
     } else {
-      res.json(caja);
+      Sucursal.findById(caja.sucursal._id, function(err, sucursal){
+        sucursal.numCajas ++;
+        sucursal.save();
+        caja.secuencial = sucursal.codSucursal * 10000 + sucursal.numCajas;
+        caja.save();
+        return res.status(200).json(caja);
+      })
     }
   });
 };
@@ -200,8 +220,14 @@ exports.cajaByID = function(req, res, next, id){
       if(usuario){
         caja.administrador = usuario;
       }
-      req.caja = caja;
-      next();
+      Empresa.findById(caja.empresa, function(err, empresa){
+        caja.empresa = empresa;
+        Sucursal.findById(caja.sucursal, function(err, sucursal){
+          caja.sucursal = sucursal;
+          req.caja = caja;
+          next();
+        })
+      })
     });
   });
 };

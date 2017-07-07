@@ -1,5 +1,8 @@
 'use strict';
-var Usuario = require('mongoose').model('Usuario');
+var mongoose = require('mongoose');
+var Usuario = mongoose.model('Usuario');
+var Empresa = mongoose.model('Empresa');
+var Sucursal = mongoose.model('Sucursal');
 var crypto = require('../services/crypto.js');
 
 var getErrorMessage = function(err) {
@@ -78,16 +81,33 @@ exports.signIn = function(req, res){
       })
     }
     if(usuarioIn.password == crypto.desencriptar(usuario.password)){
-      req.session.usuario = {
-        id: usuario._id,
-        usuario: usuario.usuario,
-        fullname: usuario.firstName + ' ' + usuario.lastName,
-        tipo: usuario.tipo,
-        empresa: usuario.empresa,
-        sucursal: usuario.sucursal
-      };
-      return res.status(200).send({
-        message: 'Autenticación exitosa'
+      console.log(usuario.empresa);
+      Empresa.findById(usuario.empresa, function(err, empresa){
+        if(empresa){
+          Sucursal.findById(usuario.sucursal, function(err, sucursal){
+            if(sucursal){
+              req.session.usuario = {
+                id: usuario._id,
+                usuario: usuario.usuario,
+                fullname: usuario.firstName + ' ' + usuario.lastName,
+                tipo: usuario.tipo,
+                empresa: empresa,
+                sucursal: sucursal
+              };
+              return res.status(200).send({
+                message: 'Autenticación exitosa'
+              });
+            } else {
+              return res.status(404).send({
+                message: 'El Local/Departamento no existe'
+              })
+            }
+          })
+        } else {
+          return res.status(404).send({
+            message: 'La empresa no existe'
+          })
+        }
       })
     } else {
       return res.status(404).send({

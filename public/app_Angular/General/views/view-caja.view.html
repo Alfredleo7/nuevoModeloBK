@@ -4,7 +4,7 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group">
           <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
-          <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
+          <button ng-show="caja.estado == 'Borrador'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar</button>
           <button ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-info" type="button"><i class="fa fa-send-o"></i> Enviar</button>
         </div>
       </div>
@@ -19,9 +19,12 @@
 
 
       <div id="reporteDetalles" class="x_panel">
+        <div ng-if="caja.secuencial" align="right">
+          Secuencial: {{caja.secuencial}}
+        </div>
         <div class="x_content">
           <div style="text-align:center">
-            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa}}
+            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa.nombre}}
           </div>
           <br>
           <table style="width: 100%;">

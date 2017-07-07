@@ -95,14 +95,14 @@
               <div>
                 <select data-ng-model="newUsuario.empresa" class="form-control" ng-change="getSucursales()">
                   <option value="">Elija una Empresa</option>
-                  <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa._id}}</option>
+                  <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
                 </select>
               </div>
               <br>
               <div ng-show="newUsuario.empresa">
                 <select data-ng-model="newUsuario.sucursal" class="form-control">
                   <option value="">Locales/Departamentos</option>
-                  <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal._id.tipo}} {{sucursal._id.nombre}}</option>
+                  <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal.tipo}} {{sucursal.nombre}}</option>
                 </select>
               </div>
 

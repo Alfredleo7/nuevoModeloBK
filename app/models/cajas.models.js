@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
+var Empresa = mongoose.model('Empresa');
+var Sucursal = mongoose.model('Sucursal');
 var Schema = mongoose.Schema;
 
 var cajaSchema = new Schema({
@@ -26,15 +28,17 @@ var cajaSchema = new Schema({
     default: 'Borrador'
   },
   empresa: {
-    type: String,
-    required: 'Elija una Empresa'
+    type: Schema.ObjectId,
+    ref: 'Empresa',
+    required: 'Ingrese la Empresa a la que pertenece'
   },
   sucursal:{
-    nombre: {
-      type: String,
-      required: 'Elija un Local/Departamento'
-    },
-    tipo: String
+    type: Schema.ObjectId,
+    ref: 'Sucursal',
+    required: 'Ingrese el Local/Departamento a la que pertenece'
+  },
+  secuencial:{
+    type: String
   }
 });
 

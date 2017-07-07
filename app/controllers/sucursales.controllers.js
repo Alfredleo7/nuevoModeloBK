@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Sucursal = mongoose.model('Sucursal');
+var Empresa = mongoose.model('Empresa');
 
 var getErrorMessage = function(err){
   if(err.errors){
@@ -15,13 +16,27 @@ var getErrorMessage = function(err){
 
 exports.create = function(req, res) {
   var sucursal = new Sucursal(req.body);
-  sucursal.save(function(err){
+  sucursal.save(function(err, sucursal){
     if(err){
       return res.status(400).send({
         message: getErrorMessage(err)
       });
     } else {
-      res.json(sucursal);
+      Empresa.findById(sucursal.empresa, function(err, empresa){
+        empresa.numSucursales++;
+        empresa.save(function(err, empresa){
+          sucursal.codSucursal = empresa.codEmpresa * 100 + empresa.numSucursales;
+          sucursal.save(function(err, sucursal){
+            if(err){
+              return res.status(400).send({
+                message: getErrorMessage(err)
+              });
+            } else {
+              res.json(sucursal);
+            }
+          })
+        });
+      });
     }
   });
 };
@@ -33,12 +48,14 @@ exports.list = function(req, res){
         message: getErrorMessage(err)
       });
     } else{
-      res.json(sucursales);
+      Empresa.populate(sucursales, {path: 'empresa'}, function(err, sucursales){
+        res.status(200).send(sucursales);
+      });
     }
   });
 };
 
-exports.getEmpresas = function(req, res){
+/*exports.getEmpresas = function(req, res){
   Sucursal.aggregate([
     {
       $project: {
@@ -62,10 +79,23 @@ exports.getEmpresas = function(req, res){
       return res.status(200).json(empresas);
     }
   });
-};
+};*/
 
 exports.getSucursalesByEmpresa = function(req, res){
-  Sucursal.aggregate([
+
+  var idEmpresa = req.params.empresa;
+
+  Sucursal.find({empresa: idEmpresa}, function(err, sucursales){
+    if(err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else{
+      res.status(200).send(sucursales);
+    }
+  });
+
+  /*Sucursal.aggregate([
     {
       $project: {
         nombre: "$nombre",
@@ -99,5 +129,21 @@ exports.getSucursalesByEmpresa = function(req, res){
     } else {
       return res.status(200).json(sucursales);
     }
-  });
+  });*/
 };
+
+exports.inicializarSucursales = function(req, res){
+  Sucursal.find({}, function(err, sucursales){
+    if(err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else{
+      for(var i in sucursales){
+        sucursales[i].numCajas = 0;
+        sucursales[i].save();
+      }
+      return res.status(200).send("se realizó con éxito la inicialización");
+    }
+  });
+}

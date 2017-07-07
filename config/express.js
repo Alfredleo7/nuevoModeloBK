@@ -27,7 +27,7 @@ module.exports = function(){
     resave : true,
     saveUninitialized : false
   }));
-  
+
   app.use(favicon('./public/favicon_23Q_icon.ico'));
 
   app.set('view engine', 'ejs');
@@ -39,6 +39,7 @@ module.exports = function(){
   require('../app/routes/sucursales.routes')(app);
   require('../app/routes/categorias.routes')(app);
   require('../app/routes/proveedores.routes')(app);
+  require('../app/routes/empresas.routes')(app);
 
   app.use(express.static('./public'));
 

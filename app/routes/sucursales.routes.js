@@ -7,10 +7,11 @@ module.exports = function(app){
     .get(sucursales.list)
     .post(sucursales.create);
 
-  app.route('/api/empresas')
-    .get(sucursales.getEmpresas);
 
   app.route('/api/sucursalesByEmpresa/:empresa')
     .get(sucursales.getSucursalesByEmpresa);
+
+  app.route('/api/inicializarSucursales')
+    .get(sucursales.inicializarSucursales);
 
 };

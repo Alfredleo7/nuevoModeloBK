@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Empresa = mongoose.model('Empresa');
+var Sucursal = mongoose.model('Sucursal');
 var crypto = require('../services/crypto.js');
 
 var userSchema = new Schema({
@@ -33,15 +35,14 @@ var userSchema = new Schema({
     default: 'General'
   },
   empresa: {
-    type: String,
-    required: 'Elija una Empresa'
+    type: Schema.ObjectId,
+    ref: 'Empresa',
+    required: 'Ingrese la Empresa a la que pertenece'
   },
   sucursal:{
-    nombre: {
-      type: String,
-      required: 'Elija un Local/Departamento'
-    },
-    tipo: String
+    type: Schema.ObjectId,
+    ref: 'Sucursal',
+    required: 'Ingrese el Local/Departamento a la que pertenece'
   }
 });
 
