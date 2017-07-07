@@ -18,6 +18,12 @@ module.exports = function(app) {
   app.route('/api/cajasPendientes')
     .get(cajas.listPendientes);
 
+  app.route('/api/cajasAprobadas')
+    .get(cajas.listAprobados);
+
+  app.route('/api/cajasRechazadas')
+    .get(cajas.listRechazados);
+
   app.route('/api/aprobarCaja/:cajaId')
     .put(cajas.aprobar);
 

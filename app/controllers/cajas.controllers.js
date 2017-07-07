@@ -109,7 +109,31 @@ exports.listPendientes = function(req, res){
 }
 
 exports.listAprobados = function(req, res){
+  Caja.find({'estado': 'Aprobado'}, function(err, cajas){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
+        return res.status(200).json(cajas);
+      });
+    }
+  });
+}
 
+exports.listRechazados = function(req, res){
+  Caja.find({'estado': 'Rechazado'}, function(err, cajas){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
+        return res.status(200).json(cajas);
+      });
+    }
+  });
 }
 
 exports.aprobar = function(req, res){

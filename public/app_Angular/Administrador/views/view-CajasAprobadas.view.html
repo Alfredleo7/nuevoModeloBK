@@ -1,0 +1,36 @@
+<section data-ng-init="findAprobadas()">
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Cajas Chicas Aprobadas</h2>
+        <div class="clearfix"></div>
+      </div>
+      <!--<div style="overflow-x:auto;">-->
+        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
+          <thead>
+            <tr class="active">
+              <th>#</th>
+              <th>Creado</th>
+              <th>Empresa</th>
+              <th>Dep/Local</th>
+              <th>Estado</th>
+              <th>Administrador</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas">
+              <th class="text-right" scope="row">{{$index + 1}}</th>
+              <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+              <td data-ng-bind="caja.empresa"></td>
+              <td> {{caja.sucursal.tipo}} {{caja.sucursal.nombre}}</td>
+              <td data-ng-bind="caja.estado"></td>
+              <td>{{caja.administrador.firstName}} {{caja.administrador.lastName}}</td>
+              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
+            </tr>
+          </tbody>
+        </table>
+      <!--</div>-->
+    </div>
+  </div>
+</section>

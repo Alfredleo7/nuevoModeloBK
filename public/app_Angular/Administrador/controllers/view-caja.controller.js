@@ -30,7 +30,9 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
     };
 
     $scope.back = function(){
-      $location.path('/');
+      if($scope.caja.estado == 'Pendiente')$location.path('/cajasPendientes');
+      if($scope.caja.estado == 'Aprobado')$location.path('/cajasAprobadas');
+      if($scope.caja.estado == 'Rechazado')$location.path('/cajasRechazadas');
     };
 
     var aprobarDetallesByCaja = function (idCaja) {
