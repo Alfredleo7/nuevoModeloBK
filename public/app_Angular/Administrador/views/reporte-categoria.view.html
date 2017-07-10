@@ -50,52 +50,52 @@
             <thead>
               <tr class="success">
                 <th class="filaLink" ng-click="filtroTable='categoria';reverse = !reverse">Categoria</th>
-                <th class="filaLink" ng-click="filtroTable='ene';reverse = !reverse">Ene</th>
-                <th class="filaLink" ng-click="filtroTable='feb';reverse = !reverse">Feb</th>
-                <th class="filaLink" ng-click="filtroTable='mar';reverse = !reverse">Mar</th>
-                <th class="filaLink" ng-click="filtroTable='abr';reverse = !reverse">Abr</th>
-                <th class="filaLink" ng-click="filtroTable='may';reverse = !reverse">May</th>
-                <th class="filaLink" ng-click="filtroTable='jun';reverse = !reverse">Jun</th>
-                <th class="filaLink" ng-click="filtroTable='jul';reverse = !reverse">Jul</th>
-                <th class="filaLink" ng-click="filtroTable='ago';reverse = !reverse">Ago</th>
-                <th class="filaLink" ng-click="filtroTable='sep';reverse = !reverse">Sep</th>
-                <th class="filaLink" ng-click="filtroTable='oct';reverse = !reverse">Oct</th>
-                <th class="filaLink" ng-click="filtroTable='nov';reverse = !reverse">Nov</th>
-                <th class="filaLink" ng-click="filtroTable='dic';reverse = !reverse">Dic</th>
+                <th ng-if="Ene!=0" class="filaLink" ng-click="filtroTable='ene';reverse = !reverse">Ene</th>
+                <th ng-if="Feb!=0" class="filaLink" ng-click="filtroTable='feb';reverse = !reverse">Feb</th>
+                <th ng-if="Mar!=0" class="filaLink" ng-click="filtroTable='mar';reverse = !reverse">Mar</th>
+                <th ng-if="Abr!=0" class="filaLink" ng-click="filtroTable='abr';reverse = !reverse">Abr</th>
+                <th ng-if="May!=0" class="filaLink" ng-click="filtroTable='may';reverse = !reverse">May</th>
+                <th ng-if="Jun!=0" class="filaLink" ng-click="filtroTable='jun';reverse = !reverse">Jun</th>
+                <th ng-if="Jul!=0" class="filaLink" ng-click="filtroTable='jul';reverse = !reverse">Jul</th>
+                <th ng-if="Ago!=0" class="filaLink" ng-click="filtroTable='ago';reverse = !reverse">Ago</th>
+                <th ng-if="Sep!=0" class="filaLink" ng-click="filtroTable='sep';reverse = !reverse">Sep</th>
+                <th ng-if="Oct!=0" class="filaLink" ng-click="filtroTable='oct';reverse = !reverse">Oct</th>
+                <th ng-if="Nov!=0" class="filaLink" ng-click="filtroTable='nov';reverse = !reverse">Nov</th>
+                <th ng-if="Dic!=0" class="filaLink" ng-click="filtroTable='dic';reverse = !reverse">Dic</th>
                 <th class="filaLink" ng-click="filtroTable='total';reverse = !reverse">Acum</th>
               </tr>
             </thead>
             <tbody>
               <tr data-ng-repeat="fila in tabla | orderBy:filtroTable:reverse">
                 <td class="success" data-ng-bind="fila.categoria"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,1,fila.ene)" data-ng-bind="fila.ene | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,2,fila.feb)" data-ng-bind="fila.feb | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,3,fila.mar)" data-ng-bind="fila.mar | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,4,fila.abr)" data-ng-bind="fila.abr | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,5,fila.may)" data-ng-bind="fila.may | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,6,fila.jun)" data-ng-bind="fila.jun | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,7,fila.jul)" data-ng-bind="fila.jul | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,8,fila.ago)" data-ng-bind="fila.ago | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,9,fila.sep)" data-ng-bind="fila.sep | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,10,fila.oct)" data-ng-bind="fila.oct | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,11,fila.nov)" data-ng-bind="fila.nov | currency"></td>
-                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,12,fila.dic)" data-ng-bind="fila.dic | currency"></td>
+                <td ng-if="Ene!=0" ng-class="{'filaLink': fila.ene!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,1,fila.ene)"><valor ng-if="fila.ene!=0">{{fila.ene | currency}}</valor></td>
+                <td ng-if="Feb!=0" ng-class="{'filaLink': fila.feb!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,2,fila.feb)"><valor ng-if="fila.feb!=0">{{fila.feb | currency}}</valor></td>
+                <td ng-if="Mar!=0" ng-class="{'filaLink': fila.mar!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,3,fila.mar)"><valor ng-if="fila.mar!=0">{{fila.mar | currency}}</valor></td>
+                <td ng-if="Abr!=0" ng-class="{'filaLink': fila.abr!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,4,fila.abr)"><valor ng-if="fila.abr!=0">{{fila.abr | currency}}</valor></td>
+                <td ng-if="May!=0" ng-class="{'filaLink': fila.may!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,5,fila.may)"><valor ng-if="fila.may!=0">{{fila.may | currency}}</valor></td>
+                <td ng-if="Jun!=0" ng-class="{'filaLink': fila.jun!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,6,fila.jun)"><valor ng-if="fila.jun!=0">{{fila.jun | currency}}</valor></td>
+                <td ng-if="Jul!=0" ng-class="{'filaLink': fila.jul!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,7,fila.jul)"><valor ng-if="fila.jul!=0">{{fila.jul | currency}}</valor></td>
+                <td ng-if="Ago!=0" ng-class="{'filaLink': fila.ago!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,8,fila.ago)"><valor ng-if="fila.ago!=0">{{fila.ago | currency}}</valor></td>
+                <td ng-if="Sep!=0" ng-class="{'filaLink': fila.sep!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,9,fila.sep)"><valor ng-if="fila.sep!=0">{{fila.sep | currency}}</valor></td>
+                <td ng-if="Oct!=0" ng-class="{'filaLink': fila.oct!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,10,fila.oct)"><valor ng-if="fila.oct!=0">{{fila.oct | currency}}</valor></td>
+                <td ng-if="Nov!=0" ng-class="{'filaLink': fila.nov!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,11,fila.nov)"><valor ng-if="fila.nov!=0">{{fila.nov | currency}}</valor></td>
+                <td ng-if="Dic!=0" ng-class="{'filaLink': fila.dic!=0 }" class="text-right" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,12,fila.dic)"><valor ng-if="fila.dic!=0">{{fila.dic | currency}}</valor></td>
                 <td class="text-right info" data-ng-bind="fila.total | currency"></td>
               </tr>
               <tr>
                 <td class="success">Total por Mes</td>
-                <td class="text-right info" data-ng-bind="Ene | currency"></td>
-                <td class="text-right info" data-ng-bind="Feb | currency"></td>
-                <td class="text-right info" data-ng-bind="Mar | currency"></td>
-                <td class="text-right info" data-ng-bind="Abr | currency"></td>
-                <td class="text-right info" data-ng-bind="May | currency"></td>
-                <td class="text-right info" data-ng-bind="Jun | currency"></td>
-                <td class="text-right info" data-ng-bind="Jul | currency"></td>
-                <td class="text-right info" data-ng-bind="Ago | currency"></td>
-                <td class="text-right info" data-ng-bind="Sep | currency"></td>
-                <td class="text-right info" data-ng-bind="Oct | currency"></td>
-                <td class="text-right info" data-ng-bind="Nov | currency"></td>
-                <td class="text-right info" data-ng-bind="Dic | currency"></td>
+                <td ng-if="Ene!=0" class="text-right info" data-ng-bind="Ene | currency"></td>
+                <td ng-if="Feb!=0" class="text-right info" data-ng-bind="Feb | currency"></td>
+                <td ng-if="Mar!=0" class="text-right info" data-ng-bind="Mar | currency"></td>
+                <td ng-if="Abr!=0" class="text-right info" data-ng-bind="Abr | currency"></td>
+                <td ng-if="May!=0" class="text-right info" data-ng-bind="May | currency"></td>
+                <td ng-if="Jun!=0" class="text-right info" data-ng-bind="Jun | currency"></td>
+                <td ng-if="Jul!=0" class="text-right info" data-ng-bind="Jul | currency"></td>
+                <td ng-if="Ago!=0" class="text-right info" data-ng-bind="Ago | currency"></td>
+                <td ng-if="Sep!=0" class="text-right info" data-ng-bind="Sep | currency"></td>
+                <td ng-if="Oct!=0" class="text-right info" data-ng-bind="Oct | currency"></td>
+                <td ng-if="Nov!=0" class="text-right info" data-ng-bind="Nov | currency"></td>
+                <td ng-if="Dic!=0" class="text-right info" data-ng-bind="Dic | currency"></td>
                 <td></td>
               </tr>
             </tbody>
@@ -107,6 +107,9 @@
   <div class="row">
     <div class="col-md-6 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
       <div class="x_panel">
+        <div align="right"  style="float: right">
+          <categoria ng-if="filtro.sucursal!='Todas'">{{filtro.sucursal}} | </categoria> {{filtro.anio}}
+        </div>
         <div class="x_title">
           <h2>{{grafico.series}}</h2>
         </div>
