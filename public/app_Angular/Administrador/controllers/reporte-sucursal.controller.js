@@ -1,7 +1,16 @@
 'use strict';
 
-angular.module('administrador').controller('ReporteXSucursalController', ['$scope','$http', '$location',
+angular.module('administrador').controller('reporte-sucursal.controller', ['$scope','$http', '$location',
   function($scope, $http, $location){
+
+
+    $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  $scope.series = ['Series A', 'Series B'];
+
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40],
+    [28, 48, 40, 19, 86, 27, 90]
+  ];
 
     $scope.init = function(){
 
@@ -68,6 +77,7 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
     $scope.generarReporte = function(){
 
       $scope.tabla = [];
+      $scope.graficos= [];
       $http({
         method: 'POST',
         url: '/api/reporteXSucursal',
@@ -96,13 +106,22 @@ angular.module('administrador').controller('ReporteXSucursalController', ['$scop
           }
           fila.total = totalFinal;
           $scope.tabla.push(fila);
+          $scope.graficos.push({
+            series: fila.sucursal,
+            labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            data: [fila.ene,fila.feb,fila.mar,fila.abr,fila.may,fila.jun,fila.jul,fila.ago,fila.sep,fila.oct,fila.nov,fila.dic]
+          });
         }
       });
     }
 
+    $scope.onClick = function (points, evt) {
+      console.log(points, evt);
+    };
+
     $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){
       if(valor != 0){
-        $location.path('reporte/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
+        $location.path('reporteSucursal/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
       }
     }
 

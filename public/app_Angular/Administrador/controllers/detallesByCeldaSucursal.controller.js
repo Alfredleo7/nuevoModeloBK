@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('administrador').controller('detallesByCelda.controller', ['$scope','$http','$routeParams','$location',
+angular.module('administrador').controller('detallesByCeldaSucursal.controller', ['$scope','$http','$routeParams','$location',
   function($scope,$http,$routeParams,$location){
+
     $scope.init = function(){
       $scope.today = new Date();
 

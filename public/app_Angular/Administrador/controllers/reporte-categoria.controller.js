@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('administrador').controller('ReporteXCategoriaController', ['$scope','$http',
-  function($scope, $http){
+angular.module('administrador').controller('reporte-categoria.controller', ['$scope','$http','$location',
+  function($scope, $http, $location){
 
     $scope.init = function(){
 
@@ -69,6 +69,7 @@ angular.module('administrador').controller('ReporteXCategoriaController', ['$sco
     $scope.generarReporte = function(){
 
       $scope.tabla = [];
+      $scope.graficos = [];
       $http({
         method: 'POST',
         url: '/api/reporteXCategoria',
@@ -97,8 +98,19 @@ angular.module('administrador').controller('ReporteXCategoriaController', ['$sco
           }
           fila.total = totalFinal;
           $scope.tabla.push(fila);
+          $scope.graficos.push({
+            series: fila.categoria,
+            labels: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            data: [fila.ene,fila.feb,fila.mar,fila.abr,fila.may,fila.jun,fila.jul,fila.ago,fila.sep,fila.oct,fila.nov,fila.dic]
+          });
         }
       });
+    }
+
+    $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){
+      if(valor != 0){
+        $location.path('reporteCategoria/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
+      }
     }
 
   }

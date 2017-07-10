@@ -1,4 +1,4 @@
-<div data-ng-controller="ReporteXCategoriaController" data-ng-init="init()">
+<div data-ng-init="init()">
   <div class="row">
     <div class="">
       <div class="title">
@@ -27,8 +27,8 @@
     </div>
     <div class="col-md-5 col-sm-4 col-xs-12">
       <div class="btn-group" style="float:right">
-        <a class="btn btn-sm btn-success" ng-click="exportExcel('IdReporteXCategoria', 'Categoria')"><i class="fa fa-file-excel-o"></i> Exportar</a>
-        <a class="btn btn-sm btn-info" ng-click="printDiv('#IdReporteXCategoria', 'Categoria')"><i class="fa fa-print"></i> Imprimir</a>
+        <a class="btn btn-sm btn-default" ng-click="exportExcel('IdReporteXCategoria', 'Categoria')"><i class="fa fa-file-excel-o"></i> Exportar</a>
+        <a class="btn btn-sm btn-default" ng-click="printDiv('#IdReporteXCategoria', 'Categoria')"><i class="fa fa-print"></i> Imprimir</a>
       </div>
     </div>
   </div>
@@ -68,18 +68,18 @@
             <tbody>
               <tr data-ng-repeat="fila in tabla | orderBy:filtroTable:reverse">
                 <td class="success" data-ng-bind="fila.categoria"></td>
-                <td class="text-right" data-ng-bind="fila.ene | currency"></td>
-                <td class="text-right" data-ng-bind="fila.feb | currency"></td>
-                <td class="text-right" data-ng-bind="fila.mar | currency"></td>
-                <td class="text-right" data-ng-bind="fila.abr | currency"></td>
-                <td class="text-right" data-ng-bind="fila.may | currency"></td>
-                <td class="text-right" data-ng-bind="fila.jun | currency"></td>
-                <td class="text-right" data-ng-bind="fila.jul | currency"></td>
-                <td class="text-right" data-ng-bind="fila.ago | currency"></td>
-                <td class="text-right" data-ng-bind="fila.sep | currency"></td>
-                <td class="text-right" data-ng-bind="fila.oct | currency"></td>
-                <td class="text-right" data-ng-bind="fila.nov | currency"></td>
-                <td class="text-right" data-ng-bind="fila.dic | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,1,fila.ene)" data-ng-bind="fila.ene | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,2,fila.feb)" data-ng-bind="fila.feb | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,3,fila.mar)" data-ng-bind="fila.mar | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,4,fila.abr)" data-ng-bind="fila.abr | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,5,fila.may)" data-ng-bind="fila.may | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,6,fila.jun)" data-ng-bind="fila.jun | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,7,fila.jul)" data-ng-bind="fila.jul | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,8,fila.ago)" data-ng-bind="fila.ago | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,9,fila.sep)" data-ng-bind="fila.sep | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,10,fila.oct)" data-ng-bind="fila.oct | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,11,fila.nov)" data-ng-bind="fila.nov | currency"></td>
+                <td class="text-right filaLink" ng-click="verDetallesCelda('categoria',filtro.anio,fila.categoria,12,fila.dic)" data-ng-bind="fila.dic | currency"></td>
                 <td class="text-right info" data-ng-bind="fila.total | currency"></td>
               </tr>
               <tr>
@@ -102,5 +102,16 @@
           </table>
         </div>
       </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>{{grafico.series}}</h2>
+        </div>
+        <canvas class="chart chart-bar" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('administrador', ['datatables']);
+angular.module('administrador', ['chart.js','datatables']);

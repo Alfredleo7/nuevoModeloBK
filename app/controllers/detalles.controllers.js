@@ -591,7 +591,7 @@ exports.detallesByCelda = function(req, res){
       [
         {
           $project:{
-            ffecha: "$fecha",
+            fecha: "$fecha",
             anio: { $year: "$fecha" },
             mes: { $month: "$fecha" },
             cargado: "$cargado",

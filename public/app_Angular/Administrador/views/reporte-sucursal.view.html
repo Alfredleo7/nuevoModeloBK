@@ -1,4 +1,4 @@
-<div data-ng-controller="ReporteXSucursalController" data-ng-init="init()">
+<div data-ng-init="init()">
   <div class="row">
     <div class="">
       <div class="title">
@@ -27,8 +27,8 @@
     </div>
     <div class="col-md-5 col-sm-4 col-xs-12">
       <div class="btn-group" style="float:right">
-        <a class="btn btn-sm btn-success" ng-click="exportExcel('IdReporteXLocal', 'Locales-Departamentos')"><i class="fa fa-file-excel-o"></i> Exportar</a>
-        <a class="btn btn-sm btn-info" ng-click="printDiv('#IdReporteXLocal', 'Locales-Departamentos')"><i class="fa fa-print"></i> Imprimir</a>
+        <a class="btn btn-sm btn-default" ng-click="exportExcel('IdReporteXLocal', 'Locales-Departamentos')"><i class="fa fa-file-excel-o"></i> Exportar</a>
+        <a class="btn btn-sm btn-default" ng-click="printDiv('#IdReporteXLocal', 'Locales-Departamentos')"><i class="fa fa-print"></i> Imprimir</a>
       </div>
     </div>
   </div>
@@ -102,5 +102,16 @@
           </table>
         </div>
       </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>{{grafico.series}}</h2>
+        </div>
+        <canvas class="chart chart-bar" chart-click="onClick" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
+      </div>
+    </div>
   </div>
 </div>

@@ -8,10 +8,12 @@ angular.module('administrador').config(['$routeProvider',
       controller: 'view-Cajas.controller'
     }).
     when('/reporteXLocales', {
-      templateUrl: 'app_Angular/Administrador/views/reporte-locales.view.html'
+      templateUrl: 'app_Angular/Administrador/views/reporte-sucursal.view.html',
+      controller: 'reporte-sucursal.controller'
     }).
     when('/reporteXCategorias', {
-      templateUrl: 'app_Angular/Administrador/views/reporte-categoria.view.html'
+      templateUrl: 'app_Angular/Administrador/views/reporte-categoria.view.html',
+      controller: 'reporte-categoria.controller'
     }).
     when('/cajasPendientes', {
       templateUrl: 'app_Angular/Administrador/views/view-CajasPendientes.view.html',
@@ -33,9 +35,13 @@ angular.module('administrador').config(['$routeProvider',
       templateUrl: 'app_Angular/Administrador/views/view-detalle.view.html',
       controller: 'view-detalle.controller'
     }).
-    when('/reporte/:tipo/:anio/:mes/:nombre', {
+    when('/reporteSucursal/:tipo/:anio/:mes/:nombre', {
       templateUrl: 'app_Angular/Administrador/views/detallesCeldaReporteSucursal.view.html',
-      controller: 'detallesByCelda.controller'
+      controller: 'detallesByCeldaSucursal.controller'
+    }).
+    when('/reporteCategoria/:tipo/:anio/:mes/:nombre', {
+      templateUrl: 'app_Angular/Administrador/views/detallesCeldaReporteCategoria.view.html',
+      controller: 'detallesByCeldaCategoria.controller'
     });
   }
 ]);
