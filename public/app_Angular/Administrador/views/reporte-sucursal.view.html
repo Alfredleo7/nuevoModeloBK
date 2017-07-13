@@ -105,7 +105,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
+    <div class="col-md-4 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
       <div class="x_panel">
         <div align="right" style="float: right">
           <categoria ng-if="filtro.categoria!='Todas'">{{filtro.categoria}} | </categoria> {{filtro.anio}}
@@ -113,7 +113,27 @@
         <div class="x_title">
           <h2>{{grafico.series}}</h2>
         </div>
-        <canvas class="chart chart-bar" chart-click="onClick" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
+        <canvas data-toggle="modal" data-target=".graficoModal" class="chart chart-bar link" ng-click="onClick(grafico)" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade graficoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="x_title">
+          <h2>{{graficoModal.series}}</h2>
+          <categoria ng-if="filtro.categoria!='Todas'">{{filtro.categoria}} | </categoria> {{filtro.anio}}
+        </div>
+      </div>
+      <div class="modal-body">
+        <canvas class="chart chart-bar" chart-data="graficoModal.data" chart-labels="graficoModal.labels" chart-series="graficoModal.series"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" type="button" class="btn btn-default">Cerrar</button>
       </div>
     </div>
   </div>

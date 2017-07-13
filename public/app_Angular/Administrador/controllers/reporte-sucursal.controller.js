@@ -16,6 +16,7 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
 
       $scope.today = new Date();
       $scope.filtro = {};
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/aniosDetalles'
@@ -23,7 +24,9 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
         $scope.anios = anios.data;
         $scope.filtro.anio = anios.data[anios.data.length-1]._id;
         $scope.updateCategorias();
+        $('#loadLogo').hide();
       }, function(errorResponse) {
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       });
 
@@ -31,6 +34,7 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
 
     $scope.updateCategorias = function(){
       if($scope.filtro.anio != ''){
+        $('#loadLogo').show();
         $http({
           method: 'GET',
           url: '/api/categoriasXYear/'+ $scope.filtro.anio
@@ -38,7 +42,9 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
           $scope.categorias = categorias.data;
           $scope.filtro.categoria = 'Todas';
           $scope.generarReporte();
+          $('#loadLogo').hide();
         }, function(errorResponse) {
+          $('#loadLogo').hide();
           mostrarNotificacion(errorResponse.data.message);
         });
       }
@@ -78,6 +84,7 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
 
       $scope.tabla = [];
       $scope.graficos= [];
+      $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/reporteXSucursal',
@@ -112,11 +119,13 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
             data: [fila.ene,fila.feb,fila.mar,fila.abr,fila.may,fila.jun,fila.jul,fila.ago,fila.sep,fila.oct,fila.nov,fila.dic]
           });
         }
+        $('#loadLogo').hide();
       });
     }
 
-    $scope.onClick = function (points, evt) {
-      console.log(points, evt);
+    $scope.onClick = function (grafico) {
+      $scope.graficoModal=grafico;
+      console.log($scope.graficoModal);
     };
 
     $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){

@@ -13,6 +13,7 @@ angular.module('administrador').controller('detallesByCeldaSucursal.controller',
       $scope.data.nombre = $routeParams.nombre;
 
       $scope.total = 0;
+      $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/detallesByCelda',
@@ -22,6 +23,7 @@ angular.module('administrador').controller('detallesByCeldaSucursal.controller',
         for(var i in $scope.detalles){
           $scope.total += $scope.detalles[i].valor;
         }
+        $('#loadLogo').hide();
       });
 
       switch ($scope.data.mes) {

@@ -36,6 +36,7 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
     };
 
     var aprobarDetallesByCaja = function (idCaja) {
+      $('#loadLogo').show();
       $http({
         method: 'PUT',
         url: '/api/detallesByCaja/' + idCaja,
@@ -43,7 +44,9 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
           estado: 'Aprobado'
         }
       }).then(function(response){
+        $('#loadLogo').hide();
       }, function(errorResponse) {
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       });
     };
@@ -88,6 +91,7 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
     };
 
     var rechazarDetallesByCaja = function (idCaja) {
+      $('#loadLogo').show();
       $http({
         method: 'PUT',
         url: '/api/detallesByCaja/' + idCaja,
@@ -95,7 +99,9 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
           estado: 'Rechazado'
         }
       }).then(function(response){
+        $('#loadLogo').hide();
       }, function(errorResponse) {
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       });
     };

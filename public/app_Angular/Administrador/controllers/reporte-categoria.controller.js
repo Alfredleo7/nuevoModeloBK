@@ -7,6 +7,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
 
       $scope.today = new Date();
       $scope.filtro = {};
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/aniosDetalles'
@@ -14,7 +15,9 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
         $scope.anios = anios.data;
         $scope.filtro.anio = anios.data[anios.data.length-1]._id;
         $scope.updateSucursales();
+        $('#loadLogo').hide();
       }, function(errorResponse) {
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       });
 
@@ -22,6 +25,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
 
     $scope.updateSucursales = function(){
       if($scope.filtro.anio != ''){
+        $('#loadLogo').show();
         $http({
           method: 'GET',
           url: '/api/sucursalesXYear/'+ $scope.filtro.anio
@@ -29,7 +33,9 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
           $scope.sucursales = sucursales.data;
           $scope.filtro.sucursal = 'Todas';
           $scope.generarReporte();
+          $('#loadLogo').hide();
         }, function(errorResponse) {
+          $('#loadLogo').hide();
           mostrarNotificacion(errorResponse.data.message);
         });
       }
@@ -70,6 +76,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
 
       $scope.tabla = [];
       $scope.graficos = [];
+      $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/reporteXCategoria',
@@ -104,6 +111,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
             data: [fila.ene,fila.feb,fila.mar,fila.abr,fila.may,fila.jun,fila.jul,fila.ago,fila.sep,fila.oct,fila.nov,fila.dic]
           });
         }
+        $('#loadLogo').hide();
       });
     }
 
@@ -112,6 +120,11 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
         $location.path('reporteCategoria/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
       }
     }
+
+    $scope.onClick = function (grafico) {
+      $scope.graficoModal=grafico;
+      console.log($scope.graficoModal);
+    };
 
   }
 ]);
