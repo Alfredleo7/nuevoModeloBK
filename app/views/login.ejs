@@ -25,7 +25,7 @@
       <a class="hiddenanchor" id="signin"></a>
 
       <div class="login_wrapper">
-        <div class="animate form login_form">
+        <div class="animate form login_form" ng-init="$('#loadLogo').hide();">
           <section class="login_content">
             <form data-ng-submit="login()" novalidate >
               <h1>Iniciar sesión</h1>
@@ -135,6 +135,9 @@
         </div>
       </div>
     </div>
+    <div id="loadLogo" style="text-align:center">
+      <img src="/images/minifindstore_spin.gif" alt=""  height="42" width="42">
+    </div>
   </body>
 
   <!-- PNotify -->
@@ -160,6 +163,7 @@
 
 
         $scope.login = function(){
+          $('#loadLogo').show();
           $http({
             method: 'POST',
             url: 'api/usuariosLogin',
@@ -167,6 +171,7 @@
           }).then(function(response){
             window.location.href="/";
           },function(errorResponse){
+            $('#loadLogo').hide();
             new PNotify({
               text:errorResponse.data.message,
               styling: 'bootstrap3'
@@ -177,6 +182,7 @@
         $scope.registrar =function(){
 
           if($scope.newUsuario.password ==  $scope.passwordConfirm){
+            $('#loadLogo').show();
             $http({
               method: 'POST',
               url: '/api/usuarios',
@@ -187,8 +193,10 @@
                 styling: 'bootstrap3',
                 type: 'success'
               });
+              $('#loadLogo').hide();
               window.location.href="#signin";
             },function(errorResponse){
+              $('#loadLogo').hide();
               new PNotify({
                 text:errorResponse.data.message,
                 styling: 'bootstrap3'
@@ -203,10 +211,12 @@
         }
 
         $scope.initRegistro = function(){
+          $('#loadLogo').show();
           $http({
             method: 'GET',
             url: '/api/empresas'
           }).then(function(response){
+            $('#loadLogo').hide();
             $scope.empresas = response.data;
           })
         }
@@ -214,10 +224,12 @@
         $scope.getSucursales = function(){
 
           if($scope.newUsuario.empresa){
+            $('#loadLogo').show();
             $http({
               method: 'GET',
               url: '/api/sucursalesByEmpresa/'+$scope.newUsuario.empresa
             }).then(function(response){
+              $('#loadLogo').hide();
               $scope.sucursales = response.data;
             })
           }
