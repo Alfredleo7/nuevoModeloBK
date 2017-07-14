@@ -336,23 +336,24 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
             url: '/api/proveedores',
             data: proveedor
           }).then(function(response){
+            console.log('guardado');
             $scope.detalle.anexo.proveedor = response.data;
             $scope.proveedores.push(response.data);
-            $('.modalProveedores').modal('hide');
+            $('.modalNewProveedor').modal('hide');
             $('#loadLogo').hide();
-            return false;
           }, function(errorResponse) {
+            console.log('ya existe');
             mostrarNotificacion(errorResponse.data.message);
             $('#loadLogo').hide();
             return true;
           })
         } else {
+          console.log('no agrega ruc o cedula');
           mostrarNotificacion('Ingrese un RUC o una cédula');
-          return true;
         }
       } else {
+        console.log('no agrega ningun dato');
         mostrarNotificacion('Ingrese los datos');
-        return true;
       }
 
     }

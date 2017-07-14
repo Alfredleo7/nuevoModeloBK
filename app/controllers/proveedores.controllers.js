@@ -32,19 +32,128 @@ var getErrorMessage = function(err) {
 
 exports.create = function(req, res) {
   var proveedorReq = new Proveedor(req.body);
-  var existeConRuc = false;
-  var existeConCedula = false;
 
-  Proveedor.findOne({ruc: proveedorReq.ruc}, function(err, proveedor){
+
+  if(!proveedorReq.ruc){
+    Proveedor.findOne({cedula: proveedorReq.cedula}).exec(function(err, proveedor){
+      if(proveedor){
+        console.log(proveedor);
+        return res.status(400).send({
+          message: 'El proveedor ya existe'
+        });
+      } else {
+        proveedorReq.save(function(err, newProveedor){
+          if(err){
+            return res.status(400).send({
+              message: getErrorMessage(err)
+            })
+          } else {
+            return res.json(newProveedor);
+          }
+        });
+      }
+    })
+  }
+  if(!proveedorReq.cedula){
+    Proveedor.findOne({ruc: proveedorReq.ruc}).exec(function(err, proveedor){
+      if(proveedor){
+        console.log(proveedor);
+        return res.status(400).send({
+          message: 'El proveedor ya existe'
+        });
+      } else {
+        proveedorReq.save(function(err, newProveedor){
+          if(err){
+            return res.status(400).send({
+              message: getErrorMessage(err)
+            })
+          } else {
+            return res.json(newProveedor);
+          }
+        });
+      }
+    })
+  }
+
+  Proveedor.findOne({$or: [{ruc: proveedorReq.ruc},{cedula: proveedorReq.cedula}]}).exec(function(err, proveedor){
     if(proveedor){
+      console.log(proveedor);
       return res.status(400).send({
         message: 'El proveedor ya existe'
+      });
+    } else {
+      proveedorReq.save(function(err, newProveedor){
+        if(err){
+          return res.status(400).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+          return res.json(newProveedor);
+        }
+      });
+    }
+  })
+
+
+  /*var noExiste = true
+
+  if(proveedorReq.ruc && proveedorReq.ruc != ''){
+    console.log('tiene ruc')
+    Proveedor.findOne({ruc: proveedorReq.ruc}, function(err, proveedor){
+      if(proveedor){
+        noExiste = false;
+        console.log('exite con ruc');
+      }
+    })
+  } else {
+    if(proveedorReq.cedula && proveedorReq.cedula != ''){
+      console.log('tiene cedula')
+      Proveedor.findOne({cedula: proveedorReq.cedula}, function(err, proveedor){
+        if(proveedor){
+          noExiste = false;
+          console.log('exite con cedula');
+        }
+      })
+    }
+  }
+  if(proveedorReq.cedula && proveedorReq.cedula != ''){
+    console.log('tiene cedula')
+    Proveedor.findOne({cedula: proveedorReq.cedula}, function(err, proveedor){
+      if(proveedor){
+        noExiste = false;
+        console.log('exite con cedula');
+      }
+    })
+  }
+
+  console.log(noExiste);
+
+  if(noExiste){
+    proveedorReq.save(function(err, proveedor){
+      if(err){
+        return res.status(400).send({
+          message: getErrorMessage(err)
+        })
+      } else {
+        return res.json(proveedor);
+      }
+    });
+  } else {
+    return res.status(400).send({
+      message: 'El proveedor ya existe'
+    });
+  }*/
+
+  /*Proveedor.findOne({ruc: proveedorReq.ruc}, function(err, proveedor){
+    if(proveedor){
+      return res.status(400).send({
+        message: 'El proveedor ya existe con ruc'
       });
     } else {
       Proveedor.findOne({cedula: proveedorReq.cedula}, function(err, proveedor){
         if(proveedor){
           return res.status(400).send({
-            message: 'El proveedor ya existe'
+            message: 'El proveedor ya existe con ced'
           });
         } else {
           proveedorReq.save(function(err){
@@ -59,7 +168,7 @@ exports.create = function(req, res) {
         }
       })
     }
-  })
+  })*/
 
   /*if(proveedor.ruc){
     Proveedor.findOne({ruc: proveedor.ruc}, function(err, proveedor){

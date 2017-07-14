@@ -11,6 +11,7 @@
             <tr class="active">
               <th>#</th>
               <th>Creado</th>
+              <th>secuencial</th>
               <th>Valor</th>
               <th>Estado</th>
             </tr>
@@ -19,6 +20,7 @@
             <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas">
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+              <td class="text-right" data-ng-bind="caja.secuencial"></td>
               <td class="text-right" data-ng-bind="caja.valor | currency"></td>
               <td data-ng-bind="caja.estado"></td>
             </tr>

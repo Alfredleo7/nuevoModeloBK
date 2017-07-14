@@ -99,6 +99,10 @@ font-size: 12px;
   border-bottom-color: #a29e9e;
 }
 
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+    background-color: #dddddd;
+}
+
 .link:hover {
   cursor: pointer;
 }

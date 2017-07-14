@@ -38,6 +38,9 @@ angular.module('general').config(['$routeProvider',
     when('/caja/:cajaId/detalle/:detalleId', {
       templateUrl: 'app_Angular/General/views/view-detalle.view.html',
       controller: 'view-detalle.controller'
+    }).
+    when('/CambiarContrasena', {
+      templateUrl: 'app_Angular/General/views/cambiarContrasena.view.html'
     });
   }
 ]);

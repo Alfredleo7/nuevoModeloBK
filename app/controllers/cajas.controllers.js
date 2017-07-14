@@ -5,6 +5,7 @@ var Usuario = mongoose.model('Usuario');
 var Caja = mongoose.model('Caja');
 var Empresa = mongoose.model('Empresa');
 var Sucursal = mongoose.model('Sucursal');
+var nodemailer = require('nodemailer');
 
 var getErrorMessage = function(err){
   if (err.errors){
@@ -162,7 +163,49 @@ exports.aprobar = function(req, res){
         message: getErrorMessage(err)
       });
     } else {
+
+      Usuario.findById(caja.creador, function(err, creador){
+
+        var transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: 'resnorteweb@gmail.com',
+            pass: 'passresnorte'
+          }
+        });
+
+        var mailOptions = {
+          from: 'Dep. de Sistema Resnorte <resnorteweb@gmail.com>',
+          //to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec',
+          to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
+          subject: 'Notificación de Aprobación de Caja Chica',
+          html: 'Estimado Usuario,'+
+                '<br><br>'+
+                'Le comunicamos que se ha realizado la aprobación de la Caja Chica con secuencial '+caja.secuencial+'.'+
+                '<br><br>'+
+                'Aprobación realizada por '+req.session.usuario.fullname+'.'+
+                '<br><br>'+
+                'Saludo Cordiales,'+
+                '<br><br>'+
+                'Departamento de Sistemas'+
+                '<br>'+
+                '<a href="http://www.resnorteweb.com">www.resnorteweb.com</a>',
+        }
+
+        transporter.sendMail(mailOptions, function(error, info) {
+          if (error) {
+              console.log(error);
+              //res.redirect('/');
+          } else {
+              console.log('Mensaje enviado: ' + info.response);
+              //res.redirect('/');
+          }
+        })
+
+      });
+
       res.json(caja);
+
     }
   });
 };
@@ -179,6 +222,45 @@ exports.rechazar = function(req, res){
         message: getErrorMessage(err)
       });
     } else {
+      Usuario.findById(caja.creador, function(err, creador){
+
+        var transporter = nodemailer.createTransport({
+          service: 'Gmail',
+          auth: {
+            user: 'resnorteweb@gmail.com',
+            pass: 'passresnorte'
+          }
+        });
+
+        var mailOptions = {
+          from: 'Dep. de Sistema Resnorte <resnorteweb@gmail.com>',
+          //to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec',
+          to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
+          subject: 'Notificación de Aprobación de Caja Chica',
+          html: 'Estimado Usuario,'+
+                '<br><br>'+
+                'Le comunicamos que la Caja Chica con secuencial '+caja.secuencial+' no fue aprobada.'+
+                '<br><br>'+
+                'Administrador responsable: '+req.session.usuario.fullname+'.'+
+                '<br><br>'+
+                'Saludo Cordiales,'+
+                '<br><br>'+
+                'Departamento de Sistemas'+
+                '<br>'+
+                '<a href="http://www.resnorteweb.com">www.resnorteweb.com</a>',
+        }
+
+        transporter.sendMail(mailOptions, function(error, info) {
+          if (error) {
+              console.log(error);
+              //res.redirect('/');
+          } else {
+              console.log('Mensaje enviado: ' + info.response);
+              //res.redirect('/');
+          }
+        })
+
+      });
       res.json(caja);
     }
   });
