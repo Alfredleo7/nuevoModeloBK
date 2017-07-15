@@ -42,6 +42,10 @@ angular.module('administrador').config(['$routeProvider',
     when('/reporteCategoria/:tipo/:anio/:mes/:nombre', {
       templateUrl: 'app_Angular/Administrador/views/detallesCeldaReporteCategoria.view.html',
       controller: 'detallesByCeldaCategoria.controller'
+    }).
+    when('/CambiarContrasena', {
+      templateUrl: 'app_Angular/Administrador/views/cambiarContrasena.view.html',
+      controller: 'cambiarContrasena.controller'
     });
   }
 ]);

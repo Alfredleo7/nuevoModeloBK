@@ -135,6 +135,24 @@ exports.list = function(req, res){
   });
 };
 
+exports.cambiarPassword = function(req, res){
+  Usuario.findById(req.session.usuario.id, function(err, usuario){
+    if(req.body.nowPassword == crypto.desencriptar(usuario.password)){
+      console.log(req.body);
+      usuario.password = req.body.newPassword;
+      usuario.save(function(err){
+        return res.status(200).send({
+          message: 'La contraseña ha sido actualizada correctamente'
+        });
+      });
+    } else {
+      return res.status(400).send({
+        message: 'Contraseña actual incorrecta'
+      });
+    }
+  })
+}
+
 /*exports.usuarioByID = function(req, res, next, id){
   Usuario.findById(id, function(err, usuario){
     if (err) return next(err);

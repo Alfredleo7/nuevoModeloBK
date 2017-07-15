@@ -176,8 +176,8 @@ exports.aprobar = function(req, res){
 
         var mailOptions = {
           from: 'Dep. de Sistema Resnorte <resnorteweb@gmail.com>',
-          //to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec',
-          to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
+          to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec,stalgonz@espol.edu.ec',
+          //to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
           subject: 'Notificación de Aprobación de Caja Chica',
           html: 'Estimado Usuario,'+
                 '<br><br>'+

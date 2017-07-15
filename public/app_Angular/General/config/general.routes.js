@@ -40,7 +40,8 @@ angular.module('general').config(['$routeProvider',
       controller: 'view-detalle.controller'
     }).
     when('/CambiarContrasena', {
-      templateUrl: 'app_Angular/General/views/cambiarContrasena.view.html'
+      templateUrl: 'app_Angular/General/views/cambiarContrasena.view.html',
+      controller: 'cambiarContrasena.controller'
     });
   }
 ]);

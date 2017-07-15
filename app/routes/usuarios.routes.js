@@ -14,6 +14,9 @@ module.exports = function(app) {
   app.route('/api/usuariosLogout')
     .get(usuarios.singOut);
 
+  app.route('/api/usuariosPassword')
+    .put(usuarios.cambiarPassword);
+
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
     .put(detalles.update)
