@@ -15,7 +15,7 @@ module.exports = function(app) {
     .get(usuarios.singOut);
 
   app.route('/api/usuariosPassword')
-    .put(usuarios.cambiarPassword);
+    .put(usuarios.haySession, usuarios.cambiarPassword);
 
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
@@ -28,8 +28,4 @@ module.exports = function(app) {
 
   app.param('detalleId', detalles.detalleByID);*/
 
-  app.route('/prueba')
-    .get(function(req, res){
-      res.render('prueba');
-    })
 }

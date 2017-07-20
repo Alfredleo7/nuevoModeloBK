@@ -165,3 +165,11 @@ exports.cambiarPassword = function(req, res){
 /*exports.inicio = function(req, res){
   res.status(200).render('inicio');
 }*/
+
+exports.haySession = function(req, res, next){
+  if(req.session.usuario){
+    next();
+  } else {
+    return res.render('login');
+  }
+}
