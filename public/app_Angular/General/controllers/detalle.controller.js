@@ -105,18 +105,23 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       /*$scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
       $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);*/
 
+      $scope.baseCeroMaBaseDoce = 0;
+
       if($scope.detalle.anexo.subTotal0 || $scope.detalle.anexo.subTotalIva){
         if($scope.detalle.anexo.subTotal0 && !$scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
           $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0);
+          $scope.baseCeroMaBaseDoce = Number($scope.detalle.anexo.subTotal0);
         }
         if(!$scope.detalle.anexo.subTotal0 && $scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
           $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);
+          $scope.baseCeroMaBaseDoce = Number($scope.detalle.anexo.subTotalIva);
         }
         if($scope.detalle.anexo.subTotal0 && $scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number($scope.detalle.anexo.subTotalIva)*12/100;
           $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);
+          $scope.baseCeroMaBaseDoce = Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.subTotal0);
         }
       } else {
         $scope.detalle.anexo.iva = "";
@@ -129,7 +134,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.primerPorc = 1;
           $scope.segundoPorc = 30;
 
-          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVABienes = Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100;
 
           $scope.detalle.anexo.retencionSubTotalServicios = 0;
@@ -144,7 +149,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
-          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVAServicios = Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100;
 
           $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalServicios) + Number($scope.detalle.anexo.retencionIVAServicios);
@@ -152,7 +157,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         if($scope.detalle.anexo.selectRetencion=='1'){
           $scope.primerPorc = 1;
 
-          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalBienes = Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
           $scope.detalle.anexo.retencionSubTotalServicios = 0;
@@ -166,10 +171,10 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
-          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.detalle.anexo.subTotalIva)*Number($scope.primerPorc)/100;
+          $scope.detalle.anexo.retencionSubTotalServicios = Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100;
           $scope.detalle.anexo.retencionIVAServicios = 0;
 
-          $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalServicios)
+          $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalServicios);
         }
         $scope.detalle.valor = Number($scope.detalle.anexo.total) - Number($scope.detalle.anexo.totalRetencion);
 
