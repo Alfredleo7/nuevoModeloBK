@@ -175,20 +175,20 @@ exports.aprobar = function(req, res){
         });
 
         var mailOptions = {
-          from: 'Dep. de Sistema Resnorte <resnorteweb@gmail.com>',
+          from: 'Dep. de Sistemas Resnorte <resnorteweb@gmail.com>',
           to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec,stalgonz@espol.edu.ec',
           //to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
           subject: 'Notificación de Aprobación de Caja Chica',
-          html: 'Estimado Usuario,'+
-                '<br><br>'+
-                'Le comunicamos que se ha realizado la aprobación de la Caja Chica con secuencial '+caja.secuencial+'.'+
-                '<br><br>'+
-                'Aprobación realizada por '+req.session.usuario.fullname+'.'+
-                '<br><br>'+
-                'Saludo Cordiales,'+
-                '<br><br>'+
-                'Departamento de Sistemas'+
+          html: 'Estimado Usuario,<br>'+
                 '<br>'+
+                'Le comunicamos que se ha realizado la aprobación de la Caja Chica con secuencial '+caja.secuencial+'.<br>'+
+                '<b>Custodio: </b>'+caja.sucursal.tipo+' '+caja.sucursal.nombre+'<br>'+
+                '<b>Total: $</b>'+Number(caja.valor.toFixed(2))+'<br>'+
+                'Aprobación realizada por '+req.session.usuario.fullname+'.<br>'+
+                '<br>'+
+                'Saludo Cordiales,<br>'+
+                '<br>'+
+                'Departamento de Sistemas<br>'+
                 '<a href="http://www.resnorteweb.com">www.resnorteweb.com</a>',
         }
 
@@ -233,14 +233,16 @@ exports.rechazar = function(req, res){
         });
 
         var mailOptions = {
-          from: 'Dep. de Sistema Resnorte <resnorteweb@gmail.com>',
-          //to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec',
-          to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
+          from: 'Dep. de Sistemas Resnorte <resnorteweb@gmail.com>',
+          to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec,stalgonz@espol.edu.ec',
+          //to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
           subject: 'Notificación de Aprobación de Caja Chica',
           html: 'Estimado Usuario,'+
                 '<br><br>'+
                 'Le comunicamos que la Caja Chica con secuencial '+caja.secuencial+' no fue aprobada.'+
-                '<br><br>'+
+                '<b>Custodio: </b>'+caja.sucursal.tipo+' '+caja.sucursal.nombre+'<br>'+
+                '<b>Total: $</b>'+Number(caja.valor.toFixed(2))+'<br>'+
+                '<br>'+
                 'Administrador responsable: '+req.session.usuario.fullname+'.'+
                 '<br><br>'+
                 'Saludo Cordiales,'+
