@@ -33,6 +33,11 @@ angular.module('general').controller('proveedores.controller', ['$scope','$http'
             $scope.proveedores.push(response.data);
             $('.modalNewProveedor').modal('hide');
             $('#loadLogo').hide();
+            new PNotify({
+              text: 'Proveedor guardado con éxito',
+              styling: 'bootstrap3',
+              type: 'success'
+            })
           }, function(errorResponse) {
             console.log('ya existe');
             mostrarNotificacion(errorResponse.data.message);

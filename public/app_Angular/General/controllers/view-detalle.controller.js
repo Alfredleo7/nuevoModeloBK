@@ -27,17 +27,44 @@ angular.module('general').controller('view-detalle.controller',['$scope','$http'
     }
 
     $scope.eliminar = function(detalle) {
-      $('#loadLogo').show();
-      $http({
-        method: 'DELETE',
-        url: '/api/detalles/'+detalle._id
-      }).then(function(response){
-        $location.path('/caja/'+$routeParams.cajaId);
-        $('#loadLogo').hide();
-      },function(errorResponse){
-        mostrarNotificacion(errorResponse.data.message);
-        $('#loadLogo').hide();
-      })
+
+      (new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea eliminar este detalle?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+        $('#loadLogo').show();
+        $http({
+          method: 'DELETE',
+          url: '/api/detalles/'+detalle._id
+        }).then(function(response){
+          $location.path('/caja/'+$routeParams.cajaId);
+          $('#loadLogo').hide();
+          new PNotify({
+            text: 'Detalle eliminado con éxito',
+            styling: 'bootstrap3',
+            type: 'success'
+          })
+        },function(errorResponse){
+          mostrarNotificacion(errorResponse.data.message);
+          $('#loadLogo').hide();
+        })
+      }).on('pnotify.cancel', function() {
+      });
+
     }
 
     $scope.printDiv = function(IdDiv, titulo){

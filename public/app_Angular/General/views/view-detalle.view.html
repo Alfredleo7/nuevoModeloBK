@@ -51,7 +51,23 @@
       <table style="width: 100%;">
         <tr>
           <td  valign="top"><b>Proveedor:</b></td>
-          <td colspan="5">{{detalle.anexo.proveedor.razons}} ruc: {{detalle.anexo.proveedor.ruc}} ced: {{detalle.anexo.proveedor.cedula}}</td>
+          <td  colspan="5">
+            <nombre ng-if="detalle.anexo.proveedor.nombre && detalle.anexo.proveedor.nombre !='.'" class="col-md-3 col-sm-3 col-xs-12">
+              Nombre: {{detalle.anexo.proveedor.nombre}}
+            </nombre>
+            <apellido ng-if="detalle.anexo.proveedor.apellido && detalle.anexo.proveedor.apellido !='.'" class="col-md-3 col-sm-3 col-xs-12">
+              Apellido: {{detalle.anexo.proveedor.apellido}}
+            </apellido>
+            <razons ng-if="detalle.anexo.proveedor.razons && detalle.anexo.proveedor.razons !='.'" class="col-md-3 col-sm-3 col-xs-12">
+              Razón Social: {{detalle.anexo.proveedor.razons}}
+            </razons>
+            <cedula ng-if="detalle.anexo.proveedor.cedula && detalle.anexo.proveedor.cedula !='.'" class="col-md-3 col-sm-3 col-xs-12">
+              Ced: {{detalle.anexo.proveedor.cedula}}
+            </cedula>
+            <ruc ng-if="detalle.anexo.proveedor.ruc && detalle.anexo.proveedor.ruc !='.'" class="col-md-3 col-sm-3 col-xs-12">
+              Ruc: {{detalle.anexo.proveedor.ruc}}
+            </ruc>
+          </td>
         </tr>
         <tr>
           <td><b>Fecha:</b></td>
