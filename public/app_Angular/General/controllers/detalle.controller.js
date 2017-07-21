@@ -111,17 +111,17 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         if($scope.detalle.anexo.subTotal0 && !$scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number((Number($scope.detalle.anexo.subTotalIva)*12/100).toFixed(2));
           $scope.detalle.anexo.total = Number((Number($scope.detalle.anexo.subTotal0)).toFixed(2));
-          $scope.baseCeroMaBaseDoce = Number($scope.detalle.anexo.total);
+          $scope.baseCeroMaBaseDoce = Number((Number($scope.detalle.anexo.subTotal0)).toFixed(2));
         }
         if(!$scope.detalle.anexo.subTotal0 && $scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number(Number(Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2))*12/100).toFixed(2));
           $scope.detalle.anexo.total = Number(Number((Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2)) + Number($scope.detalle.anexo.iva)).toFixed(2)).toFixed(2));
-          $scope.baseCeroMaBaseDoce = Number($scope.detalle.anexo.total);
+          $scope.baseCeroMaBaseDoce = Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2));
         }
         if($scope.detalle.anexo.subTotal0 && $scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number((Number($scope.detalle.anexo.subTotalIva)*12/100).toFixed(2));
-          $scope.detalle.anexo.total = Number((Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva)).toFixed(2));
-          $scope.baseCeroMaBaseDoce = Number((Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.subTotal0)).toFixed(2));
+          $scope.detalle.anexo.total = Number((Number(Number($scope.detalle.anexo.subTotal0).toFixed(2)) + Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2)) + Number(Number($scope.detalle.anexo.iva).toFixed(2))).toFixed(2));
+          $scope.baseCeroMaBaseDoce = Number((Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2)) + Number(Number($scope.detalle.anexo.subTotal0).toFixed(2))).toFixed(2));
         }
       } else {
         $scope.detalle.anexo.iva = "";
@@ -149,7 +149,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
-          $scope.detalle.anexo.retencionSubTotalServicios = Number((Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100).toFixed(2));
+          $scope.detalle.anexo.retencionSubTotalServicios = Number(Number(Number((Number($scope.baseCeroMaBaseDoce)*$scope.primerPorc).toFixed(2))/100).toFixed(2));
           $scope.detalle.anexo.retencionIVAServicios = Number((Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100).toFixed(2));
 
           $scope.detalle.anexo.totalRetencion = Number((Number($scope.detalle.anexo.retencionSubTotalServicios) + Number($scope.detalle.anexo.retencionIVAServicios)).toFixed(2));

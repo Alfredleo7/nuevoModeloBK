@@ -14,6 +14,10 @@ angular.module('inicio').config(['$routeProvider',
     when('/logup', {
       templateUrl: 'app_Angular/Inicio/views/logup.view.html',
       controller: 'logup.controller'
+    }).
+    otherwise({
+        templateUrl: 'app_Angular/Inicio/views/login.view.html',
+        controller: 'login.controller'
     });
   }
 ]);
