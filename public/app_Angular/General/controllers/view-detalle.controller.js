@@ -50,6 +50,7 @@ angular.module('general').controller('view-detalle.controller',['$scope','$http'
       newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
       newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
       newWin.document.write('</head><body onload="window.print()">');
       newWin.document.write(divToPrint);
       newWin.document.write('</body>');

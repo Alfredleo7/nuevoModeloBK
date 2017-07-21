@@ -1,12 +1,5 @@
 <div data-ng-init="init()">
   <div class="row">
-    <div class="">
-      <div class="title">
-        <h3>Reporte por Categorias</h3>
-      </div>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-md-2 col-sm-3 col-xs-12">
       <div class="form-group">
         <label>Año:</label>
@@ -38,12 +31,12 @@
         {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
       </div>
       <div class="x_title">
-        <h2>Reporte por Categoria</h2>
+        <h4>Reporte por Categoria</h4>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
         <div>
-          <h4><b>Año:</b> {{filtro.anio}} <b>Sucursal:</b> {{filtro.sucursal}}</h4>
+          <b>Año:</b> {{filtro.anio}} <b>Sucursal:</b> {{filtro.sucursal}}
         </div>
         <div style="overflow-x:auto;">
           <table class="table table-bordered" ng-init="filtroTable='categoria';reverse='false'">
@@ -104,34 +97,35 @@
       </div>
   </div>
 
-  <div class="row">
+  <!--<div class="row">-->
     <div class="col-md-4 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
       <div class="x_panel">
         <div align="right"  style="float: right">
           <categoria ng-if="filtro.sucursal!='Todas'">{{filtro.sucursal}} | </categoria> {{filtro.anio}}
         </div>
         <div class="x_title">
-          <h2>{{grafico.series}}</h2>
+          {{grafico.series}}
         </div>
         <canvas data-toggle="modal" data-target=".graficoModal" class="chart chart-bar link" ng-click="onClick(grafico)" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
       </div>
     </div>
-    <div class="modal fade graficoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <div class="x_title">
-              <h2>{{graficoModal.series}}</h2>
-              <categoria ng-if="filtro.sucursal!='Todas'">{{filtro.sucursal}} | </categoria> {{filtro.anio}}
-            </div>
+  <!--</div>-->
+
+  <div class="modal fade graficoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="x_title">
+            <h2>{{graficoModal.series}}</h2>
+            <categoria ng-if="filtro.sucursal!='Todas'">{{filtro.sucursal}} | </categoria> {{filtro.anio}}
           </div>
-          <div class="modal-body">
-            <canvas class="chart chart-bar" chart-data="graficoModal.data" chart-labels="graficoModal.labels" chart-series="graficoModal.series"></canvas>
-          </div>
-          <div class="modal-footer">
-            <button data-dismiss="modal" type="button" class="btn btn-default">Cerrar</button>
-          </div>
+        </div>
+        <div class="modal-body">
+          <canvas class="chart chart-bar" chart-data="graficoModal.data" chart-labels="graficoModal.labels" chart-series="graficoModal.series"></canvas>
+        </div>
+        <div class="modal-footer">
+          <button data-dismiss="modal" type="button" class="btn btn-default">Cerrar</button>
         </div>
       </div>
     </div>

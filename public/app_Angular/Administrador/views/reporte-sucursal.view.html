@@ -1,12 +1,5 @@
 <div data-ng-init="init()">
   <div class="row">
-    <div class="">
-      <div class="title">
-        <h3>Reporte por Locales/Departamentos</h3>
-      </div>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-md-2 col-sm-3 col-xs-12">
       <div class="form-group">
         <label>Año:</label>
@@ -38,18 +31,18 @@
         {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
       </div>
       <div class="x_title">
-        <h2>Reporte por Locales/Departamentos</h2>
+        <h4>Reporte por Locales/Departamentos</h4>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
         <div>
-          <h4><b>Año:</b> {{filtro.anio}} <b>Categoria:</b> {{filtro.categoria}}</h4>
+          <b>Año:</b> {{filtro.anio}} <b>Categoria:</b> {{filtro.categoria}}
         </div>
         <div style="overflow-x:auto;">
           <table class="table table-bordered" ng-init="filtroTable='sucursal';reverse='false'">
             <thead>
               <tr class="success">
-                <th class="filaLink" ng-click="filtroTable='sucursal';reverse = !reverse">Locales <br> Departamentos</th>
+                <th class="filaLink" ng-click="filtroTable='sucursal';reverse = !reverse">Local/Departamento</th>
                 <th ng-if="Ene!=0" class="filaLink" ng-click="filtroTable='ene';reverse = !reverse">Ene</th>
                 <th ng-if="Feb!=0" class="filaLink" ng-click="filtroTable='feb';reverse = !reverse">Feb</th>
                 <th ng-if="Mar!=0" class="filaLink" ng-click="filtroTable='mar';reverse = !reverse">Mar</th>
