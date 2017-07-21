@@ -300,3 +300,23 @@ exports.proveedorByID = function(req, res, next, id){
     }
   });
 };
+
+exports.update = function(req, res){
+  var proveedor = req.proveedor;
+
+  proveedor.nombre = req.body.nombre;
+  proveedor.apellido = req.body.apellido;
+  proveedor.ruc = req.body.ruc;
+  proveedor.cedula = req.body.cedula;
+  proveedor.razons = req.body.razons;
+
+  proveedor.save(function(err){
+    if (err) {
+			return res.status(400).send({
+				message: getErrorMessage(err)
+			});
+		} else {
+			res.json(proveedor);
+		}
+  })
+};

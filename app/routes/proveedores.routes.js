@@ -7,6 +7,8 @@ module.exports = function(app) {
     .get(proveedores.list)
     .post(proveedores.create);
   app.route('/api/proveedores/:proveedorId')
+    .put(proveedores.update)
     .get(proveedores.read)
     .delete(proveedores.delete);
+  app.param('proveedorId', proveedores.proveedorByID);
 }

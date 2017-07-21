@@ -363,5 +363,9 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
 
     }
 
+    $scope.actualizarProveedor = function(proveedor){
+      
+    }
+
   }
 ]);

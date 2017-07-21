@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="btn-group"n style="float: right;">
+        <div class="btn-group" style="float: right;">
           <a ng-show="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar</a>
           <a class="btn btn-sm btn-default" ng-click="exportExcel('reporteDetalles', 'Detalles de la caja')"><i class="fa fa-file-excel-o"></i> Exportar</a>
           <a class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>

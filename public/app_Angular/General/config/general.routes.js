@@ -42,6 +42,10 @@ angular.module('general').config(['$routeProvider',
     when('/CambiarContrasena', {
       templateUrl: 'app_Angular/General/views/cambiarContrasena.view.html',
       controller: 'cambiarContrasena.controller'
+    }).
+    when('/Proveedores',{
+      templateUrl: 'app_Angular/General/views/proveedores.view.html',
+      controller: 'proveedores.controller'
     });
   }
 ]);

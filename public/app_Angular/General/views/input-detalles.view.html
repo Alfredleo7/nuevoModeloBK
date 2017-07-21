@@ -282,37 +282,32 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-4 col-sm-8 col-xs-12">
-            <input type="text" class="form-control" placeholder="Buscar" ng-model="buscador">
-          </div>
-          <div class="col-md-4 col-sm-8 col-xs-12">
             <div class="float: rigth">
               <button class="btn btn-default" type="button" name="button" data-dismiss="modal" data-toggle="modal" data-target=".modalNewProveedor">Nuevo Proveedor</button>
             </div>
           </div>
         </div>
         <br>
-        <div style="overflow-x:auto;">
-          <table class="table table-bordered">
-            <thead>
-              <tr class="active">
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Razón Social</th>
-                <th>Cédula</th>
-                <th>Ruc</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="filaLink" data-ng-click="asignar(proveedor)" ng-repeat="proveedor in proveedores | filter:buscador">
-                <td ng-bind="proveedor.nombre"></td>
-                <td ng-bind="proveedor.apellido"></td>
-                <td ng-bind="proveedor.razons"></td>
-                <td ng-bind="proveedor.cedula"></td>
-                <td ng-bind="proveedor.ruc"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="table table-bordered" datatable='ng'>
+          <thead>
+            <tr class="active">
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Razón Social</th>
+              <th>Cédula</th>
+              <th>Ruc</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="filaLink" data-ng-click="asignar(proveedor)" ng-repeat="proveedor in proveedores | filter:buscador">
+              <td ng-bind="proveedor.nombre"></td>
+              <td ng-bind="proveedor.apellido"></td>
+              <td ng-bind="proveedor.razons"></td>
+              <td ng-bind="proveedor.cedula"></td>
+              <td ng-bind="proveedor.ruc"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -370,13 +365,6 @@
     </div>
   </div>
 </div>
-<style media="screen">
-table {
-  height: 400px;       /* Just for the demo          */
-  overflow-y: auto;    /* Trigger vertical scroll    */
-  display: block;
-}
-</style>
 <script type="text/javascript">
 
   var mask_account =  function (field_account, num){
