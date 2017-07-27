@@ -31,7 +31,7 @@ var userSchema = new Schema({
   },
   tipo: {
     type: String,
-    enum: ['General', 'Administrador', 'Gerente'],
+    enum: ['General', 'Administrador', 'Super'],
     default: 'General'
   },
   empresa: {

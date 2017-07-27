@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Super Usuario</title>
+    <link rel="icon" href="/favicon_23Q_icon.ico">
+    <!-- Bootstrap -->
+    <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap DataTable -->
+    <link rel="stylesheet" href="/css/dataTables.bootstrap.min.css">
+    <!-- PNotify -->
+    <link rel="stylesheet" href="/css/pnotify.custom.min.css">
+    <!--Estilo-->
+    <link rel="stylesheet" href="/css/estilos.css">
+  </head>
+
+  <body>
+    <div class="container body">
+      <div class="main_container">
+        <!-- Fixed navbar -->
+          <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand"><%= usuario.tipo %></a>
+              </div>
+              <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="linkNavbar" href="#!/Operarios">Operarios</a></li>
+                      <li><a class="linkNavbar" href="#!/Administradores">Administradores</a></li>
+                      <li><a class="linkNavbar" href="#!/SuperUsuarios">Super Usuarios</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <ul class="nav navbar-nav">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="linkNavbar" href="#!/Categorias">Categorias</a></li>
+                      <li><a class="linkNavbar" href="#!/Proveedores">Proveedores</a></li>
+                      <li><a class="linkNavbar" href="#!/Cajas">Cajas Chicas</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <!--<ul class="nav navbar-nav navbar-right">
+                  <li><a><%= usuario.fullname %></a></li>
+                  <li><a href="/api/usuariosLogout">Salir</a></li>
+                </ul>-->
+                <ul class="nav navbar-nav navbar-right">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= usuario.fullname %></a>
+                    <ul class="dropdown-menu">
+                    <li><a class="linkNavbar" href="#!/CambiarContrasena">Cambiar Contraseña</a></li>
+                    <li><a class="linkNavbar"  href="/api/usuariosLogout">Salir</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+          </nav>
+        <!-- page content -->
+        <div role="main">
+          <div id="loadLogo" style="text-align:center">
+            <img src="/images/minifindstore_spin.gif" alt=""  height="42" width="42">
+          </div>
+          <section id="inicio" ng-view></section>
+        </div>
+
+        <!-- /page content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Datatables -->
+    <script src="/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
+    <!-- PNotify -->
+    <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
+    <!-- Chart -->
+    <script src="/lib/chart.js/dist/Chart.min.js" charset="utf-8"></script>
+
+    <!-- Exportar a Excel -->
+    <script src="/js/FileSaver.js" charset="utf-8"></script>
+
+    <!-- Aplicación Angular -->
+
+    <script src="/lib/angular/angular.js" charset="utf-8"></script>
+    <script src="/lib/angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="/lib/angular-datatables/demo/src/archives/dist/angular-datatables.min.js" charset="utf-8"></script>
+    <script src="/lib/angular-chart.js/dist/angular-chart.min.js" charset="utf-8"></script>
+
+    <!-- Principal -->
+    <script src="/app_Angular/Super/super.js" charset="utf-8"></script>
+
+    <!-- Controladores -->
+    <script src="/app_Angular/Super/controllers/view_operarios.controllers.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/view_administradores.controllers.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/view_super.controllers.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/view_categorias.controllers.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/view_proveedores.controllers.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/view_cajas.controllers.js" charset="utf-8"></script>
+
+    <!-- Rutas -->
+    <script src="/app_Angular/Super/config/super.routes.js" charset="utf-8"></script>
+
+
+
+
+    <script type="text/javascript">
+      var mostrarNotificacion = function(mensaje) {
+        new PNotify({
+                        title: 'Advertencia',
+                        text: mensaje,
+                        styling: 'bootstrap3'
+                    });
+      }
+      $('.linkNavbar').click(function(){
+          $(".navbar-collapse").collapse('hide');
+      });
+    </script>
+
+  </body>
+</html>

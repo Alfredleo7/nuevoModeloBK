@@ -1,0 +1,26 @@
+<section data-ng-init="init()">
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Categorias</h2>
+        <div class="clearfix"></div>
+      </div>
+      <!--<div style="overflow-x:auto;">-->
+        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
+          <thead>
+            <tr class="active">
+              <th>#</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="categoria in categorias">
+              <th class="text-right" scope="row">{{$index + 1}}</th>
+              <td>{{categoria.nombre}}</td>
+            </tr>
+          </tbody>
+        </table>
+      <!--</div>-->
+    </div>
+  </div>
+</section>

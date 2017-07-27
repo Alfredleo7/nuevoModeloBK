@@ -33,5 +33,8 @@ module.exports = function(app) {
   app.route('/api/enviarCaja/:cajaId')
     .put(cajas.enviar);
 
+  app.route('/api/cajasConSecuencial')
+    .get(cajas.cajasConSecuencial);
+
   app.param('cajaId', cajas.cajaByID);
 }

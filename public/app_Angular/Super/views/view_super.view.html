@@ -1,0 +1,36 @@
+<section data-ng-init="init()">
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Super Usuarios</h2>
+        <div class="clearfix"></div>
+      </div>
+      <!--<div style="overflow-x:auto;">-->
+        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
+          <thead>
+            <tr class="active">
+              <th>#</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Fecha de Ingreso</th>
+              <th>Empresa</th>
+              <th>Local/Dep</th>
+              <th>Correo Electrónico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="usuario in usuarios">
+              <th class="text-right" scope="row">{{$index + 1}}</th>
+              <td>{{usuario.firstName}}</td>
+              <td>{{usuario.lastName}}</td>
+              <td>{{usuario.creado | date: "dd'-'MMMM'-'y"}}</td>
+              <td>{{usuario.empresa.nombre}}</td>
+              <td>{{usuario.sucursal.tipo}} {{usuario.sucursal.nombre}}</td>
+              <td>{{usuario.usuario}}@burgerkingec.com.ec</td>
+            </tr>
+          </tbody>
+        </table>
+      <!--</div>-->
+    </div>
+  </div>
+</section>

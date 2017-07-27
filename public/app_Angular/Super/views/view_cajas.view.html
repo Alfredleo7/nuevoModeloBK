@@ -1,0 +1,40 @@
+<section data-ng-init="init()">
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Cajas Chicas</h2>
+        <div class="clearfix"></div>
+      </div>
+      <!--<div style="overflow-x:auto;">-->
+        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
+          <thead>
+            <tr class="active">
+              <th>#</th>
+              <th>Creado</th>
+              <th>Secuencial</th>
+              <th>Valor</th>
+              <th>Estado</th>
+              <th>Empresa</th>
+              <th>Local/Dep</th>
+              <th>Creado por</th>
+              <th>Administrador</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas">
+              <th class="text-right" scope="row">{{$index + 1}}</th>
+              <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+              <td class="text-right" data-ng-bind="caja.secuencial"></td>
+              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
+              <td data-ng-bind="caja.estado"></td>
+              <td>{{caja.empresa.nombre}}</td>
+              <td>{{caja.sucursal.tipo}} {{caja.sucursal.nombre}}</td>
+              <td>{{caja.creador.firstName}} {{caja.creador.lastName}}</td>
+              <td>{{caja.administrador.firstName}} {{caja.administrador.lastName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      <!--</div>-->
+    </div>
+  </div>
+</section>

@@ -315,3 +315,25 @@ exports.cajaByID = function(req, res, next, id){
     });
   });
 };
+
+exports.cajasConSecuencial = function(req, res){
+  Caja.find({estado: ['Pendiente', 'Aprobado', 'Rechazado']},null, {sort: {creado: 1}}, function(err, cajas){
+    if (err) {
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
+        Empresa.populate(cajas, {path: 'empresa'}, function(err, cajas){
+          Sucursal.populate(cajas, {path: 'sucursal'}, function(err, cajas){
+            Usuario.populate(cajas, {path: 'creador'}, function(err, cajas){
+              Usuario.populate(cajas, {path: 'administrador'}, function(err, cajas){
+                return res.status(200).json(cajas);
+              })
+            })
+          });
+        });
+      });
+    }
+  });
+}

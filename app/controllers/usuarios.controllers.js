@@ -46,10 +46,8 @@ exports.ingresar = function(req, res){
       res.render('administrador', {usuario: req.session.usuario});
     }
 
-    if(req.session.usuario.tipo === 'Gerente'){
-      res.status(200).send({
-        message: 'Gerente logueado correctamente'
-      });
+    if(req.session.usuario.tipo === 'Super'){
+      res.render('super', {usuario: req.session.usuario});
     }
   }
 };
@@ -173,3 +171,19 @@ exports.haySession = function(req, res, next){
     return res.render('login');
   }
 }
+
+exports.usuariosByTipo = function(req, res){
+  Usuario.find({tipo: req.params.tipo},null, {sort: {creado: 1}}, function(err, usuarios){
+    if(err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Empresa.populate(usuarios, {path: 'empresa'}, function(err, usuarios){
+        Sucursal.populate(usuarios, {path: 'sucursal'}, function(err, usuarios){
+          return res.status(200).json(usuarios);
+        });
+      });
+    }
+  });
+};

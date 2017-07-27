@@ -17,6 +17,9 @@ module.exports = function(app) {
   app.route('/api/usuariosPassword')
     .put(usuarios.haySession, usuarios.cambiarPassword);
 
+  app.route('/api/usuarios/:tipo')
+    .get(usuarios.usuariosByTipo);
+
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
     .put(detalles.update)
