@@ -50,8 +50,8 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
       var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
 
       newWin.document.write('<html><head><title>Reporte por '+tipo+' '+fechaTitle+'</title>');
-      newWin.document.write('<link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">');
-      newWin.document.write('<link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/css/bootstrap.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
       newWin.document.write('</head><body onload="window.print()">');
       newWin.document.write(divToPrint);

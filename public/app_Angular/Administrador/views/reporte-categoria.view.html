@@ -99,14 +99,14 @@
 
   <!--<div class="row">-->
     <div class="col-md-4 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
-      <div class="x_panel">
+      <div class="x_panel link" data-toggle="modal" data-target=".graficoModal"  ng-click="onClick(grafico)">
         <div align="right"  style="float: right">
           <categoria ng-if="filtro.sucursal!='Todas'">{{filtro.sucursal}} | </categoria> {{filtro.anio}}
         </div>
         <div class="x_title">
           {{grafico.series}}
         </div>
-        <canvas data-toggle="modal" data-target=".graficoModal" class="chart chart-bar link" ng-click="onClick(grafico)" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
+        <canvas class="chart chart-bar" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
       </div>
     </div>
   <!--</div>-->
