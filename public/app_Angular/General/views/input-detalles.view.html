@@ -64,13 +64,13 @@
       <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="form-group">
           <label><small>IVA 12%</small></label>
-          <input type="text" class="form-control border-input text-right" placeholder="IVA 12%" data-ng-model="detalle.anexo.iva" readonly="true">
+          <input type="text" class="form-control border-input text-right" placeholder="IVA 12%" ng-value="detalle.anexo.iva | currency" readonly="true">
         </div>
       </div>
       <div class="col-md-2 col-sm-2 col-xs-12">
         <div class="form-group">
           <label><small>Total</small></label>
-          <input type="number" readonly="true" class="form-control text-right" data-ng-model="detalle.anexo.total"/>
+          <input type="text" readonly="true" class="form-control text-right" ng-value="detalle.anexo.total | currency">
         </div>
       </div>
       <div class="col-md-4 col-sm-12 col-xs-12">
@@ -122,31 +122,31 @@
       <div class="col-md-2 col-sm-3 col-xs-6"  ng-show="detalle.anexo.retencionSubTotalBienes != 0">
         <div class="form-group">
           <label><small>SubTotal Bienes 1%</small></label>
-          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionSubTotalBienes"/>
+          <input type="text" readonly="readonly" class="form-control text-right" ng-value="detalle.anexo.retencionSubTotalBienes | currency"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionIVABienes != 0">
         <div class="form-group">
           <label><small>IVA Bienes 30%</small></label>
-          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionIVABienes"/>
+          <input type="text" readonly="readonly" class="form-control text-right" ng-value="detalle.anexo.retencionIVABienes | currency"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionSubTotalServicios != 0">
         <div class="form-group">
           <label><small>subTotal Servicios 2%</small></label>
-          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionSubTotalServicios"/>
+          <input type="text" readonly="readonly" class="form-control text-right" ng-value="detalle.anexo.retencionSubTotalServicios | currency"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionIVAServicios != 0">
         <div class="form-group">
           <label><small>IVA Servicios 70%</small></label>
-          <input type="text" readonly="readonly" class="form-control text-right" data-ng-model="detalle.anexo.retencionIVAServicios"/>
+          <input type="text" readonly="readonly" class="form-control text-right" ng-value="detalle.anexo.retencionIVAServicios | currency"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-12">
         <div class="form-group">
           <label><small>Total Retención</small></label>
-          <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control text-right" data-ng-model="detalle.anexo.totalRetencion"/>
+          <input type="text" readonly="readonly" placeholder="Total Ret." class="form-control text-right" ng-value="detalle.anexo.totalRetencion | currency"/>
         </div>
       </div>
     </div>
