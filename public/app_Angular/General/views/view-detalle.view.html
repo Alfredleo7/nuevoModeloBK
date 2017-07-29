@@ -4,8 +4,8 @@
   <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="btn-group">
       <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
-      <button ng-show="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-danger" ng-click="eliminar(detalle)"><i class="fa fa-trash-o"></i> Eliminar</button>
-      <button ng-show="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-default" ng-click="editar(detalle)"><i class="fa fa-edit"></i> Editar</button>
+      <button ng-if="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-danger" ng-click="eliminar(detalle)"><i class="fa fa-trash-o"></i> Eliminar</button>
+      <button ng-if="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-default" ng-click="editar(detalle)"><i class="fa fa-edit"></i> Editar</button>
     </div>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-12">
