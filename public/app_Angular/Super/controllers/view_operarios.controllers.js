@@ -14,5 +14,63 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
       })
     }
 
+    $scope.registrar =function(){
+
+      if($scope.newUsuario.password ==  $scope.passwordConfirm){
+        $('#loadLogo').show();
+        $http({
+          method: 'POST',
+          url: '/api/usuarios',
+          data: $scope.newUsuario
+        }).then(function(response){
+          new PNotify({
+            text: 'Ha sido registrado correctamente',
+            styling: 'bootstrap3',
+            type: 'success'
+          });
+          $('#loadLogo').hide();
+          $('.modalNuevoOperario').modal('hide');
+          $scope.usuarios.push(response.data);
+        },function(errorResponse){
+          $('#loadLogo').hide();
+          new PNotify({
+            text:errorResponse.data.message,
+            styling: 'bootstrap3'
+          })
+        });
+      } else {
+        new PNotify({
+          text: 'Las contraseñas no coinciden',
+          styling: 'bootstrap3'
+        })
+      }
+    }
+
+    $scope.initRegistro = function(){
+      $('#loadLogo').show();
+      $http({
+        method: 'GET',
+        url: '/api/empresas'
+      }).then(function(response){
+        $('#loadLogo').hide();
+        $scope.empresas = response.data;
+      })
+    }
+
+    $scope.getSucursales = function(){
+
+      if($scope.newUsuario.empresa){
+        $('#loadLogo').show();
+        $http({
+          method: 'GET',
+          url: '/api/sucursalesByEmpresa/'+$scope.newUsuario.empresa
+        }).then(function(response){
+          $('#loadLogo').hide();
+          $scope.sucursales = response.data;
+        })
+      }
+
+    }
+
   }
 ]);

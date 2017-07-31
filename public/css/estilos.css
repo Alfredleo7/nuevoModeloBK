@@ -131,6 +131,10 @@ font-size: 12px;
     background-color: #dae3ea;
 }
 
+.modal-content {
+  border-radius: 3px;
+}
+
 .link:hover {
   cursor: pointer;
 }

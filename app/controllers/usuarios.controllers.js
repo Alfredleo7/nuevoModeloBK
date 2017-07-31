@@ -61,7 +61,25 @@ exports.signUp = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      res.json(usuario);
+      Empresa.findById(usuario.empresa, function(err, empresa){
+        if(err){
+          return res.status(400).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+          usuario.empresa = empresa;
+          Sucursal.findById(usuario.sucursal, function(err, sucursal){
+            if(err){
+              return res.status(400).send({
+                message: getErrorMessage(err)
+              })
+            } else {
+              usuario.sucursal = sucursal;
+              res.json(usuario);
+            }
+          })
+        }
+      });
     }
   })
 };
