@@ -13,6 +13,7 @@
               <th>Creado</th>
               <th>Empresa</th>
               <th>Dep/Local</th>
+              <th>Secuencial</th>
               <th>Estado</th>
               <th>Valor</th>
             </tr>
@@ -23,6 +24,7 @@
               <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
               <td data-ng-bind="caja.empresa.nombre"></td>
               <td> {{caja.sucursal.tipo}} {{caja.sucursal.nombre}}</td>
+              <td class="text-right"> {{caja.secuencial}} </td>
               <td data-ng-bind="caja.estado"></td>
               <td class="text-right" data-ng-bind="caja.valor | currency"></td>
             </tr>

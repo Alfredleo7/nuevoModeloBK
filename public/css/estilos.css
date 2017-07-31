@@ -124,6 +124,7 @@ font-size: 12px;
 .navbar-default {
   background-color: #ffffff;
   border-bottom-color: #a29e9e;
+  box-shadow: 0 0 15px 0 rgba(0,0,0,.1);
 }
 
 .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
