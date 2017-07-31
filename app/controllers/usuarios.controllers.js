@@ -117,8 +117,21 @@ exports.signIn = function(req, res){
 };
 
 exports.singOut =function(req, res){
-  delete req.session.usuario;
-  res.redirect('/');
+  /*delete req.session.usuario;
+  res.redirect('/');*/
+
+  if(req.session){
+    req.session.destroy(function(err){
+      if(err){
+        console.log(err);
+      } else {
+        res.redirect('/');
+      }
+    })
+  } else {
+    res.redirect('/');
+  }
+
 };
 
 exports.list = function(req, res){
