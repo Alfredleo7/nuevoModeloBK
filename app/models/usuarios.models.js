@@ -32,7 +32,7 @@ var userSchema = new Schema({
   tipo: {
     type: String,
     enum: ['General', 'Administrador', 'Super'],
-    default: 'General'
+    required: 'La variable tipo es requerida'
   },
   empresa: {
     type: Schema.ObjectId,
