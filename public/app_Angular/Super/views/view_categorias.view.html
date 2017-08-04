@@ -5,22 +5,89 @@
         <h2>Categorias</h2>
         <div class="clearfix"></div>
       </div>
-      <!--<div style="overflow-x:auto;">-->
-        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
-          <thead>
-            <tr class="active">
-              <th>#</th>
-              <th>Descripción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="categoria in categorias">
-              <th class="text-right" scope="row">{{$index + 1}}</th>
-              <td>{{categoria.nombre}}</td>
-            </tr>
-          </tbody>
-        </table>
-      <!--</div>-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+              <input type="text" class="form-control border-input" placeholder="Buscar" ng-model="search">
+            </div>
+            <div class="" style="overflow-y:auto;max-height: 325px;">
+              <table id="datatable-buttons" class="table table-bordered">
+                <tbody>
+                  <tr class="filaLink" data-ng-click="ver(categoria)" data-ng-repeat="categoria in categorias | filter:search">
+                    <th class="text-right" scope="row">{{$index + 1}}</th>
+                    <td>{{categoria.nombre}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="btn btn-default" type="button" name="button">Agregar</button>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <div ng-if="!categoria">
+              <h3>Seleccione una Categoria</h3>
+            </div>
+            <div ng-if="categoria">
+              <h3>{{categoria.nombre}}</h3>
+              <table class="table table-bordered" style="width: 100%;">
+                <thead>
+                  <tr class="active">
+                    <th>Empresa</th>
+                    <th>Sucursal</th>
+                    <th>Monto Máximo</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tr data-ng-repeat="registro in montos">
+                  <td>{{registro.empresa.nombre}}</td>
+                  <td>{{registro.sucursal.tipo}} {{registro.sucursal.nombre}}</td>
+                  <td class="text-right">{{registro.montoMax | currency}}</td>
+                  <td><button class="btn btn-default btn-xs" ng-click="iniciarActualizacion(registro)" type="button" name="button">Editar</button><button class="btn btn-default btn-xs" ng-click="delete(registro)" type="button" name="button">Eliminar</button></td>
+                </tr>
+              </table>
+              <div class="" ng-hide="!montos || montos.length">
+                No existe ningún monto máximo establecido para esta categoria
+              </div>
+              <div class="row" ng-if="!form">
+                <div class="col-md-12 text-right">
+                  <button ng-click='iniciarNuevo()' class="btn btn-primary" type="button" name="button">Agregar</button>
+                </div>
+              </div>
+              <div class="row" ng-if="form">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <select data-ng-model="monto.empresa" class="form-control" ng-change="getSucursales()">
+                      <option value="">Elija una Empresa</option>
+                      <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <select data-ng-model="monto.sucursal" class="form-control">
+                      <option value="">Locales/Departamentos</option>
+                      <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal.tipo}} {{sucursal.nombre}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input type="text" class="form-control border-input" placeholder="$$ Monto Máximo" ng-model="monto.montoMax" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
+                  </div>
+                </div>
+                <div class="col-md-12 text-right" ng-if="nuevo">
+                  <button class="btn btn-default" ng-click='falseForm()' type="button" name="button">Cancelar</button>
+                  <button class="btn btn-primary" ng-click='guardarMonto()' type="button" name="button">Guardar Monto Máximo</button>
+                </div>
+                <div class="col-md-12 text-right" ng-if="!nuevo">
+                  <button class="btn btn-default" ng-click='falseForm()' type="button" name="button">Cancelar</button>
+                  <button class="btn btn-primary" ng-click='actualizarMonto()' type="button" name="button">Actualizar Monto Máximo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

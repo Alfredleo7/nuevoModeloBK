@@ -14,11 +14,12 @@ module.exports = function(){
 
   require('../app/models/empresas.models');
   require('../app/models/sucursales.models');
+  require('../app/models/categorias.models');
+  require('../app/models/montosCategoria.models')
   require('../app/models/usuarios.models');
   require('../app/models/cajas.models');
   require('../app/models/proveedores.models');
   require('../app/models/detalles.models');
-  require('../app/models/categorias.models');
 
   return db;
 }

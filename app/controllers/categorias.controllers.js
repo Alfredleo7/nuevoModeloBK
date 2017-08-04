@@ -31,7 +31,7 @@ exports.list = function(req, res){
   Categoria.find({},null, {sort: {nombre: 1}}, function(err, categorias){
     if(err){
       return res.status(500).send({
-        messag: getErrorMessage(err)
+        message: getErrorMessage(err)
       })
     } else {
       res.json(categorias);
