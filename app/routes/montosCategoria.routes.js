@@ -9,5 +9,8 @@ module.exports = function(app){
     .post(montosCategorias.create);
   app.route('/api/deleteMontosCategorias/:montoId')
     .delete(montosCategorias.delete);
-
+  app.route('/api/updateMontosCategorias/:montoId')
+    .put(montosCategorias.update);
+  app.route('/api/deleteMontosCategoriasByCategoria/:categoriaId')
+    .delete(montosCategorias.deleteByCategoria);
 }

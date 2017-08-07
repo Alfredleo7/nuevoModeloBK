@@ -80,3 +80,46 @@ exports.delete = function(req, res){
     }
   });
 };
+
+exports.update = function(req, res){
+  MontoCategoria.findById(req.params.montoId, function(err, montoCategoria){
+    if(err){
+      res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      montoCategoria.montoMax = req.body.montoMax;
+
+      montoCategoria.save(function(err, montoCategoria){
+        if(err) {
+          res.status(400).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+          Empresa.findById(montoCategoria.empresa,'nombre',function(err, empresa){
+            montoCategoria.empresa = empresa;
+            Sucursal.findById(montoCategoria.sucursal, 'tipo nombre', function(err, sucursal){
+              montoCategoria.sucursal = sucursal;
+              res.json(montoCategoria);
+            })
+          })
+        }
+      });
+
+    }
+  })
+}
+
+exports.deleteByCategoria = function(req, res){
+  MontoCategoria.remove({categoria: req.params.categoriaId}, function(err){
+    if(err) {
+      res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      res.status(200).send({
+        message: 'Se eliminaron los montos de ésta categoria'
+      })
+    }
+  });
+}

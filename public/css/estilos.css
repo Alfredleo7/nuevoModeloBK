@@ -144,3 +144,7 @@ font-size: 12px;
 .link:hover {
   cursor: pointer;
 }
+
+.selected {
+  background-color: #d7ebfb;
+}

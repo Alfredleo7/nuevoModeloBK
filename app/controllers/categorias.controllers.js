@@ -38,3 +38,30 @@ exports.list = function(req, res){
     }
   });
 };
+
+exports.update = function(req, res){
+  Categoria.findById(req.params.categoriaId, function(err, categoria){
+    categoria.nombre = req.body.nombre;
+    categoria.save(function(err, categoria){
+      if(err) {
+        res.status(400).send({
+          message: getErrorMessage(err)
+        })
+      } else {
+        res.json(categoria);
+      }
+    })
+  })
+}
+
+exports.delete = function(req, res){
+  Categoria.remove({_id:req.params.categoriaId}, function(err, categoria){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      res.json(categoria);
+    }
+  })
+}

@@ -5,6 +5,14 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
 
     $scope.monto = {};
 
+    $scope.newCategoria = {};
+
+    $scope.formEditCategoria = false;
+
+    $scope.formEditCategoriaFalse = function(){
+      $scope.formEditCategoria = false;
+    }
+
     $scope.form = false;
     $scope.trueForm = function(){
       $scope.form = true;
@@ -23,6 +31,12 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
       $scope.trueForm();
       $scope.trueNuevo();
       $scope.monto = {};
+    }
+
+    var inicializarSelected = function(){
+      for(var i in $scope.categorias){
+        $scope.categorias[i].selected = false;
+      }
     }
 
     $scope.iniciarActualizacion = function(monto){
@@ -53,10 +67,14 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         url: '/api/categorias/'
       }).then(function(response){
         $scope.categorias = response.data;
+        inicializarSelected();
       })
     }
 
     $scope.ver = function(categoria){
+      $scope.falseForm();
+      inicializarSelected();
+      categoria.selected = true;
       $scope.categoria = categoria;
       $http({
         method: 'GET',
@@ -91,24 +109,186 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         $scope.monto = {};
         $scope.sucursales = [];
         $scope.falseForm();
+        new PNotify({
+          text: 'Registro guardado con éxito',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
       }, function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       })
     }
 
-    $scope.delete = function(monto){
+    $scope.deleteMonto = function(monto){
+
+      (new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea eliminar este Registro?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+
+        $http({
+          method: 'DELETE',
+          url: '/api/deleteMontosCategorias/'+ monto._id
+        }).then(function(response){
+          for (var i in $scope.montos) {
+            if ($scope.montos[i]._id === response.data._id) {
+              $scope.montos.splice(i, 1);
+            }
+          }
+          new PNotify({
+            text: 'Registro eliminado con éxito',
+            styling: 'bootstrap3',
+            type: 'success'
+          })
+        }, function(errorResponse){
+          mostrarNotificacion(errorResponse.data.message);
+        })
+
+      }).on('pnotify.cancel', function() {
+      });
+
+    }
+
+    $scope.updateMonto = function(monto){
       $http({
-        method: 'DELETE',
-        url: '/api/deleteMontosCategorias/'+ monto._id
+        method: 'PUT',
+        url: '/api/updateMontosCategorias/'+monto._id,
+        data: monto
       }).then(function(response){
         for (var i in $scope.montos) {
           if ($scope.montos[i]._id === response.data._id) {
             $scope.montos.splice(i, 1);
           }
         }
+        $scope.montos.push(response.data);
+        $scope.falseForm();
+        new PNotify({
+          text: 'Registro actualizado con éxito',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
       }, function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
       })
+    }
+
+    $scope.createCategoria = function(categoria){
+      $http({
+        method: 'POST',
+        url: '/api/categorias',
+        data: categoria
+      }).then(function(response){
+        $scope.categorias.push(response.data);
+        $scope.ver(response.data);
+        new PNotify({
+          text: 'La categoría se ha creado correctamente',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
+      }, function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      })
+    }
+
+    $scope.initEditCategoria = function(categoria){
+
+      $scope.newCategoria = {
+        _id: categoria._id,
+        nombre: categoria.nombre
+      }
+
+      $scope.formEditCategoria = true;
+
+    }
+
+    $scope.updateCategoria = function(){
+      $http({
+        method: 'PUT',
+        url: '/api/categorias/' + $scope.newCategoria._id,
+        data: $scope.newCategoria
+      }).then(function(response){
+        for (var i in $scope.categorias) {
+          if ($scope.categorias[i]._id === response.data._id) {
+            $scope.categorias.splice(i, 1);
+          }
+        }
+        $scope.categorias.push(response.data);
+        $scope.ver(response.data);
+        $scope.formEditCategoria = false;
+        new PNotify({
+          text: 'La categoría se ha actualizado correctamente',
+          styling: 'bootstrap3',
+          type: 'success'
+        })
+      }, function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      })
+    }
+
+    $scope.deleteCategoria = function(categoria){
+
+      (new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea eliminar esta Categoría?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+
+        $http({
+          method: 'DELETE',
+          url: '/api/deleteMontosCategoriasByCategoria/' + categoria._id
+        }).then(function(response){
+          $http({
+            method: 'DELETE',
+            url: '/api/categorias/'+ categoria._id
+          }).then(function(response){
+            for (var i in $scope.categorias) {
+              if ($scope.categorias[i]._id === categoria._id) {
+                $scope.categorias.splice(i, 1);
+              }
+            }
+            $scope.categoria = {};
+            new PNotify({
+              text: 'La categoría se ha eliminado correctamente',
+              styling: 'bootstrap3',
+              type: 'success'
+            });
+          }, function(errorResponse){
+            mostrarNotificacion(errorResponse.data.message);
+          })
+        }, function(errorResponse){
+          mostrarNotificacion(errorResponse.data.message);
+        })
+
+      }).on('pnotify.cancel', function() {
+      });
+
     }
 
   }
