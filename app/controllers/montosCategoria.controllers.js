@@ -123,3 +123,13 @@ exports.deleteByCategoria = function(req, res){
     }
   });
 }
+
+exports.montoBySucursal = function(req, res){
+  Sucursal.findOne({nombre: req.params.sucursal},function(err, sucursal){
+    MontoCategoria.find({sucursal: sucursal._id}, function(err, montos){
+      Categoria.populate(montos, {path: 'categoria'}, function(err, montos){
+        return res.status(200).json(montos);
+      })
+    })
+  });
+}

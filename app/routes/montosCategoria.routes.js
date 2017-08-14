@@ -13,4 +13,6 @@ module.exports = function(app){
     .put(montosCategorias.update);
   app.route('/api/deleteMontosCategoriasByCategoria/:categoriaId')
     .delete(montosCategorias.deleteByCategoria);
+  app.route('/api/montosBySucursal/:sucursal')
+    .get(montosCategorias.montoBySucursal);
 }

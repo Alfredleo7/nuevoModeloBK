@@ -3,6 +3,8 @@
 angular.module('administrador').controller('reporte-categoria.controller', ['$scope','$http','$location',
   function($scope, $http, $location){
 
+    $scope.montosMaximos = [];
+
     $scope.init = function(){
 
       $scope.today = new Date();
@@ -73,7 +75,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
     };
 
     $scope.generarReporte = function(){
-
+      $scope.montosMaximos = [];
       $scope.tabla = [];
       $scope.graficos = [];
       $('#loadLogo').show();
@@ -111,6 +113,16 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
             data: [fila.ene,fila.feb,fila.mar,fila.abr,fila.may,fila.jun,fila.jul,fila.ago,fila.sep,fila.oct,fila.nov,fila.dic]
           });
         }
+
+        console.log($scope.filtro.sucursal);
+        if($scope.filtro.sucursal != 'Todas'){
+          $http({
+            method: 'GET',
+            url: '/api/montosBySucursal/'+$scope.filtro.sucursal
+          }).then(function(response){
+            $scope.montosMaximos = response.data;
+          })
+        }
         $('#loadLogo').hide();
       });
     }
@@ -125,6 +137,33 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
       $scope.graficoModal=grafico;
       console.log($scope.graficoModal);
     };
+
+    $scope.esMayor = function(categoria, monto){
+      var bandera = 0;
+      if($scope.montosMaximos.length != 0 && monto != 0){
+        for(var i in $scope.montosMaximos){
+          if($scope.montosMaximos[i].categoria.nombre == categoria){
+            if($scope.montosMaximos[i].montoMax < monto){
+              return true;
+            } else {
+              return false;
+            }
+          }
+        }
+        return false;
+      } else {
+        return false;
+      }
+    }
+
+    $scope.getMonto = function(categoria){
+      for(var i in $scope.montosMaximos){
+        if($scope.montosMaximos[i].categoria.nombre == categoria){
+          return $scope.montosMaximos[i].montoMax;
+        }
+      }
+      return;
+    }
 
   }
 ]);

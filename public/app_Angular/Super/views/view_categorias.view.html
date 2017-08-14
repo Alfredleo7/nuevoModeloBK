@@ -38,6 +38,7 @@
                   <button class="btn btn-primary" type="submit" name="button">Actualizar</button>
                 </div>
               </form>
+              <input class="form-control" style="max-width: 300px;margin-bottom: 5px;" type="text" name="" value="" placeholder="Buscar" ng-model="searchMontos">
               <div style="overflow-x:auto;">
                 <table class="table table-bordered" style="width: 100%;">
                   <thead>
@@ -48,7 +49,7 @@
                       <th>Acciones</th>
                     </tr>
                   </thead>
-                  <tr data-ng-repeat="registro in montos">
+                  <tr data-ng-repeat="registro in montos | filter:searchMontos">
                     <td>{{registro.empresa.nombre}}</td>
                     <td>{{registro.sucursal.tipo}} {{registro.sucursal.nombre}}</td>
                     <td class="text-right">{{registro.montoMax | currency}}</td>

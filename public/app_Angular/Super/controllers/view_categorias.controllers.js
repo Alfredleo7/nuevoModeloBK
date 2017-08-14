@@ -81,6 +81,10 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         url: '/api/montosCategorias/'+categoria._id
       }).then(function(response){
         $scope.montos = response.data;
+
+        $("html, body").stop().animate({
+          scrollTop: $('#detalles').offset().top - 40
+        }, '500', 'linear');
       }, function(errorResponse){
         console.log(errorResponse);
       })
