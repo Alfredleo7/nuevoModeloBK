@@ -5,22 +5,167 @@
         <h2>Categorias</h2>
         <div class="clearfix"></div>
       </div>
-      <!--<div style="overflow-x:auto;">-->
-        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
-          <thead>
-            <tr class="active">
-              <th>#</th>
-              <th>Descripción</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="categoria in categorias">
-              <th class="text-right" scope="row">{{$index + 1}}</th>
-              <td>{{categoria.nombre}}</td>
-            </tr>
-          </tbody>
-        </table>
-      <!--</div>-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+              <input type="search" class="form-control border-input" placeholder="Buscar" ng-model="search">
+            </div>
+            <div class="" style="overflow-y:auto;max-height: 325px;">
+              <table id="datatable-buttons" class="table table-bordered">
+                <tbody>
+                  <tr ng-class="{'selected': categoria.selected}" class="filaLink" data-ng-click="ver(categoria)" data-ng-repeat="categoria in categorias | filter:search | orderBy : 'nombre'">
+                    <th class="text-right" scope="row">{{$index + 1}}</th>
+                    <td>{{categoria.nombre}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="btn btn-default" type="button" name="button" data-toggle="modal" data-target="#myModal">Agregar</button>
+          </div>
+          <div id="detalles" class="col-lg-8 col-md-8 col-sm-8">
+            <div ng-if="!categoria ||!categoria.nombre">
+              <h3>Seleccione una Categoria</h3>
+            </div>
+            <div ng-if="categoria.nombre">
+              <div ng-if="!formEditCategoria">
+                <h3>{{categoria.nombre}} <small><i class="fa fa-edit link text-primary" title="Editar" ng-click="initEditCategoria(categoria);"></i></small> <small><i class="fa fa-trash link text-danger" title="Eliminar" ng-click="deleteCategoria(categoria);"></i></small></h3>
+              </div>
+              <form class="x_panel" ng-submit="updateCategoria()" ng-if="formEditCategoria">
+                <input class="form-control input-lg" ng-model="newCategoria.nombre">
+                <div class="text-right" style="    margin-top: 10px;">
+                  <button class="btn btn-default" type="button" name="button" ng-click="formEditCategoriaFalse()">cancelar</button>
+                  <button class="btn btn-primary" type="submit" name="button">Actualizar</button>
+                </div>
+              </form>
+              <input class="form-control" style="max-width: 300px;margin-bottom: 5px;" type="text" name="" value="" placeholder="Buscar" ng-model="searchMontos">
+              <div style="overflow-x:auto;">
+                <table class="table table-bordered" style="width: 100%;">
+                  <thead>
+                    <tr class="active">
+                      <th>Empresa</th>
+                      <th>Sucursal</th>
+                      <th>Monto Máximo</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tr data-ng-repeat="registro in montos | filter:searchMontos">
+                    <td>{{registro.empresa.nombre}}</td>
+                    <td>{{registro.sucursal.tipo}} {{registro.sucursal.nombre}}</td>
+                    <td class="text-right">{{registro.montoMax | currency}}</td>
+                    <td><button class="btn btn-default btn-xs" ng-click="iniciarActualizacion(registro)" type="button" name="button">Editar</button><button class="btn btn-default btn-xs" ng-click="deleteMonto(registro)" type="button" name="button">Eliminar</button></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="" ng-hide="!montos || montos.length">
+                No existe ningún monto máximo establecido para esta categoria
+              </div>
+              <div class="row" ng-if="!form">
+                <div class="col-md-12 text-right">
+                  <button ng-click='iniciarNuevo()' class="btn btn-primary" type="button" name="button">Agregar</button>
+                </div>
+              </div>
+              <div class="row" ng-if="form">
+                <div class="" ng-if="nuevo">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <small>Empresa:</small>
+                      <select data-ng-model="monto.empresa" class="form-control" ng-change="getSucursales()">
+                        <option value="">Elija una Empresa</option>
+                        <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <small>Local/Departamento:</small>
+                      <select data-ng-model="monto.sucursal" class="form-control">
+                        <option value="">Locales/Departamentos</option>
+                        <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal.tipo}} {{sucursal.nombre}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <small>Monto máximo:</small>
+                    <input type="text" class="form-control border-input" placeholder="$$ Monto Máximo" ng-model="monto.montoMax" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
+                  </div>
+                </div>
+                <div class="col-md-12 text-right" ng-if="nuevo">
+                  <button class="btn btn-default" ng-click='falseForm()' type="button" name="button">Cancelar</button>
+                  <button class="btn btn-primary" ng-click='guardarMonto()' type="button" name="button">Guardar Monto Máximo</button>
+                </div>
+                <div class="col-md-12 text-right" ng-if="!nuevo">
+                  <button class="btn btn-default" ng-click='falseForm()' type="button" name="button">Cancelar</button>
+                  <button class="btn btn-primary" ng-click='updateMonto(monto)' type="button" name="button">Actualizar Monto Máximo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="modal fade NewCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nueva Categoría</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-5">
+            <label>Ingrese la descripción:</label>
+          </div>
+          <div class="col-md-7">
+            <input type="text" placeholder="Descripción de la categoría" ng-model="categoria.nombre">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="createCategoria(categoria)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-sm modalNewCategoria" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mySmallModalLabel">Nueva Categoria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Categoria</h4>
+      </div>
+      <form novalidate>
+        <div class="modal-body">
+          <label>Ingrese la descripción:</label>
+          <input class="form-control" type="text" placeholder="Descripción de la categoría" ng-model="newCategoria.nombre">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit" data-dismiss="modal" ng-click="createCategoria(newCategoria)">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
