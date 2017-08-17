@@ -25,14 +25,14 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
         <select data-ng-model="newUsuario.empresa" class="form-control" ng-change="getSucursales()">
           <option value="">Elija una Empresa</option>
-          <option ng-value="empresa._id" ng-repeat="empresa in empresas | orderBy : 'tipo'">{{empresa.nombre}}</option>
+          <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
         </select>
       </div>
       <br>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" ng-show="newUsuario.empresa">
         <select data-ng-model="newUsuario.sucursal" class="form-control">
           <option value="">Locales/Departamentos</option>
-          <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal.tipo}} {{sucursal.nombre}}</option>
+          <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales  | orderBy : 'tipo'">{{sucursal.tipo}} {{sucursal.nombre}}</option>
         </select>
       </div>
 
