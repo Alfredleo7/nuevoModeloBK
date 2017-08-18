@@ -103,6 +103,14 @@
           <td><b>IVA Servicios 70%:</b></td>
           <td class="text-right">{{detalle.anexo.retencionIVAServicios| currency}}</td>
         </tr>
+        <tr ng-if="detalle.anexo.retencionSubTotalOcho">
+          <td><b>SubTotal retención 8%:</b></td>
+          <td class="text-right">{{detalle.anexo.retencionSubTotalOcho| currency}}</td>
+        </tr>
+        <tr ng-if="detalle.anexo.retencionIVAcien">
+          <td><b>IVA retención 100%:</b></td>
+          <td class="text-right">{{detalle.anexo.retencionIVAcien| currency}}</td>
+        </tr>
 
         <tr ng-if="detalle.anexo.totalRetencion">
           <td><b>Total Retención:</b></td>
