@@ -48,6 +48,7 @@
                 <tr class="active">
                   <th class="filaLink" ng-click="filtro='fecha';reverse = !reverse">Fecha</th>
                   <th class="filaLink" ng-click="filtro='tipo';reverse = !reverse">Factura</th>
+                  <th>Proveedor</th>
                   <th class="filaLink" ng-click="filtro='entregado';reverse = !reverse">Pagado a</th>
                   <th class="filaLink" ng-click="filtro='categoria';reverse = !reverse">Categoria</th>
                   <th class="filaLink" ng-click="filtro='descripcion';reverse = !reverse">Descripción</th>
@@ -59,6 +60,7 @@
                 <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
                   <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
                   <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
+                  <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
                   <td data-ng-bind="detalle.entregado"></td>
                   <td data-ng-bind="detalle.categoria"></td>
                   <td style="white-space: pre-wrap">{{detalle.descripcion}}</td>
