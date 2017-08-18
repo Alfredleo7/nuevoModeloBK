@@ -114,9 +114,23 @@
           <select class="form-control" data-ng-model="detalle.anexo.selectRetencion"  ng-change="updateTotal()">
             <option value="1-30">1%-30%</option>
             <option value="2-70">2%-70%</option>
+            <option value="8-100">8%-100%</option>
             <option value="1">1%</option>
             <option value="2">2%</option>
+            <option value="8">8%</option>
           </select>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-6"  ng-show="detalle.anexo.retencionSubTotalOcho != 0">
+        <div class="form-group">
+          <label><small>SubTotal retención 8%</small></label>
+          <input type="text" readonly="readonly" class="form-control text-right" ng-value="detalle.anexo.retencionSubTotalOcho | currency"/>
+        </div>
+      </div>
+      <div class="col-md-2 col-sm-3 col-xs-6" ng-show="detalle.anexo.retencionIVAcien != 0">
+        <div class="form-group">
+          <label><small>IVA retención 100%</small></label>
+          <input type="text" readonly="readonly" class="form-control text-right" ng-value="detalle.anexo.retencionIVAcien | currency"/>
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-6"  ng-show="detalle.anexo.retencionSubTotalBienes != 0">

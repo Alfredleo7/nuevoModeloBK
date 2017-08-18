@@ -140,6 +140,9 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalServicios = 0;
           $scope.detalle.anexo.retencionIVAServicios = 0;
 
+          $scope.detalle.anexo.retencionSubTotalOcho = 0;
+          $scope.detalle.anexo.retencionIVAcien = 0;
+
           $scope.detalle.anexo.totalRetencion = Number((Number($scope.detalle.anexo.retencionSubTotalBienes) + Number($scope.detalle.anexo.retencionIVABienes)).toFixed(2));
         }
         if($scope.detalle.anexo.selectRetencion=='2-70'){
@@ -149,10 +152,28 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
+          $scope.detalle.anexo.retencionSubTotalOcho = 0;
+          $scope.detalle.anexo.retencionIVAcien = 0;
+
           $scope.detalle.anexo.retencionSubTotalServicios = Number(Number(Number((Number($scope.baseCeroMaBaseDoce)*$scope.primerPorc).toFixed(2))/100).toFixed(2));
           $scope.detalle.anexo.retencionIVAServicios = Number((Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100).toFixed(2));
 
           $scope.detalle.anexo.totalRetencion = Number((Number($scope.detalle.anexo.retencionSubTotalServicios) + Number($scope.detalle.anexo.retencionIVAServicios)).toFixed(2));
+        }
+        if($scope.detalle.anexo.selectRetencion=='8-100'){
+          $scope.primerPorc = 8;
+          $scope.segundoPorc = 100;
+
+          $scope.detalle.anexo.retencionSubTotalBienes = 0;
+          $scope.detalle.anexo.retencionIVABienes = 0;
+
+          $scope.detalle.anexo.retencionSubTotalServicios = 0;
+          $scope.detalle.anexo.retencionIVAServicios = 0;
+
+          $scope.detalle.anexo.retencionSubTotalOcho = Number(Number(Number((Number($scope.baseCeroMaBaseDoce)*$scope.primerPorc).toFixed(2))/100).toFixed(2));
+          $scope.detalle.anexo.retencionIVAcien = Number((Number($scope.detalle.anexo.iva)*Number($scope.segundoPorc)/100).toFixed(2));
+
+          $scope.detalle.anexo.totalRetencion = Number((Number($scope.detalle.anexo.retencionSubTotalOcho) + Number($scope.detalle.anexo.retencionIVAcien)).toFixed(2));
         }
         if($scope.detalle.anexo.selectRetencion=='1'){
           $scope.primerPorc = 1;
@@ -163,6 +184,9 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalServicios = 0;
           $scope.detalle.anexo.retencionIVAServicios = 0;
 
+          $scope.detalle.anexo.retencionSubTotalOcho = 0;
+          $scope.detalle.anexo.retencionIVAcien = 0;
+
           $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalBienes);
         }
         if($scope.detalle.anexo.selectRetencion=='2'){
@@ -171,10 +195,27 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.retencionSubTotalBienes = 0;
           $scope.detalle.anexo.retencionIVABienes = 0;
 
+          $scope.detalle.anexo.retencionSubTotalOcho = 0;
+          $scope.detalle.anexo.retencionIVAcien = 0;
+
           $scope.detalle.anexo.retencionSubTotalServicios = Number((Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100).toFixed(2));
           $scope.detalle.anexo.retencionIVAServicios = 0;
 
           $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalServicios);
+        }
+        if($scope.detalle.anexo.selectRetencion=='8'){
+          $scope.primerPorc = 8;
+
+          $scope.detalle.anexo.retencionSubTotalBienes = 0;
+          $scope.detalle.anexo.retencionIVABienes = 0;
+
+          $scope.detalle.anexo.retencionSubTotalOcho = Number((Number($scope.baseCeroMaBaseDoce)*Number($scope.primerPorc)/100).toFixed(2));
+          $scope.detalle.anexo.retencionIVAcien = 0;
+
+          $scope.detalle.anexo.retencionSubTotalServicios = 0;
+          $scope.detalle.anexo.retencionIVAServicios = 0;
+
+          $scope.detalle.anexo.totalRetencion = Number($scope.detalle.anexo.retencionSubTotalOcho);
         }
         $scope.detalle.valor = Number((Number($scope.detalle.anexo.total) - Number($scope.detalle.anexo.totalRetencion)).toFixed(2));
 
@@ -364,7 +405,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
     }
 
     $scope.actualizarProveedor = function(proveedor){
-      
+
     }
 
   }

@@ -91,6 +91,8 @@ var detalleSchema = new Schema({
     retencionSubTotalBienes: Number,
     retencionIVAServicios: Number,//70%
     retencionSubTotalServicios: Number,
+    retencionIVAcien: Number,
+    retencionSubTotalOcho: Number,
     totalRetencion: Number,
     iva: Number,
     total: Number
