@@ -172,8 +172,12 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
       newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
       newWin.document.write('</head><body onload="window.print()">');
       newWin.document.write(divToPrint);
+      newWin.document.write('____________________<br>');
+      newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
       newWin.document.write('<hr>');
       newWin.document.write(divToPrint);
+      newWin.document.write('____________________<br>');
+      newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
       newWin.document.write('</body>');
       newWin.document.write('</html>');
       newWin.document.close();
