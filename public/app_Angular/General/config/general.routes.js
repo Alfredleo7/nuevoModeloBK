@@ -4,8 +4,8 @@ angular.module('general').config(['$routeProvider',
   function($routeProvider){
     $routeProvider.
     when('/', {
-      templateUrl: 'app_Angular/General/views/creacionCajas.view.html',
-      controller: 'caja.controller'
+      templateUrl: 'app_Angular/General/views/reporte.view.html',
+      controller: 'reporte.controller'
     }).
     when('/CreacionCajas', {
       templateUrl: 'app_Angular/General/views/creacionCajas.view.html',

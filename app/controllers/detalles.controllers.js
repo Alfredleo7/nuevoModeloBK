@@ -638,3 +638,38 @@ exports.detallesByCelda = function(req, res){
   }
 
 }
+
+exports.getAniosDetalleBySucursal = function(req, res){
+  Detalle.aggregate([
+    { $project: {
+        fecha: "$fecha",
+        estado: "$estado",
+        cargado: '$cargado'
+      }
+    },
+    {
+      $match: {
+        estado: {
+          $eq: 'Aprobado'
+        },
+        cargado: {
+          $eq: req.session.usuario.sucursal.nombre
+        }
+      }
+    },
+    { $group: {
+        _id: { $year: "$fecha" }
+      }
+    },
+    { $sort: { _id: 1}
+    }
+  ], function(err, anios){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(anios);
+    }
+  });
+}
