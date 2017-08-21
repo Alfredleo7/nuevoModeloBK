@@ -374,3 +374,62 @@ exports.cajasConSecuencial = function(req, res){
     }
   });
 }
+
+exports.getSurcursalesConCajasPendientes = function(req, res){
+  Caja.aggregate(
+    [
+      {
+        $project: {
+          sucursal: '$sucursal',
+          estado: '$estado',
+          empresa: '$empresa'
+        }
+      },
+      {
+        $match: {
+          estado: 'Pendiente'
+        }
+      },
+      {
+        $group: {
+          _id: {
+            sucursal: '$sucursal',
+            empresa: '$empresa'
+          }
+        }
+      },
+      {
+        $sort: {
+          _id: 1
+        }
+      }
+    ],
+    function(err, sucursales){
+      if(err){
+        return res.status(500).send({
+          message: getErrorMessage(err)
+        })
+      } else {
+        Sucursal.populate(sucursales, {path: '_id.sucursal'}, function(err, sucursales){
+          Empresa.populate(sucursales, {path: '_id.empresa'}, function(err, sucursales){
+            return res.status(200).json(sucursales);
+          })
+        })
+        //return res.status(200).json(sucursales);
+      }
+    }
+  )
+}
+
+exports.getCajasPendientesBySucursal = function(req, res){
+  Caja.find({$and:[{sucursal: req.params.sucursalId}, {estado: 'Pendiente'}]},function(err, cajas){
+    if(err){
+      console.log(err);
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      return res.status(200).json(cajas);
+    }
+  })
+}

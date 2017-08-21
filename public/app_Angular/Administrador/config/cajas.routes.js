@@ -5,7 +5,7 @@ angular.module('administrador').config(['$routeProvider',
     $routeProvider.
     when('/', {
       templateUrl: 'app_Angular/Administrador/views/view-CajasPendientes.view.html',
-      controller: 'view-Cajas.controller'
+      controller: 'view-CajasPendientes.controller'
     }).
     when('/reporteXLocales', {
       templateUrl: 'app_Angular/Administrador/views/reporte-sucursal.view.html',
@@ -17,7 +17,7 @@ angular.module('administrador').config(['$routeProvider',
     }).
     when('/cajasPendientes', {
       templateUrl: 'app_Angular/Administrador/views/view-CajasPendientes.view.html',
-      controller: 'view-Cajas.controller'
+      controller: 'view-CajasPendientes.controller'
     }).
     when('/cajasAprobadas', {
       templateUrl: 'app_Angular/Administrador/views/view-CajasAprobadas.view.html',
