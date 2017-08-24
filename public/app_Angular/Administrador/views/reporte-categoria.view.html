@@ -14,7 +14,7 @@
         <label>Local/Departamemto:</label>
         <select class="form-control" ng-model="filtro.sucursal" ng-change="generarReporte()">
           <option value="Todas">Todas</option>
-          <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal._id}}</option>
+          <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales | orderBy: _id">{{sucursal._id}}</option>
         </select>
       </div>
     </div>
