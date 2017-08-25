@@ -673,3 +673,62 @@ exports.getAniosDetalleBySucursal = function(req, res){
     }
   });
 }
+
+exports.getDetallesBySucursal = function(req, res){
+  Detalle.aggregate(
+    [
+      { $project: {
+          cargado: "$cargado",
+          categoria: "$categoria",
+          mes: { $month: "$fecha"},
+          anio: { $year: "$fecha" },
+          valor: "$valor",
+          estado: "$estado"
+        }
+      },
+      { $match: {
+          anio: {
+            $eq: Number(req.params.anio)
+          },
+          cargado: {
+            $eq: req.session.usuario.sucursal.nombre
+          },
+          estado: {
+            $eq: 'Aprobado'
+          }
+        }
+      },
+      { $group: {
+          _id: {
+            categoria: "$categoria",
+            mes: "$mes"
+          },
+          total: {
+            $sum: "$valor"
+          }
+        }
+      },
+      { $group: {
+          _id: "$_id.categoria",
+          meses: {
+            $push: {
+              mes: "$_id.mes",
+              total: "$total"
+            }
+          }
+        }
+      },
+      { $sort: { _id: 1}
+      }
+    ],
+    function(err, reporte){
+      if(err){
+        return res.status(500).send({
+          message: getErrorMessage(err)
+        });
+      } else {
+        return res.status(200).json(reporte);
+      }
+    }
+  )
+}

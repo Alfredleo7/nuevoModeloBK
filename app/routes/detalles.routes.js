@@ -37,7 +37,10 @@ module.exports = function(app) {
   app.route('/api/detallesByCelda')
     .post(detalles.detallesByCelda);
 
-  app.route('/api/aniosDealleBySucursal')
+  app.route('/api/aniosDetalleBySucursal')
     .get(detalles.getAniosDetalleBySucursal);
+
+  app.route('/api/DetallesBySucursal/:anio')
+    .get(detalles.getDetallesBySucursal);
 
 }
