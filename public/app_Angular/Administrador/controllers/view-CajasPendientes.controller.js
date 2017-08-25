@@ -38,6 +38,7 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
       inicializarSelected();
       sucursal.selected = true;
       $scope.sucursal = sucursal;
+      $scope.cajas = [];
       $http({
         method: 'GET',
         url: '/api/CajasPendientesBySucursal/'+sucursal._id
