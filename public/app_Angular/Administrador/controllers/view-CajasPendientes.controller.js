@@ -6,7 +6,6 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
     $('#loadLogo').hide();
 
     $scope.sucursales = [];
-    $scope.sucursal = {};
 
     var inicializarSelected = function(){
       for(var i in $scope.sucursales){
@@ -29,18 +28,12 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
         $scope.sucursales.push(sucursal);
       }
       if($scope.sucursales.length != 0){
-        if(!localStorageService.get('idSucursal')){
-          $scope.ver($scope.sucursales[0]);
-        } else {
-          var isInTo = false;
+
+        if(localStorageService.get('idSucursal')){
           for(var i in $scope.sucursales){
             if($scope.sucursales[i]._id == localStorageService.get('idSucursal')){
-              isInTo = true;
               $scope.ver($scope.sucursales[i]);
             }
-          }
-          if(!isInTo){
-            $scope.ver($scope.sucursales[0]);
           }
         }
       }
