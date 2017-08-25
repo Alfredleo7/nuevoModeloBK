@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('administrador').controller('view-CajasPendientes.controller', ['$scope','$http','$location',
-  function($scope, $http, $location) {
+angular.module('administrador').controller('view-CajasPendientes.controller', ['$scope','$http','$location','localStorageService',
+  function($scope, $http, $location, localStorageService) {
 
     $('#loadLogo').hide();
 
@@ -29,8 +29,20 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
         $scope.sucursales.push(sucursal);
       }
       if($scope.sucursales.length != 0){
-        inicializarSelected();
-        $scope.ver($scope.sucursales[0]);
+        if(!localStorageService.get('idSucursal')){
+          $scope.ver($scope.sucursales[0]);
+        } else {
+          var isInTo = false;
+          for(var i in $scope.sucursales){
+            if($scope.sucursales[i]._id == localStorageService.get('idSucursal')){
+              isInTo = true;
+              $scope.ver($scope.sucursales[i]);
+            }
+          }
+          if(!isInTo){
+            $scope.ver($scope.sucursales[0]);
+          }
+        }
       }
     })
 
@@ -43,6 +55,7 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
         method: 'GET',
         url: '/api/CajasPendientesBySucursal/'+sucursal._id
       }).then(function(response){
+        localStorageService.set('idSucursal', sucursal._id);
         $scope.cajas = response.data;
       }, function(errorResponse){
         console.log(errorResponse);
