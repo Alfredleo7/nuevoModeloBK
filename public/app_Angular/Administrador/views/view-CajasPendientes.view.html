@@ -51,7 +51,10 @@
             </div>
           </div>
           <div id="detalles" class="col-lg-8 col-md-8 col-sm-8">
-            <div class="row">
+            <div class="row" ng-show="!sucursal">
+              Seleccione un Departamento/Local
+            </div>
+            <div class="row" ng-show="sucursal">
               <div class="col-md-8">
                 <h4>{{sucursal.empresa}} {{sucursal.tipo}} {{sucursal.nombre}}</h4>
               </div>

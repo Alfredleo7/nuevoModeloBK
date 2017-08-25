@@ -176,7 +176,7 @@ exports.aprobar = function(req, res){
 
         var mailOptions = {
           from: 'Dep. de Sistemas Resnorte <resnorteweb@gmail.com>',
-          to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec,stalgonz@espol.edu.ec',
+          to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec',
           //to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
           subject: 'Notificación de Aprobación de Caja Chica',
           html: 'Estimado Usuario,<br>'+
@@ -234,7 +234,7 @@ exports.rechazar = function(req, res){
 
         var mailOptions = {
           from: 'Dep. de Sistemas Resnorte <resnorteweb@gmail.com>',
-          to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec,stalgonz@espol.edu.ec',
+          to: creador.usuario + '@burgerkingec.com.ec,'+ req.session.usuario.usuario +'@burgerkingec.com.ec',
           //to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
           subject: 'Notificación de Aprobación de Caja Chica',
           html: 'Estimado Usuario,'+
@@ -286,42 +286,6 @@ exports.enviar = function(req, res){
         caja.secuencial = sucursal.codSucursal * 10000 + sucursal.numCajas;
         caja.save();
 
-        var transporter = nodemailer.createTransport({
-          service: 'Gmail',
-          auth: {
-            user: 'resnorteweb@gmail.com',
-            pass: 'passresnorte'
-          }
-        });
-
-        var mailOptions = {
-          from: 'Notificación de Envío <resnorteweb@gmail.com>',
-          to: 'stalgonz@espol.edu.ec',
-          //to: 'stalgonz@espol.edu.ec,alfred.leo.7@gmail.com',
-          subject: 'Seguimiento de Pruebas',
-          html: 'Estimado Usuario,'+
-                '<br><br>'+
-                'Le comunicamos que la Caja Chica con secuencial '+caja.secuencial+' fue enviada.'+'<br>'+
-                '<b>Custodio: </b>'+caja.sucursal.tipo+' '+caja.sucursal.nombre+'<br>'+
-                '<b>Total: $</b>'+Number(caja.valor.toFixed(2))+'<br>'+
-                '<b>Usuario: </b>'+req.session.usuario.fullname+'<br>'+
-                '<br>'+
-                'Saludo Cordiales,'+
-                '<br><br>'+
-                'Departamento de Sistemas'+
-                '<br>'+
-                '<a href="http://www.resnorteweb.com">www.resnorteweb.com</a>',
-        }
-
-        transporter.sendMail(mailOptions, function(error, info) {
-          if (error) {
-              console.log(error);
-              //res.redirect('/');
-          } else {
-              console.log('Mensaje enviado: ' + info.response);
-              //res.redirect('/');
-          }
-        })
         return res.status(200).json(caja);
       })
     }
@@ -421,8 +385,67 @@ exports.getSurcursalesConCajasPendientes = function(req, res){
   )
 }
 
+exports.getSurcursalesConCajasAprobadas = function(req, res){
+  Caja.aggregate(
+    [
+      {
+        $project: {
+          sucursal: '$sucursal',
+          estado: '$estado',
+          empresa: '$empresa'
+        }
+      },
+      {
+        $match: {
+          estado: 'Aprobado'
+        }
+      },
+      {
+        $group: {
+          _id: {
+            sucursal: '$sucursal',
+            empresa: '$empresa'
+          }
+        }
+      },
+      {
+        $sort: {
+          _id: 1
+        }
+      }
+    ],
+    function(err, sucursales){
+      if(err){
+        return res.status(500).send({
+          message: getErrorMessage(err)
+        })
+      } else {
+        Sucursal.populate(sucursales, {path: '_id.sucursal'}, function(err, sucursales){
+          Empresa.populate(sucursales, {path: '_id.empresa'}, function(err, sucursales){
+            return res.status(200).json(sucursales);
+          })
+        })
+        //return res.status(200).json(sucursales);
+      }
+    }
+  )
+}
+
 exports.getCajasPendientesBySucursal = function(req, res){
   Caja.find({$and:[{sucursal: req.params.sucursalId}, {estado: 'Pendiente'}]},function(err, cajas){
+    if(err){
+      console.log(err);
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      return res.status(200).json(cajas);
+    }
+  })
+}
+
+exports.getCajasAprobadasBySucursal = function(req, res){
+  Caja.find({$and:[{sucursal: req.params.sucursalId}, {estado: 'Aprobado'}]},function(err, cajas){
     if(err){
       console.log(err);
       return res.status(500).send({

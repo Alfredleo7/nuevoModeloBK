@@ -39,8 +39,14 @@ module.exports = function(app) {
   app.route('/api/SurcursalesConCajasPendientes')
     .get(cajas.getSurcursalesConCajasPendientes);
 
+  app.route('/api/SurcursalesConCajasAprobadas')
+    .get(cajas.getSurcursalesConCajasAprobadas);
+
   app.route('/api/CajasPendientesBySucursal/:sucursalId')
     .get(cajas.getCajasPendientesBySucursal);
+
+  app.route('/api/CajasAprobadasBySucursal/:sucursalId')
+    .get(cajas.getCajasAprobadasBySucursal);
 
   app.param('cajaId', cajas.cajaByID);
 }
