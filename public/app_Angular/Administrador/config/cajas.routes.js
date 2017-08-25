@@ -21,7 +21,7 @@ angular.module('administrador').config(['$routeProvider',
     }).
     when('/cajasAprobadas', {
       templateUrl: 'app_Angular/Administrador/views/view-CajasAprobadas.view.html',
-      controller: 'view-Cajas.controller'
+      controller: 'view-CajasAprobadas.controller'
     }).
     when('/cajasRechazadas', {
       templateUrl: 'app_Angular/Administrador/views/view-CajasRechazadas.view.html',

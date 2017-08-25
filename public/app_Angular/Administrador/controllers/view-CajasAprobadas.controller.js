@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('administrador').controller('view-CajasPendientes.controller', ['$scope','$http','$location','localStorageService',
+angular.module('administrador').controller('view-CajasAprobadas.controller', ['$scope','$http','$location','localStorageService',
   function($scope, $http, $location, localStorageService) {
 
     $('#loadLogo').hide();
@@ -16,7 +16,7 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
     var sucursal;
     $http({
       method: 'GET',
-      url: '/api/SurcursalesConCajasPendientes'
+      url: '/api/SurcursalesConCajasAprobadas'
     }).then(function(response){
       for(var i in response.data){
         sucursal = {
@@ -29,9 +29,9 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
       }
       if($scope.sucursales.length != 0){
 
-        if(localStorageService.get('idSucursalPendiente')){
+        if(localStorageService.get('idSucursalAprobada')){
           for(var i in $scope.sucursales){
-            if($scope.sucursales[i]._id == localStorageService.get('idSucursalPendiente')){
+            if($scope.sucursales[i]._id == localStorageService.get('idSucursalAprobada')){
               $scope.ver($scope.sucursales[i]);
             }
           }
@@ -46,10 +46,11 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
       $scope.cajas = [];
       $http({
         method: 'GET',
-        url: '/api/CajasPendientesBySucursal/'+sucursal._id
+        url: '/api/CajasAprobadasBySucursal/'+sucursal._id
       }).then(function(response){
-        localStorageService.set('idSucursalPendiente', sucursal._id);
+        localStorageService.set('idSucursalAprobada', sucursal._id);
         $scope.cajas = response.data;
+        console.log(response.data);
       }, function(errorResponse){
         console.log(errorResponse);
       })

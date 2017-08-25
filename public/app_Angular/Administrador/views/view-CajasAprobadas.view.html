@@ -6,7 +6,7 @@
         <div class="clearfix"></div>
       </div>
       <!--<div style="overflow-x:auto;">-->
-        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
+        <!--<table id="datatable-buttons" datatable='ng' class="table table-bordered">
           <thead>
             <tr class="active">
               <th>#</th>
@@ -31,8 +31,63 @@
               <td class="text-right" data-ng-bind="caja.valor | currency"></td>
             </tr>
           </tbody>
-        </table>
+        </table>-->
       <!--</div>-->
+      <div class="container-fluid">
+        <div class="row" ng-if="!sucursales ||sucursales.length == 0">
+          <small>No existen Cajas Chicas Aprobadas</small>
+        </div>
+        <div class="row" ng-if="sucursales.length != 0">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+              <input type="search" class="form-control border-input" placeholder="Buscar" ng-model="search">
+            </div>
+            <div class="" style="overflow-y:auto;max-height: 325px;">
+              <table id="datatable-buttons" class="table table-bordered">
+                <tbody>
+                  <tr ng-class="{'selected': sucursal.selected}" class="filaLink" data-ng-click="ver(sucursal)" data-ng-repeat="sucursal in sucursales | filter:search | orderBy : 'nombre'">
+                    <td>{{sucursal.nombre}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="detalles" class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row" ng-show="!sucursal">
+              Seleccione un Departamento/Local
+            </div>
+            <div class="row" ng-show="sucursal">
+              <div class="col-md-8">
+                <h4>{{sucursal.empresa}} {{sucursal.tipo}} {{sucursal.nombre}}</h4>
+              </div>
+              <div class="col-md-4">
+                <input class="form-control" style="" type="text" name="" value="" placeholder="Buscar" ng-model="searchCajas">
+              </div>
+
+              <div class="col-md-12" style="overflow-x:auto;">
+                <table class="table table-bordered" style="width: 100%;">
+                  <thead>
+                    <tr class="active">
+                      <th>#</th>
+                      <th>Creado</th>
+                      <th>Secuencial</th>
+                      <th>Estado</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas | filter:searchCajas | orderBy: fecha: -1">
+                    <th class="text-right" scope="row">{{$index + 1}}</th>
+                    <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+                    <td class="text-right"> {{caja.secuencial}} </td>
+                    <td data-ng-bind="caja.estado"></td>
+                    <td class="text-right" data-ng-bind="caja.valor | currency"></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
