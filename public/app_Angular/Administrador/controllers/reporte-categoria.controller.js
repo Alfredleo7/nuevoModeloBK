@@ -61,7 +61,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
       newWin.document.write('</body>');
       newWin.document.write('</html>');
       newWin.document.close();
-      setTimeout(function(){newWin.close();},250);
+      setTimeout(function(){newWin.close();},3000);
 
     };
 
