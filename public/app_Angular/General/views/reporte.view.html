@@ -46,22 +46,22 @@
       <tbody>
         <tr ng-repeat="categoria in categorias">
           <td class="success">{{categoria.descripcion}}</td>
-          <td ng-if="totalMeses[$index] != 0" class="text-right" ng-repeat="mes in categoria.meses track by $index">{{mes.valor | currency}}</td>
+          <td ng-if="totalMeses[$index] != 0" class="text-right" ng-class="{'info': $index==12}" ng-repeat="mes in categoria.meses track by $index">{{mes.valor | currency}}</td>
         </tr>
         <tr>
           <td class="success">Total x Mes</td>
-          <td class="text-right" ng-if="totalMeses[0] != 0">{{totalMeses[0] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[1] != 0">{{totalMeses[1] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[2] != 0">{{totalMeses[2] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[3] != 0">{{totalMeses[3] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[4] != 0">{{totalMeses[4] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[5] != 0">{{totalMeses[5] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[6] != 0">{{totalMeses[6] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[7] != 0">{{totalMeses[7] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[8] != 0">{{totalMeses[8] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[9] != 0">{{totalMeses[9] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[10] != 0">{{totalMeses[10] | currency}}</td>
-          <td class="text-right" ng-if="totalMeses[11] != 0">{{totalMeses[11] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[0] != 0">{{totalMeses[0] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[1] != 0">{{totalMeses[1] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[2] != 0">{{totalMeses[2] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[3] != 0">{{totalMeses[3] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[4] != 0">{{totalMeses[4] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[5] != 0">{{totalMeses[5] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[6] != 0">{{totalMeses[6] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[7] != 0">{{totalMeses[7] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[8] != 0">{{totalMeses[8] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[9] != 0">{{totalMeses[9] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[10] != 0">{{totalMeses[10] | currency}}</td>
+          <td class="text-right info" ng-if="totalMeses[11] != 0">{{totalMeses[11] | currency}}</td>
         </tr>
       </tbody>
     </table>
