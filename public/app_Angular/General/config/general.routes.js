@@ -7,7 +7,7 @@ angular.module('general').config(['$routeProvider',
       templateUrl: 'app_Angular/General/views/creacionCajas.view.html',
       controller: 'caja.controller'
     }).
-    when('/pruebaReporte', {
+    when('/reporte', {
       templateUrl: 'app_Angular/General/views/reporte.view.html',
       controller: 'reporte.controller'
     }).

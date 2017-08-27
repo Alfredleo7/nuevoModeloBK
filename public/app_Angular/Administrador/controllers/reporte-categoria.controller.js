@@ -49,7 +49,8 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
       var newWin = window.open('', 'my div');
 
       var fecha = new Date();
-      var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
+      var mes = Number(fecha.getMonth()) + 1;
+      var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
 
       newWin.document.write('<html><head><title>Reporte por '+tipo+' '+fechaTitle+'</title>');
       newWin.document.write('<link href="/css/bootstrap.min.css" rel="stylesheet">');

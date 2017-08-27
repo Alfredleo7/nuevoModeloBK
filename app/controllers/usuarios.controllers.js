@@ -218,3 +218,7 @@ exports.usuariosByTipo = function(req, res){
     }
   });
 };
+
+exports.getCredencial = function(req, res){
+  return res.status(200).json(req.session.usuario);
+}

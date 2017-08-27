@@ -20,6 +20,9 @@ module.exports = function(app) {
   app.route('/api/usuarios/:tipo')
     .get(usuarios.usuariosByTipo);
 
+  app.route('/api/Credencial')
+    .get(usuarios.getCredencial);
+
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
     .put(detalles.update)

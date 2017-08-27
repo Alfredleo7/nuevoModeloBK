@@ -18,6 +18,15 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
       console.log(errorResponse.data);
     })
 
+    $http({
+      method: 'GET',
+      url: '/api/Credencial'
+    }).then(function(response){
+      $scope.usuario = response.data;
+    }, function(errorResponse){
+      console.log(errorResponse.data);
+    })
+
     $scope.getReporte = function(){
       var categoria;
       var mes;
@@ -58,6 +67,38 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
         console.log(errorResponse.data);
       })
     }
+
+    $scope.printDiv = function(IdDiv){
+
+      var divToPrint = jQuery(IdDiv).html();
+      var newWin = window.open('', 'my div');
+
+      var fecha = new Date();
+      var mes = Number(fecha.getMonth()) + 1;
+      var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
+
+      newWin.document.write('<html><head><title>Reporte '+fechaTitle+'</title>');
+      newWin.document.write('<link href="/css/bootstrap.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
+      newWin.document.write('</head><body onload="window.print()">');
+      newWin.document.write(divToPrint);
+      newWin.document.write('</body>');
+      newWin.document.write('</html>');
+      newWin.document.close();
+      setTimeout(function(){newWin.close();},250);
+
+    };
+
+    $scope.exportExcel = function (IdDiv) {
+      var blob = new Blob([document.getElementById(IdDiv).innerHTML], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+        });
+        var fecha = new Date();
+        var mes = Number(fecha.getMonth()) + 1;
+        var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
+        saveAs(blob, "Reporte "+ fechaTitle + ".xls");
+    };
 
   }
 ]);

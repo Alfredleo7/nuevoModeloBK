@@ -10,19 +10,21 @@
   <div class="col-md-8 col-sm-8 col-xs-12">
     <br>
     <div class="btn-group" style="float:right">
-      <a class="btn btn-sm btn-default" ng-click="exportExcel('IdReporteXCategoria', 'Categoria')"><i class="fa fa-file-excel-o"></i> Exportar</a>
-      <a class="btn btn-sm btn-default" ng-click="printDiv('#IdReporteXCategoria', 'Categoria')"><i class="fa fa-print"></i> Imprimir</a>
+      <a class="btn btn-sm btn-default" ng-click="exportExcel('IdReporte')"><i class="fa fa-file-excel-o"></i> Exportar</a>
+      <a class="btn btn-sm btn-default" ng-click="printDiv('#IdReporte')"><i class="fa fa-print"></i> Imprimir</a>
     </div>
   </div>
 </div>
-<div class="x_panel">
+<div class="x_panel" id="IdReporte">
   <div class="x_title">
-    Reporte
+    <div style="text-align:center">
+      {{usuario.sucursal.tipo | uppercase }} {{usuario.sucursal.nombre}} {{usuario.empresa.nombre}}
+    </div>
   </div>
   <div class="x_content">
 
+
     <table class="table table-bordered">
-      {{ totalMeses[3] }}
       <thead>
         <tr class="success">
           <th>Categoria</th>
