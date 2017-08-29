@@ -6,6 +6,11 @@ module.exports = function(app) {
   app.route('/')
     .get(usuarios.ingresar);
 
+  app.route('/cgi-sys/defaultwebpage.cgi')
+    .get(function(req, res){
+      res.redirect('/');
+    });
+
   app.route('/api/usuarios')
     .get(usuarios.list)
     .post(usuarios.signUp);
