@@ -48,7 +48,7 @@
       <tbody>
         <tr ng-repeat="categoria in categorias">
           <td class="success">{{categoria.descripcion}}</td>
-          <td ng-if="totalMeses[$index] != 0 && $index!=12" class="text-right" ng-class="{'supera': mes.valor>getMonto(categoria.descripcion)}" ng-repeat="mes in categoria.meses track by $index">{{mes.valor | currency}}</td>
+          <td ng-if="totalMeses[$index] != 0 && $index!=12" class="text-right" ng-class="{'supera': mes.valor>getMonto(categoria.descripcion) && getMonto(categoria.descripcion) != 0 }" ng-repeat="mes in categoria.meses track by $index">{{mes.valor | currency}}</td>
           <td class="text-right">{{getMonto(categoria.descripcion) | currency}}</td>
           <td class="text-right info" ng-class="{'supera': categoria.meses[12].valor > getMonto(categoria.descripcion)*getSizeWithOutZeros(categoria) && getMonto(categoria.descripcion) != 0 }">{{categoria.meses[12].valor | currency}}</td>
           <td class="text-right">{{getMonto(categoria.descripcion)*getSizeWithOutZeros(categoria) | currency}}</td>
