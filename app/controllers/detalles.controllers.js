@@ -732,3 +732,78 @@ exports.getDetallesBySucursal = function(req, res){
     }
   )
 }
+
+exports.valorXMesSucursalCategoria =  function(req, res){
+  console.log(req.params.mes);
+  console.log(req.params.anio);
+  /*var fecha = new Date(req.params.fecha);
+  var _mes = fecha.getMonth();
+  var _anio = fecha.getFullYear();*/
+  Detalle.aggregate(
+    [
+      {
+        $project: {
+          sucursal: '$cargado',
+          categoria: '$categoria',
+          valor: '$valor',
+          estado: '$estado',
+          mes: {
+            $month: '$fecha'
+          },
+          anio: {
+            $year: '$fecha'
+          }
+        }
+      },
+      {
+        $match: {
+          $or: [
+            {
+              estado: 'Aprobado'
+            },
+            {
+              estado: 'Pendiente'
+            },
+            {
+              estado: 'Borrador'
+            }
+          ],
+          sucursal: req.params.sucursal,
+          categoria: req.params.categoria,
+          mes: {
+            $eq: Number(req.params.mes)+1
+          },
+          anio: {
+            $eq: Number(req.params.anio)
+          }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          valor: {
+            $sum: '$valor'
+          }
+        }
+      }
+    ],
+    function(err, detalles){
+      if(err){
+        return res.status(500).send({
+          message: getErrorMessage(err)
+        });
+      } else {
+        if(detalles.length != 0){
+          return res.status(200).send({
+            acumuladoMes: detalles[0].valor
+          });
+        } else {
+          return res.status(200).send({
+            acumuladoMes: 0
+          })
+        }
+      }
+
+    }
+  )
+}

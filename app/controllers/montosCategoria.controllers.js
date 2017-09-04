@@ -133,3 +133,51 @@ exports.montoBySucursal = function(req, res){
     })
   });
 }
+
+exports.montoBySucursalCategoria = function(req, res){
+  Sucursal.findOne({nombre: req.params.sucursal}, function(err, sucursal){
+    Categoria.findOne({nombre: req.params.categoria}, function(err, categoria){
+      MontoCategoria.findOne({$and: [{sucursal: sucursal._id}, {categoria: categoria._id}]},'montoMax', function(err, monto){
+        if (err){
+          res.status(400).send({
+            message: getErrorMessage(err)
+          })
+        } else {
+          if(monto){
+            res.status(200).json({
+              monto: monto.montoMax
+            });
+          } else {
+            res.status(200).send({
+              monto: 0
+            });
+          }
+
+        }
+      })
+    })
+  })
+}
+
+exports.montoBySucursalSession = function(req, res){
+  MontoCategoria.find({sucursal: req.session.usuario.sucursal},'categoria montoMax', function(err, montos){
+    if(err){
+      res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Categoria.populate(montos, {path: 'categoria'},function(err, _montos){
+        var monto = {};
+        var montos = [];
+        for(var i in _montos){
+          monto = {
+            categoria: _montos[i].categoria.nombre,
+            montoMax: _montos[i].montoMax
+          };
+          montos.push(monto);
+        }
+        res.status(200).json(montos);
+      })
+    }
+  })
+}

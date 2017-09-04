@@ -15,4 +15,8 @@ module.exports = function(app){
     .delete(montosCategorias.deleteByCategoria);
   app.route('/api/montosBySucursal/:sucursal')
     .get(montosCategorias.montoBySucursal);
+  app.route('/api/montoBySucursalCategoria/:sucursal/:categoria')
+    .get(montosCategorias.montoBySucursalCategoria);
+  app.route('/api/montoBySucursalSession')
+    .get(montosCategorias.montoBySucursalSession);
 }

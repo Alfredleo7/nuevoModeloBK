@@ -6,34 +6,55 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
     $scope.anios = []
     $scope.filtroAnio = {};
     $scope.categorias = [];
+    $scope.montos = [];
 
+    $('#loadLogo').show();
     $http({
       method: 'GET',
       url: '/api/aniosDetalleBySucursal'
     }).then(function(response){
+      $('#loadLogo').hide();
       $scope.anios = response.data;
       $scope.filtroAnio = $scope.anios[$scope.anios.length - 1]._id;
       $scope.getReporte();
     }, function(errorResponse){
+      $('#loadLogo').hide();
       console.log(errorResponse.data);
     })
 
+    $('#loadLogo').show();
+    $http({
+      method: 'GET',
+      url: '/api/montoBySucursalSession'
+    }).then(function(response){
+      $('#loadLogo').hide();
+      $scope.montos = response.data;
+    }, function(errorResponse){
+      $('#loadLogo').hide();
+      console.log(response.data);
+    })
+
+    $('#loadLogo').show();
     $http({
       method: 'GET',
       url: '/api/Credencial'
     }).then(function(response){
+      $('#loadLogo').hide();
       $scope.usuario = response.data;
     }, function(errorResponse){
+      $('#loadLogo').hide();
       console.log(errorResponse.data);
     })
 
     $scope.getReporte = function(){
       var categoria;
       var mes;
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/DetallesBySucursal/'+$scope.filtroAnio
       }).then(function(response){
+        $('#loadLogo').hide();
         var totalCategoria;
         var indice;
         var _valor;
@@ -64,6 +85,7 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
           $scope.categorias.push(categoria);
         }
       }, function(errorResponse){
+        $('#loadLogo').hide();
         console.log(errorResponse.data);
       })
     }
@@ -99,6 +121,25 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
         var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
         saveAs(blob, "Reporte "+ fechaTitle + ".xls");
     };
+
+    $scope.getMonto = function(categoria){
+      for(var i in $scope.montos){
+        if($scope.montos[i].categoria == categoria){
+          return $scope.montos[i].montoMax;
+        }
+      }
+      return 0;
+    }
+
+    $scope.getSizeWithOutZeros = function(categoria){
+      var size = -1 //categoria.meses tiene el valor total de los meses y no cuenta
+      for(var i in categoria.meses){
+        if(categoria.meses[i].valor != 0){
+          size++;
+        }
+      }
+      return size;
+    }
 
   }
 ]);

@@ -14,10 +14,12 @@ angular.module('administrador').controller('view-CajasAprobadas.controller', ['$
     }
 
     var sucursal;
+    $('#loadLogo').show();
     $http({
       method: 'GET',
       url: '/api/SurcursalesConCajasAprobadas'
     }).then(function(response){
+      $('#loadLogo').hide();
       for(var i in response.data){
         sucursal = {
           _id: response.data[i]._id.sucursal._id,
@@ -44,14 +46,16 @@ angular.module('administrador').controller('view-CajasAprobadas.controller', ['$
       sucursal.selected = true;
       $scope.sucursal = sucursal;
       $scope.cajas = [];
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/CajasAprobadasBySucursal/'+sucursal._id
       }).then(function(response){
+        $('#loadLogo').hide();
         localStorageService.set('idSucursalAprobada', sucursal._id);
         $scope.cajas = response.data;
-        console.log(response.data);
       }, function(errorResponse){
+        $('#loadLogo').hide();
         console.log(errorResponse);
       })
     }

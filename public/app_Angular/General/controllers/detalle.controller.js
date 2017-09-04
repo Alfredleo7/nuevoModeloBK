@@ -308,11 +308,42 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
               }
             }
           } else {
-            return true;
+            if($scope.detalle.cargado == '' || !$scope.detalle.cargado){
+              mostrarNotificacion('El campo cargado es requerido');
+            } else {
+              if($scope.detalle.categoria == '' || !$scope.detalle.categoria){
+                mostrarNotificacion('El campo categoria es requerido');
+              } else {
+                if(!$scope.detalle.fecha){
+                  mostrarNotificacion('La fecha es obligatoria');
+                } else {
+                  if(!$scope.detalle.entregado){
+                    mostrarNotificacion('El campo entregado es requerido');
+                  } else {
+                    return true;
+                  }
+                }
+              }
+            }
           }
         }
       };
       return false;
+    }
+
+    var guardarDetalle = function(){
+      $('#loadLogo').show();
+      $http({
+        method: 'POST',
+        url: '/api/detalles',
+        data: $scope.detalle
+      }).then(function(response){
+        $scope.back();
+        $('#loadLogo').hide();
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+        $('#loadLogo').hide();
+      });
     }
 
     $scope.create = function() {
@@ -320,20 +351,70 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       if(validaciones()){
         $scope.detalle.caja = $scope.caja._id;
         $('#loadLogo').show();
+
         $http({
-          method: 'POST',
-          url: '/api/detalles',
-          data: $scope.detalle
+          method: 'GET',
+          url: '/api/montoBySucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria
         }).then(function(response){
-          $scope.back();
           $('#loadLogo').hide();
-        }, function(errorResponse) {
-          mostrarNotificacion(errorResponse.data.message);
-          $('#loadLogo').hide();
-        });
+          var montoMax = response.data.monto;
+          if(montoMax == 0){
+            guardarDetalle();
+          } else {
+            if(montoMax > 0){
+              $http({
+                method: 'GET',
+                url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria+'/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()
+              }).then(function(response){
+                var total = Number(response.data.acumuladoMes) + Number($scope.detalle.valor)
+                if(total >= montoMax){
+
+
+                  (new PNotify({
+                      title: 'Confirmación',
+                      text: 'El Total sobrepasa el monto disponible en $'+Number(total-montoMax)+'<br>¿Desea registrarlo de todas formas?',
+                      icon: 'glyphicon glyphicon-question-sign',
+                      hide: false,
+                      confirm: {
+                          confirm: true
+                      },
+                      buttons: {
+                          closer: false,
+                          sticker: false
+                      },
+                      history: {
+                          history: false
+                      },
+                      styling: 'bootstrap3',
+                      type: 'warning'
+                  })).get().on('pnotify.confirm', function() {
+                    $('#loadLogo').show();
+
+                    guardarDetalle();
+
+                  }).on('pnotify.cancel', function() {
+                  });
+
+                } else {
+                  guardarDetalle();
+                }
+
+              })
+            }
+          }
+        })
+
+        /*$http({
+          method: 'GET',
+          url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria+'/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()
+        }).then(function(response){
+          console.log(response.data);
+        })*/
       }
 
     };
+
+
 
     $scope.update = function() {
 

@@ -150,5 +150,9 @@ font-size: 12px;
 }
 
 .supera {
-  background-color: #ffc107;
+  color: #ff0000;
+}
+
+.alert {
+  border: 1px solid #ababab;
 }

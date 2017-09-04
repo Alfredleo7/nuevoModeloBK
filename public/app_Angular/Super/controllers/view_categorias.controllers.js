@@ -54,18 +54,22 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
       };
     }
 
+    $('#loadLogo').show();
     $http({
       method: 'GET',
       url: '/api/empresas'
     }).then(function(response){
+      $('#loadLogo').hide();
       $scope.empresas = response.data;
     })
 
     $scope.init = function(){
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/categorias/'
       }).then(function(response){
+        $('#loadLogo').hide();
         $scope.categorias = response.data;
         inicializarSelected();
       })
@@ -76,16 +80,18 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
       inicializarSelected();
       categoria.selected = true;
       $scope.categoria = categoria;
+      $('#loadLogo').show();
       $http({
         method: 'GET',
         url: '/api/montosCategorias/'+categoria._id
       }).then(function(response){
+        $('#loadLogo').hide();
         $scope.montos = response.data;
-
         $("html, body").stop().animate({
           scrollTop: $('#detalles').offset().top - 40
         }, '500', 'linear');
       }, function(errorResponse){
+        $('#loadLogo').hide();
         console.log(errorResponse);
       })
     }
@@ -97,6 +103,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           method: 'GET',
           url: '/api/sucursalesByEmpresa/'+$scope.monto.empresa
         }).then(function(response){
+          $('#loadLogo').hide();
           $scope.sucursales = response.data;
         })
       }
@@ -104,11 +111,13 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
 
     $scope.guardarMonto = function(){
       $scope.monto.categoria = $scope.categoria._id;
+      $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/montosCategorias',
         data: $scope.monto
       }).then(function(response){
+        $('#loadLogo').hide();
         $scope.montos.push(response.data);
         $scope.monto = {};
         $scope.sucursales = [];
@@ -119,6 +128,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           type: 'success'
         })
       }, function(errorResponse){
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       })
     }
@@ -143,11 +153,12 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           styling: 'bootstrap3',
           type: 'warning'
       })).get().on('pnotify.confirm', function() {
-
+        $('#loadLogo').show();
         $http({
           method: 'DELETE',
           url: '/api/deleteMontosCategorias/'+ monto._id
         }).then(function(response){
+          $('#loadLogo').hide();
           for (var i in $scope.montos) {
             if ($scope.montos[i]._id === response.data._id) {
               $scope.montos.splice(i, 1);
@@ -159,6 +170,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
             type: 'success'
           })
         }, function(errorResponse){
+          $('#loadLogo').hide();
           mostrarNotificacion(errorResponse.data.message);
         })
 
@@ -168,11 +180,13 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
     }
 
     $scope.updateMonto = function(monto){
+      $('#loadLogo').show();
       $http({
         method: 'PUT',
         url: '/api/updateMontosCategorias/'+monto._id,
         data: monto
       }).then(function(response){
+        $('#loadLogo').hide();
         for (var i in $scope.montos) {
           if ($scope.montos[i]._id === response.data._id) {
             $scope.montos.splice(i, 1);
@@ -186,16 +200,19 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           type: 'success'
         })
       }, function(errorResponse){
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       })
     }
 
     $scope.createCategoria = function(categoria){
+      $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/categorias',
         data: categoria
       }).then(function(response){
+        $('#loadLogo').hide();
         $scope.categorias.push(response.data);
         $scope.ver(response.data);
         new PNotify({
@@ -204,6 +221,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           type: 'success'
         })
       }, function(errorResponse){
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       })
     }
@@ -220,11 +238,13 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
     }
 
     $scope.updateCategoria = function(){
+      $('#loadLogo').show();
       $http({
         method: 'PUT',
         url: '/api/categorias/' + $scope.newCategoria._id,
         data: $scope.newCategoria
       }).then(function(response){
+        $('#loadLogo').hide();
         for (var i in $scope.categorias) {
           if ($scope.categorias[i]._id === response.data._id) {
             $scope.categorias.splice(i, 1);
@@ -239,6 +259,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           type: 'success'
         })
       }, function(errorResponse){
+        $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       })
     }
@@ -263,15 +284,18 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           styling: 'bootstrap3',
           type: 'warning'
       })).get().on('pnotify.confirm', function() {
-
+        $('#loadLogo').show();
         $http({
           method: 'DELETE',
           url: '/api/deleteMontosCategoriasByCategoria/' + categoria._id
         }).then(function(response){
+          $('#loadLogo').hide();
+          $('#loadLogo').show();
           $http({
             method: 'DELETE',
             url: '/api/categorias/'+ categoria._id
           }).then(function(response){
+            $('#loadLogo').hide();
             for (var i in $scope.categorias) {
               if ($scope.categorias[i]._id === categoria._id) {
                 $scope.categorias.splice(i, 1);
@@ -284,9 +308,11 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
               type: 'success'
             });
           }, function(errorResponse){
+            $('#loadLogo').hide();
             mostrarNotificacion(errorResponse.data.message);
           })
         }, function(errorResponse){
+          $('#loadLogo').hide();
           mostrarNotificacion(errorResponse.data.message);
         })
 

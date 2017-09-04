@@ -43,4 +43,7 @@ module.exports = function(app) {
   app.route('/api/DetallesBySucursal/:anio')
     .get(detalles.getDetallesBySucursal);
 
+  app.route('/api/valorXMesSucursalCategoria/:sucursal/:categoria/:mes/:anio')
+    .get(detalles.valorXMesSucursalCategoria);
+
 }
