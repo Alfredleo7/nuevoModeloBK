@@ -5,6 +5,13 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
 
     $scope.montosMaximos = [];
 
+    $scope.filtroTable = 'categoria';
+    $scope.reverse = false;
+    $scope.onFiltro = function(filtro){
+      $scope.reverse = !$scope.reverse;
+      $scope.filtroTable = filtro;
+    }
+
     $scope.init = function(){
 
       $scope.today = new Date();
@@ -115,7 +122,6 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
           });
         }
 
-        console.log($scope.filtro.sucursal);
         if($scope.filtro.sucursal != 'Todas'){
           $http({
             method: 'GET',

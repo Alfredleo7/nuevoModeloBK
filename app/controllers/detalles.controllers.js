@@ -352,6 +352,11 @@ exports.categoriaDetallesXYear = function(req, res){
       $group: {
         _id: "$categoria"
       }
+    },
+    {
+      $sort: {
+        _id: 1
+      }
     }
   ], function(err, categorias){
     if(err){
@@ -405,6 +410,11 @@ exports.sucursalesDetallesXYear = function(req, res){
     {
       $group: {
         _id: "$cargado"
+      }
+    },
+    {
+      $sort: {
+        _id: 1
       }
     }
   ], function(err, categorias){

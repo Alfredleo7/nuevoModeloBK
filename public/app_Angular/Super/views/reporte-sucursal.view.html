@@ -39,23 +39,23 @@
           <b>Año:</b> {{filtro.anio}} <b>Categoria:</b> {{filtro.categoria}}
         </div>
         <div style="overflow-x:auto;">
-          <table class="table table-bordered" ng-init="filtroTable='sucursal';reverse='false'">
+          <table class="table table-bordered">
             <thead>
               <tr class="success">
-                <th class="filaLink" ng-click="filtroTable='sucursal';reverse = !reverse">Local/Departamento</th>
-                <th ng-if="Ene!=0" class="filaLink" ng-click="filtroTable='ene';reverse = !reverse">Ene</th>
-                <th ng-if="Feb!=0" class="filaLink" ng-click="filtroTable='feb';reverse = !reverse">Feb</th>
-                <th ng-if="Mar!=0" class="filaLink" ng-click="filtroTable='mar';reverse = !reverse">Mar</th>
-                <th ng-if="Abr!=0" class="filaLink" ng-click="filtroTable='abr';reverse = !reverse">Abr</th>
-                <th ng-if="May!=0" class="filaLink" ng-click="filtroTable='may';reverse = !reverse">May</th>
-                <th ng-if="Jun!=0" class="filaLink" ng-click="filtroTable='jun';reverse = !reverse">Jun</th>
-                <th ng-if="Jul!=0" class="filaLink" ng-click="filtroTable='jul';reverse = !reverse">Jul</th>
-                <th ng-if="Ago!=0" class="filaLink" ng-click="filtroTable='ago';reverse = !reverse">Ago</th>
-                <th ng-if="Sep!=0" class="filaLink" ng-click="filtroTable='sep';reverse = !reverse">Sep</th>
-                <th ng-if="Oct!=0" class="filaLink" ng-click="filtroTable='oct';reverse = !reverse">Oct</th>
-                <th ng-if="Nov!=0" class="filaLink" ng-click="filtroTable='nov';reverse = !reverse">Nov</th>
-                <th ng-if="Dic!=0" class="filaLink" ng-click="filtroTable='dic';reverse = !reverse">Dic</th>
-                <th class="filaLink" ng-click="filtroTable='total';reverse = !reverse">Acum</th>
+                <th class="filaLink" ng-click="onFiltro('sucursal')">Local/Departamento <i ng-if="!reverse && filtroTable=='sucursal'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && filtroTable=='sucursal'" class="fa fa-sort-alpha-desc"></i></th>
+                <th ng-if="Ene!=0" class="filaLink" ng-click="onFiltro('ene')">Ene <i ng-if="!reverse && filtroTable=='ene'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='ene'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Feb!=0" class="filaLink" ng-click="onFiltro('feb')">Feb <i ng-if="!reverse && filtroTable=='feb'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='feb'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Mar!=0" class="filaLink" ng-click="onFiltro('mar')">Mar <i ng-if="!reverse && filtroTable=='mar'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='mar'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Abr!=0" class="filaLink" ng-click="onFiltro('abr')">Abr <i ng-if="!reverse && filtroTable=='abr'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='abr'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="May!=0" class="filaLink" ng-click="onFiltro('may')">May <i ng-if="!reverse && filtroTable=='may'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='may'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Jun!=0" class="filaLink" ng-click="onFiltro('jun')">Jun <i ng-if="!reverse && filtroTable=='jun'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='jun'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Jul!=0" class="filaLink" ng-click="onFiltro('jul')">Jul <i ng-if="!reverse && filtroTable=='jul'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='jul'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Ago!=0" class="filaLink" ng-click="onFiltro('ago')">Ago <i ng-if="!reverse && filtroTable=='ago'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='ago'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Sep!=0" class="filaLink" ng-click="onFiltro('sep')">Sep <i ng-if="!reverse && filtroTable=='sep'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='sep'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Oct!=0" class="filaLink" ng-click="onFiltro('oct')">Oct <i ng-if="!reverse && filtroTable=='oct'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='oct'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Nov!=0" class="filaLink" ng-click="onFiltro('nov')">Nov <i ng-if="!reverse && filtroTable=='nov'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='nov'" class="fa fa-sort-amount-desc"></i></th>
+                <th ng-if="Dic!=0" class="filaLink" ng-click="onFiltro('dic')">Dic <i ng-if="!reverse && filtroTable=='dic'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='dic'" class="fa fa-sort-amount-desc"></i></th>
+                <th class="filaLink" ng-click="onFiltro('total')">Acum <i ng-if="!reverse && filtroTable=='total'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='total'" class="fa fa-sort-amount-desc"></i></th>
               </tr>
             </thead>
             <tbody>
