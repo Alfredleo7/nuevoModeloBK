@@ -37,7 +37,7 @@
                 <a class="navbar-brand"><%= usuario.tipo %></a>
               </div>
               <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <!--<ul class="nav navbar-nav">
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios</a>
                     <ul class="dropdown-menu">
@@ -46,14 +46,21 @@
                       <li><a class="linkNavbar" href="#!/SuperUsuarios">Super Usuarios</a></li>
                     </ul>
                   </li>
-                </ul>
+                </ul>-->
                 <ul class="nav navbar-nav">
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenimiento <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                       <li><a class="linkNavbar" href="#!/Categorias">Categorias</a></li>
                       <li><a class="linkNavbar" href="#!/Proveedores">Proveedores</a></li>
                       <li><a class="linkNavbar" href="#!/Cajas">Cajas Chicas</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    <li><a class="linkNavbar" href="#!/reporteXLocales">Reporte por Locales/Departamentos</a></li>
+                    <li><a class="linkNavbar" href="#!/reporteXCategorias">Reporte por Categorias</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -117,7 +124,11 @@
     <script src="/app_Angular/Super/controllers/view_categorias.controllers.js" charset="utf-8"></script>
     <script src="/app_Angular/Super/controllers/view_proveedores.controllers.js" charset="utf-8"></script>
     <script src="/app_Angular/Super/controllers/view_cajas.controllers.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/reporte-sucursal.controller.js" charset="utf-8"></script>
+    <script src="/app_Angular/Super/controllers/reporte-categoria.controller.js" charset="utf-8"></script>
 
+    <!-- Servicioss -->
+    <script src="/app_Angular/Super/services/administrador.service.js" charset="utf-8"></script>
     <!-- Rutas -->
     <script src="/app_Angular/Super/config/super.routes.js" charset="utf-8"></script>
 

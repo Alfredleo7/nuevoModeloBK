@@ -1,6 +1,6 @@
 var mainAplicationModuleName = 'super'
 
-var mainAplicationModule = angular.module(mainAplicationModuleName, ['ngRoute','datatables']);
+var mainAplicationModule = angular.module(mainAplicationModuleName, ['ngRoute','chart.js','datatables']);
 
 mainAplicationModule.config(['$locationProvider',
   function($locationProvider){

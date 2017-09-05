@@ -30,6 +30,14 @@ angular.module('super').config(['$routeProvider',
     when('/Cajas', {
       templateUrl: 'app_Angular/Super/views/view_cajas.view.html',
       controller: 'view_cajas.controller'
+    }).
+    when('/reporteXLocales', {
+      templateUrl: 'app_Angular/Super/views/reporte-sucursal.view.html',
+      controller: 'reporte-sucursal.controller'
+    }).
+    when('/reporteXCategorias', {
+      templateUrl: 'app_Angular/Super/views/reporte-categoria.view.html',
+      controller: 'reporte-categoria.controller'
     });
   }
 ]);

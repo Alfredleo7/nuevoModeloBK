@@ -1,0 +1,133 @@
+<div data-ng-init="init()">
+  <div class="row">
+    <div class="col-md-2 col-sm-3 col-xs-12">
+      <div class="form-group">
+        <label>Año:</label>
+        <select class="form-control" ng-model="filtro.anio" ng-change="updateCategorias()">
+          <option value="">Elija el año</option>
+          <option ng-value="anio._id" ng-repeat="anio in anios">{{anio._id}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-12">
+      <div class="form-group">
+        <label>Categoria:</label>
+        <select class="form-control" ng-model="filtro.categoria" ng-change="generarReporte()">
+          <option value="Todas">Todas</option>
+          <option ng-value="categoria._id" ng-repeat="categoria in categorias">{{categoria._id}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-4 col-xs-12">
+      <div class="btn-group" style="float:right">
+        <a class="btn btn-sm btn-default" ng-click="exportExcel('IdReporteXLocal', 'Locales-Departamentos')"><i class="fa fa-file-excel-o"></i> Exportar</a>
+        <a class="btn btn-sm btn-default" ng-click="printDiv('#IdReporteXLocal', 'Locales-Departamentos')"><i class="fa fa-print"></i> Imprimir</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="IdReporteXLocal" class="x_panel">
+      <div align="right">
+        {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
+      </div>
+      <div class="x_title">
+        <h4>Reporte por Locales/Departamentos</h4>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div>
+          <b>Año:</b> {{filtro.anio}} <b>Categoria:</b> {{filtro.categoria}}
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="table table-bordered" ng-init="filtroTable='sucursal';reverse='false'">
+            <thead>
+              <tr class="success">
+                <th class="filaLink" ng-click="filtroTable='sucursal';reverse = !reverse">Local/Departamento</th>
+                <th ng-if="Ene!=0" class="filaLink" ng-click="filtroTable='ene';reverse = !reverse">Ene</th>
+                <th ng-if="Feb!=0" class="filaLink" ng-click="filtroTable='feb';reverse = !reverse">Feb</th>
+                <th ng-if="Mar!=0" class="filaLink" ng-click="filtroTable='mar';reverse = !reverse">Mar</th>
+                <th ng-if="Abr!=0" class="filaLink" ng-click="filtroTable='abr';reverse = !reverse">Abr</th>
+                <th ng-if="May!=0" class="filaLink" ng-click="filtroTable='may';reverse = !reverse">May</th>
+                <th ng-if="Jun!=0" class="filaLink" ng-click="filtroTable='jun';reverse = !reverse">Jun</th>
+                <th ng-if="Jul!=0" class="filaLink" ng-click="filtroTable='jul';reverse = !reverse">Jul</th>
+                <th ng-if="Ago!=0" class="filaLink" ng-click="filtroTable='ago';reverse = !reverse">Ago</th>
+                <th ng-if="Sep!=0" class="filaLink" ng-click="filtroTable='sep';reverse = !reverse">Sep</th>
+                <th ng-if="Oct!=0" class="filaLink" ng-click="filtroTable='oct';reverse = !reverse">Oct</th>
+                <th ng-if="Nov!=0" class="filaLink" ng-click="filtroTable='nov';reverse = !reverse">Nov</th>
+                <th ng-if="Dic!=0" class="filaLink" ng-click="filtroTable='dic';reverse = !reverse">Dic</th>
+                <th class="filaLink" ng-click="filtroTable='total';reverse = !reverse">Acum</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="fila in tabla | orderBy:filtroTable:reverse">
+                <td class="success" data-ng-bind="fila.sucursal"></td>
+                <td ng-if="Ene!=0" ng-class="{'filaLink': fila.ene!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,1,fila.ene)"><valor ng-if="fila.ene!=0">{{fila.ene | currency}}</valor></td>
+                <td ng-if="Feb!=0" ng-class="{'filaLink': fila.feb!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,2,fila.feb)"><valor ng-if="fila.feb!=0">{{fila.feb | currency}}</valor></td>
+                <td ng-if="Mar!=0" ng-class="{'filaLink': fila.mar!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,3,fila.mar)"><valor ng-if="fila.mar!=0">{{fila.mar | currency}}</valor></td>
+                <td ng-if="Abr!=0" ng-class="{'filaLink': fila.abr!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,4,fila.abr)"><valor ng-if="fila.abr!=0">{{fila.abr | currency}}</valor></td>
+                <td ng-if="May!=0" ng-class="{'filaLink': fila.may!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,5,fila.may)"><valor ng-if="fila.may!=0">{{fila.may | currency}}</valor></td>
+                <td ng-if="Jun!=0" ng-class="{'filaLink': fila.jun!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,6,fila.jun)"><valor ng-if="fila.jun!=0">{{fila.jun | currency}}</valor></td>
+                <td ng-if="Jul!=0" ng-class="{'filaLink': fila.jul!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,7,fila.jul)"><valor ng-if="fila.jul!=0">{{fila.jul | currency}}</valor></td>
+                <td ng-if="Ago!=0" ng-class="{'filaLink': fila.ago!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,8,fila.ago)"><valor ng-if="fila.ago!=0">{{fila.ago | currency}}</valor></td>
+                <td ng-if="Sep!=0" ng-class="{'filaLink': fila.sep!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,9,fila.sep)"><valor ng-if="fila.sep!=0">{{fila.sep | currency}}</valor></td>
+                <td ng-if="Oct!=0" ng-class="{'filaLink': fila.oct!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,10,fila.oct)"><valor ng-if="fila.oct!=0">{{fila.oct | currency}}</valor></td>
+                <td ng-if="Nov!=0" ng-class="{'filaLink': fila.nov!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,11,fila.nov)"><valor ng-if="fila.nov!=0">{{fila.nov | currency}}</valor></td>
+                <td ng-if="Dic!=0" ng-class="{'filaLink': fila.dic!=0 }" class="text-right" ng-click="verDetallesCelda('local',filtro.anio,fila.sucursal,12,fila.dic)"><valor ng-if="fila.dic!=0">{{fila.dic | currency}}</valor></td>
+                <td class="text-right info" data-ng-bind="fila.total | currency"></td>
+              </tr>
+              <tr>
+                <td class="success">Total por Mes</td>
+                <td ng-if="Ene!=0" class="text-right info" data-ng-bind="Ene | currency"></td>
+                <td ng-if="Feb!=0" class="text-right info" data-ng-bind="Feb | currency"></td>
+                <td ng-if="Mar!=0" class="text-right info" data-ng-bind="Mar | currency"></td>
+                <td ng-if="Abr!=0" class="text-right info" data-ng-bind="Abr | currency"></td>
+                <td ng-if="May!=0" class="text-right info" data-ng-bind="May | currency"></td>
+                <td ng-if="Jun!=0" class="text-right info" data-ng-bind="Jun | currency"></td>
+                <td ng-if="Jul!=0" class="text-right info" data-ng-bind="Jul | currency"></td>
+                <td ng-if="Ago!=0" class="text-right info" data-ng-bind="Ago | currency"></td>
+                <td ng-if="Sep!=0" class="text-right info" data-ng-bind="Sep | currency"></td>
+                <td ng-if="Oct!=0" class="text-right info" data-ng-bind="Oct | currency"></td>
+                <td ng-if="Nov!=0" class="text-right info" data-ng-bind="Nov | currency"></td>
+                <td ng-if="Dic!=0" class="text-right info" data-ng-bind="Dic | currency"></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 col-sm-6" ng-repeat="grafico in graficos | orderBy: 'series':'false'">
+      <div class="x_panel">
+        <div align="right" style="float: right">
+          <categoria ng-if="filtro.categoria!='Todas'">{{filtro.categoria}} | </categoria> {{filtro.anio}}
+        </div>
+        <div class="x_title">
+          <h2>{{grafico.series}}</h2>
+        </div>
+        <canvas data-toggle="modal" data-target=".graficoModal" class="chart chart-bar link" ng-click="onClick(grafico)" chart-data="grafico.data" chart-labels="grafico.labels" chart-series="grafico.series"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade graficoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="x_title">
+          <h2>{{graficoModal.series}}</h2>
+          <categoria ng-if="filtro.categoria!='Todas'">{{filtro.categoria}} | </categoria> {{filtro.anio}}
+        </div>
+      </div>
+      <div class="modal-body">
+        <canvas class="chart chart-bar" chart-data="graficoModal.data" chart-labels="graficoModal.labels" chart-series="graficoModal.series"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" type="button" class="btn btn-default">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
