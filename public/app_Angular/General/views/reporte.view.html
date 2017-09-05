@@ -28,6 +28,7 @@
       <thead>
         <tr class="success">
           <th>Categoria</th>
+          <th>Monto Máximo Mensual</th>
           <th ng-if="totalMeses[0] != 0">Ene</th>
           <th ng-if="totalMeses[1] != 0">Feb</th>
           <th ng-if="totalMeses[2] != 0">Mar</th>
@@ -40,21 +41,21 @@
           <th ng-if="totalMeses[9] != 0">Oct</th>
           <th ng-if="totalMeses[10] != 0">Nov</th>
           <th ng-if="totalMeses[11] != 0">Dic</th>
-          <th>Monto Máximo</th>
-          <th>Monto Total</th>
+          <th>Total Acumulado</th>
           <th>Monto Esperado</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="categoria in categorias">
           <td class="success">{{categoria.descripcion}}</td>
-          <td ng-if="totalMeses[$index] != 0 && $index!=12" class="text-right" ng-class="{'supera': mes.valor>getMonto(categoria.descripcion) && getMonto(categoria.descripcion) != 0 }" ng-repeat="mes in categoria.meses track by $index">{{mes.valor | currency}}</td>
           <td class="text-right">{{getMonto(categoria.descripcion) | currency}}</td>
+          <td ng-if="totalMeses[$index] != 0 && $index!=12" class="text-right" ng-class="{'supera': mes.valor>getMonto(categoria.descripcion) && getMonto(categoria.descripcion) != 0 }" ng-repeat="mes in categoria.meses track by $index">{{mes.valor | currency}}</td>
           <td class="text-right info" ng-class="{'supera': categoria.meses[12].valor > getMonto(categoria.descripcion)*getSizeWithOutZeros(categoria) && getMonto(categoria.descripcion) != 0 }">{{categoria.meses[12].valor | currency}}</td>
           <td class="text-right">{{getMonto(categoria.descripcion)*getSizeWithOutZeros(categoria) | currency}}</td>
         </tr>
         <tr>
           <td class="success">Total x Mes</td>
+          <td></td>
           <td class="text-right info" ng-if="totalMeses[0] != 0">{{totalMeses[0] | currency}}</td>
           <td class="text-right info" ng-if="totalMeses[1] != 0">{{totalMeses[1] | currency}}</td>
           <td class="text-right info" ng-if="totalMeses[2] != 0">{{totalMeses[2] | currency}}</td>
