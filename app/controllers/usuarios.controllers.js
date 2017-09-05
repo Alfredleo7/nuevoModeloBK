@@ -219,6 +219,55 @@ exports.usuariosByTipo = function(req, res){
   });
 };
 
+
 exports.getCredencial = function(req, res){
   return res.status(200).json(req.session.usuario);
+}
+
+exports.updateUsuario = function(req, res){
+  var usuario = req.usuario;
+
+  usuario.firstName = req.body.firstName;
+  usuario.lastName = req.body.lastName;
+  usuario.usuario = req.body.usuario;
+  usuario.empresa = req.body.empresa
+  usuario.sucursal = req.body.sucursal;
+
+  usuario.save(function(err){
+    if(err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.json(usuario);
+    }
+  });
+};
+
+exports.usuariosByID = function(req, res, next, id){
+  console.log('hola mundo');
+  Usuario.findById(id, function(err, usuario){
+    if (err) return next(err);
+    if (!usuario){
+      return res.status(404).send({
+        message: 'No existe el usuario'
+      })
+    }
+    req.usuario = usuario;
+    next();
+  });
+};
+
+exports.deleteUsuario = function(req, res){
+  var usuario = req.usuario;
+  console.log(usuario);
+  usuario.remove(function(err){
+    if(err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      res.status(200).json(usuario);
+    }
+  })
 }

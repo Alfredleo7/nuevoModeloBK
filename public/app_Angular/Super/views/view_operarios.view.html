@@ -2,7 +2,7 @@
   <div class="row">
     <div class="container">
       <div style="float: right">
-        <button class="btn btn-sm btn-default" data-toggle="modal" data-target=".modalNuevoOperario">Nuevo Operario</button>
+        <button class="btn btn-sm btn-default" data-toggle="modal" data-target=".modalNuevoOperario" ng-click="inicializarOperario()">Nuevo Operario</button>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="usuario in usuarios">
+            <tr class="filaLink" data-toggle="modal" data-target=".modalViewOperario" data-ng-click="view(usuario)" data-ng-repeat="usuario in usuarios">
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td>{{usuario.firstName}}</td>
               <td>{{usuario.lastName}}</td>
@@ -42,58 +42,93 @@
   </div>
 </section>
 
-<div class="modal fade modalNuevoOperario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" ng-init="initRegistro()">
-  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade modalNuevoOperario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Nuevo Operario</h4>
       </div>
+      <form data-ng-submit="registrar()" novalidate>
+        <div class="modal-body">
+          <section ng-include="'app_Angular/Super/views/form_operarios.view.html'"></section>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modalViewOperario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Operario</h4>
+      </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-            <input data-ng-model="newUsuario.firstName" type="text" class="form-control" placeholder="Nombres" required="" />
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Nombres</small></label>
+              <input data-ng-model="operario.firstName" type="text" class="form-control" placeholder="Nombres" required="" readonly/>
+            </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-            <input data-ng-model="newUsuario.lastName" type="text" class="form-control" placeholder="Apellidos" required="" />
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Apellidos</small></label>
+              <input data-ng-model="operario.lastName" type="text" class="form-control" placeholder="Apellidos" required="" readonly/>
+            </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
-            <input data-ng-model="newUsuario.usuario" type="text" class="form-control" placeholder="Usuario" required="" style="text-transform: lowercase;" />
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Usuario</small></label>
+              <input ng-value="operario.usuario+'@burgerkingec.com.ec'" type="text" class="form-control" placeholder="Correo" required="" readonly/>
+            </div>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-            <h6>@burgerkingec.com.ec</h6>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Empresa</small></label>
+              <input data-ng-model="operario.empresa.nombre" type="text" class="form-control" placeholder="Empresa" required="" readonly/>
+            </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-            <input data-ng-model="newUsuario.password" type="password" class="form-control" placeholder="Contraseña" required="" />
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Sucursal</small></label>
+              <input ng-value="operario.sucursal.tipo+' '+operario.sucursal.nombre" type="text" class="form-control" placeholder="Empresa" required="" readonly/>
+            </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-            <input data-ng-model="passwordConfirm" type="password" class="form-control" placeholder="Repita la contraseña" required="" />
-          </div>
-
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-            <select data-ng-model="newUsuario.empresa" class="form-control" ng-change="getSucursales()">
-              <option value="">Elija una Empresa</option>
-              <option ng-value="empresa._id" ng-repeat="empresa in empresas">{{empresa.nombre}}</option>
-            </select>
-          </div>
-          <br>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group" ng-show="newUsuario.empresa">
-            <select data-ng-model="newUsuario.sucursal" class="form-control">
-              <option value="">Locales/Departamentos</option>
-              <option ng-value="sucursal._id" ng-repeat="sucursal in sucursales">{{sucursal.tipo}} {{sucursal.nombre}}</option>
-            </select>
-          </div>
-
-          <!--<div>
-            <input data-ng-model="newUsuario.tipo" type="text" class="form-control" placeholder="tipo" required="" />
-          </div>-->
-
           <br>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="registrar()">Guardar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="eliminar()">Eliminar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target=".modalEditarOperario" data-ng-click="initEditarOperario(operario)">Editar</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modalEditarOperario" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Editar Operario</h4>
+      </div>
+      <form data-ng-submit="actualizar()" novalidate>
+        <div class="modal-body">
+          <section ng-include="'app_Angular/Super/views/form_operarios.view.html'"></section>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit">Guardar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -14,6 +14,11 @@ module.exports = function(app) {
   app.route('/api/usuarios')
     .get(usuarios.list)
     .post(usuarios.signUp);
+
+  app.route('/api/usuarios/:usuarioId')
+    .delete(usuarios.deleteUsuario)
+    .put(usuarios.updateUsuario);
+
   app.route('/api/usuariosLogin')
     .post(usuarios.signIn);
   app.route('/api/usuariosLogout')
@@ -27,6 +32,9 @@ module.exports = function(app) {
 
   app.route('/api/Credencial')
     .get(usuarios.getCredencial);
+
+  app.param('usuarioId', usuarios.usuariosByID);
+
 
   /*app.route('/api/detalles/:detalleId')
     .get(detalles.read)
