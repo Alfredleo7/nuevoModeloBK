@@ -817,3 +817,37 @@ exports.valorXMesSucursalCategoria =  function(req, res){
     }
   )
 }
+
+exports.detallesOfCelda = function(req, res){
+  var query = {
+    $and: [
+      {
+        fecha: {
+          $gte: new Date(Number(req.params.anio)+','+Number(req.params.mes)),
+          $lt: new Date(Number(req.params.anio)+','+Number(Number(req.params.mes)+1))
+        }
+      },
+      {
+        estado: 'Aprobado'
+      }
+    ]
+  };
+  if(req.params.categoria != 'Todas'){
+    query.$and.push({
+      categoria: req.params.categoria
+    });
+  }
+  if(req.params.sucursal != 'Todas'){
+    query.$and.push({
+      cargado: req.params.sucursal
+    });
+  }
+
+  Detalle.find(query,null,{sort:{fecha: 1}},function(err, detalles){
+    Usuario.populate(detalles, {path: 'administrador'}, function(err,detalles){
+      Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
+        res.status(200).json(detalles);
+      })
+    });
+  });
+}

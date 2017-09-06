@@ -130,9 +130,9 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
       console.log($scope.graficoModal);
     };
 
-    $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){
-      if(valor != 0){
-        $location.path('reporteSucursal/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
+    $scope.verDetallesCelda = function(sucursal,mes,condicion){
+      if(condicion){
+        $location.path('detalles/'+$scope.filtro.anio+'/'+mes+'/'+sucursal+'/'+$scope.filtro.categoria);
       }
     }
 
