@@ -1,36 +1,37 @@
 <section data-ng-init="init()">
   <div class="x_panel">
+    <div class="x_title">
+      <h2>{{getSucursal()}}{{getCategoria()}}{{getDate()}}</h2>
+      <div class="clearfix"></div>
+    </div>
     <div class="x_content">
-      <div class="x_title">
-        <h2>Detalles</h2>
-        <div class="clearfix"></div>
-      </div>
-      <!--<div style="overflow-x:auto;">-->
-        <!--<table id="datatable-buttons" datatable='ng' class="table table-bordered">
-          <thead>
-            <tr class="active">
-              <th>#</th>
-              <th>Nombres</th>
-              <th>Apellidos</th>
-              <th>Fecha de Ingreso</th>
-              <th>Empresa</th>
-              <th>Local/Dep</th>
-              <th>Correo Electrónico</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="filaLink" data-toggle="modal" data-target=".modalViewOperario" data-ng-click="view(usuario)" data-ng-repeat="usuario in usuarios">
-              <th class="text-right" scope="row">{{$index + 1}}</th>
-              <td>{{usuario.firstName}}</td>
-              <td>{{usuario.lastName}}</td>
-              <td>{{usuario.creado | date: "dd'-'MMMM'-'y"}}</td>
-              <td>{{usuario.empresa.nombre}}</td>
-              <td>{{usuario.sucursal.tipo}} {{usuario.sucursal.nombre}}</td>
-              <td>{{usuario.usuario}}@burgerkingec.com.ec</td>
-            </tr>
-          </tbody>
-        </table>-->
-      <!--</div>-->
+      <table id="datatable-buttons" class="table table-bordered">
+        <thead>
+          <tr class="active">
+            <th>Fecha</th>
+            <th>Factura</th>
+            <th ng-if="sucursal == 'Todas'">Sucursal</th>
+            <th>Pagado a</th>
+            <th ng-if="categoria == 'Todas'">Categoria</th>
+            <th>Descripción</th>
+            <th>Aprobado por</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="filaLink" data-ng-click="" data-ng-repeat="detalle in detalles">
+            <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
+            <td ng-if="sucursal == 'Todas'" data-ng-bind="detalle.cargado"></td>
+            <td data-ng-bind="detalle.entregado"></td>
+            <td ng-if="categoria == 'Todas'" data-ng-bind="detalle.categoria"></td>
+            <td data-ng-bind="detalle.descripcion"></td>
+            <td>{{detalle.administrador.firstName}} {{detalle.administrador.lastName}}</td>
+            <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 style="float: right;">total {{total | currency}}</h4>
     </div>
   </div>
 </section>
