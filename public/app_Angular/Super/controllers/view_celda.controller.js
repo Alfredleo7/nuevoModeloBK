@@ -1,6 +1,8 @@
 angular.module('super').controller('view_celda.controller', ['$scope','$http','$routeParams',
   function($scope, $http, $routeParams){
 
+    $scope.today = new Date();
+
     var meses = [
       'Enero',
       'Febrero',
@@ -35,6 +37,32 @@ angular.module('super').controller('view_celda.controller', ['$scope','$http','$
       console.log(errorResponse.data);
     })
 
+    $scope.back = function(){
+      window.history.back();
+    }
+
+    $scope.printDiv = function(IdDiv){
+      var divToPrint = jQuery(IdDiv).html();
+      var newWin = window.open('', 'my div','left=0,top=0,width=5000,height=5000,toolbar=1,resizable=0');
+
+      var fecha = new Date();
+      var mes = Number(fecha.getMonth()) + 1;
+      var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
+
+      newWin.document.write('<html><head><title>Reporte '+fechaTitle+'</title>');
+      newWin.document.write('<link href="/css/bootstrap.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
+      newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
+      newWin.document.write('</head><body>');
+      newWin.document.write(divToPrint);
+      newWin.document.write('</body>');
+      newWin.document.write('<script type="text/javascript">');
+      newWin.document.write('window.print();');
+      newWin.document.write('window.close();');
+      newWin.document.write('</script>');
+      newWin.document.write('</html>');
+    };
+
 
 
     $scope.getDate = function(){
@@ -53,5 +81,9 @@ angular.module('super').controller('view_celda.controller', ['$scope','$http','$
       return '';
     }
 
+    //---Modal Detalle
+    $scope.getDetalle = function(detalle){
+      $scope.detalle = detalle;
+    }
   }
 ])

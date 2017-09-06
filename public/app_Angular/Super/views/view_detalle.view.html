@@ -1,0 +1,119 @@
+<!--<div class="row">
+  <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">-->
+    <table style="width: 100%;">
+      <tr>
+        <td><b>Fecha:</b></td>
+        <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+        <td><b>Entregado a:</b></td>
+        <td>{{detalle.entregado}}</td>
+      </tr>
+      <tr>
+        <td><b>Cargado a:</b></td>
+        <td>{{detalle.cargado}}</td>
+        <td><b>Categoria:</b></td>
+        <td>{{detalle.categoria}}</td>
+      </tr>
+      <tr>
+        <td valign="top"><b>Descripción: </b></td>
+        <td colspan="3" style="white-space: pre-wrap">{{detalle.descripcion}}</td>
+      </tr>
+    </table>
+  <!--</div>
+</div>-->
+<hr>
+<div ng-if="detalle.tipo == 'factura'">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h2>Factura</h2>
+  </div>
+  <table style="width: 100%;">
+    <tr>
+      <td  valign="top"><b>Proveedor:</b></td>
+      <td  colspan="5">
+        <nombre ng-if="detalle.anexo.proveedor.nombre && detalle.anexo.proveedor.nombre !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          Nombre: {{detalle.anexo.proveedor.nombre}}
+        </nombre>
+        <apellido ng-if="detalle.anexo.proveedor.apellido && detalle.anexo.proveedor.apellido !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          Apellido: {{detalle.anexo.proveedor.apellido}}
+        </apellido>
+        <razons ng-if="detalle.anexo.proveedor.razons && detalle.anexo.proveedor.razons !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          Razón Social: {{detalle.anexo.proveedor.razons}}
+        </razons>
+        <cedula ng-if="detalle.anexo.proveedor.cedula && detalle.anexo.proveedor.cedula !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          Ced: {{detalle.anexo.proveedor.cedula}}
+        </cedula>
+        <ruc ng-if="detalle.anexo.proveedor.ruc && detalle.anexo.proveedor.ruc !='.'" class="col-md-3 col-sm-3 col-xs-12">
+          Ruc: {{detalle.anexo.proveedor.ruc}}
+        </ruc>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Fecha:</b></td>
+      <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+      <td><b>Num. Factura</b></td>
+      <td>{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</td>
+      <td ng-if="detalle.anexo.retencion"><b>Num. Retención</b></td>
+      <td ng-if="detalle.anexo.retencion">{{detalle.anexo.ret_establecimiento}}-{{detalle.anexo.ret_puntoEmision}}-{{detalle.anexo.ret_secuencia}}</td>
+    </tr>
+  </table>
+  <table style="width: 30%;">
+    <tr>
+      <td><b>SubTotal Base 0:</b></td>
+      <td class="text-right">{{detalle.anexo.subTotal0| currency}}</td>
+    </tr>
+    <tr>
+      <td><b>SubTotal Base 12%:</b></td>
+      <td class="text-right">{{detalle.anexo.subTotalIva| currency}}</td>
+    </tr>
+    <tr ng-if="detalle.anexo.retencionSubTotalBienes">
+      <td><b>SubTotal Bienes 1%:</b></td>
+      <td class="text-right">{{detalle.anexo.retencionSubTotalBienes| currency}}</td>
+    </tr>
+    <tr ng-if="detalle.anexo.retencionIVABienes">
+      <td><b>IVA Bienes 30%:</b></td>
+      <td class="text-right">{{detalle.anexo.retencionIVABienes| currency}}</td>
+    </tr>
+    <tr ng-if="detalle.anexo.retencionSubTotalServicios">
+      <td><b>SubTotal Servicios 2%:</b></td>
+      <td class="text-right">{{detalle.anexo.retencionSubTotalServicios| currency}}</td>
+    </tr>
+    <tr ng-if="detalle.anexo.retencionIVAServicios">
+      <td><b>IVA Servicios 70%:</b></td>
+      <td class="text-right">{{detalle.anexo.retencionIVAServicios| currency}}</td>
+    </tr>
+    <tr ng-if="detalle.anexo.retencionSubTotalOcho">
+      <td><b>SubTotal retención 8%:</b></td>
+      <td class="text-right">{{detalle.anexo.retencionSubTotalOcho| currency}}</td>
+    </tr>
+    <tr ng-if="detalle.anexo.retencionIVAcien">
+      <td><b>IVA retención 100%:</b></td>
+      <td class="text-right">{{detalle.anexo.retencionIVAcien| currency}}</td>
+    </tr>
+
+    <tr ng-if="detalle.anexo.totalRetencion">
+      <td><b>Total Retención:</b></td>
+      <td class="text-right">{{detalle.anexo.totalRetencion| currency}}</td>
+    </tr>
+    <tr>
+      <td><b>IVA 12%:</b></td>
+      <td class="text-right">{{detalle.anexo.iva| currency}}</td>
+    </tr>
+    <tr>
+      <td><b>Total:</b></td>
+      <td class="text-right"><h4>{{detalle.valor| currency}}</h4></td>
+    </tr>
+  </table>
+</div>
+<div ng-if="detalle.tipo == 'vale'">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h2>Vale de Pago</h2>
+  </div>
+  <table>
+    <tr>
+      <td><b>Total:</b></td>
+      <td class="text-right"><h4>{{detalle.valor| currency}}</h4></td>
+    </tr>
+  </table>
+</div>
+<div align="right">
+  <small >Alojado en la Caja Chica con secuencial {{detalle.caja.secuencial}}</small>
+</div>

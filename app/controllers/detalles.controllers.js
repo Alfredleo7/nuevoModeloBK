@@ -845,7 +845,9 @@ exports.detallesOfCelda = function(req, res){
 
   Detalle.find(query,null,{sort:{fecha: 1}},function(err, detalles){
     Usuario.populate(detalles, {path: 'administrador'}, function(err,detalles){
-      res.status(200).json(detalles);
+      Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
+        res.status(200).json(detalles);
+      })
     });
   });
 }
