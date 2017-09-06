@@ -42,6 +42,10 @@ angular.module('super').config(['$routeProvider',
     when('/reporteXCategorias', {
       templateUrl: 'app_Angular/Super/views/reporte-categoria.view.html',
       controller: 'reporte-categoria.controller'
+    }).
+    when('/detalles/:anio/:mes/:sucursal/:categoria', {
+      templateUrl: 'app_Angular/Super/views/view_celda.view.html',
+      controller: 'view_celda.controller'
     });
   }
 ]);

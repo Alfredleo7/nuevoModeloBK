@@ -817,3 +817,26 @@ exports.valorXMesSucursalCategoria =  function(req, res){
     }
   )
 }
+
+exports.detallesOfCelda = function(req, res){
+  Detalle.find(
+    {
+      $and: [
+        {
+          fecha: {
+            $gte: new Date(Number(req.params.anio)+','+Number(req.params.mes)),
+            $lt: new Date(Number(req.params.anio)+','+Number(Number(req.params.mes)+1))
+          }
+        },
+        {
+          estado: 'Aprobado'
+        },
+        {
+          cargado: req.params.sucursal
+        }
+      ]
+    },function(err, detalles){
+      res.status(200).json(detalles);
+    }
+  )
+}
