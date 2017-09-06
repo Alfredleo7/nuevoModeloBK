@@ -52,7 +52,7 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
     $scope.printDiv = function(IdDiv, tipo){
 
       var divToPrint = jQuery(IdDiv).html();
-      var newWin = window.open('', 'my div','left=20,top=20,width=1000,height=750,toolbar=1,resizable=0');
+      var newWin = window.open('', 'my div','left=0,top=0,width=5000,height=5000,toolbar=1,resizable=0');
 
       var fecha = new Date();
       var mes = Number(fecha.getMonth()) + 1;
@@ -65,13 +65,11 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
       newWin.document.write('</head><body>');
       newWin.document.write(divToPrint);
       newWin.document.write('</body>');
-
       newWin.document.write('<script type="text/javascript">');
       newWin.document.write('window.print();');
       newWin.document.write('window.close();');
       newWin.document.write('</script>');
       newWin.document.write('</html>');
-      //setTimeout(function () { newWin.close(); }, 3000);
     };
 
     $scope.exportExcel = function (IdDiv, tipo) {

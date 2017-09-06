@@ -42,7 +42,7 @@ angular.module('administrador').controller('view-detalle.controller',['$scope','
 
     $scope.printDiv = function(IdDiv, titulo){
       var divToPrint = jQuery(IdDiv).html();
-      var newWin = window.open('', 'my div');
+      var newWin = window.open('', 'my div','left=0,top=0,width=5000,height=5000,toolbar=1,resizable=0');
 
       var fecha = new Date();
       var fechaTitle = fecha.getDate()+'-'+fecha.getMonth()+'-'+fecha.getFullYear();
@@ -51,12 +51,14 @@ angular.module('administrador').controller('view-detalle.controller',['$scope','
       newWin.document.write('<link href="/css/bootstrap.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
-      newWin.document.write('</head><body onload="window.print()">');
+      newWin.document.write('</head><body>');
       newWin.document.write(divToPrint);
       newWin.document.write('</body>');
+      newWin.document.write('<script type="text/javascript">');
+      newWin.document.write('window.print();');
+      newWin.document.write('window.close();');
+      newWin.document.write('</script>');
       newWin.document.write('</html>');
-      newWin.document.close();
-      setTimeout(function () { newWin.close(); }, 3000);
     }
 
   }
