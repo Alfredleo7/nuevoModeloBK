@@ -52,7 +52,7 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
     $scope.printDiv = function(IdDiv, tipo){
 
       var divToPrint = jQuery(IdDiv).html();
-      var newWin = window.open('', 'my div');
+      var newWin = window.open('', 'my div','left=20,top=20,width=1000,height=750,toolbar=1,resizable=0');
 
       var fecha = new Date();
       var mes = Number(fecha.getMonth()) + 1;
@@ -62,12 +62,16 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
       newWin.document.write('<link href="/css/bootstrap.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">');
       newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
-      newWin.document.write('</head><body onload="window.print()">');
+      newWin.document.write('</head><body>');
       newWin.document.write(divToPrint);
       newWin.document.write('</body>');
+
+      newWin.document.write('<script type="text/javascript">');
+      newWin.document.write('window.print();');
+      newWin.document.write('window.close();');
+      newWin.document.write('</script>');
       newWin.document.write('</html>');
-      newWin.document.close();
-      setTimeout(function () { newWin.close(); }, 3000);
+      //setTimeout(function () { newWin.close(); }, 3000);
     };
 
     $scope.exportExcel = function (IdDiv, tipo) {
@@ -128,9 +132,10 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
       console.log($scope.graficoModal);
     };
 
-    $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){
-      if(valor != 0){
-        $location.path('reporteSucursal/'+tipo+'/'+anio+'/'+mes+'/'+nombre);
+    $scope.verDetallesCelda = function(sucursal,mes,condicion){
+      if(condicion){
+        $location.path('detalles/'+$scope.filtro.anio+'/'+mes+'/'+sucursal+'/'+$scope.filtro.categoria);
+        //console.log('reporteSucursal/'+$scope.filtro.anio+'/'+mes+'/'+sucursal+'/'+$scope.filtro.categoria);
       }
     }
 
