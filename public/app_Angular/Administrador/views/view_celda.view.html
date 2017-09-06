@@ -1,0 +1,75 @@
+<section>
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="btn-group">
+        <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <div class="btn-group"n style="float: right;">
+        <a class="btn btn-sm btn-default" ng-click="printDiv('#detallesByCelda', 'Detalles '+ data.nombre+' '+nameMes+' del '+data.anio)"><i class="fa fa-print"></i> Imprimir</a>
+      </div>
+    </div>
+  </div>
+  <div id="detallesByCelda" class="x_panel">
+    <div class="x_title">
+      <div class="row">
+        <div class="col-md-8 col-sm-8 col-xs-8">
+          <h4>{{getSucursal()}}{{getCategoria()}}{{getDate()}}</h4>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4">
+          <div align="right">
+            {{ today | date: "dd' de ' MMMM ' del ' y"}}
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <table id="datatable-buttons" class="table table-bordered">
+        <thead>
+          <tr class="active">
+            <th>Fecha</th>
+            <th>Factura</th>
+            <th ng-if="sucursal == 'Todas'">Sucursal</th>
+            <th>Pagado a</th>
+            <th ng-if="categoria == 'Todas'">Categoria</th>
+            <th>Descripción</th>
+            <th>Aprobado por</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="filaLink" data-toggle="modal" data-target=".viewDetalle" data-ng-click="getDetalle(detalle)" data-ng-repeat="detalle in detalles">
+            <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
+            <td ng-if="sucursal == 'Todas'" data-ng-bind="detalle.cargado"></td>
+            <td data-ng-bind="detalle.entregado"></td>
+            <td ng-if="categoria == 'Todas'" data-ng-bind="detalle.categoria"></td>
+            <td data-ng-bind="detalle.descripcion"></td>
+            <td>{{detalle.administrador.firstName}} {{detalle.administrador.lastName}}</td>
+            <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
+          </tr>
+        </tbody>
+      </table>
+      <h4 style="float: right;">Total {{total | currency}}</h4>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade viewDetalle" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-md"  role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4>Detalle</h4>
+      </div>
+      <div class="modal-body">
+        <section ng-include="'app_Angular/Super/views/view_detalle.view.html'"></section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

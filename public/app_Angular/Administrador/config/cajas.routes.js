@@ -46,6 +46,10 @@ angular.module('administrador').config(['$routeProvider',
     when('/CambiarContrasena', {
       templateUrl: 'app_Angular/Administrador/views/cambiarContrasena.view.html',
       controller: 'cambiarContrasena.controller'
+    }).
+    when('/detalles/:anio/:mes/:sucursal/:categoria', {
+      templateUrl: 'app_Angular/Super/views/view_celda.view.html',
+      controller: 'view_celda.controller'
     });
   }
 ]);
