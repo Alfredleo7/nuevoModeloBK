@@ -135,7 +135,6 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
     $scope.verDetallesCelda = function(sucursal,mes,condicion){
       if(condicion){
         $location.path('detalles/'+$scope.filtro.anio+'/'+mes+'/'+sucursal+'/'+$scope.filtro.categoria);
-        //console.log('reporteSucursal/'+$scope.filtro.anio+'/'+mes+'/'+sucursal+'/'+$scope.filtro.categoria);
       }
     }
 

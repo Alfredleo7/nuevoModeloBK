@@ -140,6 +140,12 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
       }
     }
 
+    $scope.verDetallesCelda = function(categoria,mes,condicion){
+      if(condicion){
+        $location.path('detalles/'+$scope.filtro.anio+'/'+mes+'/'+$scope.filtro.sucursal+'/'+categoria);
+      }
+    }
+
     $scope.onClick = function (grafico) {
       $scope.graficoModal=grafico;
       console.log($scope.graficoModal);
