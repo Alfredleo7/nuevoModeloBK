@@ -819,7 +819,60 @@ exports.valorXMesSucursalCategoria =  function(req, res){
 }
 
 exports.detallesOfCelda = function(req, res){
-  var query = {
+
+  var project = {
+    $project: {
+      fecha: "$fecha",
+      mes: { $month: "$fecha"},
+      anio: { $year: "$fecha" },
+      anexo: "$anexo",
+      tipo: "$tipo",
+      entregado: "$entregado",
+      categoria: "$categoria",
+      cargado: "$cargado",
+      descripcion: "$descripcion",
+      administrador: "$administrador",
+      valor: "$valor",
+      estado: "$estado",
+      caja: "$caja"
+    }
+  };
+
+  var match = {
+    $match:{
+      anio: {
+        $eq: Number(req.params.anio)
+      },
+      mes: {
+        $eq: Number(req.params.mes)
+      },
+      estado: 'Aprobado'
+    }
+  };
+
+  if(req.params.categoria != 'Todas'){
+    match.$match.categoria = req.params.categoria;
+  }
+
+  if(req.params.sucursal != 'Todas'){
+    match.$match.cargado = req.params.sucursal;
+  }
+
+  Detalle.aggregate([project, match],function(err, detalles){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      Usuario.populate(detalles, {path: 'administrador'}, function(err,detalles){
+        Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
+          res.status(200).json(detalles);
+        })
+      });
+    }
+  })
+
+  /*var query = {
     $and: [
       {
         fecha: {
@@ -841,13 +894,13 @@ exports.detallesOfCelda = function(req, res){
     query.$and.push({
       cargado: req.params.sucursal
     });
-  }
+  }*/
 
-  Detalle.find(query,null,{sort:{fecha: 1}},function(err, detalles){
+  /*Detalle.find(query,null,{sort:{fecha: 1}},function(err, detalles){
     Usuario.populate(detalles, {path: 'administrador'}, function(err,detalles){
       Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
         res.status(200).json(detalles);
       })
     });
-  });
+  });*/
 }
