@@ -32,9 +32,9 @@ angular.module('administrador').controller('view_celda.controller', ['$scope','$
       for(var i in $scope.detalles){
         $scope.total = Number($scope.total) + Number($scope.detalles[i].valor);
       }
-    }, function(errorResponse){
+    }, function(errorResponse) {
       $('#loadLogo').hide();
-      console.log(errorResponse.data);
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $scope.back = function(){

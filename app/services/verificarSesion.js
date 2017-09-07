@@ -3,7 +3,7 @@
 exports.hasSession = function(req, res, next){
   if(!req.session.usuario){
     res.status(500).send({
-      message: 'Su sesión ha finalizado, por favor actualice la página'
+      message: 'Su sesión ha finalizado o hubo una actualización del sistema, por favor actualice la página.'
     });
   } else {
     next();
