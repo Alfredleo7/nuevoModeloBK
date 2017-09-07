@@ -3,6 +3,7 @@
 angular.module('general').controller('view-caja.controller',['$scope','$http','$routeParams','$location',
   function($scope,$http,$routeParams,$location){
 
+
     $scope.init = function(){
       $('#loadLogo').show();
       $http({
@@ -10,6 +11,7 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
         url: '/api/cajas/'+$routeParams.cajaId
       }).then(function(response){
         $scope.caja = response.data;
+        $scope.estado = $scope.caja.estado;
         $('#loadLogo').hide();
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
@@ -30,10 +32,10 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
     };
 
     $scope.back = function(){
-      if($scope.caja.estado == 'Borrador')$location.path('/CreacionCajas');
-      if($scope.caja.estado == 'Pendiente')$location.path('/CajasEnviadas');
-      if($scope.caja.estado == 'Aprobado')$location.path('/CajasAprobadas');
-      if($scope.caja.estado == 'Rechazado')$location.path('/CajasRechazadas');
+      if($scope.estado == 'Borrador')$location.path('/CreacionCajas');
+      if($scope.estado == 'Pendiente')$location.path('/CajasEnviadas');
+      if($scope.estado == 'Aprobado')$location.path('/CajasAprobadas');
+      if($scope.estado == 'Rechazado')$location.path('/CajasRechazadas');
     };
 
     $scope.go = function(caja, detalle){
@@ -143,9 +145,10 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
           $http({
             method: 'PUT',
             url: '/api/enviarCaja/' + caja._id
-          }).then(function(){
+          }).then(function(response){
             enviarDetallesByCaja(caja);
-            $scope.back();
+            $scope.caja = response.data;
+            setTimeout(function(){ $scope.printDiv('#reporteDetalles', 'Detalles de la caja'); }, 500);
             $('#loadLogo').hide();
           }, function(errorResponse) {
             mostrarNotificacion(errorResponse.data.message);
@@ -175,10 +178,12 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
       newWin.document.write(divToPrint);
       newWin.document.write('____________________<br>');
       newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
-      newWin.document.write('<hr>');
-      newWin.document.write(divToPrint);
-      newWin.document.write('____________________<br>');
-      newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
+      if($scope.caja.estado == 'Aprobado'){
+        newWin.document.write('<hr>');
+        newWin.document.write(divToPrint);
+        newWin.document.write('____________________<br>');
+        newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
+      }
       newWin.document.write('</body>');
       newWin.document.write('<script type="text/javascript">');
       newWin.document.write('window.print();');
