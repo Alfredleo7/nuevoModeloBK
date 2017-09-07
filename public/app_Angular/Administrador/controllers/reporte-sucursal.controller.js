@@ -122,6 +122,9 @@ angular.module('administrador').controller('reporte-sucursal.controller', ['$sco
           });
         }
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       });
     }
 

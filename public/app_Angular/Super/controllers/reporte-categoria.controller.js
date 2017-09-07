@@ -130,9 +130,15 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
             url: '/api/montosBySucursal/'+$scope.filtro.sucursal
           }).then(function(response){
             $scope.montosMaximos = response.data;
+          }, function(errorResponse){
+            $('#loadLogo').hide();
+            mostrarNotificacion(errorResponse.data.message);
           })
         }
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       });
     }
 

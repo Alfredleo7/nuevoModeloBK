@@ -1,6 +1,7 @@
 'use strict';
 
 var usuarios = require('../controllers/usuarios.controllers');
+var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
   app.route('/')
@@ -12,26 +13,26 @@ module.exports = function(app) {
     });
 
   app.route('/api/usuarios')
-    .get(usuarios.list)
+    .get(verify.hasSession, verify.isSuper, usuarios.list)
     .post(usuarios.signUp);
 
   app.route('/api/usuarios/:usuarioId')
-    .delete(usuarios.deleteUsuario)
-    .put(usuarios.updateUsuario);
+    .delete(verify.hasSession, verify.isSuper, usuarios.deleteUsuario)
+    .put(verify.hasSession, usuarios.updateUsuario);
 
   app.route('/api/usuariosLogin')
     .post(usuarios.signIn);
   app.route('/api/usuariosLogout')
-    .get(usuarios.singOut);
+    .get(verify.hasSession, usuarios.singOut);
 
   app.route('/api/usuariosPassword')
-    .put(usuarios.haySession, usuarios.cambiarPassword);
+    .put(verify.hasSession, usuarios.haySession, usuarios.cambiarPassword);
 
   app.route('/api/usuarios/:tipo')
-    .get(usuarios.usuariosByTipo);
+    .get(verify.hasSession, verify.isSuper, usuarios.usuariosByTipo);
 
   app.route('/api/Credencial')
-    .get(usuarios.getCredencial);
+    .get(verify.hasSession, usuarios.getCredencial);
 
   app.param('usuarioId', usuarios.usuariosByID);
 

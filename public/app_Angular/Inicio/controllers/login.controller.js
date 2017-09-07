@@ -12,12 +12,9 @@ angular.module('inicio').controller('login.controller', ['$scope','$http',
         data: $scope.usuario
       }).then(function(response){
         window.location.href="/";
-      },function(errorResponse){
+      }, function(errorResponse){
         $('#loadLogo').hide();
-        new PNotify({
-          text:errorResponse.data.message,
-          styling: 'bootstrap3'
-        })
+        mostrarNotificacion(errorResponse.data.message);
       })
     };
 

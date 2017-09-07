@@ -18,12 +18,9 @@ angular.module('inicio').controller('logup.controller', ['$scope','$http',
           });
           $('#loadLogo').hide();
           window.location.href="#signin";
-        },function(errorResponse){
+        }, function(errorResponse){
           $('#loadLogo').hide();
-          new PNotify({
-            text:errorResponse.data.message,
-            styling: 'bootstrap3'
-          })
+          mostrarNotificacion(errorResponse.data.message);
         });
       } else {
         new PNotify({
@@ -41,6 +38,9 @@ angular.module('inicio').controller('logup.controller', ['$scope','$http',
       }).then(function(response){
         $('#loadLogo').hide();
         $scope.empresas = response.data;
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 
@@ -54,6 +54,9 @@ angular.module('inicio').controller('logup.controller', ['$scope','$http',
         }).then(function(response){
           $('#loadLogo').hide();
           $scope.sucursales = response.data;
+        }, function(errorResponse){
+          $('#loadLogo').hide();
+          mostrarNotificacion(errorResponse.data.message);
         })
       }
 

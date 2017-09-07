@@ -11,6 +11,9 @@ angular.module('super').controller('view_super.controller', ['$scope','$http',
       }).then(function(response){
         $scope.usuarios = response.data;
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 

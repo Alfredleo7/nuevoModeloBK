@@ -1,52 +1,53 @@
 'use strict';
 
 var detalles = require('../controllers/detalles.controllers');
+var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
   app.route('/api/detalles')
-    .get(detalles.list)
-    .post(detalles.create);
+    .get(verify.hasSession, detalles.list)
+    .post(verify.hasSession, verify.isOperario, detalles.create);
 
   app.route('/api/detalles/:detalleId')
-    .get(detalles.read)
-    .put(detalles.update)
-    .delete(detalles.delete);
+    .get(verify.hasSession, detalles.read)
+    .put(verify.hasSession, verify.isOperario, detalles.update)
+    .delete(verify.hasSession, verify.isOperario, detalles.delete);
 
   app.route('/api/detallesByCaja/:idCaja')
-    .get(detalles.listByCaja)
-    .delete(detalles.deleteByCaja)
-    .put(detalles.estadoByCaja);
+    .get(verify.hasSession, detalles.listByCaja)
+    .delete(verify.hasSession, verify.isOperario, detalles.deleteByCaja)
+    .put(verify.hasSession, detalles.estadoByCaja);
 
   app.route('/api/reporteXSucursal')
-    .post(detalles.reporteXSucursal);
+    .post(verify.hasSession, detalles.reporteXSucursal);
 
   app.param('detalleId', detalles.detalleByID);
 
   app.route('/api/aniosDetalles')
-    .get(detalles.yearOfDetalles);
+    .get(verify.hasSession, detalles.yearOfDetalles);
 
   app.route('/api/categoriasXYear/:anio')
-    .get(detalles.categoriaDetallesXYear);
+    .get(verify.hasSession, detalles.categoriaDetallesXYear);
 
   app.route('/api/sucursalesXYear/:anio')
-    .get(detalles.sucursalesDetallesXYear);
+    .get(verify.hasSession, detalles.sucursalesDetallesXYear);
 
   app.route('/api/reporteXCategoria')
-    .post(detalles.reporteXCategoria);
+    .post(verify.hasSession, detalles.reporteXCategoria);
 
   app.route('/api/detallesByCelda')
-    .post(detalles.detallesByCelda);
+    .post(verify.hasSession, detalles.detallesByCelda);
 
   app.route('/api/aniosDetalleBySucursal')
-    .get(detalles.getAniosDetalleBySucursal);
+    .get(verify.hasSession, detalles.getAniosDetalleBySucursal);
 
   app.route('/api/DetallesBySucursal/:anio')
-    .get(detalles.getDetallesBySucursal);
+    .get(verify.hasSession, detalles.getDetallesBySucursal);
 
   app.route('/api/valorXMesSucursalCategoria/:sucursal/:categoria/:mes/:anio')
-    .get(detalles.valorXMesSucursalCategoria);
+    .get(verify.hasSession, detalles.valorXMesSucursalCategoria);
 
   app.route('/api/detallesOfCelda/:anio/:mes/:sucursal/:categoria')
-    .get(detalles.detallesOfCelda);
+    .get(verify.hasSession, detalles.detallesOfCelda);
 
 }

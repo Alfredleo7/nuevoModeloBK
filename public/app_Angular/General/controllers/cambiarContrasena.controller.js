@@ -5,6 +5,7 @@ angular.module('general').controller('cambiarContrasena.controller',['$scope','$
 
     $scope.actualizar = function(){
       if($scope.body.newPassword == $scope.newPasswordRepet){
+        $('#loadLogo').show();
         $http({
           method: 'PUT',
           url: '/api/usuariosPassword',
@@ -12,7 +13,9 @@ angular.module('general').controller('cambiarContrasena.controller',['$scope','$
         }).then(function(response){
           mostrarNotificacion(response.data.message);
           $location.path('/');
+          $('#loadLogo').hide();
         }, function(errorResponse){
+          $('#loadLogo').hide();
           mostrarNotificacion(errorResponse.data.message);
         });
       } else {

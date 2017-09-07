@@ -399,9 +399,15 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
                   guardarDetalle();
                 }
 
+              }, function(errorResponse){
+                $('#loadLogo').hide();
+                mostrarNotificacion(errorResponse.data.message);
               })
             }
           }
+        }, function(errorResponse){
+          $('#loadLogo').hide();
+          mostrarNotificacion(errorResponse.data.message);
         })
 
         /*$http({

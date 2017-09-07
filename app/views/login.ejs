@@ -55,6 +55,13 @@
 
 
     <script type="text/javascript">
+    var mostrarNotificacion = function(mensaje) {
+      new PNotify({
+                      title: 'Advertencia',
+                      text: mensaje,
+                      styling: 'bootstrap3'
+                  });
+    }
     $('#loadLogo').hide();
     </script>
   </body>

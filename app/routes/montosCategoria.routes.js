@@ -1,22 +1,23 @@
 'use stric';
 
 var montosCategorias = require('../controllers/montosCategoria.controllers');
+var verify = require('../services/verificarSesion');
 
 module.exports = function(app){
   app.route('/api/montosCategorias/:categoriaId')
-    .get(montosCategorias.listByCategoria);
+    .get(verify.hasSession, montosCategorias.listByCategoria);
   app.route('/api/montosCategorias')
-    .post(montosCategorias.create);
+    .post(verify.hasSession, montosCategorias.create);
   app.route('/api/deleteMontosCategorias/:montoId')
-    .delete(montosCategorias.delete);
+    .delete(verify.hasSession, montosCategorias.delete);
   app.route('/api/updateMontosCategorias/:montoId')
-    .put(montosCategorias.update);
+    .put(verify.hasSession, montosCategorias.update);
   app.route('/api/deleteMontosCategoriasByCategoria/:categoriaId')
-    .delete(montosCategorias.deleteByCategoria);
+    .delete(verify.hasSession, montosCategorias.deleteByCategoria);
   app.route('/api/montosBySucursal/:sucursal')
-    .get(montosCategorias.montoBySucursal);
+    .get(verify.hasSession, montosCategorias.montoBySucursal);
   app.route('/api/montoBySucursalCategoria/:sucursal/:categoria')
-    .get(montosCategorias.montoBySucursalCategoria);
+    .get(verify.hasSession, montosCategorias.montoBySucursalCategoria);
   app.route('/api/montoBySucursalSession')
-    .get(montosCategorias.montoBySucursalSession);
+    .get(verify.hasSession, montosCategorias.montoBySucursalSession);
 }

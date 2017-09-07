@@ -9,6 +9,7 @@ angular.module('general').controller('caja.controller', ['$scope','$http','$loca
         method: 'POST',
         url: '/api/cajas'
       }).then(function(response){
+        console.log(response);
         $location.path('caja/' + response.data._id);
         new PNotify({
           text: 'La caja chica se ha creado con éxito',

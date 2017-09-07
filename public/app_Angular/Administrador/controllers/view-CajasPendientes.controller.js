@@ -39,6 +39,9 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
           }
         }
       }
+    }, function(errorResponse){
+      $('#loadLogo').hide();
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $scope.ver = function(sucursal){
@@ -55,7 +58,8 @@ angular.module('administrador').controller('view-CajasPendientes.controller', ['
         localStorageService.set('idSucursalPendiente', sucursal._id);
         $scope.cajas = response.data;
       }, function(errorResponse){
-        console.log(errorResponse);
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 

@@ -24,6 +24,9 @@ angular.module('administrador').controller('detallesByCeldaCategoria.controller'
           $scope.total += $scope.detalles[i].valor;
         }
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       });
 
       switch ($scope.data.mes) {

@@ -122,6 +122,9 @@ angular.module('super').controller('reporte-sucursal.controller', ['$scope','$ht
           });
         }
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       });
     }
 

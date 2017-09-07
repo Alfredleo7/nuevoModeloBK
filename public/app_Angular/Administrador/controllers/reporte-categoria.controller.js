@@ -133,6 +133,9 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
           })
         }
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       });
     }
 

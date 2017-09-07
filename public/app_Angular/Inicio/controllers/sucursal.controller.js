@@ -11,11 +11,14 @@ angular.module('inicio').controller('sucursal.controller', ['$scope','$http',
       }).then(function(response){
         console.log(response.data);
         $scope.empresas = response.data;
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 
     $scope.guardar = function(){
-      
+
       $http({
         method: 'POST',
         url: '/api/sucursales',
@@ -23,7 +26,8 @@ angular.module('inicio').controller('sucursal.controller', ['$scope','$http',
       }).then(function(response){
         console.log(response.data);
       }, function(errorResponse){
-        console.log(errorResponse.data);
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 

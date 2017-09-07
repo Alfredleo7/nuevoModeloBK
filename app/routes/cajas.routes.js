@@ -1,52 +1,53 @@
 'use strict';
 
 var cajas = require('../controllers/cajas.controllers');
+var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
   app.route('/api/cajas')
-    .get(cajas.list)
-    .post(cajas.create);
+    .get(verify.hasSession, cajas.list)
+    .post(verify.hasSession, verify.isOperario, cajas.create);
 
   app.route('/api/cajas/:cajaId')
-    .get(cajas.read)
-    .put(cajas.update)
-    .delete(cajas.delete);
+    .get(verify.hasSession, cajas.read)
+    .put(verify.hasSession, verify.isNotSuper, cajas.update)
+    .delete(verify.hasSession, verify.isOperario, cajas.delete);
 
   app.route('/api/cajasByUsuario/:estado')
-    .get(cajas.listByUsuario);
+    .get(verify.hasSession, cajas.listByUsuario);
 
   app.route('/api/cajasPendientes')
-    .get(cajas.listPendientes);
+    .get(verify.hasSession, cajas.listPendientes);
 
   app.route('/api/cajasAprobadas')
-    .get(cajas.listAprobados);
+    .get(verify.hasSession, cajas.listAprobados);
 
   app.route('/api/cajasRechazadas')
-    .get(cajas.listRechazados);
+    .get(verify.hasSession, cajas.listRechazados);
 
   app.route('/api/aprobarCaja/:cajaId')
-    .put(cajas.aprobar);
+    .put(verify.hasSession, verify.isAdministrador, cajas.aprobar);
 
   app.route('/api/rechazarCaja/:cajaId')
-    .put(cajas.rechazar);
+    .put(verify.hasSession, verify.isAdministrador, cajas.rechazar);
 
   app.route('/api/enviarCaja/:cajaId')
-    .put(cajas.enviar);
+    .put(verify.hasSession, verify.isOperario, cajas.enviar);
 
   app.route('/api/cajasConSecuencial')
-    .get(cajas.cajasConSecuencial);
+    .get(verify.hasSession, cajas.cajasConSecuencial);
 
   app.route('/api/SurcursalesConCajasPendientes')
-    .get(cajas.getSurcursalesConCajasPendientes);
+    .get(verify.hasSession, cajas.getSurcursalesConCajasPendientes);
 
   app.route('/api/SurcursalesConCajasAprobadas')
-    .get(cajas.getSurcursalesConCajasAprobadas);
+    .get(verify.hasSession, cajas.getSurcursalesConCajasAprobadas);
 
   app.route('/api/CajasPendientesBySucursal/:sucursalId')
-    .get(cajas.getCajasPendientesBySucursal);
+    .get(verify.hasSession, cajas.getCajasPendientesBySucursal);
 
   app.route('/api/CajasAprobadasBySucursal/:sucursalId')
-    .get(cajas.getCajasAprobadasBySucursal);
+    .get(verify.hasSession, cajas.getCajasAprobadasBySucursal);
 
   app.param('cajaId', cajas.cajaByID);
 }

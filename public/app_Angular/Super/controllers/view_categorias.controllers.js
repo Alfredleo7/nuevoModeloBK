@@ -61,6 +61,9 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
     }).then(function(response){
       $('#loadLogo').hide();
       $scope.empresas = response.data;
+    }, function(errorResponse){
+      $('#loadLogo').hide();
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $scope.init = function(){
@@ -72,6 +75,9 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         $('#loadLogo').hide();
         $scope.categorias = response.data;
         inicializarSelected();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 
@@ -92,7 +98,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         }, '500', 'linear');
       }, function(errorResponse){
         $('#loadLogo').hide();
-        console.log(errorResponse);
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 
@@ -105,6 +111,9 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         }).then(function(response){
           $('#loadLogo').hide();
           $scope.sucursales = response.data;
+        }, function(errorResponse){
+          $('#loadLogo').hide();
+          mostrarNotificacion(errorResponse.data.message);
         })
       }
     }

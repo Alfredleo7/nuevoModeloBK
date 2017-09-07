@@ -12,6 +12,9 @@ angular.module('super').controller('view_cajas.controller', ['$scope','$http',
         $scope.cajas = response.data;
         console.log($scope.cajas);
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 

@@ -34,7 +34,7 @@ angular.module('super').controller('view_celda.controller', ['$scope','$http','$
       }
     }, function(errorResponse){
       $('#loadLogo').hide();
-      console.log(errorResponse.data);
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $scope.back = function(){

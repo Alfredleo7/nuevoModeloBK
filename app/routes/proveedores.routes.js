@@ -1,14 +1,15 @@
 'use strict';
 
 var proveedores = require('../controllers/proveedores.controllers');
+var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
   app.route('/api/proveedores')
-    .get(proveedores.list)
-    .post(proveedores.create);
+    .get(verify.hasSession, proveedores.list)
+    .post(verify.hasSession, proveedores.create);
   app.route('/api/proveedores/:proveedorId')
-    .put(proveedores.update)
-    .get(proveedores.read)
-    .delete(proveedores.delete);
+    .put(verify.hasSession, proveedores.update)
+    .get(verify.hasSession, proveedores.read)
+    .delete(verify.hasSession, proveedores.delete);
   app.param('proveedorId', proveedores.proveedorByID);
 }

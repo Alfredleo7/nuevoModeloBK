@@ -148,6 +148,7 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
             $scope.back();
             $('#loadLogo').hide();
           }, function(errorResponse) {
+            $('#loadLogo').hide();
             mostrarNotificacion(errorResponse.data.message);
           });
         } else {

@@ -39,6 +39,9 @@ angular.module('administrador').controller('view-CajasAprobadas.controller', ['$
           }
         }
       }
+    }, function(errorResponse){
+      $('#loadLogo').hide();
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $scope.ver = function(sucursal){
@@ -56,7 +59,7 @@ angular.module('administrador').controller('view-CajasAprobadas.controller', ['$
         $scope.cajas = response.data;
       }, function(errorResponse){
         $('#loadLogo').hide();
-        console.log(errorResponse);
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 

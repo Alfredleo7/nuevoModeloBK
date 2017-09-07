@@ -19,7 +19,7 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
       $scope.getReporte();
     }, function(errorResponse){
       $('#loadLogo').hide();
-      console.log(errorResponse.data);
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $('#loadLogo').show();
@@ -31,7 +31,7 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
       $scope.montos = response.data;
     }, function(errorResponse){
       $('#loadLogo').hide();
-      console.log(response.data);
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $('#loadLogo').show();
@@ -43,7 +43,7 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
       $scope.usuario = response.data;
     }, function(errorResponse){
       $('#loadLogo').hide();
-      console.log(errorResponse.data);
+      mostrarNotificacion(errorResponse.data.message);
     })
 
     $scope.getReporte = function(){
@@ -86,7 +86,7 @@ angular.module('general').controller('reporte.controller', ['$scope','$http',
         }
       }, function(errorResponse){
         $('#loadLogo').hide();
-        console.log(errorResponse.data);
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 

@@ -13,6 +13,9 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
       }).then(function(response){
         $scope.usuarios = response.data;
         $('#loadLogo').hide();
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
 
       $('#loadLogo').show();
@@ -22,6 +25,9 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
       }).then(function(response){
         $('#loadLogo').hide();
         $scope.empresas = response.data;
+      }, function(errorResponse){
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
 
     }
@@ -43,12 +49,9 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
           $('#loadLogo').hide();
           $('.modalNuevoOperario').modal('hide');
           $scope.usuarios.push(response.data);
-        },function(errorResponse){
+        }, function(errorResponse){
           $('#loadLogo').hide();
-          new PNotify({
-            text:errorResponse.data.message,
-            styling: 'bootstrap3'
-          })
+          mostrarNotificacion(errorResponse.data.message);
         });
       } else {
         new PNotify({
@@ -69,6 +72,9 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
         }).then(function(response){
           $('#loadLogo').hide();
           $scope.sucursales = response.data;
+        }, function(errorResponse){
+          $('#loadLogo').hide();
+          mostrarNotificacion(errorResponse.data.message);
         })
       }
 
@@ -108,10 +114,8 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
         $scope.init();
         $('.modalEditarOperario').modal('hide');
       }, function(errorResponse){
-        new PNotify({
-          text:errorResponse.data.message,
-          styling: 'bootstrap3'
-        })
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       })
     }
 
@@ -127,10 +131,8 @@ angular.module('super').controller('view_operarios.controller', ['$scope','$http
         });
         $scope.init();
       }, function(errorResponse){
-        new PNotify({
-          text:errorResponse.data.message,
-          styling: 'bootstrap3'
-        })
+        $('#loadLogo').hide();
+        mostrarNotificacion(errorResponse.data.message);
       });
     }
 
