@@ -833,57 +833,42 @@ exports.detallesOfCelda = function(req, res){
       descripcion: "$descripcion",
       administrador: "$administrador",
       valor: "$valor",
-      estado: "$estado"
+      estado: "$estado",
+      caja: "$caja"
     }
   };
 
-  var match = {};
+  var match = {
+    $match:{
+      anio: {
+        $eq: Number(req.params.anio)
+      },
+      mes: {
+        $eq: Number(req.params.mes)
+      },
+      estado: 'Aprobado'
+    }
+  };
 
   if(req.params.categoria != 'Todas'){
-    match = {
-      $match:{
-        categoria: {
-          $eq: req.params.categoria
-        },
-        anio: {
-          $eq: Number(req.body.anio)
-        },
-        mes: {
-          $eq: Number(req.body.mes)
-        },
-        estado: {
-          $eq: 'Aprobado'
-        }
-      }
-    }
+    match.$match.categoria = req.params.categoria;
   }
 
   if(req.params.sucursal != 'Todas'){
-    match = {
-      $match:{
-        cargado: {
-          $eq: req.params.sucursal
-        },
-        anio: {
-          $eq: Number(req.body.anio)
-        },
-        mes: {
-          $eq: Number(req.body.mes)
-        },
-        estado: {
-          $eq: 'Aprobado'
-        }
-      }
-    }
+    match.$match.cargado = req.params.sucursal;
   }
 
-  Detalle.aggregate([project],function(err, detalles){
+  Detalle.aggregate([project, match],function(err, detalles){
     if(err){
       return res.status(500).send({
         message: getErrorMessage(err)
       });
     } else {
-      return res.status(200).json(detalles);
+      Usuario.populate(detalles, {path: 'administrador'}, function(err,detalles){
+        Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
+          res.status(200).json(detalles);
+        })
+      });
     }
   })
 
