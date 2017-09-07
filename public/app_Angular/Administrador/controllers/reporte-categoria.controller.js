@@ -125,11 +125,15 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
         }
 
         if($scope.filtro.sucursal != 'Todas'){
+          $('#loadLogo').show();
           $http({
             method: 'GET',
             url: '/api/montosBySucursal/'+$scope.filtro.sucursal
           }).then(function(response){
             $scope.montosMaximos = response.data;
+          }, function(errorResponse){
+            $('#loadLogo').hide();
+            mostrarNotificacion(errorResponse.data.message);
           })
         }
         $('#loadLogo').hide();
