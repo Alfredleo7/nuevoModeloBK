@@ -819,7 +819,75 @@ exports.valorXMesSucursalCategoria =  function(req, res){
 }
 
 exports.detallesOfCelda = function(req, res){
-  var query = {
+
+  var project = {
+    $project: {
+      fecha: "$fecha",
+      mes: { $month: "$fecha"},
+      anio: { $year: "$fecha" },
+      anexo: "$anexo",
+      tipo: "$tipo",
+      entregado: "$entregado",
+      categoria: "$categoria",
+      cargado: "$cargado",
+      descripcion: "$descripcion",
+      administrador: "$administrador",
+      valor: "$valor",
+      estado: "$estado"
+    }
+  };
+
+  var match = {};
+
+  if(req.params.categoria != 'Todas'){
+    match = {
+      $match:{
+        categoria: {
+          $eq: req.params.categoria
+        },
+        anio: {
+          $eq: Number(req.body.anio)
+        },
+        mes: {
+          $eq: Number(req.body.mes)
+        },
+        estado: {
+          $eq: 'Aprobado'
+        }
+      }
+    }
+  }
+
+  if(req.params.sucursal != 'Todas'){
+    match = {
+      $match:{
+        cargado: {
+          $eq: req.params.sucursal
+        },
+        anio: {
+          $eq: Number(req.body.anio)
+        },
+        mes: {
+          $eq: Number(req.body.mes)
+        },
+        estado: {
+          $eq: 'Aprobado'
+        }
+      }
+    }
+  }
+
+  Detalle.aggregate([project],function(err, detalles){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(detalles);
+    }
+  })
+
+  /*var query = {
     $and: [
       {
         fecha: {
@@ -841,13 +909,13 @@ exports.detallesOfCelda = function(req, res){
     query.$and.push({
       cargado: req.params.sucursal
     });
-  }
+  }*/
 
-  Detalle.find(query,null,{sort:{fecha: 1}},function(err, detalles){
+  /*Detalle.find(query,null,{sort:{fecha: 1}},function(err, detalles){
     Usuario.populate(detalles, {path: 'administrador'}, function(err,detalles){
       Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
         res.status(200).json(detalles);
       })
     });
-  });
+  });*/
 }
