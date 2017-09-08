@@ -29,15 +29,15 @@
       <table id="datatable-buttons" class="table table-bordered">
         <thead>
           <tr class="active">
-            <th ng-click="onFiltro('fecha')">Día <div style="float:right"><i ng-if="!reverse && field=='fecha'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && field=='fecha'" class="fa fa-sort-amount-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('fecha')">Día <div style="float:right"><i ng-if="!reverse && field=='fecha'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && field=='fecha'" class="fa fa-sort-amount-desc"></i></div></th>
             <th>Factura</th>
-            <th ng-click="onFiltro('cargado')" ng-if="sucursal == 'Todas'">Sucursal <div style="float:right"><i ng-if="!reverse && field=='cargado'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='cargado'" class="fa fa-sort-alpha-desc"></i></div></th>
-            <th ng-click="onFiltro('entregado')">Pagado a <div style="float:right"><i ng-if="!reverse && field=='entregado'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='entregado'" class="fa fa-sort-alpha-desc"></i></div></th>
-            <th ng-click="onFiltro('anexo.proveedor.razons')">Proveedor <div style="float:right"><i ng-if="!reverse && field=='anexo.proveedor.razons'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='anexo.proveedor.razons'" class="fa fa-sort-alpha-desc"></i></div></th>
-            <th ng-click="onFiltro('categoria')" ng-if="categoria == 'Todas'">Categoria <div style="float:right"><i ng-if="!reverse && field=='categoria'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='categoria'" class="fa fa-sort-alpha-desc"></i></div></th>
-            <th ng-click="onFiltro('descripcion')">Descripción  <div style="float:right"><i ng-if="!reverse && field=='descripcion'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='descripcion'" class="fa fa-sort-alpha-desc"></i></div></th>
-            <th ng-click="onFiltro('administrador.firstName')">Aprobado por <div style="float:right"><i ng-if="!reverse && field=='administrador.firstName'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='administrador.firstName'" class="fa fa-sort-alpha-desc"></i></div></th>
-            <th ng-click="onFiltro('valor')">Valor <div style="float:right"><i ng-if="!reverse && field=='valor'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && field=='valor'" class="fa fa-sort-amount-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('cargado')" ng-if="sucursal == 'Todas'">Cargado a <div style="float:right"><i ng-if="!reverse && field=='cargado'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='cargado'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('entregado')">Pagado a <div style="float:right"><i ng-if="!reverse && field=='entregado'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='entregado'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('anexo.proveedor.razons')">Proveedor <div style="float:right"><i ng-if="!reverse && field=='anexo.proveedor.razons'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='anexo.proveedor.razons'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('categoria')" ng-if="categoria == 'Todas'">Categoria <div style="float:right"><i ng-if="!reverse && field=='categoria'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='categoria'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('descripcion')">Descripción  <div style="float:right"><i ng-if="!reverse && field=='descripcion'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='descripcion'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('administrador.firstName')">Aprobado por <div style="float:right"><i ng-if="!reverse && field=='administrador.firstName'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='administrador.firstName'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('valor')">Valor <div style="float:right"><i ng-if="!reverse && field=='valor'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && field=='valor'" class="fa fa-sort-amount-desc"></i></div></th>
           </tr>
         </thead>
         <tbody>

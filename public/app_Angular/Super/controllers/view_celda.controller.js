@@ -33,11 +33,11 @@ angular.module('super').controller('view_celda.controller', ['$scope','$http','$
       method: 'GET',
       url: '/api/detallesOfCelda/'+$routeParams.anio+'/'+$routeParams.mes+'/'+$routeParams.sucursal+'/'+$routeParams.categoria
     }).then(function(response){
-      console.log(response.data);
       $('#loadLogo').hide();
       $scope.detalles = response.data;
       $scope.total = 0;
       for(var i in $scope.detalles){
+        //Obtener Total
         $scope.total = Number($scope.total) + Number($scope.detalles[i].valor);
       }
     }, function(errorResponse){
