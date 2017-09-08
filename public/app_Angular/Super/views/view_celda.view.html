@@ -29,22 +29,24 @@
       <table id="datatable-buttons" class="table table-bordered">
         <thead>
           <tr class="active">
-            <th>Fecha</th>
+            <th ng-click="onFiltro('fecha')">Día <div style="float:right"><i ng-if="!reverse && field=='fecha'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && field=='fecha'" class="fa fa-sort-amount-desc"></i></div></th>
             <th>Factura</th>
-            <th ng-if="sucursal == 'Todas'">Sucursal</th>
-            <th>Pagado a</th>
-            <th ng-if="categoria == 'Todas'">Categoria</th>
-            <th>Descripción</th>
-            <th>Aprobado por</th>
-            <th>Valor</th>
+            <th ng-click="onFiltro('cargado')" ng-if="sucursal == 'Todas'">Sucursal <div style="float:right"><i ng-if="!reverse && field=='cargado'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='cargado'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th ng-click="onFiltro('entregado')">Pagado a <div style="float:right"><i ng-if="!reverse && field=='entregado'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='entregado'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th ng-click="onFiltro('anexo.proveedor.razons')">Proveedor <div style="float:right"><i ng-if="!reverse && field=='anexo.proveedor.razons'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='anexo.proveedor.razons'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th ng-click="onFiltro('categoria')" ng-if="categoria == 'Todas'">Categoria <div style="float:right"><i ng-if="!reverse && field=='categoria'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='categoria'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th ng-click="onFiltro('descripcion')">Descripción  <div style="float:right"><i ng-if="!reverse && field=='descripcion'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='descripcion'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th ng-click="onFiltro('administrador.firstName')">Aprobado por <div style="float:right"><i ng-if="!reverse && field=='administrador.firstName'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && field=='administrador.firstName'" class="fa fa-sort-alpha-desc"></i></div></th>
+            <th ng-click="onFiltro('valor')">Valor <div style="float:right"><i ng-if="!reverse && field=='valor'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && field=='valor'" class="fa fa-sort-amount-desc"></i></div></th>
           </tr>
         </thead>
         <tbody>
-          <tr class="filaLink" data-toggle="modal" data-target=".viewDetalle" data-ng-click="getDetalle(detalle)" data-ng-repeat="detalle in detalles">
-            <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+          <tr class="filaLink" data-toggle="modal" data-target=".viewDetalle" data-ng-click="getDetalle(detalle)" data-ng-repeat="detalle in detalles | orderBy:field:reverse">
+            <td>{{detalle.fecha | date: "dd"}}</td>
             <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
             <td ng-if="sucursal == 'Todas'" data-ng-bind="detalle.cargado"></td>
             <td data-ng-bind="detalle.entregado"></td>
+            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
             <td ng-if="categoria == 'Todas'" data-ng-bind="detalle.categoria"></td>
             <td data-ng-bind="detalle.descripcion"></td>
             <td>{{detalle.administrador.firstName}} {{detalle.administrador.lastName}}</td>

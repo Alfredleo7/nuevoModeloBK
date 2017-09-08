@@ -1,6 +1,13 @@
 angular.module('super').controller('view_celda.controller', ['$scope','$http','$routeParams',
   function($scope, $http, $routeParams){
 
+    $scope.reverse = false;
+    $scope.field = 'fecha';
+    $scope.onFiltro = function(field){
+      $scope.reverse = !$scope.reverse;
+      $scope.field = field;
+    }
+
     $scope.today = new Date();
 
     var meses = [
@@ -67,17 +74,17 @@ angular.module('super').controller('view_celda.controller', ['$scope','$http','$
 
 
     $scope.getDate = function(){
-      return meses[$routeParams.mes-1] + '-' + $routeParams.anio;
+      return meses[$routeParams.mes-1] + '/' + $routeParams.anio;
     }
     $scope.getSucursal = function(){
       if($routeParams.sucursal != 'Todas'){
-        return $routeParams.sucursal+' / '
+        return $routeParams.sucursal+' - '
       }
       return '';
     }
     $scope.getCategoria = function(){
       if($routeParams.categoria != 'Todas'){
-        return $routeParams.categoria+' / '
+        return $routeParams.categoria+' - '
       }
       return '';
     }
