@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('administrador').controller('reporte-categoria.controller', ['$scope','$http','$location',
-  function($scope, $http, $location){
+angular.module('administrador').controller('reporte-categoria.controller', ['$scope','$http','$location','localStorageService',
+  function($scope, $http, $location, localStorageService){
 
     $scope.montosMaximos = [];
 
@@ -22,7 +22,14 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
         url: '/api/aniosDetalles'
       }).then(function(anios){
         $scope.anios = anios.data;
-        $scope.filtro.anio = anios.data[anios.data.length-1]._id;
+
+        if(!localStorageService.get('anio')){
+          $scope.filtro.anio = anios.data[anios.data.length-1]._id;
+          localStorageService.set('anio', $scope.filtro.anio);
+        } else {
+          $scope.filtro.anio = localStorageService.get('anio');
+        }
+
         $scope.updateSucursales();
         $('#loadLogo').hide();
       }, function(errorResponse) {
@@ -33,6 +40,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
     }
 
     $scope.updateSucursales = function(){
+      localStorageService.set('anio', $scope.filtro.anio);
       if($scope.filtro.anio != ''){
         $('#loadLogo').show();
         $http({
@@ -40,7 +48,13 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
           url: '/api/sucursalesXYear/'+ $scope.filtro.anio
         }).then(function(sucursales){
           $scope.sucursales = sucursales.data;
-          $scope.filtro.sucursal = 'Todas';
+          if(!localStorageService.get('sucursal')){
+            $scope.filtro.sucursal = 'Todas';
+            localStorageService.set('sucursal', $scope.filtro.categoria);
+          } else {
+            $scope.filtro.sucursal = localStorageService.get('sucursal')
+          }
+
           $scope.generarReporte();
           $('#loadLogo').hide();
         }, function(errorResponse) {
@@ -85,6 +99,7 @@ angular.module('administrador').controller('reporte-categoria.controller', ['$sc
     };
 
     $scope.generarReporte = function(){
+      localStorageService.set('sucursal', $scope.filtro.sucursal);
       $scope.montosMaximos = [];
       $scope.tabla = [];
       $scope.graficos = [];
