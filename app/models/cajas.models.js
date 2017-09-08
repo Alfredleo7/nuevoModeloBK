@@ -39,6 +39,9 @@ var cajaSchema = new Schema({
   },
   secuencial:{
     type: String
+  },
+  observacion:{
+    type: String
   }
 });
 

@@ -203,5 +203,6 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
         saveAs(blob, titulo+" "+ fechaTitle + ".xls");
     };
 
+
   }
 ]);

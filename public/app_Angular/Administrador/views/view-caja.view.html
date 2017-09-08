@@ -4,7 +4,7 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group">
           <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
-          <button ng-show="caja.estado == 'Pendiente'" ng-click="rechazar(caja)" class="btn btn-sm btn-warning" type="button"><i class="fa fa-trash"></i> Rechazar</button>
+          <button ng-show="caja.estado == 'Pendiente'" class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#modalObservacion"><i class="fa fa-trash"></i> Rechazar</button>
           <button ng-show="caja.estado == 'Pendiente'" ng-click="aprobar(caja)" class="btn btn-sm btn-primary" type="button"><i class="fa fa-send-o"></i> Aprobar</button>
         </div>
       </div>
@@ -14,6 +14,24 @@
         </div>
       </div>
     </div>
+
+    <div id="modalObservacion" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Observación</h4>
+          </div>
+          <div class="modal-body">
+            <textarea rows="4" placeholder="Ingrese la observación" type="text" class="form-control" data-ng-model="observacion"/>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="rechazar(caja);">Rechazar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
       <div id="reporteDetalles" class="x_panel">

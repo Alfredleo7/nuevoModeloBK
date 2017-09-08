@@ -157,6 +157,7 @@ exports.aprobar = function(req, res){
   caja.estado = 'Aprobado';
   caja.administrador = req.session.usuario.id;
 
+
   caja.save(function(err){
     if (err) {
       return res.status(400).send({
@@ -214,6 +215,7 @@ exports.rechazar = function(req, res){
   var caja = req.caja;
 
   caja.estado = 'Rechazado';
+  caja.observacion = req.body.observacion;
   caja.administrador = req.session.usuario.id;
 
   caja.save(function(err){
@@ -273,6 +275,7 @@ exports.enviar = function(req, res){
   var caja = req.caja;
 
   caja.estado = 'Pendiente';
+  caja.observacion = undefined;
 
   caja.save(function(err, caja){
     if (err) {

@@ -80,6 +80,11 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
           aprobarDetallesByCaja(caja._id);
           $('#loadLogo').hide();
           $scope.back();
+          new PNotify({
+            text: 'Caja Chica Aprobada',
+            styling: 'bootstrap3',
+            type: 'success'
+          })
         }, function(errorResponse) {
           mostrarNotificacion(errorResponse.data.message);
           $('#loadLogo').hide();
@@ -108,40 +113,27 @@ angular.module('administrador').controller('view-caja.controller',['$scope','$ht
 
 
     $scope.rechazar = function(caja) {
-
-      (new PNotify({
-          title: 'Confirmación',
-          text: '¿Desea rechazar esta caja?',
-          icon: 'glyphicon glyphicon-question-sign',
-          hide: false,
-          confirm: {
-              confirm: true
-          },
-          buttons: {
-              closer: false,
-              sticker: false
-          },
-          history: {
-              history: false
-          },
-          styling: 'bootstrap3',
-          type: 'warning'
-      })).get().on('pnotify.confirm', function() {
-        $('#loadLogo').show();
-
-        $http({
-          method: 'PUT',
-          url: '/api/rechazarCaja/' + caja._id
-        }).then(function(){
-          rechazarDetallesByCaja(caja._id);
-          $('#loadLogo').hide();
-          $scope.back();
-        }, function(errorResponse) {
-          mostrarNotificacion(errorResponse.data.message);
-          $('#loadLogo').hide();
-        });
-
-      }).on('pnotify.cancel', function() {
+      $('.modal-backdrop').hide();
+      $('#modalObservacion').modal('hide');
+      $('#loadLogo').show();
+      $http({
+        method: 'PUT',
+        url: '/api/rechazarCaja/' + caja._id,
+        data: {
+          observacion: $scope.observacion
+        }
+      }).then(function(response){
+        $('#loadLogo').hide();
+        rechazarDetallesByCaja(caja._id);
+         $scope.back();
+         new PNotify({
+           text: 'Caja Chica Rechazada',
+           styling: 'bootstrap3',
+           type: 'success'
+         })
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+        $('#loadLogo').hide();
       });
 
     };

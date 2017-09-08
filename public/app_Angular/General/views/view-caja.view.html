@@ -72,8 +72,13 @@
             <h4 style="float: right;">Total Caja Chica: {{caja.valor | currency}}</h4>
 
           </div>
+          <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
+            * {{caja.observacion}}
+          </div>
         </div>
       </div>
+
+
 
       <div data-ng-hide="!detalles || detalles.length">
         Aún no hay detalles en la caja chica
