@@ -177,9 +177,9 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
       newWin.document.write('<link href="/css/print.css" rel="stylesheet">');
       newWin.document.write('</head><body>');
       newWin.document.write(divToPrint);
-      newWin.document.write('____________________<br>');
-      newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
       if($scope.caja.estado == 'Aprobado'){
+        newWin.document.write('____________________<br>');
+        newWin.document.write('&nbsp;&nbsp;&nbsp;<a>Aprobado por Gerente de Área</a>');
         newWin.document.write('<hr>');
         newWin.document.write(divToPrint);
         newWin.document.write('____________________<br>');

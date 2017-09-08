@@ -4,12 +4,12 @@
   <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="btn-group">
       <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
-      <button ng-if="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-danger" ng-click="eliminar(detalle)"><i class="fa fa-trash-o"></i> Eliminar</button>
-      <button ng-if="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-default" ng-click="editar(detalle)"><i class="fa fa-edit"></i> Editar</button>
     </div>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-12">
     <div class="btn-group"n style="float: right;">
+      <button ng-if="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-default" ng-click="editar(detalle)"><i class="fa fa-edit"></i> Editar Detalle</button>
+      <button ng-if="detalle.estado == 'Borrador' || detalle.estado == 'Rechazado'" class="btn btn-sm btn-danger" ng-click="eliminar(detalle)"><i class="fa fa-trash-o"></i> Eliminar Detalle</button>
       <button class="btn btn-sm btn-default" ng-click="printDiv('#divDetalle', 'Detalle')"><i class="fa fa-print"></i> Imprimir</button>
     </div>
   </div>

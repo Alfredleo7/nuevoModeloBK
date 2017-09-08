@@ -4,13 +4,13 @@
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group">
           <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
-          <button ng-show="caja.estado == 'Pendiente'" class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#modalObservacion"><i class="fa fa-trash"></i> Rechazar</button>
-          <button ng-show="caja.estado == 'Pendiente'" ng-click="aprobar(caja)" class="btn btn-sm btn-primary" type="button"><i class="fa fa-send-o"></i> Aprobar</button>
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="btn-group"n style="float: right;">
           <a class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
+        <button ng-show="caja.estado == 'Pendiente'" class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#modalObservacion"><i class="fa fa-share-square-o"></i> Rechazar</button>
+        <button ng-show="caja.estado == 'Pendiente'" ng-click="aprobar(caja)" class="btn btn-sm btn-success" type="button"><i class="fa fa-check"></i> Aprobar</button>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
         </div>
         <div class="x_content">
           <div style="text-align:center">
-            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre}} {{caja.empresa.nombre}}
+            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre| uppercase }} {{caja.empresa.nombre}}
           </div>
           <br>
           <table style="width: 100%;">
@@ -87,6 +87,9 @@
             </table>
             <h4 style="float: right;">Total Caja Chica: {{caja.valor | currency}}</h4>
 
+          </div>
+          <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
+            * {{caja.observacion}}
           </div>
         </div>
       </div>
