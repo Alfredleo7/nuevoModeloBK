@@ -16,13 +16,34 @@
     <!-- Style -->
     <link rel="stylesheet" href="/css/estilos.css">
   </head>
-  <body>
+  <body ng-app="login">
 
     <div class="container">
       <div class="row">
         <div class="login text-center">
 
-          <section ng-view></section>
+          <section ng-controller="loginController">
+            <form class="x_panel" data-ng-submit="login()" style="padding: 30px 17px;" class="text-center" novalidate>
+              <h1>------ Iniciar Sesión ------</h1>
+              <br>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 form-group">
+                    <input ng-model="usuario.usuario" type="text" class="form-control" placeholder="usuario" required=""/ style="text-transform: lowercase;">
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <h6>@burgerkingec.com.ec</h6>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                    <input ng-model="usuario.password" type="password" class="form-control" placeholder="Contraseña" required="" />
+                  </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-block btn-default submit"><i class="fa fa-sign-in"></i> Ingresar</button>
+              </div>
+            </form>
+
+          </section>
           <div id="loadLogo" style="text-align:center">
             <img src="/images/minifindstore_spin.gif" height="64" width="64" class="logo">
           </div>
@@ -43,16 +64,6 @@
     <script src="/js/pnotify.custom.min.js" charset="utf-8"></script>
     <!-- Aplicación Angular -->
     <script src="/lib/angular/angular.js" charset="utf-8"></script>
-    <script src="/lib/angular-route/angular-route.js" charset="utf-8"></script>
-    <!-- Principal -->
-    <script src="/app_Angular/Inicio/inicio.js" charset="utf-8"></script>
-    <!-- Controladores -->
-    <script src="/app_Angular/Inicio/controllers/login.controller.js" charset="utf-8"></script>
-    <script src="/app_Angular/Inicio/controllers/logup.controller.js" charset="utf-8"></script>
-    <script src="/app_Angular/Inicio/controllers/sucursal.controller.js" charset="utf-8"></script>
-    <!-- Rutass -->
-    <script src="/app_Angular/Inicio/config/inicio.routes.js" charset="utf-8"></script>
-
 
     <script type="text/javascript">
     var mostrarNotificacion = function(mensaje) {
@@ -63,6 +74,28 @@
                   });
     }
     $('#loadLogo').hide();
+
+    angular.module('login',[]).controller('loginController', ['$scope','$http',
+      function($scope, $http){
+
+        $scope.usuario = {};
+
+        $scope.login = function(){
+          $('#loadLogo').show();
+          $http({
+            method: 'POST',
+            url: 'api/usuariosLogin',
+            data: $scope.usuario
+          }).then(function(response){
+            window.location.href="/";
+          }, function(errorResponse){
+            $('#loadLogo').hide();
+            mostrarNotificacion(errorResponse.data.message);
+          })
+        };
+      }
+    ])
+
     </script>
   </body>
 </html>
