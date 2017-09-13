@@ -1,7 +1,29 @@
 'use strict';
 
-angular.module('general').controller('detalle.controller', ['$scope','$http','$routeParams','$location',
-  function($scope,$http,$routeParams,$location){
+angular.module('general').controller('detalle.controller', ['$scope','$http','$routeParams','$location','localStorageService',
+  function($scope,$http,$routeParams,$location, localStorageService){
+
+    if(!localStorageService.get('retenciones')){
+      localStorageService.set('retenciones', []);
+    }
+
+    $scope.retenciones = localStorageService.get('retenciones');
+
+    $scope.verificarRetenciones = function(retencion){
+      var esta = false;
+      for(var i in $scope.retenciones){
+        if(retencion == $scope.retenciones[i].number){
+          esta = true;
+          break;
+        }
+      }
+      if(!esta){
+        $scope.retenciones.push({
+          number: retencion
+        })
+        localStorageService.set('retenciones', $scope.retenciones);
+      }
+    }
 
     $scope.initCreate = function(){
       $('#loadLogo').show();
@@ -332,6 +354,11 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
     }
 
     var guardarDetalle = function(){
+      if($scope.detalle.tipo == 'factura'){
+        if($scope.detalle.anexo.retencion){
+          $scope.verificarRetenciones($scope.detalle.anexo.ret_autorizacion);
+        }
+      }
       $('#loadLogo').show();
       $http({
         method: 'POST',
@@ -491,9 +518,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
 
     }
 
-    $scope.actualizarProveedor = function(proveedor){
 
-    }
 
   }
 ]);

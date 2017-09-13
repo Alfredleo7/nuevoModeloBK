@@ -105,7 +105,7 @@
       <div class="col-md-5 col-sm-4 col-xs-12">
         <div class="form-group">
           <label><small>Autorización</small></label>
-          <input type="text" class="form-control border-input text-right" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.ret_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58">
+          <input type="text" class="form-control border-input text-right" placeholder="Autorización" maxlength="50" data-ng-model="detalle.anexo.ret_autorizacion" onkeypress="return event.charCode>47 && event.charCode<58" uib-typeahead="retencion.number as retencion.number for retencion in retenciones | filter:{number:$viewValue}" typeahead-show-hint="true" typeahead-min-length="0">
         </div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-12">
