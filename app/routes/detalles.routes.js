@@ -50,4 +50,7 @@ module.exports = function(app) {
   app.route('/api/detallesOfCelda/:anio/:mes/:sucursal/:categoria')
     .get(verify.hasSession, detalles.detallesOfCelda);
 
+  app.route('/api/reporteDetalles')
+    .get(detalles.reporteDetalles);
+
 }

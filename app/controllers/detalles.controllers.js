@@ -878,3 +878,47 @@ exports.detallesOfCelda = function(req, res){
     }
   });
 }
+
+exports.reporteDetalles = function(req, res){
+  var project = {
+    $project: {
+      estado: '$estado',
+      tipo: '$tipo',
+      ruc: '$anexo.proveedor.ruc',
+      fecha: '$fecha',
+      fac_establecimiento: '$anexo.fac_establecimiento',
+      fac_puntoEmision: '$anexo.fac_puntoEmision',
+      fac_secuencia: '$anexo.fac_secuencia',
+      fac_autorizacion: '$anexo.fac_autorizacion',
+      subTotal0: '$anexo.subTotal0',
+      subTotalIva: '$anexo.subTotalIva',
+      iva: '$anexo.iva',
+      retencionIVABienes: '$anexo.retencionIVABienes',
+      retencionIVAServicios: '$anexo.retencionIVAServicios',
+      retencionIVAcien: '$anexo.retencionIVAcien',
+      ret_establecimiento: '$anexo.ret_establecimiento',
+      ret_puntoEmision: '$anexo.ret_puntoEmision',
+      ret_secuencia: '$anexo.ret_secuencia',
+      ret_autorizacion: '$anexo.ret_autorizacion',
+
+    }
+  };
+
+  var match = {
+    $match: {
+      estado: 'Aprobado',
+      tipo: 'factura'
+    }
+  }
+
+  Detalle.aggregate([project, match],function(err, detalles){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      return res.status(200).json(detalles);
+    }
+  });
+
+}
