@@ -1,4 +1,11 @@
 <section data-ng-init="init()">
+  <div class="row">
+    <div class="container">
+      <div style="float: right">
+        <button class="btn btn-sm btn-default" data-toggle="modal" data-target=".modalNuevoSuper" ng-click="inicializarSuper()"><i class="fa fa-plus"></i> Nuevo Super Usuario</button>
+      </div>
+    </div>
+  </div>
   <div class="x_panel">
     <div class="x_content">
       <div class="x_title">
@@ -19,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="usuario in usuarios">
+            <tr class="filaLink" data-toggle="modal" data-target=".modalViewSuper" data-ng-click="view(usuario)" data-ng-repeat="usuario in usuarios">
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td>{{usuario.firstName}}</td>
               <td>{{usuario.lastName}}</td>
@@ -34,3 +41,94 @@
     </div>
   </div>
 </section>
+
+<div class="modal fade modalNuevoSuper" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nuevo Super Usuario</h4>
+      </div>
+      <form data-ng-submit="registrar()" novalidate>
+        <div class="modal-body">
+          <section ng-include="'app_Angular/Super/views/form_super.view.html'"></section>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modalViewSuper" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Super Usuario</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Nombres</small></label>
+              <input data-ng-model="super.firstName" type="text" class="form-control" placeholder="Nombres" required="" readonly/>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Apellidos</small></label>
+              <input data-ng-model="super.lastName" type="text" class="form-control" placeholder="Apellidos" required="" readonly/>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Usuario</small></label>
+              <input ng-value="super.usuario+'@burgerkingec.com.ec'" type="text" class="form-control" placeholder="Correo" required="" readonly/>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Empresa</small></label>
+              <input data-ng-model="super.empresa.nombre" type="text" class="form-control" placeholder="Empresa" required="" readonly/>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label><small>Sucursal</small></label>
+              <input ng-value="super.sucursal.tipo+' '+super.sucursal.nombre" type="text" class="form-control" placeholder="Empresa" required="" readonly/>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" data-ng-click="eliminar()">Eliminar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target=".modalEditarSuper" data-ng-click="initEditarSuper(super)">Editar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modalEditarSuper" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Editar Super Usuario</h4>
+      </div>
+      <form data-ng-submit="actualizar()" novalidate>
+        <div class="modal-body">
+          <section ng-include="'app_Angular/Super/views/form_super.view.html'"></section>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

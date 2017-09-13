@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 module.exports = function(){
   mongoose.Promise = global.Promise;
-  var db = mongoose.connect(config.db, function(err){
+  var db = mongoose.connect(config.db, {useMongoClient: true}, function(err){
     if(err){
       console.log('Error: ' + err);
     } else {
