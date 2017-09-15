@@ -176,3 +176,19 @@ font-size: 12px;
 .alert {
   border: 1px solid #ababab;
 }
+
+.RDetalles {
+}
+
+.RDetalles th {
+  text-align: center;
+  width: 100px;
+  background-color: #17375e;
+  color: #fff;
+  border: 1px solid white;
+  vertical-align: middle;
+}
+
+.RDetalles td {
+  border: 1px solid black;
+}

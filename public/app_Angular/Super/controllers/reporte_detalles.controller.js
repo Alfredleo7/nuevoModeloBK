@@ -3,18 +3,19 @@
 angular.module('super').controller('reporte_detalles.controller', ['$scope', '$http',
   function($scope, $http){
 
-    console.log('hola mundo');
     $('#loadLogo').show();
     $http({
       method: 'GET',
       url: '/api/reporteDetalles'
     }).then(function(response){
       $('#loadLogo').hide();
-      console.log(response.data);
+      $scope.detalles = response.data;
+      console.log($scope.detalles);
     }, function(errorResponse){
       $('#loadLogo').hide();
-      console.log(errorResponse.data);
+      mostrarNotificacion(errorResponse.data.message);
     })
+
 
   }
 ]);

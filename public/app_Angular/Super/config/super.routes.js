@@ -4,13 +4,13 @@ angular.module('super').config(['$routeProvider',
   function($routeProvider){
     $routeProvider.
     when('/', {
+      templateUrl: 'app_Angular/Super/views/view_operarios.view.html',
+      controller: 'view_operarios.controller'
+    }).
+    when('/reporteDetalles', {
       templateUrl: 'app_Angular/Super/views/reporte_detalles.view.html',
       controller: 'reporte_detalles.controller'
     }).
-    /*when('/', {
-      templateUrl: 'app_Angular/Super/views/view_operarios.view.html',
-      controller: 'view_operarios.controller'
-    }).*/
     when('/Operarios', {
       templateUrl: 'app_Angular/Super/views/view_operarios.view.html',
       controller: 'view_operarios.controller'

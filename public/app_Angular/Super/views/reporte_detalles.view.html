@@ -1,0 +1,58 @@
+<div class="x_panel">
+  <div class="x_content">
+    <div style="overflow-x:auto;">
+      <table class="table RDetalles">
+        <thead>
+          <tr>
+            <th></th>
+            <th colspan="6">Información comprobante de venta</th>
+            <th  colspan="6"></th>
+            <th colspan="5">Información Comprobante de Retención (Sólo llenar si aplica)</th>
+          </tr>
+          <tr>
+            <th>Número de Identificación del Proveedor</th>
+            <th>Fecha Registro</th>
+            <th>Establecimiento</th>
+            <th>Punto Emisión</th>
+            <th>Secuencial</th>
+            <th>Fecha Emisión</th>
+            <th>Número de autorización</th>
+            <th>Base Imponible tarifa 0% de IVA</th>
+            <th>Base Imponible gravada</th>
+            <th>Monto IVA</th>
+            <th>Retención de IVA 30% bienes</th>
+            <th>Retención de IVA 70% servicios</th>
+            <th>100% Retención de IVA</th>
+            <th>Establecimiento2</th>
+            <th>Punto de emisión</th>
+            <th>Secuencial</th>
+            <th>Número de Autorización 2</th>
+            <th>Fecha de Emisión</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="detalle in detalles">
+            <td>{{detalle.ruc}}</td>
+            <td>{{detalle.fecha | date: "dd'-'MM'-'y"}}</td>
+            <td>{{detalle.fac_establecimiento}}</td>
+            <td>{{detalle.fac_puntoEmision}}</td>
+            <td>{{detalle.fac_secuencia}}</td>
+            <td>{{detalle.fecha | date: "dd'-'MM'-'y"}}</td>
+            <td>{{detalle.fac_autorizacion}}</td>
+            <td class="text-right">{{detalle.subTotal0 | currency}}</td>
+            <td class="text-right">{{detalle.subTotalIva | currency}}</td>
+            <td class="text-right">{{detalle.iva | currency}}</td>
+            <td class="text-right">{{detalle.retencionIVABienes | currency}}</td>
+            <td class="text-right">{{detalle.retencionIVAServicios | currency}}</td>
+            <td class="text-right">{{detalle.retencionIVAcien | currency}}</td>
+            <td>{{detalle.ret_establecimiento}}</td>
+            <td>{{detalle.ret_puntoEmision}}</td>
+            <td>{{detalle.ret_secuencia}}</td>
+            <td>{{detalle.ret_autorizacion}}</td>
+            <td>{{detalle.fecha | date: "dd'-'MM'-'y"}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
