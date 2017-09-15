@@ -17,3 +17,16 @@ h3 {
 .table thead tr th {
   padding: 5px;
 }
+
+.RDetalles th {
+  text-align: center;
+  width: 100px;
+  background-color: #17375e;
+  color: black;
+  border: 1px solid black !important;
+  vertical-align: middle;
+}
+
+.RDetalles td, .Detalles tr {
+  border: 1px solid black;
+}

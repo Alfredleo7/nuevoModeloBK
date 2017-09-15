@@ -1,4 +1,8 @@
-<div class="x_panel">
+<div class="btn-group" style="float:right">
+  <a class="btn btn-sm btn-default" ng-click="exportExcel('IdReporteDetalles', 'Detalles')"><i class="fa fa-file-excel-o"></i> Exportar</a>
+  <a class="btn btn-sm btn-default" ng-click="printDiv('#IdReporteDetalles', 'Detalles')"><i class="fa fa-print"></i> Imprimir</a>
+</div>
+<div id="IdReporteDetalles" class="x_panel">
   <div class="x_content">
     <div style="overflow-x:auto;">
       <table class="table RDetalles">
@@ -33,11 +37,11 @@
         <tbody>
           <tr ng-repeat="detalle in detalles">
             <td>{{detalle.ruc}}</td>
-            <td>{{detalle.fecha | date: "dd'-'MM'-'y"}}</td>
+            <td>{{detalle.fecha | date: "dd'/'MM'/'y"}}</td>
             <td>{{detalle.fac_establecimiento}}</td>
             <td>{{detalle.fac_puntoEmision}}</td>
             <td>{{detalle.fac_secuencia}}</td>
-            <td>{{detalle.fecha | date: "dd'-'MM'-'y"}}</td>
+            <td>{{detalle.fecha | date: "dd'/'MM'/'y"}}</td>
             <td>{{detalle.fac_autorizacion}}</td>
             <td class="text-right">{{detalle.subTotal0 | currency}}</td>
             <td class="text-right">{{detalle.subTotalIva | currency}}</td>
@@ -49,7 +53,7 @@
             <td>{{detalle.ret_puntoEmision}}</td>
             <td>{{detalle.ret_secuencia}}</td>
             <td>{{detalle.ret_autorizacion}}</td>
-            <td>{{detalle.fecha | date: "dd'-'MM'-'y"}}</td>
+            <td>{{detalle.fecha | date: "dd'/'MM'/'y"}}</td>
           </tr>
         </tbody>
       </table>
