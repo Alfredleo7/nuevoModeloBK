@@ -4,7 +4,7 @@ angular.module('general').controller('caja.controller', ['$scope','$http','$loca
   function($scope, $http, $location) {
 
     $scope.filtroTable = 'fecha';
-    $scope.reverse = false;
+    $scope.reverse = true;
     $scope.onFiltro = function(filtro){
       $scope.reverse = !$scope.reverse;
       $scope.filtroTable = filtro;
