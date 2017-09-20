@@ -25,18 +25,31 @@ angular.module('general').controller('caja.controller', ['$scope','$http','$loca
 
     //START METODOS DE INICIO
     $scope.find = function(tipo) {
-      $('#loadLogo').show();
-      $http({
-        method: 'GET',
-        url: '/api/cajasByUsuario/' + tipo
-      }).then(function(cajas){
-        $scope.cajas = cajas.data;
-        $('#loadLogo').hide();
-      },function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-        $('#loadLogo').hide();
-      });
-
+      if(tipo == 'BorradorRechazado'){
+        $('#loadLogo').show();
+        $http({
+          method: 'GET',
+          url: '/api/cajasBorradorRechazados'
+        }).then(function(cajas){
+          $scope.cajas = cajas.data;
+          $('#loadLogo').hide();
+        },function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
+          $('#loadLogo').hide();
+        });
+      } else {
+        $('#loadLogo').show();
+        $http({
+          method: 'GET',
+          url: '/api/cajasByUsuario/' + tipo
+        }).then(function(cajas){
+          $scope.cajas = cajas.data;
+          $('#loadLogo').hide();
+        },function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
+          $('#loadLogo').hide();
+        });
+      }
     };
 
     $scope.go = function(caja){

@@ -190,3 +190,7 @@ font-size: 12px;
 .RDetalles td {
   border: 1px solid black;
 }
+
+.rechazado{
+  color: red;
+}

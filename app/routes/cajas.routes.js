@@ -15,6 +15,8 @@ module.exports = function(app) {
 
   app.route('/api/cajasByUsuario/:estado')
     .get(verify.hasSession, cajas.listByUsuario);
+  app.route('/api/cajasBorradorRechazados')
+    .get(verify.hasSession, cajas.cajasBorradorRechazados)
 
   app.route('/api/cajasPendientes')
     .get(verify.hasSession, cajas.listPendientes);

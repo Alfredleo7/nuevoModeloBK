@@ -1,4 +1,4 @@
-<section class="inicio" data-ng-init="find('Borrador')">
+<section class="inicio" data-ng-init="find('BorradorRechazado')">
   <div  class="btn-group" style="float: right;">
     <button type="button" class="btn btn-sm btn-default" ng-click="create()"><i class="fa fa-cube"></i> Crear Caja Chica</button>
   </div>
@@ -23,7 +23,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas">
+            <tr ng-class="{'rechazado': caja.estado =='Rechazado'}" class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas">
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
               <td class="text-right" data-ng-bind="caja.valor | currency"></td>

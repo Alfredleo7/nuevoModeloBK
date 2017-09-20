@@ -459,3 +459,26 @@ exports.getCajasAprobadasBySucursal = function(req, res){
     }
   })
 }
+
+exports.cajasBorradorRechazados = function(req, res){
+  Caja.find(
+    {
+      $or:[
+        {
+          estado: 'Rechazado'
+        },
+        {
+          estado: 'Borrador'
+        }
+      ]
+    }, function(err, cajas){
+      if(err){
+        return res.status(500).send({
+          message: getErrorMessage(err)
+        })
+      } else {
+        return res.status(200).json(cajas);
+      }
+    }
+  )
+}

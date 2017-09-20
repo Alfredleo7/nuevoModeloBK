@@ -11,8 +11,9 @@
           <a ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar Detalle</a>
           <a class="btn btn-sm btn-default" ng-click="exportExcel('reporteDetalles', 'Detalles de la caja')"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
           <a ng-if="caja.estado == 'Pendiente' || caja.estado == 'Aprobado'" class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
-          <button ng-if="caja.estado == 'Borrador'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar Caja Chica</button>
-          <button ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Enviar Caja Chica</button>
+          <button ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar Caja Chica</button>
+          <button ng-if="caja.estado == 'Borrador'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Enviar Caja Chica</button>
+          <button ng-if="caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Reenviar Caja Chica</button>
         </div>
       </div>
     </div>
