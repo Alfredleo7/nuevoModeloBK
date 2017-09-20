@@ -6,26 +6,26 @@
         <div class="clearfix"></div>
       </div>
       <!--<div style="overflow-x:auto;">-->
-        <table id="datatable-buttons" datatable='ng' class="table table-bordered">
-          <thead>
-            <tr class="active">
-              <th>#</th>
-              <th>Creado</th>
-              <th>Secuencial</th>
-              <th>Valor</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas">
-              <th class="text-right" scope="row">{{$index + 1}}</th>
-              <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
-              <td class="text-right" data-ng-bind="caja.secuencial"></td>
-              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
-              <td data-ng-bind="caja.estado"></td>
-            </tr>
-          </tbody>
-        </table>
+      <table id="datatable-buttons" class="table table-bordered">
+        <thead>
+          <tr class="active">
+            <th>#</th>
+            <th class="filaLink" ng-click="onFiltro('creado')">Creado <div style="float:right"><i ng-if="!reverse && filtroTable=='creado'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='creado'" class="fa fa-sort-amount-desc"></i></div></th>
+            <th>secuencial</th>
+            <th class="filaLink" ng-click="onFiltro('valor')">Valor <div style="float:right"><i ng-if="!reverse && filtroTable=='valor'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='valor'" class="fa fa-sort-amount-desc"></i></div></th>
+            <th class="filaLink" ng-click="onFiltro('estado')">Estado <div style="float:right"><i ng-if="!reverse && filtroTable=='estado'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='estado'" class="fa fa-sort-amount-desc"></i></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="filaLink" data-ng-click="go(caja)" data-ng-repeat="caja in cajas | orderBy:filtroTable:reverse">
+            <th class="text-right" scope="row">{{$index + 1}}</th>
+            <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+            <td class="text-right" data-ng-bind="caja.secuencial"></td>
+            <td class="text-right" data-ng-bind="caja.valor | currency"></td>
+            <td data-ng-bind="caja.estado"></td>
+          </tr>
+        </tbody>
+      </table>
       <!--</div>-->
     </div>
   </div>

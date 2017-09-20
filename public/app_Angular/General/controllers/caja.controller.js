@@ -3,6 +3,13 @@
 angular.module('general').controller('caja.controller', ['$scope','$http','$location',
   function($scope, $http, $location) {
 
+    $scope.filtroTable = 'fecha';
+    $scope.reverse = false;
+    $scope.onFiltro = function(filtro){
+      $scope.reverse = !$scope.reverse;
+      $scope.filtroTable = filtro;
+    }
+
     $scope.create = function() {
       $('#loadLogo').show();
       $http({
