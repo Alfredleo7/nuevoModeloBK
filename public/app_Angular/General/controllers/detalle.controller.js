@@ -247,6 +247,12 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       }
     }
 
+    function removeToMonth( date, months ) {
+        var d = new Date( date || new Date() );
+        d.setMonth( d.getMonth() - (months || 0), d.getDate());
+        return d;
+    }
+
     $scope.actualizarDatos = function() {
       if($scope.detalle.tipo=='factura'){
         $scope.updateTotal();
@@ -276,8 +282,13 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         mostrarNotificacion('Ingrese el valor del detalle');
       } else {
         var today = new Date();
-        if($scope.detalle.fecha > today){
-          mostrarNotificacion('La factura no puede ser de una fecha superior a la actual');
+        var mesAntes = removeToMonth(today, 1);
+        if($scope.detalle.fecha > today || $scope.detalle.fecha < mesAntes){
+          var diaAntes = mesAntes.getDate()+1;
+          var mes_Antes = mesAntes.getMonth()+1;
+          var diaAct = today.getDate();
+          var mesAct = today.getMonth()+1;
+          mostrarNotificacion('Fecha inválida, solo fecha entre el '+diaAntes+'-'+mes_Antes+'-'+mesAntes.getFullYear()+' y el '+diaAct+'-'+mesAct+'-'+today.getFullYear());
         } else {
           if($scope.detalle.tipo == 'factura'){
             if(!$scope.detalle.anexo.fac_establecimiento){
