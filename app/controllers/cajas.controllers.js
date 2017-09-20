@@ -463,12 +463,19 @@ exports.getCajasAprobadasBySucursal = function(req, res){
 exports.cajasBorradorRechazados = function(req, res){
   Caja.find(
     {
-      $or:[
+      $and:[
         {
-          estado: 'Rechazado'
+          creador: req.session.usuario.id
         },
         {
-          estado: 'Borrador'
+          $or:[
+            {
+              estado: 'Rechazado'
+            },
+            {
+              estado: 'Borrador'
+            }
+          ]
         }
       ]
     }, function(err, cajas){
