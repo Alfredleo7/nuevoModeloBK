@@ -128,9 +128,9 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       $scope.detalle.anexo.total = Number($scope.detalle.anexo.subTotal0) + Number($scope.detalle.anexo.subTotalIva) + Number($scope.detalle.anexo.iva);*/
 
       $scope.baseCeroMaBaseDoce = 0;
-      $scope.detalle.anexo.total = 0;
 
       if($scope.detalle.anexo.subTotal0 || $scope.detalle.anexo.subTotalIva || $scope.detalle.anexo.tasasYPropinas){
+        $scope.detalle.anexo.total = 0;
         if($scope.detalle.anexo.subTotal0 && !$scope.detalle.anexo.subTotalIva){
           $scope.detalle.anexo.iva = Number((Number($scope.detalle.anexo.subTotalIva)*12/100).toFixed(2));
           $scope.detalle.anexo.total = Number((Number($scope.detalle.anexo.subTotal0)).toFixed(2));
@@ -146,7 +146,8 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.detalle.anexo.total = Number((Number(Number($scope.detalle.anexo.subTotal0).toFixed(2)) + Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2)) + Number(Number($scope.detalle.anexo.iva).toFixed(2))).toFixed(2));
           $scope.baseCeroMaBaseDoce = Number((Number(Number($scope.detalle.anexo.subTotalIva).toFixed(2)) + Number(Number($scope.detalle.anexo.subTotal0).toFixed(2))).toFixed(2));
         }
-        if($scope.detalle.anexo.tasasYPropinas || $scope.detalle.anexo.tasasYPropinas != 0){
+
+        if($scope.detalle.anexo.tasasYPropinas){
           $scope.detalle.anexo.total = Number(Number(Number($scope.detalle.anexo.total).toFixed(2))+Number(Number($scope.detalle.anexo.tasasYPropinas).toFixed(2)));
         }
 
