@@ -67,6 +67,12 @@
           <input type="text" class="form-control border-input text-right" placeholder="IVA 12%" ng-value="detalle.anexo.iva | currency" readonly="true">
         </div>
       </div>
+      <div class="col-md-2 col-sm-2 col-xs-6">
+        <div class="form-group">
+          <label><small>Tasas y Propinas</small></label>
+          <input type="text" class="form-control border-input text-right" placeholder="Tasas y Propinas" data-ng-model="detalle.anexo.tasasYPropinas" ng-change="updateTotal()" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46"/>
+        </div>
+      </div>
       <div class="col-md-2 col-sm-2 col-xs-12">
         <div class="form-group">
           <label><small>Total</small></label>

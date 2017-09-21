@@ -120,6 +120,10 @@
           <td><b>IVA 12%:</b></td>
           <td class="text-right">{{detalle.anexo.iva| currency}}</td>
         </tr>
+        <tr ng-if="detalle.anexo.tasasYPropinas">
+          <td><b>Tasas y Propinas:</b></td>
+          <td class="text-right">{{detalle.anexo.tasasYPropinas| currency}}</td>
+        </tr>
         <tr>
           <td><b>Total:</b></td>
           <td class="text-right"><h4>{{detalle.valor| currency}}</h4></td>

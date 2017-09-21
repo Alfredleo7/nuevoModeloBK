@@ -95,6 +95,7 @@ var detalleSchema = new Schema({
     retencionSubTotalOcho: Number,
     totalRetencion: Number,
     iva: Number,
+    tasasYPropinas: Number,
     total: Number
   },
   estado: {
