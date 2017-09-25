@@ -12,4 +12,7 @@ module.exports = function(app) {
     .get(verify.hasSession, proveedores.read)
     .delete(verify.hasSession, proveedores.delete);
   app.param('proveedorId', proveedores.proveedorByID);
+
+  app.route('/arreglarProveedores')
+    .get(proveedores.arreglarProveedores);
 }
