@@ -326,7 +326,7 @@ exports.arreglarProveedores = function(req, res){
   Proveedor.find(function(err, proveedores){
     var _proveedores = [];
     for(var i in proveedores){
-      if(proveedores[i].razons == '.' || proveedores[i].razons == '' || !proveedores[i].razons){
+      if(proveedores[i].razons == 'LIMPATEC'){
         proveedores[i].razons = '';
         if(proveedores[i].nombre != '.'){
           proveedores[i].razons = proveedores[i].razons + proveedores[i].nombre+' ';
