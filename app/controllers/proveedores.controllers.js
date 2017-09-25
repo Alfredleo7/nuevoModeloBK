@@ -334,10 +334,12 @@ exports.arreglarProveedores = function(req, res){
         if(proveedores[i].apellido != '.'){
           proveedores[i].razons = proveedores[i].razons + proveedores[i].apellido;
         }
-        Proveedor.findById(proveedores[i]._id,function(err, proveedor){
-          proveedor.razons = proveedores[i].razons;
-          proveedor.save();
-        })
+        if(proveedores[i].razons != 'LIMPATEC'){
+          Proveedor.findById(proveedores[i]._id,function(err, proveedor){
+            proveedor.razons = proveedores[i].razons;
+            proveedor.save();
+          })
+        }
       }
     }
     res.status(200).json(_proveedores);
