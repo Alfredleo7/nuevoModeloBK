@@ -15,12 +15,12 @@ var proveedorSchema = new Schema({
     type: String
   },
   ruc: {
-    type: String/*,
-    match: [/\d{13}/, 'Ruc nó válido, ingrese 13 números']*///SOLO 13 NUMEROS
+    type: String,
+    match: [/\d{13}/, 'Ruc nó válido, ingrese 13 números']//SOLO 13 NUMEROS
   },
   cedula: {
-    type: String/*,
-    match: [/\d{10}/, 'Cédula nó válida, ingrese 10 números']*///SOLO 10 NUMEROS
+    type: String,
+    match: [/\d{10}/, 'Cédula nó válida, ingrese 10 números']//SOLO 10 NUMEROS
   },
   razons: {
     type: String,

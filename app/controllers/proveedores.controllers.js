@@ -321,7 +321,7 @@ exports.update = function(req, res){
   })
 };
 
-
+//Metodo arreglar los proveedores en la razon social '.'
 exports.arreglarProveedores = function(req, res){
   Proveedor.find(function(err, proveedores){
     var _proveedores = [];
