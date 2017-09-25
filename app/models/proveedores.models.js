@@ -23,8 +23,8 @@ var proveedorSchema = new Schema({
     match: [/\d{10}/, 'Cédula nó válida, ingrese 10 números']//SOLO 10 NUMEROS
   },
   razons: {
-    type: String,
-    required: 'Ingrese Razón Social'
+    type: String/*,
+    required: 'Ingrese Razón Social'*/
   }
 });
 
