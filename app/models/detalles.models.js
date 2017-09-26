@@ -29,7 +29,8 @@ var detalleSchema = new Schema({
     required: 'Eija una fecha'
   },
   descripcion: {
-    type: String
+    type: String,
+    required: 'Por favor, ingrese una descripción'
   },
   caja: {
     type: Schema.ObjectId,

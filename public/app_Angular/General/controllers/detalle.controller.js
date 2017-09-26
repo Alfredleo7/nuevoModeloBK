@@ -383,6 +383,11 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         data: $scope.detalle
       }).then(function(response){
         $scope.back();
+        new PNotify({
+          text: 'Se ha agregado correctamente',
+          styling: 'bootstrap3',
+          type: 'success'
+        });
         $('#loadLogo').hide();
       }, function(errorResponse) {
         mostrarNotificacion(errorResponse.data.message);
