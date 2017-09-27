@@ -1,0 +1,12 @@
+.text_comprobante{
+  font-size: 13px;
+}
+
+.text_subtitulo_comprobante{
+  font-size: 14px;
+}
+
+.text_titulo_comprobante{
+  font: small-caps 100%/200% serif;
+  font-size: 32px;
+}

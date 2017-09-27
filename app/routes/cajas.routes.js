@@ -11,7 +11,7 @@ module.exports = function(app) {
   app.route('/api/cajas/:cajaId')
     .get(verify.hasSession, cajas.read)
     .put(verify.hasSession, verify.isNotSuper, cajas.update)
-    .delete(verify.hasSession, verify.isOperario, cajas.delete);
+    .delete(verify.hasSession, cajas.delete);
 
   app.route('/api/cajasByUsuario/:estado')
     .get(verify.hasSession, cajas.listByUsuario);
@@ -52,4 +52,9 @@ module.exports = function(app) {
     .get(verify.hasSession, cajas.getCajasAprobadasBySucursal);
 
   app.param('cajaId', cajas.cajaByID);
+
+  app.route('/comprobante')
+    .get(function(req, res){
+      res.render('comprobante');
+    })
 }

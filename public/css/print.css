@@ -30,3 +30,12 @@ h3 {
 .RDetalles td, .Detalles tr {
   border: 1px solid black;
 }
+
+@media print{
+  body {
+  color: red !important;
+}
+}
+.text_comprobante{
+  font-size: 100px;
+}

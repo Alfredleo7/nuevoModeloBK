@@ -1,0 +1,87 @@
+<section data-ng-init="init()">
+
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="btn-group">
+          <button data-ng-click="back()" class="btn btn-sm btn-default" type="button"><i class="fa fa-reply"></i> Atrás</button>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-8 col-xs-12">
+        <div class="btn-group" style="float: right;">
+          <a ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar Detalle</a>
+          <a class="btn btn-sm btn-default" ng-click="exportExcel('reporteDetalles', 'Detalles de la caja')"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
+          <a ng-if="caja.estado == 'Pendiente' || caja.estado == 'Aprobado'" class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
+          <button data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar Caja Chica</button>
+          <button ng-if="caja.estado == 'Borrador'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Enviar Caja Chica</button>
+          <button ng-if="caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Reenviar Caja Chica</button>
+        </div>
+      </div>
+    </div>
+
+
+      <div id="reporteDetalles" class="x_panel">
+        <div ng-if="caja.secuencial" align="right">
+          Secuencial: {{caja.secuencial}}
+        </div>
+        <div class="x_content">
+          <div style="text-align:center">
+            REPOSICION {{caja.sucursal.tipo | uppercase }} {{caja.sucursal.nombre | uppercase }} {{caja.empresa.nombre}}
+          </div>
+          <br>
+          <table style="width: 100%;">
+            <tr>
+              <td><b>FECHA:</b></td>
+              <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
+              <td><b>ESTADO:</b></td>
+              <td>{{caja.estado}}</td>
+            </tr>
+            <tr>
+              <td><b>CUSTODIO:</b></td>
+              <td>{{caja.sucursal.nombre}}</td>
+              <td ng-if="caja.administrador"><b>POR:</b></td>
+              <td ng-if="caja.administrador">{{caja.administrador.firstName}} {{caja.administrador.lastName}}</td>
+            </tr>
+          </table>
+          <br>
+          <div style="overflow-x:auto;">
+            <table class="table table-bordered" ng-init="filtro='fecha';reverse='false'">
+              <thead>
+                <tr class="active">
+                  <th class="filaLink" ng-click="filtro='fecha';reverse = !reverse">Fecha</th>
+                  <th class="filaLink" ng-click="filtro='tipo';reverse = !reverse">Factura</th>
+                  <th>Proveedor</th>
+                  <th class="filaLink" ng-click="filtro='entregado';reverse = !reverse">Pagado a</th>
+                  <th class="filaLink" ng-click="filtro='categoria';reverse = !reverse">Categoria</th>
+                  <th class="filaLink" ng-click="filtro='descripcion';reverse = !reverse">Descripción</th>
+                  <th class="filaLink" ng-click="filtro='cargado';reverse = !reverse">Cargado</th>
+                  <th class="filaLink" ng-click="filtro='valor';reverse = !reverse">Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
+                  <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+                  <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
+                  <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
+                  <td data-ng-bind="detalle.entregado"></td>
+                  <td data-ng-bind="detalle.categoria"></td>
+                  <td style="white-space: pre-wrap">{{detalle.descripcion}}</td>
+                  <td data-ng-bind="detalle.cargado"></td>
+                  <td class="text-right" data-ng-bind="detalle.valor | currency"></td>
+                </tr>
+              </tbody>
+            </table>
+            <h4 style="float: right;">Total Caja Chica: {{caja.valor | currency}}</h4>
+
+          </div>
+          <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
+            * {{caja.observacion}}
+          </div>
+        </div>
+      </div>
+
+
+
+      <div data-ng-hide="!detalles || detalles.length">
+        Aún no hay detalles en la caja chica
+      </div>
+</section>

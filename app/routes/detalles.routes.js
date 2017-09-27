@@ -11,11 +11,11 @@ module.exports = function(app) {
   app.route('/api/detalles/:detalleId')
     .get(verify.hasSession, detalles.read)
     .put(verify.hasSession, verify.isOperario, detalles.update)
-    .delete(verify.hasSession, verify.isOperario, detalles.delete);
+    .delete(verify.hasSession, detalles.delete);
 
   app.route('/api/detallesByCaja/:idCaja')
     .get(verify.hasSession, detalles.listByCaja)
-    .delete(verify.hasSession, verify.isOperario, detalles.deleteByCaja)
+    .delete(verify.hasSession, detalles.deleteByCaja)
     .put(verify.hasSession, detalles.estadoByCaja);
 
   app.route('/api/reporteXSucursal')

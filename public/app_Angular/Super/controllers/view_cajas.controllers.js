@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('super').controller('view_cajas.controller', ['$scope','$http',
-  function($scope, $http){
+angular.module('super').controller('view_cajas.controller', ['$scope','$http','$location',
+  function($scope, $http,$location){
 
     $scope.init = function(){
       $('#loadLogo').show();
@@ -17,6 +17,10 @@ angular.module('super').controller('view_cajas.controller', ['$scope','$http',
         mostrarNotificacion(errorResponse.data.message);
       })
     }
+
+    $scope.go = function(caja){
+      $location.path('/caja/'+caja._id);
+    };
 
   }
 ]);
