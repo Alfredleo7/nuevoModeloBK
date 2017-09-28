@@ -453,6 +453,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
     }
 
     $scope.create = function() {
+      $('#loadLogo').show();
 
       if(validaciones()){
         $scope.detalle.caja = $scope.caja._id;
