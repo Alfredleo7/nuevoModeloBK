@@ -925,13 +925,13 @@ exports.reporteDetalles = function(req, res){
 
 exports.crearNumeroFactura = function(req, res){
   Detalle.find(function(err, detalles){
-    /*var facturaDetalles = [];
+    var facturaDetalles = [];
     for(var i in detalles){
       if(detalles[i].tipo == 'factura'){
         facturaDetalles.push(detalles[i]);
       }
-    }*/
-    res.status(200).json(detalles);
+    }
+    return res.json({tamanio: facturaDetalles.length});
   })
   /*console.log('hola');
   res.send('hola');*/
