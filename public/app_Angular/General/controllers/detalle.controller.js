@@ -453,7 +453,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
     }
 
     $scope.create = function() {
-      $('#loadLogo').show();
+      $('#buttonSubmit').prop('disabled', true);
 
       if(validaciones()){
         $scope.detalle.caja = $scope.caja._id;
@@ -512,6 +512,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
               })
             }
           }
+
         }, function(errorResponse){
           $('#loadLogo').hide();
           mostrarNotificacion(errorResponse.data.message);
@@ -523,7 +524,9 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         }).then(function(response){
           console.log(response.data);
         })*/
+        $('#buttonSubmit').prop('disabled', false);
       }
+      $('#buttonSubmit').prop('disabled', false);
 
     };
 
