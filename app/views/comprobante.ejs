@@ -11,7 +11,10 @@
     <hr>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-9">
+        <div class="col-auto">
+          <img src="/img/logo_burgerking64.png" alt="">
+        </div>
+        <div class="col">
           <div class="row">
             <div class="col text-center font-weight-bold text_titulo_comprobante">
               COMPROBANTE DE PAGO
@@ -23,7 +26,7 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-auto">
           <div class="row">
             <div class="col text-center">
               0036688
@@ -33,7 +36,7 @@
             <div class="col border border-dark">
               <table>
                 <tbody>
-                  <td>U.S. $36.00</td>
+                  <td>U.S. $999.99</td>
                 </tbody>
               </table>
             </div>
@@ -45,32 +48,40 @@
         <div class="col-auto font-weight-bold text_comprobante">
           Páguese a la orden de:
         </div>
-        <div class="col-auto border border-dark border-top-0 border-right-0 border-left-0">
+        <div class="col-auto text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
           Dpto. Sistemas
         </div>
         <div class="col-auto font-weight-bold text_comprobante">
           Empresa:
         </div>
-        <div class="col border border-dark border-top-0 border-right-0 border-left-0">
+        <div class="col text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
 
         </div>
       </div>
-      <div class="row">
+      <div class="">
+        <suma class="font-weight-bold text_comprobante">
+          La suma de:
+        </suma>
+        <valor class="text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
+          TREINTA Y SEIS DÓLARES
+        </valor>
+      </div>
+      <!--<div class="row">
         <div class="col-auto font-weight-bold text_comprobante">
           La suma de:
         </div>
-        <div class="col border border-dark border-top-0 border-right-0 border-left-0">
-          Treinta y seis Dólares
+        <div class="col-auto border border-dark border-top-0 border-right-0 border-left-0 text_comprobante">
+          NOVECIENTOS NOVENTA Y NUEVE MIL NOVECIENTOS NOVENTA Y NUEVE DÓLARES CON NOVENTA Y NUEVE CENTAVOS
         </div>
         <div class="col-auto font-weight-bold text_comprobante">
           U.S. Dollars
         </div>
-      </div>
+      </div>-->
       <div class="row">
         <div class="col"></div>
         <div class="col-auto">
           <div class="row">
-            <div class="col border border-dark border-top-0 border-right-0 border-left-0">
+            <div class="col text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
               Guayaquil
             </div>
           </div>
@@ -82,7 +93,7 @@
         </div>
         <div class="col-auto">
           <div class="row">
-            <div class="col border border-dark border-top-0 border-right-0 border-left-0">
+            <div class="col text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
               27/septiembre/2017
             </div>
           </div>
@@ -124,4 +135,5 @@
   <!--<script type="text/javascript">
     window.print();
   </script>-->
+  <script src="/js/comprobante.js" charset="utf-8"></script>
 </html>

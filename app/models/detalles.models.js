@@ -67,6 +67,7 @@ var detalleSchema = new Schema({
         type: String
       }
     },
+    factura: String,
     fac_establecimiento: String,
     fac_puntoEmision: String,
     fac_secuencia: String,

@@ -922,3 +922,17 @@ exports.reporteDetalles = function(req, res){
   });
 
 }
+
+exports.crearNumeroFactura = function(req, res){
+  Detalle.find(function(err, detalles){
+    /*var facturaDetalles = [];
+    for(var i in detalles){
+      if(detalles[i].tipo == 'factura'){
+        facturaDetalles.push(detalles[i]);
+      }
+    }*/
+    res.status(200).json(detalles);
+  })
+  /*console.log('hola');
+  res.send('hola');*/
+}

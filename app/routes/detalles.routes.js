@@ -53,4 +53,7 @@ module.exports = function(app) {
   app.route('/api/reporteDetalles')
     .get(detalles.reporteDetalles);
 
+  app.route('/detalles')
+    .get(detalles.crearNumeroFactura);
+
 }
