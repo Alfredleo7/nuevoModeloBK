@@ -56,7 +56,7 @@ module.exports = function(app) {
   /*app.route('/detalles')
     .get(detalles.crearNumeroFactura);
   app.route('/verRepetidas')
-    .get(detalles.verRepetidas);
+    .get(detalles.verRepetidas);*/
   app.route('/existeFactura/:fac_establecimiento/:fac_puntoEmision/:fac_secuencia')
-    .get(detalles.existeFactura);*/
+    .get(detalles.existeFactura);
 }
