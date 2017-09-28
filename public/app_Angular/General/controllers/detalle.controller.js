@@ -377,7 +377,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         }
       }
 
-      if($scope.detalle.tipo == 'factura'){
+      /*if($scope.detalle.tipo == 'factura'){
         $('#loadLogo').show();
         $http({
           method: 'GET',
@@ -428,7 +428,24 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           mostrarNotificacion(errorResponse.data.message);
           $('#loadLogo').hide();
         });
-      }
+      }*/
+      $('#loadLogo').show();
+      $http({
+        method: 'POST',
+        url: '/api/detalles',
+        data: $scope.detalle
+      }).then(function(response){
+        $scope.back();
+        new PNotify({
+          text: 'Se ha agregado correctamente',
+          styling: 'bootstrap3',
+          type: 'success'
+        });
+        $('#loadLogo').hide();
+      }, function(errorResponse) {
+        mostrarNotificacion(errorResponse.data.message);
+        $('#loadLogo').hide();
+      });
 
 
 
