@@ -925,14 +925,14 @@ exports.reporteDetalles = function(req, res){
 
 exports.crearNumeroFactura = function(req, res){
   Detalle.find(function(err, detalles){
-    var facturaDetalles = [];
     for(var i in detalles){
       if(detalles[i].tipo == 'factura'){
-        facturaDetalles.push(detalles[i]);
+        Detalle.findById(detalles[i]._id, function(err, detalle){
+          detalle.anexo.factura = detalle.anexo.fac_establecimiento+'-'+detalle.anexo.fac_puntoEmision+'-'+detalle.anexo.fac_secuencia;
+          detalle.save();
+        })
       }
     }
-    return res.json({tamanio: facturaDetalles.length});
-  })
-  /*console.log('hola');
-  res.send('hola');*/
+  });
+  return res.status(200).send('ok');
 }

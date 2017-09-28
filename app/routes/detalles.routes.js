@@ -5,7 +5,7 @@ var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
   app.route('/api/detalles')
-    .get(verify.hasSession, detalles.list)
+    .get( detalles.list)
     .post(verify.hasSession, verify.isOperario, detalles.create);
 
   app.route('/api/detalles/:detalleId')
