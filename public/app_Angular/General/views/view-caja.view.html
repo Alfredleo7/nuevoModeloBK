@@ -20,6 +20,9 @@
 
 
       <div id="reporteDetalles" class="x_panel">
+        <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
+          * {{caja.observacion}}
+        </div>
         <div ng-if="caja.secuencial" align="right">
           Secuencial: {{caja.secuencial}}
         </div>
@@ -73,9 +76,7 @@
             <h4 style="float: right;">Total Caja Chica: {{caja.valor | currency}}</h4>
 
           </div>
-          <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
-            * {{caja.observacion}}
-          </div>
+
         </div>
       </div>
 
