@@ -936,3 +936,18 @@ exports.crearNumeroFactura = function(req, res){
   });
   return res.status(200).send('ok');
 }
+
+exports.verRepetidas = function(req, res){
+  var detallesRepetidos = [];
+  Detalle.find({tipo: 'factura'}, function(err, detalles){
+    for(var i in detalles){
+      for(var j in detalles){
+        if(detalles[i].anexo.factura == detalles[j].anexo.factura && detalles[i]._id != detalles[i]._id){
+          detallesRepetidos.push(detalles[i]);
+          detallesRepetidos.push(detalles[j]);
+        }
+      }
+    }
+  });
+  return res.status(200).json(detallesRepetidos);
+}
