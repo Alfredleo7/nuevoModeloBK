@@ -950,14 +950,46 @@ exports.verRepetidas = function(req, res){
   });
 }
 
-exports.yaEsta = function(req, res){
-  var _valor = false;
-  Detalle.find({$and:[{tipo: 'factura'},{anexo:{factura:req.params.numero}}]}, function(err, detalles){
-    if(err)return res.status(200).send(err);
-    if(detalles){
-      res.status(200).json(detalles);
+exports.existeFactura = function(req, res){
+  console.log(req.params);
+  var project = {
+    $project: {
+      tipo: '$tipo',
+      fac_establecimiento: '$anexo.fac_establecimiento',
+      fac_puntoEmision: '$anexo.fac_puntoEmision',
+      fac_secuencia: '$anexo.fac_secuencia'
+    }
+  };
+  var match = {
+    $match: {
+      tipo: 'factura',
+      fac_establecimiento : {
+        $eq: req.params.fac_establecimiento
+      },
+      fac_puntoEmision: {
+        $eq: req.params.fac_puntoEmision
+      },
+      fac_secuencia: {
+        $eq: req.params.fac_secuencia
+      }
+    }
+  };
+  Detalle.aggregate([project, match],function(err, detalles){
+    console.log(detalles);
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
     } else {
-      res.status(200).send('no hay');
+      if(detalles.length > 0){
+        return res.status(200).json({
+          valor: true
+        })
+      } else {
+        return res.status(200).json({
+          valor: false
+        })
+      }
     }
   });
 }

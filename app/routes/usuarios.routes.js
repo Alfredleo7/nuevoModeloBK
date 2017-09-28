@@ -5,12 +5,12 @@ var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
 
-  //app.route('/').get(usuarios.ingresar);
+  app.route('/').get(usuarios.ingresar);
 
-  app.route('/')
+  /*app.route('/')
     .get(function(req, res){
       res.send('Sitio en mantenimiento, disculpe las molestias.')
-    });
+    });*/
 
   app.route('/cgi-sys/defaultwebpage.cgi')
     .get(function(req, res){

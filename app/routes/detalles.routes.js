@@ -5,7 +5,7 @@ var verify = require('../services/verificarSesion');
 
 module.exports = function(app) {
   app.route('/api/detalles')
-    .get( detalles.list)
+    .get(verify.hasSession, detalles.list)
     .post(verify.hasSession, verify.isOperario, detalles.create);
 
   app.route('/api/detalles/:detalleId')
@@ -53,10 +53,10 @@ module.exports = function(app) {
   app.route('/api/reporteDetalles')
     .get(detalles.reporteDetalles);
 
-  app.route('/detalles')
+  /*app.route('/detalles')
     .get(detalles.crearNumeroFactura);
   app.route('/verRepetidas')
     .get(detalles.verRepetidas);
-  app.route('/detalles/:numero')
-    .get(detalles.yaEsta);
+  app.route('/existeFactura/:fac_establecimiento/:fac_puntoEmision/:fac_secuencia')
+    .get(detalles.existeFactura);*/
 }

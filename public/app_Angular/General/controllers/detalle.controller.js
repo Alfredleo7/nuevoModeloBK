@@ -376,23 +376,63 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           $scope.verificarRetenciones($scope.detalle.anexo.ret_autorizacion);
         }
       }
-      $('#loadLogo').show();
-      $http({
-        method: 'POST',
-        url: '/api/detalles',
-        data: $scope.detalle
-      }).then(function(response){
-        $scope.back();
-        new PNotify({
-          text: 'Se ha agregado correctamente',
-          styling: 'bootstrap3',
-          type: 'success'
+
+      if($scope.detalle.tipo == 'factura'){
+        $('#loadLogo').show();
+        $http({
+          method: 'GET',
+          url: '/existeFactura/'+$scope.detalle.anexo.fac_establecimiento+'/'+$scope.detalle.anexo.fac_puntoEmision+'/'+$scope.detalle.anexo.fac_secuencia
+        }).then(function(response){
+          $('#loadLogo').hide();
+          var yaExiste = response.data.valor;
+          if(yaExiste){
+            mostrarNotificacion('El número de Factura ya está registrado');
+          } else {
+            $('#loadLogo').show();
+            $http({
+              method: 'POST',
+              url: '/api/detalles',
+              data: $scope.detalle
+            }).then(function(response){
+              $scope.back();
+              new PNotify({
+                text: 'Se ha agregado correctamente',
+                styling: 'bootstrap3',
+                type: 'success'
+              });
+              $('#loadLogo').hide();
+            }, function(errorResponse) {
+              mostrarNotificacion(errorResponse.data.message);
+              $('#loadLogo').hide();
+            });
+          }
+        }, function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
+          $('#loadLogo').hide();
         });
-        $('#loadLogo').hide();
-      }, function(errorResponse) {
-        mostrarNotificacion(errorResponse.data.message);
-        $('#loadLogo').hide();
-      });
+      }else{
+        $('#loadLogo').show();
+        $http({
+          method: 'POST',
+          url: '/api/detalles',
+          data: $scope.detalle
+        }).then(function(response){
+          $scope.back();
+          new PNotify({
+            text: 'Se ha agregado correctamente',
+            styling: 'bootstrap3',
+            type: 'success'
+          });
+          $('#loadLogo').hide();
+        }, function(errorResponse) {
+          mostrarNotificacion(errorResponse.data.message);
+          $('#loadLogo').hide();
+        });
+      }
+
+
+
+
     }
 
     $scope.create = function() {
