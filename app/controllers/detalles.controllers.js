@@ -942,12 +942,26 @@ exports.verRepetidas = function(req, res){
   Detalle.find({tipo: 'factura'}, function(err, detalles){
     for(var i in detalles){
       for(var j in detalles){
-        if(detalles[i].anexo.factura == detalles[j].anexo.factura && detalles[i]._id != detalles[i]._id){
+        if(detalles[i].anexo.factura === detalles[j].anexo.factura && detalles[i] != detalles[j]){
           detallesRepetidos.push(detalles[i]);
           detallesRepetidos.push(detalles[j]);
         }
       }
     }
+    return res.status(200).json(detallesRepetidos);
   });
-  return res.status(200).json(detallesRepetidos);
+}
+
+exports.yaEsta = function(req, res){
+  var _valor = false;
+  Detalle.find({tipo: 'factura'}, function(err, detalles){
+    for(var i in detalles){
+      if(detalles[i].anexo.factura == req.params.numero){
+        _valor = true;
+      }
+    }
+    return res.status(200).json({
+      valor: _valor
+    });
+  });
 }

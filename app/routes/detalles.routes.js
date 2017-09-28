@@ -57,5 +57,6 @@ module.exports = function(app) {
     .get(detalles.crearNumeroFactura);
   app.route('/verRepetidas')
     .get(detalles.verRepetidas);
-
+  app.route('/detalles/:numero')
+    .get(detalles.yaEsta);
 }
