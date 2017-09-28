@@ -924,14 +924,12 @@ exports.reporteDetalles = function(req, res){
 }
 
 exports.crearNumeroFactura = function(req, res){
-  Detalle.find(function(err, detalles){
+  Detalle.find({tipo: 'factura'},function(err, detalles){
     for(var i in detalles){
-      if(detalles[i].tipo == 'factura'){
-        Detalle.findById(detalles[i]._id, function(err, detalle){
-          detalle.anexo.factura = detalle.anexo.fac_establecimiento+'-'+detalle.anexo.fac_puntoEmision+'-'+detalle.anexo.fac_secuencia;
-          detalle.save();
-        })
-      }
+      Detalle.findById(detalles[i]._id, function(err, detalle){
+        detalle.anexo.factura = detalle.anexo.fac_establecimiento+'-'+detalle.anexo.fac_puntoEmision+'-'+detalle.anexo.fac_secuencia;
+        detalle.save();
+      })
     }
   });
   return res.status(200).send('ok');
@@ -954,14 +952,12 @@ exports.verRepetidas = function(req, res){
 
 exports.yaEsta = function(req, res){
   var _valor = false;
-  Detalle.find({tipo: 'factura'}, function(err, detalles){
-    for(var i in detalles){
-      if(detalles[i].anexo.factura == req.params.numero){
-        _valor = true;
-      }
+  Detalle.find({$and:[{tipo: 'factura'},{anexo:{factura:req.params.numero}}]}, function(err, detalles){
+    if(err)return res.status(200).send(err);
+    if(detalles){
+      res.status(200).json(detalles);
+    } else {
+      res.status(200).send('no hay');
     }
-    return res.status(200).json({
-      valor: _valor
-    });
   });
 }
