@@ -3,6 +3,8 @@
 angular.module('general').controller('detalle.controller', ['$scope','$http','$routeParams','$location','localStorageService',
   function($scope,$http,$routeParams,$location, localStorageService){
 
+    var puedeGuardar = true;
+
     if(!localStorageService.get('retenciones')){
       localStorageService.set('retenciones', []);
     }
@@ -453,81 +455,82 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
     }
 
     $scope.create = function() {
-      $('#buttonSubmit').prop('disabled', true);
+      if(puedeGuardar){//PARA CONTROLLAR EL DOBLE CLICK
 
-      if(validaciones()){
-        $scope.detalle.caja = $scope.caja._id;
-        $('#loadLogo').show();
+        puedeGuardar=false;
 
-        $http({
-          method: 'GET',
-          url: '/api/montoBySucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria
-        }).then(function(response){
-          $('#loadLogo').hide();
-          var montoMax = response.data.monto;
-          if(montoMax == 0){
-            guardarDetalle();
-          } else {
-            if(montoMax > 0){
-              $http({
-                method: 'GET',
-                url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria+'/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()
-              }).then(function(response){
-                var total = Number(response.data.acumuladoMes) + Number($scope.detalle.valor)
-                if(total >= montoMax){
+        if(validaciones()){
+          $scope.detalle.caja = $scope.caja._id;
+          $('#loadLogo').show();
+
+          $http({
+            method: 'GET',
+            url: '/api/montoBySucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria
+          }).then(function(response){
+            $('#loadLogo').hide();
+            var montoMax = response.data.monto;
+            if(montoMax == 0){
+              guardarDetalle();
+            } else {
+              if(montoMax > 0){
+                $http({
+                  method: 'GET',
+                  url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria+'/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()
+                }).then(function(response){
+                  var total = Number(response.data.acumuladoMes) + Number($scope.detalle.valor)
+                  if(total >= montoMax){
 
 
-                  (new PNotify({
-                      title: 'Confirmación',
-                      text: 'El Total sobrepasa el monto disponible en $'+Number(total-montoMax)+'<br>¿Desea registrarlo de todas formas?',
-                      icon: 'glyphicon glyphicon-question-sign',
-                      hide: false,
-                      confirm: {
-                          confirm: true
-                      },
-                      buttons: {
-                          closer: false,
-                          sticker: false
-                      },
-                      history: {
-                          history: false
-                      },
-                      styling: 'bootstrap3',
-                      type: 'warning'
-                  })).get().on('pnotify.confirm', function() {
-                    $('#loadLogo').show();
+                    (new PNotify({
+                        title: 'Confirmación',
+                        text: 'El Total sobrepasa el monto disponible en $'+Number(total-montoMax)+'<br>¿Desea registrarlo de todas formas?',
+                        icon: 'glyphicon glyphicon-question-sign',
+                        hide: false,
+                        confirm: {
+                            confirm: true
+                        },
+                        buttons: {
+                            closer: false,
+                            sticker: false
+                        },
+                        history: {
+                            history: false
+                        },
+                        styling: 'bootstrap3',
+                        type: 'warning'
+                    })).get().on('pnotify.confirm', function() {
+                      $('#loadLogo').show();
 
+                      guardarDetalle();
+
+                    }).on('pnotify.cancel', function() {
+                    });
+
+                  } else {
                     guardarDetalle();
+                  }
 
-                  }).on('pnotify.cancel', function() {
-                  });
-
-                } else {
-                  guardarDetalle();
-                }
-
-              }, function(errorResponse){
-                $('#loadLogo').hide();
-                mostrarNotificacion(errorResponse.data.message);
-              })
+                }, function(errorResponse){
+                  $('#loadLogo').hide();
+                  mostrarNotificacion(errorResponse.data.message);
+                })
+              }
             }
-          }
 
-        }, function(errorResponse){
-          $('#loadLogo').hide();
-          mostrarNotificacion(errorResponse.data.message);
-        })
+          }, function(errorResponse){
+            $('#loadLogo').hide();
+            mostrarNotificacion(errorResponse.data.message);
+          })
 
-        /*$http({
-          method: 'GET',
-          url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria+'/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()
-        }).then(function(response){
-          console.log(response.data);
-        })*/
-        $('#buttonSubmit').prop('disabled', false);
+          /*$http({
+            method: 'GET',
+            url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria+'/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()
+          }).then(function(response){
+            console.log(response.data);
+          })*/
+        }
       }
-      $('#buttonSubmit').prop('disabled', false);
-
+      setTimeout(function(){puedeGuardar = true;} ,2000);
     };
 
 
