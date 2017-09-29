@@ -39,6 +39,10 @@ angular.module('super').config(['$routeProvider',
       templateUrl: 'app_Angular/Super/views/view-caja.view.html',
       controller: 'view-caja.controller'
     }).
+    when('/caja/:cajaId/detalle/:detalleId', {
+      templateUrl: 'app_Angular/Super/views/view-detalle.view.html',
+      controller: 'view-detalle.controller'
+    }).
     when('/reporteXLocales', {
       templateUrl: 'app_Angular/Super/views/reporte-sucursal.view.html',
       controller: 'reporte-sucursal.controller'

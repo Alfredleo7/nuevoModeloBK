@@ -9,7 +9,7 @@
       <div class="col-md-8 col-sm-8 col-xs-12">
         <div class="btn-group" style="float: right;">
           <a ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar Detalle</a>
-          <a class="btn btn-sm btn-default" ng-click="exportExcel('reporteDetalles', 'Detalles de la caja')"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>
+          <!--<a class="btn btn-sm btn-default" ng-click="exportExcel('reporteDetalles', 'Detalles de la caja')"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>-->
           <a ng-if="caja.estado == 'Pendiente' || caja.estado == 'Aprobado'" class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
           <button ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar Caja Chica</button>
           <button ng-if="caja.estado == 'Borrador'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Enviar Caja Chica</button>
@@ -17,12 +17,12 @@
         </div>
       </div>
     </div>
-
-
+    <br>
+    <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
+      * {{caja.observacion}}
+    </div>
+    <small ng-if="caja.estado == 'Rechazado'">* Recuerde que puede agregar, modificar y eliminar detalles de esta caja chica para reenviarla nuevamente.</small>
       <div id="reporteDetalles" class="x_panel">
-        <div class="alert alert-danger" role="alert" ng-if="caja.observacion">
-          * {{caja.observacion}}
-        </div>
         <div ng-if="caja.secuencial" align="right">
           Secuencial: {{caja.secuencial}}
         </div>
@@ -62,7 +62,7 @@
               </thead>
               <tbody>
                 <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
-                  <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+                  <td>{{detalle.fecha | date: "dd'-'MMM'-'y"}}</td>
                   <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
                   <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
                   <td data-ng-bind="detalle.entregado"></td>

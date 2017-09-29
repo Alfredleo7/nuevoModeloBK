@@ -77,7 +77,7 @@
               </thead>
               <tbody>
                 <tr class="filaLink" data-ng-click="go(caja,detalle)" data-ng-repeat="detalle in detalles | orderBy:filtro:reverse">
-                  <td>{{detalle.fecha | date: "dd'-'MMMM'-'y"}}</td>
+                  <td>{{detalle.fecha | date: "dd'-'MMM'-'y"}}</td>
                   <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
                   <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
                   <td data-ng-bind="detalle.entregado"></td>

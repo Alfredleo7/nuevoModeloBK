@@ -32,9 +32,7 @@ angular.module('super').controller('view-caja.controller',['$scope','$http','$ro
     };
 
     $scope.back = function(){
-      if($scope.estado == 'Borrador' || $scope.estado == 'Rechazado')$location.path('/CreacionCajas');
-      if($scope.estado == 'Pendiente')$location.path('/CajasEnviadas');
-      if($scope.estado == 'Aprobado')$location.path('/CajasAprobadas');
+      $location.path('/Cajas');
     };
 
     $scope.go = function(caja, detalle){

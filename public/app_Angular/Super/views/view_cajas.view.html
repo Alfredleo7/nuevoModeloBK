@@ -12,12 +12,12 @@
               <th>#</th>
               <th>Creado</th>
               <th>Secuencial</th>
-              <th>Valor</th>
               <th>Estado</th>
               <th>Empresa</th>
               <th>Local/Dep</th>
               <th>Creado por</th>
               <th>Administrador</th>
+              <th>Valor</th>
             </tr>
           </thead>
           <tbody>
@@ -25,12 +25,12 @@
               <th class="text-right" scope="row">{{$index + 1}}</th>
               <td>{{caja.creado | date: "dd'-'MMMM'-'y"}}</td>
               <td class="text-right" data-ng-bind="caja.secuencial"></td>
-              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
               <td data-ng-bind="caja.estado"></td>
               <td>{{caja.empresa.nombre}}</td>
-              <td>{{caja.sucursal.tipo}} {{caja.sucursal.nombre}}</td>
+              <td><tipo ng-if="caja.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="caja.sucursal.tipo=='Local'">Local</tipo> {{caja.sucursal.nombre}}</td>
               <td>{{caja.creador.firstName}} {{caja.creador.lastName}}</td>
-              <td>{{caja.administrador.firstName}} {{caja.administrador.lastName}}</td>
+              <td><admin ng-if="caja.administrador">{{caja.administrador.firstName}} {{caja.administrador.lastName}}</admin><admin ng-if="!caja.administrador">No Aplica</admin></td>
+              <td class="text-right" data-ng-bind="caja.valor | currency"></td>
             </tr>
           </tbody>
         </table>
