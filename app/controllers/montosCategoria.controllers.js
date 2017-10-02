@@ -62,10 +62,26 @@ exports.create = function(req, res){
       });
     } else {
       return res.status(500).send({
-        message: 'Ya se estableció el monto máximo para este Dep/Local'
+        message: 'Ya se estableció la empresa y el local en la tabla'
       })
     }
-  })
+  });
+
+  /*montoCategoria.save(function(err, montoCategoria){
+    if(err) {
+      res.status(400).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      Empresa.findById(montoCategoria.empresa,'nombre',function(err, empresa){
+        montoCategoria.empresa = empresa;
+        Sucursal.findById(montoCategoria.sucursal, 'tipo nombre', function(err, sucursal){
+          montoCategoria.sucursal = sucursal;
+          res.json(montoCategoria);
+        })
+      })
+    }
+  });*/
 
 };
 
@@ -89,6 +105,7 @@ exports.update = function(req, res){
       })
     } else {
       montoCategoria.montoMax = req.body.montoMax;
+      montoCategoria.destinadoA = req.body.destinadoA;
 
       montoCategoria.save(function(err, montoCategoria){
         if(err) {

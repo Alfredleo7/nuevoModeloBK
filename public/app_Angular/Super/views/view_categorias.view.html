@@ -7,7 +7,7 @@
       </div>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-4">
+          <div class="col-sm-12 col-md-3">
             <div class="form-group">
               <input type="search" class="form-control border-input" placeholder="Buscar" ng-model="search">
             </div>
@@ -15,7 +15,6 @@
               <table id="datatable-buttons" class="table table-bordered">
                 <tbody>
                   <tr ng-class="{'selected': categoria.selected}" class="filaLink" data-ng-click="ver(categoria)" data-ng-repeat="categoria in categorias | filter:search | orderBy : 'nombre'">
-                    <th class="text-right" scope="row">{{$index + 1}}</th>
                     <td>{{categoria.nombre}}</td>
                   </tr>
                 </tbody>
@@ -23,7 +22,7 @@
             </div>
             <button class="btn btn-default" type="button" name="button" data-toggle="modal" data-target="#myModal">Agregar</button>
           </div>
-          <div id="detalles" class="col-lg-8 col-md-8 col-sm-8">
+          <div id="detalles" class="col-sm-6 col-md-5">
             <div ng-if="!categoria ||!categoria.nombre">
               <h3>Seleccione una Categoria</h3>
             </div>
@@ -46,16 +45,25 @@
                       <th>Empresa</th>
                       <th>Sucursal</th>
                       <th>Monto Máximo</th>
-                      <th>Acciones</th>
+                      <!--<th>Destinado a</th>
+                      <th>Acciones</th>-->
                     </tr>
                   </thead>
                   <tr data-ng-repeat="registro in montos | filter:searchMontos">
                     <td>{{registro.empresa.nombre}}</td>
-                    <td>{{registro.sucursal.tipo}} {{registro.sucursal.nombre}}</td>
+                    <td><tipo ng-if="registro.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="registro.sucursal.tipo=='Local'">Local</tipo> {{registro.sucursal.nombre}}</td>
                     <td class="text-right">{{registro.montoMax | currency}}</td>
-                    <td><button class="btn btn-default btn-xs" ng-click="iniciarActualizacion(registro)" type="button" name="button">Editar</button><button class="btn btn-default btn-xs" ng-click="deleteMonto(registro)" type="button" name="button">Eliminar</button></td>
+                    <!--<td>{{registro.destinadoA}}</td>
+                    <td><button class="btn btn-default btn-xs" ng-click="iniciarActualizacion(registro)" type="button" name="button">Editar</button><button class="btn btn-default btn-xs" ng-click="deleteMonto(registro)" type="button" name="button">Eliminar</button></td>-->
                   </tr>
                 </table>
+
+                <div data-ng-repeat="registro in montos">
+                  <strong>Empresa:</strong> {{registro.empresa.nombre}}, <strong><tipo ng-if="registro.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="registro.sucursal.tipo=='Local'">Local</tipo></strong> {{registro.sucursal.nombre}}, <strong>Monto Máximo:</strong> {{registro.montoMax | currency}}
+                  <ol>
+                    <li data-ng-repeat="monto in registro.montos"></li>
+                  </ol>
+                </div>
               </div>
               <div class="" ng-hide="!montos || montos.length">
                 No existe ningún monto máximo establecido para esta categoria
@@ -67,7 +75,7 @@
               </div>
               <div class="row" ng-if="form">
                 <div class="" ng-if="nuevo">
-                  <div class="col-md-4">
+                  <div class="col-sm-6">
                     <div class="form-group">
                       <small>Empresa:</small>
                       <select data-ng-model="monto.empresa" class="form-control" ng-change="getSucursales()">
@@ -76,7 +84,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-sm-6">
                     <div class="form-group">
                       <small>Local/Departamento:</small>
                       <select data-ng-model="monto.sucursal" class="form-control">
@@ -86,7 +94,13 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <small>Destinado a:</small>
+                    <input type="text" class="form-control border-input" placeholder="Persona responsable" ng-model="monto.destinadoA">
+                  </div>
+                </div>
+                <div class="col-sm-6">
                   <div class="form-group">
                     <small>Monto máximo:</small>
                     <input type="text" class="form-control border-input" placeholder="$$ Monto Máximo" ng-model="monto.montoMax" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
@@ -102,6 +116,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            adfasdf
           </div>
         </div>
       </div>

@@ -50,7 +50,8 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         categoria: monto.categoria,
         empresa: monto.empresa._id,
         sucursal: monto.sucursal._id,
-        montoMax: monto.montoMax
+        montoMax: monto.montoMax,
+        destinadoA: monto.destinadoA
       };
     }
 

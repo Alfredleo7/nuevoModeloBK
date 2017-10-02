@@ -4,10 +4,15 @@
 
 .text_subtitulo_comprobante{
   font-size: 14px;
+  height: 25px;
 }
 
 .text_titulo_comprobante{
   font: small-caps 100%/200% serif;
-  font-size: 32px;
-  height: 48px;
+  font-size: 30px;
+  height: 45px;
+}
+
+.imgComprobante{
+  padding: 5px;
 }
