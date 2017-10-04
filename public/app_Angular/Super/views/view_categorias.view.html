@@ -49,7 +49,7 @@
                       <th>Acciones</th>-->
                     </tr>
                   </thead>
-                  <tr data-ng-repeat="registro in montos | filter:searchMontos">
+                  <tr class="link" data-ng-repeat="registro in montos | filter:searchMontos" ng-click="setMonto(registro)">
                     <td>{{registro.empresa.nombre}}</td>
                     <td><tipo ng-if="registro.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="registro.sucursal.tipo=='Local'">Local</tipo> {{registro.sucursal.nombre}}</td>
                     <td class="text-right">{{registro.montoMax | currency}}</td>
@@ -57,20 +57,13 @@
                     <td><button class="btn btn-default btn-xs" ng-click="iniciarActualizacion(registro)" type="button" name="button">Editar</button><button class="btn btn-default btn-xs" ng-click="deleteMonto(registro)" type="button" name="button">Eliminar</button></td>-->
                   </tr>
                 </table>
-
-                <div data-ng-repeat="registro in montos">
-                  <strong>Empresa:</strong> {{registro.empresa.nombre}}, <strong><tipo ng-if="registro.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="registro.sucursal.tipo=='Local'">Local</tipo></strong> {{registro.sucursal.nombre}}, <strong>Monto Máximo:</strong> {{registro.montoMax | currency}}
-                  <ol>
-                    <li data-ng-repeat="monto in registro.montos"></li>
-                  </ol>
-                </div>
               </div>
               <div class="" ng-hide="!montos || montos.length">
                 No existe ningún monto máximo establecido para esta categoria
               </div>
               <div class="row" ng-if="!form">
                 <div class="col-md-12 text-right">
-                  <button ng-click='iniciarNuevo()' class="btn btn-primary" type="button" name="button">Agregar</button>
+                  <button ng-click='iniciarNuevo()' class="btn btn-sm btn-primary" type="button" name="button">Agregar</button>
                 </div>
               </div>
               <div class="row" ng-if="form">
@@ -94,21 +87,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <small>Destinado a:</small>
-                    <input type="text" class="form-control border-input" placeholder="Persona responsable" ng-model="monto.destinadoA">
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <small>Monto máximo:</small>
-                    <input type="text" class="form-control border-input" placeholder="$$ Monto Máximo" ng-model="monto.montoMax" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
-                  </div>
-                </div>
                 <div class="col-md-12 text-right" ng-if="nuevo">
                   <button class="btn btn-default" ng-click='falseForm()' type="button" name="button">Cancelar</button>
-                  <button class="btn btn-primary" ng-click='guardarMonto()' type="button" name="button">Guardar Monto Máximo</button>
+                  <button class="btn btn-primary" ng-click='guardarMonto()' type="button" name="button">Agregar</button>
                 </div>
                 <div class="col-md-12 text-right" ng-if="!nuevo">
                   <button class="btn btn-default" ng-click='falseForm()' type="button" name="button">Cancelar</button>
@@ -117,8 +98,108 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-4">
-            adfasdf
+          <div class="col-sm-6 col-md-4" ng-if="viewMonto">
+            <div class="row" ng-if="!esEditar">
+              <div class="col-xs-12" ng-if="tipo=='totalFinal'">
+                <div class="text-center">
+                    {{viewMonto.empresa.nombre}} <tipo ng-if="viewMonto.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="viewMonto.sucursal.tipo=='Local'">Local</tipo> {{viewMonto.sucursal.nombre}}
+                </div>
+                <strong>Total Final:</strong> {{viewMonto.montoMax | currency}}
+              </div>
+              <div class="col-xs-12" ng-if="tipo=='destinadoA'">
+                <div class="text-center">
+                    {{viewMonto.empresa.nombre}} <tipo ng-if="viewMonto.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="viewMonto.sucursal.tipo=='Local'">Local</tipo> {{viewMonto.sucursal.nombre}}
+                </div>
+                <table class="table">
+                  <thead>
+                    <th>Destinado a</th>
+                    <th class="text-right">Valor</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="monto in viewMonto.montos">
+                      <td>{{monto.destinadoA}}</td>
+                      <td class="text-right">{{monto.monto | currency}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <th><strong>Total</strong></th>
+                    <th class="text-right"><strong>{{viewMonto.montoMax | currency}}</strong></th>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="col-xs-12 text-right">
+                <button class="btn btn-sm btn-default" type="button" name="button" ng-click="cambiarVistaEditar()"><i class="fa fa-edit"></i> Editar</button>
+              </div>
+            </div>
+            <div class="row" ng-if="esEditar">
+              <div class="col-xs-12 text-right">
+                <button class="btn btn-default btn-xs" type="button" name="button" ng-click="cambiarVistaEditar()">x</button>
+              </div>
+
+              <div class="col-xs-12">
+                <div class="form-group">
+                  <div class="radio">
+                    <label class="col-xs-6">
+                      <input type="radio" ng-value="'totalFinal'" name="optionsRadios" data-ng-model="tipo" ng-change="cambioDeTipo()"> Total Final
+                    </label>
+                    <label class="col-xs-6">
+                      <input type="radio" ng-value="'destinadoA'" name="optionsRadios" data-ng-model="tipo" ng-change="cambioDeTipo()"> Destinados A
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div ng-if="tipo=='totalFinal'">
+                <div class="text-center">
+                    {{viewMonto.empresa.nombre}} <tipo ng-if="viewMonto.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="viewMonto.sucursal.tipo=='Local'">Local</tipo> {{viewMonto.sucursal.nombre}}
+                </div>
+                <div class="col-xs-7">
+                  <label>Ingrese el valor total:</label>
+                </div>
+                <div class="col-xs-5">
+                  <input class="form-control" type="text" ng-model="newMontoRegistro.monto" name="" value="" placeholder="Valor" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
+                </div>
+                <div class="col-xs-12 text-right">
+                  <button class="btn btn-sm btn-default" type="button" name="button" ng-click="enviarTotalFinal()"><i class="fa"></i> Actualizar</button>
+                </div>
+              </div>
+
+              <div ng-if="tipo=='destinadoA'">
+                <div class="col-xs-12">
+                  <div class="text-center">
+                      {{viewMonto.empresa.nombre}} <tipo ng-if="viewMonto.sucursal.tipo=='Departamento'">Dep.</tipo><tipo ng-if="viewMonto.sucursal.tipo=='Local'">Local</tipo> {{viewMonto.sucursal.nombre}}
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <th>Destinado a</th>
+                      <th>Valor</th>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="monto in viewMonto.montos">
+                        <td>{{monto.destinadoA}}</td>
+                        <td class="text-right">{{monto.monto | currency}}</td>
+                        <td class="text-right"><i class="fa fa-trash-o link text-danger" aria-hidden="true" ng-click="eliminarMontoRegistro(monto)"></i> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-xs-12">
+                  <div class="">
+                    <div class="col-xs-6">
+                      <input class="form-control" type="text" ng-model="newMontoRegistro.destinadoA" name="" value="" placeholder="Destinado a">
+                    </div>
+                    <div class="col-xs-4">
+                      <input class="form-control" type="numer" ng-model="newMontoRegistro.monto" name="" value="" placeholder="Valor" onkeypress="return (event.charCode>47 && event.charCode<58) || event.charCode==46">
+                    </div>
+                    <div class="col-xs-2">
+                      <button class="btn" type="button" name="button" ng-click="agregarMontoRegistro(newMontoRegistro)">+</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
           </div>
         </div>
       </div>

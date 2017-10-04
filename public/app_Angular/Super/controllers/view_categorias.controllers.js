@@ -7,6 +7,10 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
 
     $scope.newCategoria = {};
 
+    $scope.viewMonto = {};
+
+    $scope.newMontoRegistro = {};
+
     $scope.formEditCategoria = false;
 
     $scope.formEditCategoriaFalse = function(){
@@ -76,6 +80,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
         $('#loadLogo').hide();
         $scope.categorias = response.data;
         inicializarSelected();
+        $scope.ver($scope.categorias[0]);
       }, function(errorResponse){
         $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
@@ -83,6 +88,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
     }
 
     $scope.ver = function(categoria){
+      $scope.viewMonto = undefined;
       $scope.falseForm();
       inicializarSelected();
       categoria.selected = true;
@@ -329,6 +335,146 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
       }).on('pnotify.cancel', function() {
       });
 
+    }
+
+    //---------------------------
+
+    $scope.esEditar = false;
+
+    $scope.cambiarVistaEditar = function(){
+      if($scope.viewMonto.montos[0]){
+        if($scope.viewMonto.montos[0].destinadoA == 'Total Final'){
+          $scope.tipo = 'totalFinal';
+        } else {
+          $scope.tipo = 'destinadoA';
+        }
+      }
+      $scope.esEditar = !$scope.esEditar;
+    }
+
+    $scope.cambioDeTipo = function(){
+      $scope.viewMonto.montos = [];
+    }
+
+    $scope.setMonto = function(registro){
+      $scope.viewMonto = registro;
+      if($scope.viewMonto.montos[0]){
+        if($scope.viewMonto.montos[0].destinadoA == 'Total Final'){
+          $scope.tipo = 'totalFinal';
+        } else {
+          $scope.tipo = 'destinadoA';
+        }
+      }
+    }
+
+
+    var ActualizarRegistro = function(montoRegistro){
+      $http({
+        method: 'PUT',
+        url: '/api/updateMontosCategorias/'+ montoRegistro._id,
+        data: montoRegistro
+      }).then(function(response){
+        $('#loadLogo').hide();
+        new PNotify({
+          text: 'El monto se ha modificadoo correctamente',
+          styling: 'bootstrap3',
+          type: 'success'
+        });
+        for (var i in $scope.montos) {
+          if ($scope.montos[i]._id === response.data._id) {
+            $scope.montos.splice(i, 1);
+          }
+        }
+        $scope.montos.push(response.data);
+        $scope.viewMonto = response.data;
+      },function(errorResponse){
+        mostrarNotificacion(errorResponse.data.message);
+      })
+    }
+
+    $scope.agregarMontoRegistro = function(){
+      if($scope.newMontoRegistro.destinadoA && $scope.newMontoRegistro.monto){
+        $scope.viewMonto.montos.push($scope.newMontoRegistro);
+        ActualizarRegistro($scope.viewMonto);
+        $scope.newMontoRegistro = {};
+      }
+    }
+
+    $scope.eliminarMontoRegistro = function(monto){
+
+
+      /*(new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea eliminar este monto?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+
+        for(var i in $scope.viewMonto.montos){
+          if($scope.viewMonto.montos[i] == monto){
+            $scope.viewMonto.montos.splice(i, 1);
+          }
+        }
+
+      }).on('pnotify.cancel', function() {
+
+      });*/
+
+      /*(new PNotify({
+          title: 'Confirmación',
+          text: '¿Desea eliminar este Registro?',
+          icon: 'glyphicon glyphicon-question-sign',
+          hide: false,
+          confirm: {
+              confirm: true
+          },
+          buttons: {
+              closer: false,
+              sticker: false
+          },
+          history: {
+              history: false
+          },
+          styling: 'bootstrap3',
+          type: 'warning'
+      })).get().on('pnotify.confirm', function() {
+
+        for(var i in $scope.viewMonto.montos){
+          if($scope.viewMonto.montos[i] == monto){
+            $scope.viewMonto.montos.splice(i, 1);
+          }
+        }
+
+      }).on('pnotify.cancel', function() {
+      });*/
+
+      for(var i in $scope.viewMonto.montos){
+        if($scope.viewMonto.montos[i] == monto){
+          $scope.viewMonto.montos.splice(i, 1);
+        }
+      }
+
+      ActualizarRegistro($scope.viewMonto);
+
+    }
+
+    $scope.enviarTotalFinal = function(){
+      $scope.newMontoRegistro.destinadoA = 'Total Final';
+      $scope.viewMonto.montos = [];
+      $scope.agregarMontoRegistro();
+      $scope.cambiarVistaEditar();
     }
 
   }

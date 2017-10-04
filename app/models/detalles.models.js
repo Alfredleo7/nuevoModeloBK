@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Caja = mongoose.model('Caja');
 var Proveedor = mongoose.model('Proveedor');
+var MontoCategoria = mongoose.model('MontoCategoria');
 var Schema = mongoose.Schema;
 
 var detalleSchema = new Schema({
@@ -48,6 +49,10 @@ var detalleSchema = new Schema({
   tipo: {
     type: String,
     enum: ['factura', 'vale']
+  },
+  destinadoA: {
+    type: Schema.ObjectId,
+    ref: 'MontoCategoria'
   },
   anexo: {
     proveedor: {

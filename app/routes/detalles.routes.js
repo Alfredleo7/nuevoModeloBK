@@ -44,8 +44,8 @@ module.exports = function(app) {
   app.route('/api/DetallesBySucursal/:anio')
     .get(verify.hasSession, detalles.getDetallesBySucursal);
 
-  app.route('/api/valorXMesSucursalCategoria/:sucursal/:categoria/:mes/:anio')
-    .get(verify.hasSession, detalles.valorXMesSucursalCategoria);
+  app.route('/api/valorXMesSucursalCategoria/:mes/:anio')
+    .post(verify.hasSession, detalles.valorXMontoMaximo);
 
   app.route('/api/detallesOfCelda/:anio/:mes/:sucursal/:categoria')
     .get(verify.hasSession, detalles.detallesOfCelda);

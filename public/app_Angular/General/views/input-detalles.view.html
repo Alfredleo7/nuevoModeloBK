@@ -250,7 +250,7 @@
     <div class="col-md-4 col-sm-4 col-xs-12">
       <div class="form-group">
         <label class="control-label"><small>Cargado A:</small></label>
-        <select data-ng-model="detalle.cargado" class="form-control">
+        <select data-ng-model="detalle.cargado" class="form-control" ng-change="getMontos()">
           <option value="">Elija una sucursal</option>
           <option ng-value="sucursal.nombre" ng-repeat="sucursal in sucursales">{{sucursal.nombre}}</option>
         </select>
@@ -258,12 +258,30 @@
     </div>
 
     <div class="col-md-4 col-sm-4 col-xs-12">
-      <div class="form-group">
-        <label><small>Categoria:</small></label>
-        <select data-ng-model="detalle.categoria" class="form-control">
-          <option value="">Elija una Categoria</option>
-          <option ng-value="categoria.nombre" ng-repeat="categoria in categorias">{{categoria.nombre}}</option>
-        </select>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label><small>Categoria:</small></label>
+            <select data-ng-model="detalle.categoria" class="form-control"  ng-change="getMontos()">
+              <option value="">Elija una Categoria</option>
+              <option ng-value="categoria.nombre" ng-repeat="categoria in categorias">{{categoria.nombre}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12" ng-if="montos">
+          <div class="col-xs-0 col-md-1"></div>
+          <div class="col-xs-12 col-md-10" ng-if="montos[0].destinadoA != 'Total Final'">
+            Seleccione a donde va destinado. (Obligatorio)
+            <div class="form-group" ng-if="montos">
+              <div class="radio" ng-repeat="monto in montos">
+                <label>
+                  <input type="radio" name="optionsMontos" ng-value="monto" data-ng-model="detalle.destinadoA"> {{monto.destinadoA}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-0 col-md-1"></div>
+        </div>
       </div>
     </div>
 

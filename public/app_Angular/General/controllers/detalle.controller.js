@@ -461,9 +461,21 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
 
         if(validaciones()){
           $scope.detalle.caja = $scope.caja._id;
-          $('#loadLogo').show();
+          //$('#loadLogo').show();
+
+          //guardarDetalle();
 
           $http({
+            method: 'POST',
+            url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear(),
+            data: $scope.detalle.destinadoA
+          }).then(function(response){
+            console.log(response.data);
+          }, function(errorResponse){
+            console.log(errorResponse.data);
+          })
+
+          /*$http({
             method: 'GET',
             url: '/api/montoBySucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria
           }).then(function(response){
@@ -520,7 +532,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           }, function(errorResponse){
             $('#loadLogo').hide();
             mostrarNotificacion(errorResponse.data.message);
-          })
+          })*/
 
           /*$http({
             method: 'GET',
@@ -602,6 +614,30 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         mostrarNotificacion('Ingrese los datos');
       }
 
+    }
+
+    $scope.getMontos = function(){
+      if($scope.detalle.categoria != undefined && $scope.detalle.categoria !='' && $scope.detalle.cargado != undefined && $scope.detalle.cargado != ''){
+        $http({
+          method: 'GET',
+          url: '/api/montoBySucursalCategoria/'+$scope.detalle.cargado+'/'+$scope.detalle.categoria
+        }).then(function(response){
+          $scope.detalle.destinadoA = undefined;
+          $scope.montos = response.data.montos;
+          //$scope.detalle.destinadoA = response.data.montos[0];
+          if($scope.montos){
+            if($scope.montos[0].destinadoA == 'Total Final'){
+              $scope.detalle.destinadoA = $scope.montos[0];
+            }
+          }
+        },function(errorResponse){
+          mostrarNotificacion(errorResponse.data.message);
+        })
+      }
+    }
+
+    $scope.verDetalle = function(){
+      console.log($scope.detalle);
     }
 
 

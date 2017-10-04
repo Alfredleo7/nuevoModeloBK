@@ -993,3 +993,66 @@ exports.existeFactura = function(req, res){
     }
   });
 }
+
+exports.valorXMontoMaximo = function(req, res){
+  var project = {
+    $project: {
+      destinadoA: '$destinadoA._id',
+      valor: '$valor',
+      estado: '$estado',
+      mes: {
+        $month: '$fecha'
+      },
+      anio: {
+        $year: '$fecha'
+      }
+    }
+  };
+
+  var match = {
+    $match: {
+      $or: [
+        {
+          estado: 'Aprobado'
+        },
+        {
+          estado: 'Pendiente'
+        }
+      ],
+      destinadoA: req.body.destinadoA._id,
+      mes: {
+        $eq: Number(req.params.mes)+1
+      },
+      anio: {
+        $eq: Number(req.params.anio)
+      }
+    }
+  };
+
+  var group = {
+    $group:{
+      _id: null,
+      valor: {
+        $sum:'$valor'
+      }
+    }
+  };
+
+  Detalle.aggregate([project,match,group],function(err, detalles){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      });
+    } else {
+      if(detalles.length != 0){
+        return res.status(200).send({
+          acumuladoMes: detalles[0].valor
+        });
+      } else {
+        return res.status(200).send({
+          acumuladoMes: 0
+        });
+      }
+    }
+  })
+}

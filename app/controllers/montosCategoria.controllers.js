@@ -104,9 +104,7 @@ exports.update = function(req, res){
         message: getErrorMessage(err)
       })
     } else {
-      montoCategoria.montoMax = req.body.montoMax;
-      montoCategoria.destinadoA = req.body.destinadoA;
-
+      montoCategoria.montos = req.body.montos;
       montoCategoria.save(function(err, montoCategoria){
         if(err) {
           res.status(400).send({
@@ -154,7 +152,7 @@ exports.montoBySucursal = function(req, res){
 exports.montoBySucursalCategoria = function(req, res){
   Sucursal.findOne({nombre: req.params.sucursal}, function(err, sucursal){
     Categoria.findOne({nombre: req.params.categoria}, function(err, categoria){
-      MontoCategoria.findOne({$and: [{sucursal: sucursal._id}, {categoria: categoria._id}]},'montoMax', function(err, monto){
+      MontoCategoria.findOne({$and: [{sucursal: sucursal._id}, {categoria: categoria._id}]},'montoMax montos', function(err, monto){
         if (err){
           res.status(400).send({
             message: getErrorMessage(err)
@@ -162,7 +160,8 @@ exports.montoBySucursalCategoria = function(req, res){
         } else {
           if(monto){
             res.status(200).json({
-              monto: monto.montoMax
+              monto: monto.montoMax,
+              montos: monto.montos
             });
           } else {
             res.status(200).send({
