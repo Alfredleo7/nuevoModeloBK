@@ -997,7 +997,7 @@ exports.existeFactura = function(req, res){
 exports.valorXMontoMaximo = function(req, res){
   var project = {
     $project: {
-      destinadoA: '$destinadoA._id',
+      destinadoA: '$destinadoA',
       valor: '$valor',
       estado: '$estado',
       mes: {
@@ -1019,7 +1019,7 @@ exports.valorXMontoMaximo = function(req, res){
           estado: 'Pendiente'
         }
       ],
-      destinadoA: req.body.destinadoA._id,
+      destinadoA: req.params.idMonto,
       mes: {
         $eq: Number(req.params.mes)+1
       },

@@ -5,6 +5,8 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
 
     var puedeGuardar = true;
 
+    $scope.montoMaximo = '';
+
     if(!localStorageService.get('retenciones')){
       localStorageService.set('retenciones', []);
     }
@@ -464,8 +466,50 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           //$('#loadLogo').show();
 
           //guardarDetalle();
+          //console.log($scope.montoMaximo);
+          if($scope.montoMaximo){
+            $http({
+              method: 'GET',
+              url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()+'/'+$scope.detalle.destinadoA
+            }).then(function(response){
+              var acumuladoMes = response.data.acumuladoMes;
+              if(acumuladoMes + $scope.detalle.valor > $scope.montoMaximo){
+                (new PNotify({
+                    title: 'Confirmación',
+                    text: 'El Total sobrepasa el monto disponible en $'+Number(acumuladoMes + Number($scope.detalle.valor) - $scope.montoMaximo)+'<br>¿Desea registrarlo de todas formas?',
+                    icon: 'glyphicon glyphicon-question-sign',
+                    hide: false,
+                    confirm: {
+                        confirm: true
+                    },
+                    buttons: {
+                        closer: false,
+                        sticker: false
+                    },
+                    history: {
+                        history: false
+                    },
+                    styling: 'bootstrap3',
+                    type: 'warning'
+                })).get().on('pnotify.confirm', function() {
+                  $('#loadLogo').show();
 
-          $http({
+                  guardarDetalle();
+
+                }).on('pnotify.cancel', function() {
+                });
+              } else {
+                guardarDetalle();
+              }
+            }, function(errorResponse){
+              mostrarNotificacion(errorResponse.data.message);
+            });
+          } else {
+            guardarDetalle();
+          }
+
+
+          /*$http({
             method: 'POST',
             url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear(),
             data: $scope.detalle.destinadoA
@@ -473,7 +517,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
             console.log(response.data);
           }, function(errorResponse){
             console.log(errorResponse.data);
-          })
+          })*/
 
           /*$http({
             method: 'GET',
@@ -627,13 +671,21 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
           //$scope.detalle.destinadoA = response.data.montos[0];
           if($scope.montos){
             if($scope.montos[0].destinadoA == 'Total Final'){
-              $scope.detalle.destinadoA = $scope.montos[0];
+              $scope.detalle.destinadoA = $scope.montos[0]._id;
+              $scope.montoMaximo = $scope.montos[0].monto;
             }
+          } else {
+            $scope.montoMaximo = undefined;
           }
         },function(errorResponse){
           mostrarNotificacion(errorResponse.data.message);
         })
       }
+    }
+
+    $scope.setMonto = function(monto){
+      $scope.detalle.destinadoA = monto._id;
+      $scope.montoMaximo = monto.monto;
     }
 
     $scope.verDetalle = function(){

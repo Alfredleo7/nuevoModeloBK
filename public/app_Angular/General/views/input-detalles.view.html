@@ -275,7 +275,7 @@
             <div class="form-group" ng-if="montos">
               <div class="radio" ng-repeat="monto in montos">
                 <label>
-                  <input type="radio" name="optionsMontos" ng-value="monto" data-ng-model="detalle.destinadoA"> {{monto.destinadoA}}
+                  <input type="radio" name="optionsMontos" ng-value="monto._id" data-ng-model="detalle.destinadoA" ng-change="setMonto(monto)"> {{monto.destinadoA}}
                 </label>
               </div>
             </div>

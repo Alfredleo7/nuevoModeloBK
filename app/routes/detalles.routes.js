@@ -44,19 +44,19 @@ module.exports = function(app) {
   app.route('/api/DetallesBySucursal/:anio')
     .get(verify.hasSession, detalles.getDetallesBySucursal);
 
-  app.route('/api/valorXMesSucursalCategoria/:mes/:anio')
-    .post(verify.hasSession, detalles.valorXMontoMaximo);
+  app.route('/api/valorXMesSucursalCategoria/:mes/:anio/:idMonto')
+    .get(verify.hasSession, detalles.valorXMontoMaximo);
 
   app.route('/api/detallesOfCelda/:anio/:mes/:sucursal/:categoria')
     .get(verify.hasSession, detalles.detallesOfCelda);
 
   app.route('/api/reporteDetalles')
-    .get(detalles.reporteDetalles);
+    .get(verify.hasSession, detalles.reporteDetalles);
 
   /*app.route('/detalles')
     .get(detalles.crearNumeroFactura);
   app.route('/verRepetidas')
     .get(detalles.verRepetidas);*/
-  app.route('/existeFactura/:fac_establecimiento/:fac_puntoEmision/:fac_secuencia')
-    .get(detalles.existeFactura);
+  /*app.route('/existeFactura/:fac_establecimiento/:fac_puntoEmision/:fac_secuencia')
+    .get(detalles.existeFactura);*/
 }

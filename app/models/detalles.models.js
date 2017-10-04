@@ -51,8 +51,7 @@ var detalleSchema = new Schema({
     enum: ['factura', 'vale']
   },
   destinadoA: {
-    type: Schema.ObjectId,
-    ref: 'MontoCategoria'
+    type: String
   },
   anexo: {
     proveedor: {
