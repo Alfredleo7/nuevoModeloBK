@@ -5,6 +5,7 @@ var Detalle = mongoose.model('Detalle');
 var Proveedor = mongoose.model('Proveedor');
 var Caja = mongoose.model('Caja');
 var Usuario = mongoose.model('Usuario');
+var MontoCategoria = mongoose.model('MontoCategoria');
 
 var getErrorMessage = function(err){
   if (err.errors){
@@ -1055,4 +1056,136 @@ exports.valorXMontoMaximo = function(req, res){
       }
     }
   })
+}
+
+exports.reporteXCategoria01 = function(req, res){
+
+  console.log(req.body.sucursal);
+  console.log(req.body.anio);
+
+  var project = {
+    $project: {
+      categoria: "$categoria",
+      cargado: "$cargado",
+      mes: {
+        $month: "$fecha"
+      },
+      anio: {
+        $year: "$fecha"
+      },
+      valor: "$valor",
+      estado: "$estado"
+    }
+  };
+
+  var match = {
+    $match: {
+      estado: "Aprobado",
+      anio: {
+        $eq: Number(req.body.anio)
+      }
+    }
+  };
+
+  var group01 = {
+    $group: {
+      _id: {
+        categoria: "$categoria",
+        destinadoA: "$destinadoA",
+        mes: "$mes"
+      },
+      total: {
+        $sum: "$valor"
+      }
+    }
+  }
+
+  var group02 ={
+    $group: {
+      _id: {
+        categoria: "$_id.categoria",
+        destinadoA: "$_id.destinadoA"
+      },
+      meses: {
+        $push: {
+          mes: "$_id.mes",
+          total: "$total"
+        }
+      },
+      total: {
+        $sum: "$total"
+      }
+    }
+  }
+
+  var group03 = {
+    $group: {
+      _id: "$_id.categoria",
+      destinos: {
+        $push: {
+          destinadoA: "$_id.destinadoA",
+          meses: "$meses",
+          total: "$total"
+        }
+      }
+    }
+  }
+
+  var group11 = {
+    $group: {
+      _id: {
+        categoria: "$categoria",
+        mes: "$mes"
+      },
+      total: {
+        $sum: "$valor"
+      }
+    }
+  }
+
+  var group12 = {
+    $group: {
+      _id: "$_id.categoria",
+      meses: {
+        $push: {
+          mes: "$_id.mes",
+          total: "$total"
+        }
+      }
+    }
+  }
+
+  var sort = {
+    $sort: { _id: 1}
+  }
+
+  var query = [project,match];
+
+  if(req.body.sucursal == 'Todas'){
+    query.push(group11);
+    query.push(group12);
+    query.push(sort);
+  }
+
+  if(req.body.sucursal != 'Todas'){
+    project.$project.destinadoA = "$destinadoA";
+    match.$match.cargado = {
+      $eq: req.body.sucursal
+    }
+    query.push(group01);
+    query.push(group02);
+    query.push(group03);
+    query.push(sort);
+  }
+
+  Detalle.aggregate(query, function(err, reporte){
+    if(err){
+      return res.status(500).send({
+        message: getErrorMessage(err)
+      })
+    } else {
+      return res.status(200).json(reporte);
+    }
+  })
+
 }

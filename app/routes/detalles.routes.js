@@ -33,7 +33,7 @@ module.exports = function(app) {
     .get(verify.hasSession, detalles.sucursalesDetallesXYear);
 
   app.route('/api/reporteXCategoria')
-    .post(verify.hasSession, detalles.reporteXCategoria);
+    .post(verify.hasSession, detalles.reporteXCategoria01);
 
   app.route('/api/detallesByCelda')
     .post(verify.hasSession, detalles.detallesByCelda);
@@ -59,4 +59,7 @@ module.exports = function(app) {
     .get(detalles.verRepetidas);*/
   /*app.route('/existeFactura/:fac_establecimiento/:fac_puntoEmision/:fac_secuencia')
     .get(detalles.existeFactura);*/
+
+  app.route('/report')
+    .get(detalles.reporteXCategoria01);
 }
