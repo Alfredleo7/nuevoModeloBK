@@ -5,6 +5,6 @@ var verify = require('../services/verificarSesion');
 
 module.exports = function(app){
   app.route('/api/empresas')
-    .get(verify.hasSession, empresas.list)
+    .get(empresas.list)
     .post(verify.hasSession, empresas.create);
 }
