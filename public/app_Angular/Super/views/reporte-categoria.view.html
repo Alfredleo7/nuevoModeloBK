@@ -112,7 +112,7 @@
         <div>
           <b>Año:</b> {{filtro.anio}} <b>Sucursal:</b> {{filtro.sucursal}}
         </div>
-        <div style="overflow-x:auto;">
+        <!--<div style="overflow-x:auto;">
           <!--<table class="table table-bordered">
             <thead>
               <tr class="success">
@@ -163,12 +163,13 @@
                 <td></td>
               </tr>
             </tbody>
-          </table>-->
+          </table>
 
           <table class="table table-bordered">
             <thead>
               <tr class="success">
                 <th class="filaLink" ng-click="onFiltro('categoria')">Categoria <div style="float:right"><i ng-if="!reverse && filtroTable=='categoria'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && filtroTable=='categoria'" class="fa fa-sort-alpha-desc"></i></div></th>
+                <th>Destinado A</th>
                 <th ng-if="montosMaximos.length != 0">M. Mensual</th>
                 <th>Ene</th>
                 <th>Feb</th>
@@ -189,6 +190,7 @@
               <tr ng-repeat="reporte in response">
                 <td>{{reporte.categoria}}</td>
                 <td>{{reporte.destinadoA}}</td>
+                <td></td>
                 <td class="text-right" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]"><div ng-repeat="mes in reporte.meses" ng-if="mes.mes==i">{{mes.total | currency}}</div></td>
                 <td>{{reporte.total}}</td>
               </tr>
@@ -200,7 +202,7 @@
               <li>{{reporte._id}}</li>
               <ol>
                 <div ng-repeat="destino in reporte.destinos">
-                  <li>{{destino.destinadoA}} {{destino.total | currency}}</li>
+                  <li>{{destino.destinadoAObj.destinadoA}} {{destino.total | currency}}</li>
                   <ul>
                     <div ng-repeat="mes in destino.meses">
                       <li>{{getMes(mes.mes)}} {{mes.total | currency}}</li>
@@ -211,6 +213,42 @@
             </div>
           </ul>
 
+
+
+        </div>-->
+        <div class="row" ng-repeat="reporte in response1">
+          <div class="col-xs-12 text-center">
+            <h4>{{reporte._id}}</h4>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr class="success">
+                <th>Destinado A</th>
+                <th>Monto Max</th>
+                <th>Ene</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dic</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="destino in reporte.destinos">
+                <td>{{getMontoObj(destino.destinadoA).destinadoA}} <div ng-if="!getMontoObj(destino.destinadoA)">No aplica</div></td>
+                <td class="text-right">{{getMontoObj(destino.destinadoA).monto | currency}} <div ng-if="!getMontoObj(destino.destinadoA)">No aplica</div></td>
+                <td class="text-right" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]"><div class="filaLink" ng-repeat="mes in destino.meses" ng-if="mes.mes==i" ng-class="{'supera':mes.total > getMontoObj(destino.destinadoA).monto}" ng-click="revisar(destino.destinadoA, i, reporte._id)">{{mes.total | currency}}</div></td>
+                <td>{{destino.total | currency}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

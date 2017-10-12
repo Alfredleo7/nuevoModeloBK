@@ -1171,7 +1171,7 @@ exports.reporteXCategoria01 = function(req, res){
     project.$project.destinadoA = "$destinadoA";
     match.$match.cargado = {
       $eq: req.body.sucursal
-    }
+    };
     query.push(group01);
     query.push(group02);
     query.push(group03);
@@ -1186,6 +1186,62 @@ exports.reporteXCategoria01 = function(req, res){
     } else {
       return res.status(200).json(reporte);
     }
+  })
+
+}
+
+exports.getDetallesDeSucursalYCategoria = function(req, res){
+
+  var project = {
+    $project: {
+      fecha: "$fecha",
+      tipo: "$tipo",
+      factura: {
+        $concat: ["$anexo.fac_establecimiento","-","$anexo.fac_puntoEmision","-","$anexo.fac_secuencia"]
+      },
+      entregado: "$entregado",
+      proveedor: "$anexo.proveedor",
+      descripcion: "$descripcion",
+      administrador: "$administrador",
+      categoria: "$categoria",
+      mes: {
+        $month: "$fecha"
+      },
+      anio: {
+        $year: "$fecha"
+      },
+      destinadoA: "$destinadoA",
+      cargado: "$cargado",
+      estado: "$estado",
+      valor: "$valor"
+    }
+  }
+
+  var match = {
+    $match: {
+      estado: "Aprobado"
+    }
+  }
+
+  if(req.body.anio) match.$match.anio = { $eq: Number(req.body.anio) };
+
+  if(req.body.mes) match.$match.mes = { $eq: Number(req.body.mes) };
+
+  if(req.body.sucursal) match.$match.cargado = { $eq: req.body.sucursal };
+
+  if(req.body.destinadoA != 'undefined' && req.body.destinadoA){
+
+    match.$match.destinadoA = { $eq: req.body.destinadoA };
+  } else {
+    match.$match.categoria = { $eq: req.body.categoria };
+  }
+
+  Detalle.aggregate([project,match], function(err, detalles){
+    Usuario.populate(detalles, {path: 'administrador'},function(err, detalles){
+      Caja.populate(detalles, {path: 'caja'}, function(err, detalles){
+        return res.status(200).json(detalles);
+      })
+    })
   })
 
 }

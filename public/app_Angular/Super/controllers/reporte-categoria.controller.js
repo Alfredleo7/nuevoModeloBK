@@ -103,13 +103,14 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
       $scope.montosMaximos = [];
       $scope.tabla = [];
       $scope.graficos = [];
+      $scope.montos = [];
+      $scope.response1 = [];
       $('#loadLogo').show();
       $http({
         method: 'POST',
         url: '/api/reporteXCategoria',
         data: $scope.filtro
       }).then(function(response){
-        console.log(response.data);
         $scope.reportes = response.data;
         $scope.Ene = 0; $scope.Feb = 0; $scope.Mar = 0; $scope.Abr = 0; $scope.May = 0; $scope.Jun = 0; $scope.Jul = 0; $scope.Ago = 0; $scope.Sep = 0; $scope.Oct = 0; $scope.Nov = 0; $scope.Dic = 0;
         if($scope.filtro.sucursal == "Todas"){
@@ -143,19 +144,23 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
           }
         } else {
           $scope.response1 = response.data;
-          $scope.response = [];
-          for(var i in response.data){
-            for(var j in response.data[i].destinos){
-              $scope.response.push({
-                categoria: response.data[i]._id,
-                destinadoA: response.data[i].destinos[j].destinadoA,
-                meses: response.data[i].destinos[j].meses,
-                total: response.data[i].destinos[j].total
-              })
+
+          for(var i in $scope.response1){
+            for(var j in $scope.response1[i].destinos){
+              if($scope.response1[i].destinos[j].destinadoA){
+                $http({
+                  method: 'GET',
+                  url: '/api/submontos/'+$scope.response1[i].destinos[j].destinadoA
+                }).then(function(response){
+                  if(response.data){
+                    $scope.montos.push(response.data);
+                  }
+                },function(errorResponse){
+
+                });
+              }
             }
           }
-
-          console.log($scope.response);
         }
 
 
@@ -175,6 +180,8 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
         $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       });
+
+
     }
 
     $scope.verDetallesCelda = function(tipo,anio, nombre, mes, valor){
@@ -225,6 +232,37 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
 
     $scope.getMes = function(item){
       return meses[item-1];
+    }
+
+    $scope.getMontoObj = function(idMonto){
+      if(idMonto){
+        for(var a in $scope.montos){
+          if(idMonto == $scope.montos[a]._id){
+            return $scope.montos[a];
+          }
+        }
+      }else{
+        return undefined;
+      }
+    };
+
+    $scope.revisar = function(destinadoA, mes, categoria){
+      //console.log(destinadoA, mes, $scope.filtro.anio, $scope.filtro.sucursal);
+      $location.path('detallesDeCategoria/'+destinadoA+'/'+mes+'/'+$scope.filtro.anio+'/'+$scope.filtro.sucursal+'/'+categoria)
+      /*$http({
+        method: 'POST',
+        url: '/api/getDetallesDeSucursalYCategoria',
+        data: {
+          destinadoA: destinadoA,
+          mes: mes,
+          anio: $scope.filtro.anio,
+          sucursal: $scope.filtro.sucursal
+        }
+      }).then(function(response){
+        console.log(response.data);
+      }, function(errorResponse){
+        console.log(errorResponse.data);
+      })*/
     }
 
   }

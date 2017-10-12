@@ -432,7 +432,7 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
 
       });*/
 
-      /*(new PNotify({
+      (new PNotify({
           title: 'Confirmación',
           text: '¿Desea eliminar este Registro?',
           icon: 'glyphicon glyphicon-question-sign',
@@ -457,16 +457,18 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
           }
         }
 
-      }).on('pnotify.cancel', function() {
-      });*/
+        ActualizarRegistro($scope.viewMonto);
 
-      for(var i in $scope.viewMonto.montos){
+      }).on('pnotify.cancel', function() {
+      });
+
+      /*for(var i in $scope.viewMonto.montos){
         if($scope.viewMonto.montos[i] == monto){
           $scope.viewMonto.montos.splice(i, 1);
         }
       }
 
-      ActualizarRegistro($scope.viewMonto);
+      ActualizarRegistro($scope.viewMonto);*/
 
     }
 
@@ -475,6 +477,23 @@ angular.module('super').controller('view_categorias.controller', ['$scope','$htt
       $scope.viewMonto.montos = [];
       $scope.agregarMontoRegistro();
       $scope.cambiarVistaEditar();
+    }
+
+    $scope.editarMontoRegistro = function(monto){
+      $scope.editMonto = {
+        _id: monto._id,
+        destinadoA: monto.destinadoA,
+        monto: monto.monto
+      }
+    }
+
+    $scope.actualizarMonto = function(editMonto){
+      for(var i in $scope.viewMonto.montos){
+        if($scope.viewMonto.montos[i]._id == editMonto._id){
+          $scope.viewMonto.montos[i] = editMonto;
+        }
+      }
+      ActualizarRegistro($scope.viewMonto);
     }
 
   }

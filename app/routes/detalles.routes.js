@@ -62,4 +62,7 @@ module.exports = function(app) {
 
   app.route('/report')
     .get(detalles.reporteXCategoria01);
+
+  app.route('/api/getDetallesDeSucursalYCategoria')
+    .post(detalles.getDetallesDeSucursalYCategoria);
 }

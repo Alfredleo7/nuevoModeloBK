@@ -189,11 +189,32 @@ exports.montoBySucursalSession = function(req, res){
           monto = {
             categoria: _montos[i].categoria.nombre,
             montoMax: _montos[i].montoMax
-          };
+          }
           montos.push(monto);
         }
         res.status(200).json(montos);
       })
+    }
+  })
+}
+
+exports.subMontosMaximos = function(req, res){
+  MontoCategoria.findOne({'montos._id': req.params.idMonto},function(err, monto){
+    if(err){
+      return res.status(500).send(err);
+    } else {
+      if(monto){
+        console.log(monto);
+        for(var i in monto.montos){
+          if(monto.montos[i]._id==req.params.idMonto)
+            return res.status(200).json(monto.montos[i]);
+        }
+        return res.status(200).json([{
+          vacio: true
+        }]);
+      } else {
+        return res.status(200).json(monto);
+      }
     }
   })
 }

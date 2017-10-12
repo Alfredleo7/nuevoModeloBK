@@ -20,4 +20,6 @@ module.exports = function(app){
     .get(verify.hasSession, montosCategorias.montoBySucursalCategoria);
   app.route('/api/montoBySucursalSession')
     .get(verify.hasSession, montosCategorias.montoBySucursalSession);
+  app.route('/api/submontos/:idMonto')
+    .get(verify.hasSession,montosCategorias.subMontosMaximos);
 }

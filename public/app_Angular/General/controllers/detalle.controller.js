@@ -456,12 +456,28 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
 
     }
 
+    var verificarMonto = function(){
+
+      if($scope.montos){
+        if($scope.montos.length > 1 && $scope.detalle.destinadoA == undefined){
+          mostrarNotificacion('Seleccione a que va destinado');
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+
+
+    }
+
     $scope.create = function() {
       if(puedeGuardar){//PARA CONTROLLAR EL DOBLE CLICK
 
         puedeGuardar=false;
 
-        if(validaciones()){
+        if(validaciones() && verificarMonto()){
           $scope.detalle.caja = $scope.caja._id;
           //$('#loadLogo').show();
 
@@ -473,10 +489,11 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
               url: '/api/valorXMesSucursalCategoria/'+$scope.detalle.fecha.getMonth()+'/'+$scope.detalle.fecha.getFullYear()+'/'+$scope.detalle.destinadoA
             }).then(function(response){
               var acumuladoMes = response.data.acumuladoMes;
-              if(acumuladoMes + $scope.detalle.valor > $scope.montoMaximo){
+              var valorTotalAcumulado = Number(acumuladoMes)+Number($scope.detalle.valor);
+              if(valorTotalAcumulado > $scope.montoMaximo){
                 (new PNotify({
                     title: 'Confirmación',
-                    text: 'El Total sobrepasa el monto disponible en $'+Number(acumuladoMes + Number($scope.detalle.valor) - $scope.montoMaximo)+'<br>¿Desea registrarlo de todas formas?',
+                    text: 'El Total sobrepasa el monto disponible en $'+Number(Number(valorTotalAcumulado) - Number($scope.montoMaximo)).toFixed(2)+'<br>¿Desea registrarlo de todas formas?',
                     icon: 'glyphicon glyphicon-question-sign',
                     hide: false,
                     confirm: {

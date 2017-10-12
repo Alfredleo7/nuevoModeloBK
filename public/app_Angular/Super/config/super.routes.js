@@ -54,6 +54,10 @@ angular.module('super').config(['$routeProvider',
     when('/detalles/:anio/:mes/:sucursal/:categoria', {
       templateUrl: 'app_Angular/Super/views/view_celda.view.html',
       controller: 'view_celda.controller'
+    }).
+    when('/detallesDeCategoria/:destinadoA/:mes/:anio/:sucursal/:categoria', {
+      templateUrl: 'app_Angular/Super/views/view_celdaCategoria.view.html',
+      controller: 'view_celdaCategoria.controller'
     });
   }
 ]);
