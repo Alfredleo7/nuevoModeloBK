@@ -2,12 +2,7 @@
 
 angular.module('super').config(['$routeProvider',
   function($routeProvider){
-    $routeProvider.
-    /*when('/', {
-      templateUrl: 'app_Angular/Super/views/view_empresas.view.html',
-      controller: 'view_empresas.controller'
-    }).*/
-    when('/', {
+    $routeProvider.when('/', {
       templateUrl: 'app_Angular/Super/views/view_operarios.view.html',
       controller: 'view_operarios.controller'
     }).
@@ -26,6 +21,10 @@ angular.module('super').config(['$routeProvider',
     when('/SuperUsuarios', {
       templateUrl: 'app_Angular/Super/views/view_super.view.html',
       controller: 'view_super.controller'
+    }).
+    when('/Empresas', {
+      templateUrl: 'app_Angular/Super/views/view_empresas.view.html',
+      controller: 'view_empresas.controller'
     }).
     when('/Categorias', {
       templateUrl: 'app_Angular/Super/views/view_categorias.view.html',

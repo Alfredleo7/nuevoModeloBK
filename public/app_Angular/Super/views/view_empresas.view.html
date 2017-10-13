@@ -7,18 +7,52 @@
       </div>
       <div class="container_fluid">
         <div class="row">
-          <div class="col-sm-12 col-md-3">
+          <div class="col-sm-12 col-md-4">
             <div class="form-group">
               <input type="search" class="form-control border-input" placeholder="Buscar" ng-model="search">
             </div>
             <div class="" style="overflow-y:auto;max-height: 325px;">
               <table class="table table-bordered">
                 <tbody>
-                  <tr ng-class="{'selected': categoria.selected}" class="filaLink" data-ng-click="ver(empresa)" data-ng-repeat="empresa in empresas | filter:search | orderBy : 'nombre'">
-                    <td>{{emmpresas.nombre}}</td>
+                  <tr ng-class="{'selected': empresa.selected}" class="filaLink" data-ng-click="ver(empresa)" data-ng-repeat="empresa in empresas | filter:search | orderBy : 'nombre'">
+                    <td>{{empresa.nombre}}</td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <button class="btn btn-default" type="button" name="button" data-toggle="modal" data-target=".modalNewEmpresa">Agregar</button>
+          </div>
+          <div class="col-sm-12 col-md-8">
+            <div ng-if="!empresa || !empresa.nombre">
+              <h3>Seleccione una Empresa</h3>
+            </div>
+            <div ng-if="empresa.nombre">
+              <div class="">
+                <h3>{{empresa.nombre}} <!--<small><i class="fa fa-edit link text-primary" title="Editar" ng-click="initEditCategoria(categoria);"></i></small> <small><i class="fa fa-trash link text-danger" title="Eliminar" ng-click="deleteCategoria(categoria);"></i></small>--></h3>
+              </div>
+              <input class="form-control" style="max-width: 300px;margin-bottom: 5px;" type="text" name="" value="" placeholder="Buscar" ng-model="searchSucursal">
+              <div style="overflow-x:auto;">
+                <table class="table table-bordered" style="width: 100%;">
+                  <thead>
+                    <tr class="active">
+                      <th>Tipo</th>
+                      <th>Nombre</th>
+                      <th>Código</th>
+                      <th>Núm de cajas creadas</th>
+                    </tr>
+                  </thead>
+                  <tr data-ng-repeat="sucursal in sucursales | filter:searchSucursal | orderBy: 'tipo'">
+                    <td>{{sucursal.tipo}}</td>
+                    <td>{{sucursal.nombre}}</td>
+                    <td class="text-right">{{sucursal.codSucursal}}</td>
+                    <td class="text-right">{{sucursal.numCajas}}</td>
+                  </tr>
+                </table>
+                <small ng-if="sucursales.length == 0">No existen departamentos/locales registrados</small>
+                <div class="col-md-12 text-right">
+                  <button class="btn btn-sm btn-primary" type="button" name="button" data-toggle="modal" data-target=".modalNewSucursal">Agregar</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -26,3 +60,56 @@
     </div>
   </div>
 </section>
+
+
+<div class="modal fade modalNewEmpresa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Empresa</h4>
+      </div>
+      <form novalidate>
+        <div class="modal-body">
+          <label>Ingrese el nombre:</label>
+          <input class="form-control" type="text" placeholder="Nombre de la empresa" ng-model="newEmpresa.nombre">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit" data-dismiss="modal" ng-click="createEmpresa(newEmpresa)">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade modalNewSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nuevo</h4>
+      </div>
+      <form novalidate>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="control-label">Tipo:</label>
+            <select data-ng-model="newSucursal.tipo" class="form-control">
+              <option value="">Elija un tipo</option>
+              <option value="Departamento">Departamento</option>
+              <option value="Local">Local</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Nombre:</label>
+            <input type="text" class="form-control" data-ng-model="newSucursal.nombre" placeholder="Ingrese el nombre">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary submit" data-dismiss="modal" ng-click="createSucursal(newSucursal)">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
