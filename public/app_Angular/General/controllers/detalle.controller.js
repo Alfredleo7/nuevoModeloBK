@@ -292,7 +292,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         mostrarNotificacion('Ingrese el valor del detalle');
       } else {
         var today = new Date();
-        var mesAntes = removeToMonth(today, 1);
+        var mesAntes = removeToMonth(today, 2);
         if($scope.detalle.fecha > today || $scope.detalle.fecha < mesAntes){
           var diaAntes = mesAntes.getDate()+1;
           var mes_Antes = mesAntes.getMonth()+1;

@@ -28,7 +28,6 @@ angular.module('super').controller('view_celdaCategoria.controller', ['$scope','
     $scope.sucursal = $routeParams.sucursal;
     $scope.categoria = $routeParams.categoria;
 
-    console.log($routeParams.destinadoA);
 
     $('#loadLogo').show();
     $http({
@@ -94,6 +93,13 @@ angular.module('super').controller('view_celdaCategoria.controller', ['$scope','
     $scope.getCategoria = function(){
       if($routeParams.categoria != 'Todas'){
         return $routeParams.categoria+' - '
+      }
+      return '';
+    }
+
+    $scope.getDestinadoA = function(){
+      if($routeParams.destinadoANombre != 'undefined'){
+        return $routeParams.destinadoANombre+' - '
       }
       return '';
     }

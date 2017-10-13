@@ -15,7 +15,7 @@
     <div class="x_title">
       <div class="row">
         <div class="col-md-8 col-sm-8 col-xs-8">
-          <h4>{{getSucursal()}}{{getCategoria()}}{{getDate()}}</h4>
+          <h4>{{getSucursal()}}{{getCategoria()}}{{getDestinadoA()}}{{getDate()}}</h4>
         </div>
         <div class="col-md-4 col-sm-4 col-xs-4">
           <div align="right">
@@ -43,10 +43,10 @@
         <tbody>
           <tr class="filaLink" data-toggle="modal" data-target=".viewDetalle" data-ng-click="getDetalle(detalle)" data-ng-repeat="detalle in detalles | orderBy:field:reverse">
             <td>{{detalle.fecha | date: "dd"}}</td>
-            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.factura}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
+            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.fac_establecimiento}}-{{detalle.anexo.fac_puntoEmision}}-{{detalle.anexo.fac_secuencia}}</div><div ng-if="detalle.tipo == 'vale'">Vale de pago</div></td>
             <td ng-if="sucursal == 'Todas'" data-ng-bind="detalle.cargado"></td>
             <td data-ng-bind="detalle.entregado"></td>
-            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
+            <td><div ng-if="detalle.tipo == 'factura'">{{detalle.anexo.proveedor.razons}}</div><div ng-if="detalle.tipo == 'vale'">No Aplica</div></td>
             <td ng-if="categoria == 'Todas'" data-ng-bind="detalle.categoria"></td>
             <td data-ng-bind="detalle.descripcion"></td>
             <td>{{detalle.administrador.firstName}} {{detalle.administrador.lastName}}</td>

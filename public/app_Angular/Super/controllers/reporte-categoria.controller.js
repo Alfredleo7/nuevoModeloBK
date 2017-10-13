@@ -246,9 +246,9 @@ angular.module('super').controller('reporte-categoria.controller', ['$scope','$h
       }
     };
 
-    $scope.revisar = function(destinadoA, mes, categoria){
+    $scope.revisar = function(idDestinadoA, mes, categoria,destinadoA){
       //console.log(destinadoA, mes, $scope.filtro.anio, $scope.filtro.sucursal);
-      $location.path('detallesDeCategoria/'+destinadoA+'/'+mes+'/'+$scope.filtro.anio+'/'+$scope.filtro.sucursal+'/'+categoria)
+      $location.path('detallesDeCategoria/'+idDestinadoA+'/'+mes+'/'+$scope.filtro.anio+'/'+$scope.filtro.sucursal+'/'+categoria+'/'+destinadoA)
       /*$http({
         method: 'POST',
         url: '/api/getDetallesDeSucursalYCategoria',

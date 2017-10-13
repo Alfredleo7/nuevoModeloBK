@@ -244,8 +244,8 @@
               <tr ng-repeat="destino in reporte.destinos">
                 <td>{{getMontoObj(destino.destinadoA).destinadoA}} <div ng-if="!getMontoObj(destino.destinadoA)">No aplica</div></td>
                 <td class="text-right">{{getMontoObj(destino.destinadoA).monto | currency}} <div ng-if="!getMontoObj(destino.destinadoA)">No aplica</div></td>
-                <td class="text-right" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]"><div class="filaLink" ng-repeat="mes in destino.meses" ng-if="mes.mes==i" ng-class="{'supera':mes.total > getMontoObj(destino.destinadoA).monto}" ng-click="revisar(destino.destinadoA, i, reporte._id)">{{mes.total | currency}}</div></td>
-                <td>{{destino.total | currency}}</td>
+                <td class="text-right" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]"><div class="filaLink" ng-repeat="mes in destino.meses" ng-if="mes.mes==i" ng-class="{'supera':mes.total > getMontoObj(destino.destinadoA).monto}" ng-click="revisar(destino.destinadoA, i, reporte._id, getMontoObj(destino.destinadoA).destinadoA)">{{mes.total | currency}}</div></td>
+                <td class="text-right">{{destino.total | currency}}</td>
               </tr>
             </tbody>
           </table>

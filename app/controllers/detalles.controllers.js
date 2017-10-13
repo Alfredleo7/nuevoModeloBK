@@ -1196,11 +1196,8 @@ exports.getDetallesDeSucursalYCategoria = function(req, res){
     $project: {
       fecha: "$fecha",
       tipo: "$tipo",
-      factura: {
-        $concat: ["$anexo.fac_establecimiento","-","$anexo.fac_puntoEmision","-","$anexo.fac_secuencia"]
-      },
+      anexo: "$anexo",
       entregado: "$entregado",
-      proveedor: "$anexo.proveedor",
       descripcion: "$descripcion",
       administrador: "$administrador",
       categoria: "$categoria",
@@ -1212,6 +1209,7 @@ exports.getDetallesDeSucursalYCategoria = function(req, res){
       },
       destinadoA: "$destinadoA",
       cargado: "$cargado",
+      caja: "$caja",
       estado: "$estado",
       valor: "$valor"
     }

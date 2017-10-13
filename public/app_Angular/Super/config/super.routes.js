@@ -3,6 +3,10 @@
 angular.module('super').config(['$routeProvider',
   function($routeProvider){
     $routeProvider.
+    /*when('/', {
+      templateUrl: 'app_Angular/Super/views/view_empresas.view.html',
+      controller: 'view_empresas.controller'
+    }).*/
     when('/', {
       templateUrl: 'app_Angular/Super/views/view_operarios.view.html',
       controller: 'view_operarios.controller'
@@ -55,7 +59,7 @@ angular.module('super').config(['$routeProvider',
       templateUrl: 'app_Angular/Super/views/view_celda.view.html',
       controller: 'view_celda.controller'
     }).
-    when('/detallesDeCategoria/:destinadoA/:mes/:anio/:sucursal/:categoria', {
+    when('/detallesDeCategoria/:destinadoA/:mes/:anio/:sucursal/:categoria/:destinadoANombre', {
       templateUrl: 'app_Angular/Super/views/view_celdaCategoria.view.html',
       controller: 'view_celdaCategoria.controller'
     });

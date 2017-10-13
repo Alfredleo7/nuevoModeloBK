@@ -1,0 +1,28 @@
+<section>
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="x_title">
+        <h2>Empresas</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="container_fluid">
+        <div class="row">
+          <div class="col-sm-12 col-md-3">
+            <div class="form-group">
+              <input type="search" class="form-control border-input" placeholder="Buscar" ng-model="search">
+            </div>
+            <div class="" style="overflow-y:auto;max-height: 325px;">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr ng-class="{'selected': categoria.selected}" class="filaLink" data-ng-click="ver(empresa)" data-ng-repeat="empresa in empresas | filter:search | orderBy : 'nombre'">
+                    <td>{{emmpresas.nombre}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
