@@ -49,6 +49,7 @@ angular.module('super').controller('view_empresas.controller', ['$scope','$http'
       }).then(function(response){
         $scope.empresas.push(response.data);
         $scope.ver(response.data);
+        newEmpresa = {};
         new PNotify({
           text: 'La empresa se ha creado correctamente',
           styling: 'bootstrap3',
@@ -56,6 +57,7 @@ angular.module('super').controller('view_empresas.controller', ['$scope','$http'
         })
         $('#loadLogo').hide();
       },function(errorResponse){
+        newEmpresa = {};
         $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       })
@@ -70,6 +72,7 @@ angular.module('super').controller('view_empresas.controller', ['$scope','$http'
         data: newSucursal
       }).then(function(response){
         $scope.sucursales.push(response.data);
+        newSucursal={};
         new PNotify({
           text: 'El '+response.data.tipo+' se ha creado correctamente',
           styling: 'bootstrap3',
@@ -77,6 +80,7 @@ angular.module('super').controller('view_empresas.controller', ['$scope','$http'
         })
         $('#loadLogo').hide();
       }, function(errorResponse){
+        newSucursal={};
         $('#loadLogo').hide();
         mostrarNotificacion(errorResponse.data.message);
       })

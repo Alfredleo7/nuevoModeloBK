@@ -11,6 +11,7 @@
           <a ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" class="btn btn-sm btn-default" data-toggle="tooltip" data-ng-href="#!/caja/{{caja._id}}/crearDetalle"><i class="fa fa-plus"></i> Agregar Detalle</a>
           <!--<a class="btn btn-sm btn-default" ng-click="exportExcel('reporteDetalles', 'Detalles de la caja')"><i class="fa fa-file-excel-o"></i> Exportar a Excel</a>-->
           <a ng-if="caja.estado == 'Pendiente' || caja.estado == 'Aprobado'" class="btn btn-sm btn-default" ng-click="printDiv('#reporteDetalles', 'Detalles de la caja')"><i class="fa fa-print"></i> Imprimir</a>
+          <a ng-if="caja.estado == 'Aprobado'" class="btn btn-sm btn-default" ng-click="printComprobante('#idComprobante')"><i class="fa fa-print"></i> Imprimir Comprobante</a>
           <button ng-if="caja.estado == 'Borrador' || caja.estado == 'Rechazado'" data-ng-click="delete(caja);" class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash"></i> Eliminar Caja Chica</button>
           <button ng-if="caja.estado == 'Borrador'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Enviar Caja Chica</button>
           <button ng-if="caja.estado == 'Rechazado'" data-ng-click="enviar(caja);" class="btn btn-sm btn-default" type="button"><i class="fa fa-send-o"></i> Reenviar Caja Chica</button>
@@ -84,3 +85,128 @@
         Aún no hay detalles en la caja chica
       </div>
 </section>
+
+<div ng-show="false" id="idComprobante">
+  <div class="container border border-dark border-right-0 border-left-0">
+    <div class="row">
+      <div class="col-auto imgComprobante">
+        <img src="/img/logo_burgerking64.png" alt="">
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col text-center font-weight-bold text_titulo_comprobante">
+            COMPROBANTE DE PAGO
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center font-weight-bold text_subtitulo_comprobante">
+            Reintegro de Caja Chica
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="row">
+          <div class="col text-center">
+            {{caja.secuencial}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col border border-dark">
+            <table>
+              <tbody>
+                <td>U.S. {{caja.valor | currency}}</td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-auto font-weight-bold text_comprobante">
+        Páguese a la orden de:
+      </div>
+      <div class="col-auto text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
+        <tipo ng-if="caja.sucursal.tipo== 'Departamento'">Dpto.</tipo>
+        <tipo ng-if="caja.sucursal.tipo== 'Local'">Local</tipo>
+        {{caja.sucursal.nombre | uppercase }}
+      </div>
+      <div class="col-auto font-weight-bold text_comprobante">
+        Empresa:
+      </div>
+      <div class="col text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
+
+      </div>
+    </div>
+    <div class="">
+      <suma class="font-weight-bold text_comprobante">
+        La suma de:
+      </suma>
+      <valor class="text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
+        {{valorEnTexto}}
+      </valor>
+    </div>
+    <!--<div class="row">
+      <div class="col-auto font-weight-bold text_comprobante">
+        La suma de:
+      </div>
+      <div class="col-auto border border-dark border-top-0 border-right-0 border-left-0 text_comprobante">
+        NOVECIENTOS NOVENTA Y NUEVE MIL NOVECIENTOS NOVENTA Y NUEVE DÓLARES CON NOVENTA Y NUEVE CENTAVOS
+      </div>
+      <div class="col-auto font-weight-bold text_comprobante">
+        U.S. Dollars
+      </div>
+    </div>-->
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-auto">
+        <div class="row">
+          <div class="col text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
+            Guayaquil
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center font-weight-bold text_comprobante">
+            Ciudad
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="row">
+          <div class="col text_comprobante border border-dark border-top-0 border-right-0 border-left-0">
+            {{caja.creado | date: "dd'/'MMMM'/'y"}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center font-weight-bold text_comprobante">
+            Fecha
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-around">
+      <div class="col-3">
+        <div class="row">
+          <div class="col border border-dark border-top-0 border-right-0 border-left-0"></div>
+        </div>
+        <div class="row">
+          <div class="col text-center font-weight-bold text_comprobante">
+            Recibido
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row">
+          <div class="col border border-dark border-top-0 border-right-0 border-left-0"></div>
+        </div>
+        <div class="row">
+          <div class="col text-center font-weight-bold text_comprobante">
+            Autorizado
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+      </div>
+    </div>
+  </div>
+</div>

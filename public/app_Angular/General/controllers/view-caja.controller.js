@@ -12,6 +12,7 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
       }).then(function(response){
         $scope.caja = response.data;
         $scope.estado = $scope.caja.estado;
+        $scope.valorEnTexto = transformarNumeroATexo($scope.caja.valor);
         $('#loadLogo').hide();
       },function(errorResponse){
         mostrarNotificacion(errorResponse.data.message);
@@ -201,6 +202,31 @@ angular.module('general').controller('view-caja.controller',['$scope','$http','$
         var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
         saveAs(blob, titulo+" "+ fechaTitle + ".xls");
     };
+
+    $scope.printComprobante = function(IdDiv){
+      var titulo = "Comprobante"
+      var divToPrint = jQuery(IdDiv).html();
+      var newWin = window.open('', 'my div','left=0,top=0,width=5000,height=5000,toolbar=1,resizable=0');
+
+      var fecha = new Date();
+      var mes = Number(fecha.getMonth()) + 1;
+      var fechaTitle = fecha.getDate()+'-'+mes+'-'+fecha.getFullYear();
+
+      newWin.document.write('<html><head><title>'+titulo+' '+fechaTitle+'</title>');
+
+      newWin.document.write('<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">');
+      newWin.document.write('<link rel="stylesheet" href="/css/print_comprobante.css">');
+      newWin.document.write('</head><body>');
+      newWin.document.write(divToPrint);
+      newWin.document.write('<br>');
+      newWin.document.write(divToPrint);
+      newWin.document.write('</body>');
+      newWin.document.write('<script type="text/javascript">');
+      newWin.document.write('window.print();');
+      newWin.document.write('window.close();');
+      newWin.document.write('</script>');
+      newWin.document.write('</html>');
+    }
 
 
   }

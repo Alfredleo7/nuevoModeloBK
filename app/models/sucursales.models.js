@@ -5,7 +5,8 @@ var Empresa = mongoose.model('Empresa');
 var sucursalSchema = new Schema({
   nombre: {
     type: String,
-    required: 'Ingrese el nombre'
+    required: 'Ingrese el nombre',
+    uppercase: true
   },
   tipo: {
     type: String,

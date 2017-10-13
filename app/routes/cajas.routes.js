@@ -53,8 +53,8 @@ module.exports = function(app) {
 
   app.param('cajaId', cajas.cajaByID);
 
-  app.route('/comprobante')
+  /*app.route('/comprobante')
     .get(function(req, res){
       res.render('comprobante');
-    })
+    })*/
 }

@@ -162,12 +162,12 @@ var numeroALetras = (function() {
 
 })();
 
-// Modo de uso: 500,34 USD
-var valor = numeroALetras(36, {
-  plural: 'DÓLARES',
-  singular: 'DOLAR',
-  centPlural: 'CENTAVOS',
-  centSingular: 'CENTAVO'
-});
-
-console.log(valor);
+var transformarNumeroATexo = function(valor){
+  var texto = numeroALetras(valor, {
+    plural: 'DÓLARES',
+    singular: 'DOLAR',
+    centPlural: 'CENTAVOS',
+    centSingular: 'CENTAVO'
+  })
+  return texto;
+}
