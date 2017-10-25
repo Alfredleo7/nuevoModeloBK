@@ -293,7 +293,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       } else {
         var today = new Date();
         var mesAntes = removeToMonth(today, 2);
-        if($scope.detalle.fecha > today || $scope.detalle.fecha < mesAntes){
+        if(/*$scope.detalle.fecha > today || $scope.detalle.fecha < mesAntes &&*/ false){ //siempre será falso para ignorar estas validaciones
           var diaAntes = mesAntes.getDate()+1;
           var mes_Antes = mesAntes.getMonth()+1;
           var diaAct = today.getDate();
@@ -472,12 +472,43 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
 
     }
 
+    var validarFecha = function(){
+      var ahoraMes = new Date().getMonth();
+      var ahoraDia = new Date().getDate();
+      var ahoraYear = new Date().getFullYear();
+      var detalleMes = $scope.detalle.fecha.getMonth();
+      var detalleYear = $scope.detalle.fecha.getFullYear();
+
+      if($scope.detalle.fecha <= new Date()){
+        if(ahoraMes == detalleMes && ahoraYear == detalleYear){
+          return true;
+        } else {
+          if(ahoraMes - 1 == detalleMes){
+            if(ahoraDia <= 6){
+              return true;
+            } else {
+              mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 6 de cada mes:');
+              return false;
+            }
+          } else {
+            mostrarNotificacion('Solo detalles con fecha mínima hasta el mes posterior.');
+            return false;
+          }
+        }
+      } else {
+        mostrarNotificacion('Fecha inválida, fecha superior a la fecha actual.');
+        return false;
+      }
+
+
+    }
+
     $scope.create = function() {
       if(puedeGuardar){//PARA CONTROLLAR EL DOBLE CLICK
 
         puedeGuardar=false;
 
-        if(validaciones() && verificarMonto()){
+        if(validaciones() && verificarMonto() && validarFecha()){
           $scope.detalle.caja = $scope.caja._id;
           //$('#loadLogo').show();
 
