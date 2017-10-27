@@ -27,6 +27,7 @@
   </div>
 
   <div id="IdReporteXCategoria" class="x_panel">
+    <div ng-if="filtro.sucursal=='Todas'">
       <div align="right">
         {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
       </div>
@@ -98,6 +99,159 @@
           </table>
         </div>
       </div>
+    </div>
+    <div ng-if="filtro.sucursal!='Todas'">
+      <div align="right">
+        {{ today | date: "'Guayaquil, 'd' de ' MMMM ' del ' y"}}
+      </div>
+      <div class="x_title">
+        <h4>Reporte por Categoria</h4>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <div>
+          <b>Año:</b> {{filtro.anio}} <b>Sucursal:</b> {{filtro.sucursal}}
+        </div>
+        <!--<div style="overflow-x:auto;">
+          <!--<table class="table table-bordered">
+            <thead>
+              <tr class="success">
+                <th class="filaLink" ng-click="onFiltro('categoria')">Categoria <div style="float:right"><i ng-if="!reverse && filtroTable=='categoria'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && filtroTable=='categoria'" class="fa fa-sort-alpha-desc"></i></div></th>
+                <th ng-if="montosMaximos.length != 0">M. Mensual</th>
+                <th ng-if="Ene!=0" class="filaLink" ng-click="onFiltro('ene')">Ene <div style="float:right"><i ng-if="!reverse && filtroTable=='ene'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='ene'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Feb!=0" class="filaLink" ng-click="onFiltro('feb')">Feb <div style="float:right"><i ng-if="!reverse && filtroTable=='feb'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='feb'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Mar!=0" class="filaLink" ng-click="onFiltro('mar')">Mar <div style="float:right"><i ng-if="!reverse && filtroTable=='mar'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='mar'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Abr!=0" class="filaLink" ng-click="onFiltro('abr')">Abr <div style="float:right"><i ng-if="!reverse && filtroTable=='abr'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='abr'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="May!=0" class="filaLink" ng-click="onFiltro('may')">May <div style="float:right"><i ng-if="!reverse && filtroTable=='may'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='may'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Jun!=0" class="filaLink" ng-click="onFiltro('jun')">Jun <div style="float:right"><i ng-if="!reverse && filtroTable=='jun'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='jun'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Jul!=0" class="filaLink" ng-click="onFiltro('jul')">Jul <div style="float:right"><i ng-if="!reverse && filtroTable=='jul'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='jul'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Ago!=0" class="filaLink" ng-click="onFiltro('ago')">Ago <div style="float:right"><i ng-if="!reverse && filtroTable=='ago'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='ago'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Sep!=0" class="filaLink" ng-click="onFiltro('sep')">Sep <div style="float:right"><i ng-if="!reverse && filtroTable=='sep'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='sep'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Oct!=0" class="filaLink" ng-click="onFiltro('oct')">Oct <div style="float:right"><i ng-if="!reverse && filtroTable=='oct'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='oct'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Nov!=0" class="filaLink" ng-click="onFiltro('nov')">Nov <div style="float:right"><i ng-if="!reverse && filtroTable=='nov'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='nov'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th ng-if="Dic!=0" class="filaLink" ng-click="onFiltro('dic')">Dic <div style="float:right"><i ng-if="!reverse && filtroTable=='dic'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='dic'" class="fa fa-sort-amount-desc"></i></div></th>
+                <th class="filaLink" ng-click="onFiltro('total')">Total Acumulado <div style="float:right"><i ng-if="!reverse && filtroTable=='total'" class="fa fa-sort-amount-asc"></i><i ng-if="reverse && filtroTable=='total'" class="fa fa-sort-amount-desc"></i></div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-ng-repeat="reporte in response | orderBy:filtroTable:reverse">
+                <td class="success" data-ng-bind="reporte._id"></td>
+                <td ng-if="montosMaximos.length != 0" class="text-right">{{ getMonto(reporte._id) | currency }}</td>
+                <td ng-repeat="destino in reporte.destinos">
+                  <tr>
+                    <td>{{destino.destinadoA}}
+                    </td>
+                  </tr>
+                </td>
+                <td class="text-right info" data-ng-bind="fila.total | currency"></td>
+              </tr>
+              <tr>
+                <td class="success">Total por Mes</td>
+                <td ng-if="montosMaximos.length != 0"></td>
+                <td ng-if="Ene!=0" class="text-right info" data-ng-bind="Ene | currency"></td>
+                <td ng-if="Feb!=0" class="text-right info" data-ng-bind="Feb | currency"></td>
+                <td ng-if="Mar!=0" class="text-right info" data-ng-bind="Mar | currency"></td>
+                <td ng-if="Abr!=0" class="text-right info" data-ng-bind="Abr | currency"></td>
+                <td ng-if="May!=0" class="text-right info" data-ng-bind="May | currency"></td>
+                <td ng-if="Jun!=0" class="text-right info" data-ng-bind="Jun | currency"></td>
+                <td ng-if="Jul!=0" class="text-right info" data-ng-bind="Jul | currency"></td>
+                <td ng-if="Ago!=0" class="text-right info" data-ng-bind="Ago | currency"></td>
+                <td ng-if="Sep!=0" class="text-right info" data-ng-bind="Sep | currency"></td>
+                <td ng-if="Oct!=0" class="text-right info" data-ng-bind="Oct | currency"></td>
+                <td ng-if="Nov!=0" class="text-right info" data-ng-bind="Nov | currency"></td>
+                <td ng-if="Dic!=0" class="text-right info" data-ng-bind="Dic | currency"></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr class="success">
+                <th class="filaLink" ng-click="onFiltro('categoria')">Categoria <div style="float:right"><i ng-if="!reverse && filtroTable=='categoria'" class="fa fa-sort-alpha-asc"></i><i ng-if="reverse && filtroTable=='categoria'" class="fa fa-sort-alpha-desc"></i></div></th>
+                <th>Destinado A</th>
+                <th ng-if="montosMaximos.length != 0">M. Mensual</th>
+                <th>Ene</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dic</th>
+                <th>Total Acumulado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="reporte in response">
+                <td>{{reporte.categoria}}</td>
+                <td>{{reporte.destinadoA}}</td>
+                <td></td>
+                <td class="text-right" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]"><div ng-repeat="mes in reporte.meses" ng-if="mes.mes==i">{{mes.total | currency}}</div></td>
+                <td>{{reporte.total}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ul>
+            <div ng-repeat="reporte in response1">
+              <li>{{reporte._id}}</li>
+              <ol>
+                <div ng-repeat="destino in reporte.destinos">
+                  <li>{{destino.destinadoAObj.destinadoA}} {{destino.total | currency}}</li>
+                  <ul>
+                    <div ng-repeat="mes in destino.meses">
+                      <li>{{getMes(mes.mes)}} {{mes.total | currency}}</li>
+                    </div>
+                  </ul>
+                </div>
+              </ol>
+            </div>
+          </ul>
+
+
+
+        </div>-->
+        <div class="row" ng-repeat="reporte in response1">
+          <div class="col-xs-12 text-center">
+            <h4>{{reporte._id}}</h4>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+              <tr class="success">
+                <th>Destinado A</th>
+                <th>Monto Max</th>
+                <th>Ene</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dic</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="destino in reporte.destinos">
+                <td>{{getMontoObj(destino.destinadoA).destinadoA}} <div ng-if="!getMontoObj(destino.destinadoA)">No aplica</div></td>
+                <td class="text-right">{{getMontoObj(destino.destinadoA).monto | currency}} <div ng-if="!getMontoObj(destino.destinadoA)">No aplica</div></td>
+                <td class="text-right" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]"><div class="filaLink" ng-repeat="mes in destino.meses" ng-if="mes.mes==i" ng-class="{'supera':mes.total > getMontoObj(destino.destinadoA).monto}" ng-click="revisar(destino.destinadoA, i, reporte._id, getMontoObj(destino.destinadoA).destinadoA)">{{mes.total | currency}}</div></td>
+                <td class="text-right">{{destino.total | currency}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!--<div class="row">-->

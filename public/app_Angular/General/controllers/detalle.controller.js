@@ -487,7 +487,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
             if(ahoraDia <= 6){
               return true;
             } else {
-              mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 6 de cada mes:');
+              mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 6 de cada mes.');
               return false;
             }
           } else {
