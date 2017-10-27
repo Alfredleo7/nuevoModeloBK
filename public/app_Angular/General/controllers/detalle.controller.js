@@ -479,25 +479,20 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       var detalleMes = $scope.detalle.fecha.getMonth();
       var detalleYear = $scope.detalle.fecha.getFullYear();
 
-      if($scope.detalle.fecha <= new Date()){
-        if(ahoraMes == detalleMes && ahoraYear == detalleYear){
-          return true;
-        } else {
-          if(ahoraMes - 1 == detalleMes){
-            if(ahoraDia <= 6){
-              return true;
-            } else {
-              mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 6 de cada mes.');
-              return false;
-            }
+      if(ahoraMes == detalleMes && ahoraYear == detalleYear){
+        return true;
+      } else {
+        if(ahoraMes - 1 == detalleMes && ahoraYear == detalleYear){
+          if(ahoraDia <= 6){
+            return true;
           } else {
-            mostrarNotificacion('Solo detalles con fecha mínima hasta el mes posterior.');
+            mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 6 de cada mes.');
             return false;
           }
+        } else {
+          mostrarNotificacion('Solo se registran detalles de este mes o un mes anterior.');
+          return false;
         }
-      } else {
-        mostrarNotificacion('Fecha inválida, fecha superior a la fecha actual.');
-        return false;
       }
 
 
