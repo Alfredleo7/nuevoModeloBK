@@ -483,10 +483,10 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
         return true;
       } else {
         if(ahoraMes - 1 == detalleMes && ahoraYear == detalleYear){
-          if(ahoraDia <= 6){
+          if(ahoraDia <= 7){
             return true;
           } else {
-            mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 6 de cada mes.');
+            mostrarNotificacion('Detalles del mes anterior solo se registran hasta el 7 de cada mes.');
             return false;
           }
         } else {
