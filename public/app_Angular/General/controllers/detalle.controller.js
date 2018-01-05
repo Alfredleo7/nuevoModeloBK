@@ -482,7 +482,7 @@ angular.module('general').controller('detalle.controller', ['$scope','$http','$r
       if(ahoraMes == detalleMes && ahoraYear == detalleYear){
         return true;
       } else {
-        if(ahoraMes - 1 == detalleMes && ahoraYear == detalleYear){
+        if((ahoraMes - 1 == detalleMes && ahoraYear == detalleYear) || (detalleYear + 1 == ahoraYear && detalleMes == 11)){
           if(ahoraDia <= 7){
             return true;
           } else {
